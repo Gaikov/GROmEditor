@@ -9,6 +9,7 @@
 #include "nsLib/log.h"
 #include "Engine/utils/AppUtils.h"
 #include "Engine/display/factory/VisualFactory2d.h"
+#include "Engine/Input.h"
 
 #define VIEWER_VERSION "SceneViewer 1.0.0-dev.0"
 #define VIEWER_APP "GROm Scene Viewer"
@@ -25,6 +26,7 @@ bool nsSceneViewerApp::InitDialog() {
 
 bool nsSceneViewerApp::Init() {
     Log::Info("################### Init SceneViewer ###################");
+    g_inp.ShowCursor(true);
     App_GetPlatform()->SetAppTitle(VIEWER_APP);
     _device = nsRenDevice::Shared()->Device();
     _root = new nsGroupLayout();
@@ -42,9 +44,13 @@ void nsSceneViewerApp::Release() {
 }
 
 void nsSceneViewerApp::DrawWorld() {
+    auto size = nsAppUtils::GetClientSize();
+
     _device->ClearScene(0xff);
 
-    auto size = nsAppUtils::GetClientSize();
+    _ortho.SetScreenSize(size.x, size.y);
+    _device->LoadProjMatrix(_ortho.GetViewMatrix());
+
     _root->SetWidth(size.x);
     _root->SetHeight(size.y);
 
@@ -53,6 +59,13 @@ void nsSceneViewerApp::DrawWorld() {
 
 void nsSceneViewerApp::Loop(float frameTime) {
     _root->Loop();
+    auto &t = _root->origin;
+    t.angle = nsMath::MoveExp(t.angle, _angle, 10, frameTime);
+
+    nsVec2 pos = t.pos;
+    pos.x = nsMath::MoveExp(pos.x, _targetPos.x, 10, frameTime);
+    pos.y = nsMath::MoveExp(pos.y, _targetPos.y, 10, frameTime);
+    t.pos = pos;
 }
 
 void nsSceneViewerApp::OnActivate(bool active) {
@@ -68,7 +81,7 @@ int nsSceneViewerApp::GetWindowIcon() {
 }
 
 IUserInput *nsSceneViewerApp::GetUserInput() {
-    return nullptr;
+    return this;
 }
 
 void nsSceneViewerApp::GetGUIDimension(int &width, int &height) {
@@ -79,6 +92,45 @@ const char *nsSceneViewerApp::GetVersionInfo() {
     return VIEWER_VERSION;
 }
 
+bool nsSceneViewerApp::OnPointerUp(float x, float y, int pointerId) {
+    _dragging = false;
+    return true;
+}
+
+bool nsSceneViewerApp::OnPointerDown(float x, float y, int pointerId) {
+    _dragging = true;
+    _mouseDown = _ortho.ScreenToTarget(x, y);
+    _startDragPos = _root->origin.pos;
+    return true;
+}
+
+bool nsSceneViewerApp::OnPointerMove(float x, float y, int pointerId) {
+    if (_dragging) {
+        auto delta = _ortho.ScreenToTarget(x, y) - _mouseDown;
+        _targetPos = _startDragPos + delta;
+    }
+    return true;
+}
+
+void nsSceneViewerApp::OnPointerCancel(int pointerId) {
+
+}
+
+void nsSceneViewerApp::OnKeyUp(int key) {
+
+}
+
+void nsSceneViewerApp::OnKeyDown(int key, bool rept) {
+
+}
+
+void nsSceneViewerApp::OnChar(char ch) {
+
+}
+
+void nsSceneViewerApp::OnMouseWheel(float delta) {
+    _angle += delta * 0.5f;
+}
 
 class nsSceneViewerInfo : public IAppInfo {
 public:

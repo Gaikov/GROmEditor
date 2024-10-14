@@ -8,8 +8,9 @@
 #include "Core/AppInfo.h"
 #include "Engine/GameApp.h"
 #include "Engine/display/layouts/GroupLayout.h"
+#include "nsLib/math/ortho/OrthogonalNativeView.h"
 
-class nsSceneViewerApp : public IGameApp {
+class nsSceneViewerApp : public IGameApp, IUserInput {
 public:
     bool InitDialog() override;
     bool Init() override;
@@ -22,7 +23,24 @@ public:
     IUserInput *GetUserInput() override;
     void GetGUIDimension(int &width, int &height) override;
     const char *GetVersionInfo() override;
+
+private:
+    bool OnPointerUp(float x, float y, int pointerId) override;
+    bool OnPointerDown(float x, float y, int pointerId) override;
+    bool OnPointerMove(float x, float y, int pointerId) override;
+    void OnPointerCancel(int pointerId) override;
+    void OnKeyUp(int key) override;
+    void OnKeyDown(int key, bool rept) override;
+    void OnChar(char ch) override;
+    void OnMouseWheel(float delta) override;
 private:
     nsGroupLayout   *_root;
     IRenDevice      *_device;
+    nsOrthogonalNativeView  _ortho;
+    float   _angle = 0;
+
+    bool _dragging = false;
+    nsVec2  _mouseDown;
+    nsVec2  _startDragPos;
+    nsVec2  _targetPos;
 };
