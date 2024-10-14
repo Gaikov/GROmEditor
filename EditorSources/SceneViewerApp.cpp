@@ -29,7 +29,7 @@ bool nsSceneViewerApp::Init() {
     _device = nsRenDevice::Shared()->Device();
     _root = new nsGroupLayout();
 
-    auto layout = nsVisualFactory2d::Shared()->Create("tests/layouts/image.layout");
+    auto layout = nsVisualFactory2d::Shared()->Create("tests/layouts/container.layout");
     if (layout) {
         _root->AddChild(layout);
     }
