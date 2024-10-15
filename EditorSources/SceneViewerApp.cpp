@@ -58,7 +58,6 @@ void nsSceneViewerApp::DrawWorld() {
 }
 
 void nsSceneViewerApp::Loop(float frameTime) {
-    _root->Loop();
     auto &t = _root->origin;
     t.angle = nsMath::MoveExp(t.angle, _angle, 10, frameTime);
 
@@ -66,6 +65,8 @@ void nsSceneViewerApp::Loop(float frameTime) {
     pos.x = nsMath::MoveExp(pos.x, _targetPos.x, 10, frameTime);
     pos.y = nsMath::MoveExp(pos.y, _targetPos.y, 10, frameTime);
     t.pos = pos;
+
+    _root->Loop();
 }
 
 void nsSceneViewerApp::OnActivate(bool active) {
