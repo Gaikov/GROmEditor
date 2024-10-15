@@ -33,7 +33,11 @@ private:
     void OnKeyDown(int key, bool rept) override;
     void OnChar(char ch) override;
     void OnMouseWheel(float delta) override;
+
+    void LoadLayout(const char *filePath);
+    void ReloadLayout();
 private:
+    nsVisualObject2d    *_layout;
     nsGroupLayout   *_root;
     IRenDevice      *_device;
     nsOrthogonalNativeView  _ortho;

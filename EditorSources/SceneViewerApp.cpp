@@ -15,6 +15,7 @@
 #define VIEWER_APP "GROm Scene Viewer"
 
 static nsSceneViewerApp    g_sceneViewer;
+static nsVar    *sv_last_layout = nullptr;
 
 IGameApp*	App_GetGame() {
     return &g_sceneViewer;
@@ -31,16 +32,24 @@ bool nsSceneViewerApp::Init() {
     _device = nsRenDevice::Shared()->Device();
     _root = new nsGroupLayout();
 
-    auto layout = nsVisualFactory2d::Shared()->Create("tests/layouts/container.layout");
-    if (layout) {
-        _root->AddChild(layout);
-    }
+    g_cfg->RegCmd("sv_load", [this](int argc, const char *argv[] ) {
+        if (argc > 1) {
+            LoadLayout(argv[1]);
+        } else {
+            Log::Warning("usages: sv_load [layout path]");
+        }
+    });
+
+    ReloadLayout();
+
     return true;
 }
 
 void nsSceneViewerApp::Release() {
     Log::Info("################### Release SceneViewer ###################");
-    _root->Destroy();
+    if (_root) {
+        _root->Destroy();
+    }
 }
 
 void nsSceneViewerApp::DrawWorld() {
@@ -62,15 +71,17 @@ void nsSceneViewerApp::Loop(float frameTime) {
     t.angle = nsMath::MoveExp(t.angle, _angle, 10, frameTime);
 
     nsVec2 pos = t.pos;
-    pos.x = nsMath::MoveExp(pos.x, _targetPos.x, 10, frameTime);
-    pos.y = nsMath::MoveExp(pos.y, _targetPos.y, 10, frameTime);
+    pos.x = nsMath::MoveExp(pos.x, _targetPos.x, 50, frameTime);
+    pos.y = nsMath::MoveExp(pos.y, _targetPos.y, 50, frameTime);
     t.pos = pos;
 
     _root->Loop();
 }
 
 void nsSceneViewerApp::OnActivate(bool active) {
-
+    if (active) {
+        ReloadLayout();
+    }
 }
 
 void nsSceneViewerApp::OnPause(bool paused) {
@@ -131,6 +142,27 @@ void nsSceneViewerApp::OnChar(char ch) {
 
 void nsSceneViewerApp::OnMouseWheel(float delta) {
     _angle += delta * 0.5f;
+}
+
+void nsSceneViewerApp::LoadLayout(const char *filePath) {
+    auto layout = nsVisualFactory2d::Shared()->Create(filePath);
+    if (layout) {
+        if (_layout) {
+            _root->RemoveChild(_layout);
+            _layout->Destroy();
+        }
+
+        _layout = layout;
+        _root->AddChild(layout);
+        sv_last_layout->SetString(filePath);
+    }
+}
+
+void nsSceneViewerApp::ReloadLayout() {
+    sv_last_layout = g_cfg->RegVar("sv_last_layout", "", GVF_SAVABLE);
+    if (StrCheck(sv_last_layout->String())) {
+        LoadLayout(sv_last_layout->String());
+    }
 }
 
 class nsSceneViewerInfo : public IAppInfo {
