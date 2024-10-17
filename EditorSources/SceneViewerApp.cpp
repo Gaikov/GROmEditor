@@ -10,6 +10,7 @@
 #include "Engine/utils/AppUtils.h"
 #include "Engine/display/factory/VisualFactory2d.h"
 #include "Engine/Input.h"
+#include "Engine/renderer/particles/ParticlesManager.h"
 
 #define VIEWER_VERSION "SceneViewer 1.0.0-dev.0"
 #define VIEWER_APP "GROm Scene Viewer"
@@ -81,6 +82,7 @@ void nsSceneViewerApp::Loop(float frameTime) {
 void nsSceneViewerApp::OnActivate(bool active) {
     if (active) {
         ReloadLayout();
+        nsParticlesManager::Shared()->ReloadParticles();
     }
 }
 
@@ -141,7 +143,7 @@ void nsSceneViewerApp::OnChar(char ch) {
 }
 
 void nsSceneViewerApp::OnMouseWheel(float delta) {
-    _angle += delta * 0.5f;
+    _angle += nsMath::Sign(delta) * nsMath::ToRad(10);
 }
 
 void nsSceneViewerApp::LoadLayout(const char *filePath) {
