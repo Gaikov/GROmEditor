@@ -36,6 +36,8 @@ private:
 
     void LoadLayout(const char *filePath);
     void ReloadLayout();
+
+    void EmitParticles(bool emit);
 private:
     nsVisualObject2d    *_layout;
     nsGroupLayout   *_root;
@@ -47,4 +49,7 @@ private:
     nsVec2  _mouseDown;
     nsVec2  _startDragPos;
     nsVec2  _targetPos;
+
+    std::vector<nsVisualObject2d*>  _particles;
+    bool    _emitParticles = false;
 };

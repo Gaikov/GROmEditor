@@ -11,6 +11,7 @@
 #include "Engine/display/factory/VisualFactory2d.h"
 #include "Engine/Input.h"
 #include "Engine/renderer/particles/ParticlesManager.h"
+#include "Engine/display/particles/VisualParticles.h"
 
 #define VIEWER_VERSION "SceneViewer 1.0.0-dev.0"
 #define VIEWER_APP "GROm Scene Viewer"
@@ -157,6 +158,14 @@ void nsSceneViewerApp::LoadLayout(const char *filePath) {
         _layout = layout;
         _root->AddChild(layout);
         sv_last_layout->SetString(filePath);
+
+        _particles.clear();
+        if (auto container = dynamic_cast<nsVisualContainer2d*>(_layout)) {
+            container->FindChildrenRecursive([](nsVisualObject2d *child) -> bool {
+                return dynamic_cast<nsVisualParticles*>(child);
+            }, _particles);
+        }
+        EmitParticles(_emitParticles);
     }
 }
 
@@ -164,6 +173,14 @@ void nsSceneViewerApp::ReloadLayout() {
     sv_last_layout = g_cfg->RegVar("sv_last_layout", "", GVF_SAVABLE);
     if (StrCheck(sv_last_layout->String())) {
         LoadLayout(sv_last_layout->String());
+    }
+}
+
+void nsSceneViewerApp::EmitParticles(bool emit) {
+    _emitParticles = emit;
+    for (auto p : _particles) {
+        auto ps = dynamic_cast<nsVisualParticles*>(p);
+        ps->GetSystem().spawnEnabled = emit;
     }
 }
 
