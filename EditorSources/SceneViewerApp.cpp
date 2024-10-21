@@ -34,6 +34,9 @@ bool nsSceneViewerApp::Init() {
     _device = nsRenDevice::Shared()->Device();
     _root = new nsGroupLayout();
 
+    auto mainView = nsVisualFactory2d::Shared()->Create("default/viewer/main.layout");
+    _root->AddChild(mainView);
+
     g_cfg->RegCmd("sv_load", [this](int argc, const char *argv[] ) {
         if (argc > 1) {
             LoadLayout(argv[1]);
@@ -73,7 +76,7 @@ void nsSceneViewerApp::DrawWorld() {
 }
 
 void nsSceneViewerApp::Loop(float frameTime) {
-    auto &t = _root->origin;
+    auto &t = _layout->origin;
     t.angle = nsMath::MoveExp(t.angle, _angle, 10, frameTime);
 
     nsVec2 pos = t.pos;
@@ -119,7 +122,7 @@ bool nsSceneViewerApp::OnPointerUp(float x, float y, int pointerId) {
 bool nsSceneViewerApp::OnPointerDown(float x, float y, int pointerId) {
     _dragging = true;
     _mouseDown = {x, y};
-    _startDragPos = _root->origin.pos;
+    _startDragPos = _layout ? _layout->origin.pos : _root->origin.pos;
     return true;
 }
 
