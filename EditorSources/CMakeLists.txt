@@ -4,6 +4,8 @@ set(SOURCES
         SceneViewerApp.cpp
         SVMainView.cpp
         SVMainView.h
+        SVSceneView.cpp
+        SVSceneView.h
 )
 
 include_directories(

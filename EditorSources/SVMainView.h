@@ -9,6 +9,7 @@
 
 class nsSVMainView : public nsGroupLayout {
 public:
+    bool Prepare();
     void SetScene(nsVisualObject2d *scene);
 
     void Loop() override;
@@ -18,8 +19,14 @@ protected:
     bool OnPointerMove(float x, float y, int pointerId) override;
     void OnMouseWheel(float delta) override;
 
+    void EmitParticles(bool emit);
+    void BlastParticles();
+
 private:
     nsVisualObject2d    *_scene;
+
+    std::vector<nsVisualObject2d*>  _particles;
+    bool    _emitParticles = false;
 
     float   _angle = 0;
 

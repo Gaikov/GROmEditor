@@ -39,14 +39,10 @@ private:
     void LoadLayout(const char *filePath);
     void ReloadLayout();
 
-    void EmitParticles(bool emit);
 private:
     nsSVMainView   *_root;
     IRenDevice      *_device;
     nsOrthogonalNativeView  _ortho;
-
-    std::vector<nsVisualObject2d*>  _particles;
-    bool    _emitParticles = false;
 
     nsMultiUserInput    _inputHandler;
 };
