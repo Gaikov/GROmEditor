@@ -9,6 +9,7 @@
 #include "Engine/GameApp.h"
 #include "Engine/display/layouts/GroupLayout.h"
 #include "nsLib/math/ortho/OrthogonalNativeView.h"
+#include "Engine/input/MultiUserInput.h"
 
 class nsSceneViewerApp : public IGameApp, IUserInput {
 public:
@@ -52,4 +53,6 @@ private:
 
     std::vector<nsVisualObject2d*>  _particles;
     bool    _emitParticles = false;
+
+    nsMultiUserInput    _inputHandler;
 };

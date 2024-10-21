@@ -44,6 +44,10 @@ bool nsSceneViewerApp::Init() {
 
     ReloadLayout();
 
+    _inputHandler.AddInput(_root);
+    _inputHandler.AddInput(this);
+    _inputHandler._pointerTransform = &_ortho;
+
     return true;
 }
 
@@ -96,7 +100,7 @@ int nsSceneViewerApp::GetWindowIcon() {
 }
 
 IUserInput *nsSceneViewerApp::GetUserInput() {
-    return this;
+    return &_inputHandler;
 }
 
 void nsSceneViewerApp::GetGUIDimension(int &width, int &height) {
@@ -114,14 +118,14 @@ bool nsSceneViewerApp::OnPointerUp(float x, float y, int pointerId) {
 
 bool nsSceneViewerApp::OnPointerDown(float x, float y, int pointerId) {
     _dragging = true;
-    _mouseDown = _ortho.ScreenToTarget(x, y);
+    _mouseDown = {x, y};
     _startDragPos = _root->origin.pos;
     return true;
 }
 
 bool nsSceneViewerApp::OnPointerMove(float x, float y, int pointerId) {
     if (_dragging) {
-        auto delta = _ortho.ScreenToTarget(x, y) - _mouseDown;
+        auto delta = nsVec2(x, y) - _mouseDown;
         _targetPos = _startDragPos + delta;
     }
     return true;
