@@ -10,6 +10,7 @@
 #include "Engine/display/layouts/GroupLayout.h"
 #include "nsLib/math/ortho/OrthogonalNativeView.h"
 #include "Engine/input/MultiUserInput.h"
+#include "SVMainView.h"
 
 class nsSceneViewerApp : public IGameApp, IUserInput {
 public:
@@ -40,16 +41,9 @@ private:
 
     void EmitParticles(bool emit);
 private:
-    nsVisualObject2d    *_layout;
-    nsGroupLayout   *_root;
+    nsSVMainView   *_root;
     IRenDevice      *_device;
     nsOrthogonalNativeView  _ortho;
-    float   _angle = 0;
-
-    bool _dragging = false;
-    nsVec2  _mouseDown;
-    nsVec2  _startDragPos;
-    nsVec2  _targetPos;
 
     std::vector<nsVisualObject2d*>  _particles;
     bool    _emitParticles = false;

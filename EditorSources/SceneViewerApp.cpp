@@ -12,6 +12,7 @@
 #include "Engine/Input.h"
 #include "Engine/renderer/particles/ParticlesManager.h"
 #include "Engine/display/particles/VisualParticles.h"
+#include "Core/sys.h"
 
 #define VIEWER_VERSION "SceneViewer 1.0.0-dev.0"
 #define VIEWER_APP "GROm Scene Viewer"
@@ -32,10 +33,16 @@ bool nsSceneViewerApp::Init() {
     g_inp.ShowCursor(true);
     App_GetPlatform()->SetAppTitle(VIEWER_APP);
     _device = nsRenDevice::Shared()->Device();
-    _root = new nsGroupLayout();
 
-    auto mainView = nsVisualFactory2d::Shared()->Create("default/viewer/main.layout");
-    _root->AddChild(mainView);
+    auto factory = nsVisualFactory2d::Shared();
+    factory->BindClass<nsSVMainView>("MainView");
+
+    auto view = factory->Create("default/viewer/main.layout");
+    _root = dynamic_cast<nsSVMainView *>(view);
+    if (!_root) {
+        Sys_FatalError("Invalid main layout!");
+        return false;
+    }
 
     g_cfg->RegCmd("sv_load", [this](int argc, const char *argv[] ) {
         if (argc > 1) {
@@ -76,14 +83,6 @@ void nsSceneViewerApp::DrawWorld() {
 }
 
 void nsSceneViewerApp::Loop(float frameTime) {
-    auto &t = _layout->origin;
-    t.angle = nsMath::MoveExp(t.angle, _angle, 10, frameTime);
-
-    nsVec2 pos = t.pos;
-    pos.x = nsMath::MoveExp(pos.x, _targetPos.x, 50, frameTime);
-    pos.y = nsMath::MoveExp(pos.y, _targetPos.y, 50, frameTime);
-    t.pos = pos;
-
     _root->Loop();
 }
 
@@ -115,23 +114,15 @@ const char *nsSceneViewerApp::GetVersionInfo() {
 }
 
 bool nsSceneViewerApp::OnPointerUp(float x, float y, int pointerId) {
-    _dragging = false;
-    return true;
+    return false;
 }
 
 bool nsSceneViewerApp::OnPointerDown(float x, float y, int pointerId) {
-    _dragging = true;
-    _mouseDown = {x, y};
-    _startDragPos = _layout ? _layout->origin.pos : _root->origin.pos;
-    return true;
+    return false;
 }
 
 bool nsSceneViewerApp::OnPointerMove(float x, float y, int pointerId) {
-    if (_dragging) {
-        auto delta = nsVec2(x, y) - _mouseDown;
-        _targetPos = _startDragPos + delta;
-    }
-    return true;
+    return false;
 }
 
 void nsSceneViewerApp::OnPointerCancel(int pointerId) {
@@ -151,27 +142,24 @@ void nsSceneViewerApp::OnChar(char ch) {
 }
 
 void nsSceneViewerApp::OnMouseWheel(float delta) {
-    _angle += nsMath::Sign(delta) * nsMath::ToRad(10);
+
 }
 
 void nsSceneViewerApp::LoadLayout(const char *filePath) {
     auto layout = nsVisualFactory2d::Shared()->Create(filePath);
     if (layout) {
-        if (_layout) {
-            _root->RemoveChild(_layout);
-            _layout->Destroy();
-        }
+        _root->SetScene(layout);
 
-        _layout = layout;
-        _root->AddChild(layout);
         sv_last_layout->SetString(filePath);
 
         _particles.clear();
+/*
         if (auto container = dynamic_cast<nsVisualContainer2d*>(_layout)) {
             container->FindChildrenRecursive([](nsVisualObject2d *child) -> bool {
                 return dynamic_cast<nsVisualParticles*>(child);
             }, _particles);
         }
+*/
         EmitParticles(_emitParticles);
     }
 }
