@@ -3,21 +3,40 @@
 //
 
 #include "SVMainView.h"
+
+#include "SVUtils.h"
 #include "Engine/TimeFormat.h"
 #include "Engine/display/button/TextButton.h"
 #include "nsLib/log.h"
 #include "Engine/display/particles/VisualParticles.h"
 
 bool nsSVMainView::Prepare() {
-    dynamic_cast<nsBaseButton*>(GetChildByIdRecursive("buttonEmit"))->SetClickHandler([this] {
+    nsSVUtils::GetButton(this, "buttonEmit")->SetClickHandler([this] {
         Log::Info("Emit");
         EmitParticles(!_emitParticles);
     });
 
-    dynamic_cast<nsBaseButton*>(GetChildByIdRecursive("buttonBlast"))->SetClickHandler([this]{
+    nsSVUtils::GetButton(this, "buttonBlast")->SetClickHandler([this]{
         Log::Info("Blast");
         BlastParticles();
     });
+
+    nsSVUtils::GetButton(this, "buttonXFlip")->SetClickHandler([this] {
+        if (_scene) {
+            nsVec2 s = _scene->origin.scale;
+            s.x = -s.x;
+            _scene->origin.scale = s;
+        }
+    });
+
+    nsSVUtils::GetButton(this, "buttonYFlip")->SetClickHandler([this] {
+        if (_scene) {
+            nsVec2 s = _scene->origin.scale;
+            s.y = -s.y;
+            _scene->origin.scale = s;
+        }
+    });
+
     return true;
 }
 
@@ -45,8 +64,6 @@ void nsSVMainView::SetScene(nsVisualObject2d *scene) {
 
 
 void nsSVMainView::Loop() {
-    nsVisualContainer2d::Loop();
-
     if (_scene) {
         auto &t = _scene->origin;
         t.angle = nsMath::MoveExp(t.angle, _angle, 10, g_frameTime);
@@ -56,6 +73,8 @@ void nsSVMainView::Loop() {
         pos.y = nsMath::MoveExp(pos.y, _targetPos.y, 50, g_frameTime);
         t.pos = pos;
     }
+
+    nsVisualContainer2d::Loop();
 }
 
 bool nsSVMainView::OnPointerUp(float x, float y, int pointerId) {

@@ -6,6 +6,8 @@ set(SOURCES
         SVMainView.h
         SVSceneView.cpp
         SVSceneView.h
+        SVUtils.cpp
+        SVUtils.h
 )
 
 include_directories(
