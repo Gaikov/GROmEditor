@@ -8,6 +8,8 @@ set(SOURCES
         SVSceneView.h
         SVUtils.cpp
         SVUtils.h
+        SVModel.cpp
+        SVModel.h
 )
 
 include_directories(

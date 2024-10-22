@@ -12,6 +12,8 @@
 #include "Engine/Input.h"
 #include "Engine/renderer/particles/ParticlesManager.h"
 #include "Core/sys.h"
+#include "nsLib/locator/ServiceLocator.h"
+#include "SVModel.h"
 
 #define VIEWER_VERSION "SceneViewer 1.0.0-dev.0"
 #define VIEWER_APP "GROm Scene Viewer"
@@ -29,6 +31,11 @@ bool nsSceneViewerApp::InitDialog() {
 
 bool nsSceneViewerApp::Init() {
     Log::Info("################### Init SceneViewer ###################");
+    nsServiceLocator::Init();
+    auto locator = nsServiceLocator::Shared();
+    locator->MapClass<nsSVModel>().AsSingleton();
+    auto model = Locate<nsSVModel>();
+
     g_inp.ShowCursor(true);
     App_GetPlatform()->SetAppTitle(VIEWER_APP);
     _device = nsRenDevice::Shared()->Device();
@@ -66,6 +73,7 @@ void nsSceneViewerApp::Release() {
     if (_root) {
         _root->Destroy();
     }
+    nsServiceLocator::Release();
 }
 
 void nsSceneViewerApp::DrawWorld() {
