@@ -8,5 +8,11 @@
 #include "Engine/display/layouts/GroupLayout.h"
 
 class nsSVSceneView : public nsGroupLayout {
+public:
+    void SetScene(nsVisualObject2d *scene);
+protected:
+    void DrawContent(const nsVisualContext2d &context) override;
 
+private:
+    nsVisualObject2d    *_scene = nullptr;
 };

@@ -6,9 +6,9 @@
 
 #include "SVUtils.h"
 #include "Engine/TimeFormat.h"
-#include "Engine/display/button/TextButton.h"
 #include "nsLib/log.h"
 #include "Engine/display/particles/VisualParticles.h"
+#include "SVSceneView.h"
 
 bool nsSVMainView::Prepare() {
     nsSVUtils::GetButton(this, "buttonEmit")->SetClickHandler([this] {
@@ -41,18 +41,13 @@ bool nsSVMainView::Prepare() {
 }
 
 void nsSVMainView::SetScene(nsVisualObject2d *scene) {
-    auto view = dynamic_cast<nsVisualContainer2d*>(GetChildById("sceneView"));
+    auto view = dynamic_cast<nsSVSceneView*>(GetChildById("sceneView"));
     _particles.clear();
 
-    if (_scene) {
-        view->RemoveChild(_scene);
-        _scene->Destroy();
-    }
-
     _scene = scene;
-    if (_scene) {
-        view->AddChild(_scene);
+    view->SetScene(scene);
 
+    if (_scene) {
         if (auto container = dynamic_cast<nsVisualContainer2d*>(_scene)) {
             container->FindChildrenRecursive([](nsVisualObject2d *child) -> bool {
                 return dynamic_cast<nsVisualParticles*>(child);

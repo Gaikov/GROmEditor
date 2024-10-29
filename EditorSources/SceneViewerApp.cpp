@@ -14,6 +14,7 @@
 #include "Core/sys.h"
 #include "nsLib/locator/ServiceLocator.h"
 #include "SVModel.h"
+#include "SVSceneView.h"
 
 #define VIEWER_VERSION "SceneViewer 1.0.0-dev.0"
 #define VIEWER_APP "GROm Scene Viewer"
@@ -42,6 +43,7 @@ bool nsSceneViewerApp::Init() {
 
     auto factory = nsVisualFactory2d::Shared();
     factory->BindClass<nsSVMainView>("MainView");
+    factory->BindClass<nsSVSceneView>("SceneView");
 
     auto view = factory->Create("default/viewer/main.layout");
     _root = dynamic_cast<nsSVMainView *>(view);
