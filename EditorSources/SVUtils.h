@@ -8,4 +8,5 @@
 
 struct nsSVUtils final {
     static nsBaseButton* GetButton(nsVisualContainer2d *container, const char *buttonId);
+    static void OnButtonClick(nsVisualContainer2d *container, const char *buttonId, const nsBaseButton::handler_t &handler);
 };

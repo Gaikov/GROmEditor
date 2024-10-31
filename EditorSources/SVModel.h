@@ -6,8 +6,16 @@
 #pragma once
 
 #include "nsLib/locator/Locatable.h"
+#include "nsLib/models/Property.h"
 
 class nsSVModel : public nsLocatable {
+public:
+    nsSVModel();
+
+    nsProperty<float>   zoom;
+    nsProperty<bool>    xFlip;
+    nsProperty<bool>    yFlip;
+
 protected:
     void OnCreated() override;
 };

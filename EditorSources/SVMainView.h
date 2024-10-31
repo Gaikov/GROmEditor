@@ -6,9 +6,11 @@
 #pragma once
 
 #include "Engine/display/layouts/GroupLayout.h"
+#include "SVModel.h"
 
 class nsSVMainView : public nsGroupLayout {
 public:
+    nsSVMainView();
     bool Prepare();
     void SetScene(nsVisualObject2d *scene);
 
@@ -23,7 +25,8 @@ protected:
     void BlastParticles();
 
 private:
-    nsVisualObject2d    *_scene;
+    nsSVModel           *_appModel;
+    nsVisualObject2d    *_scene = nullptr;
 
     std::vector<nsVisualObject2d*>  _particles;
     bool    _emitParticles = false;

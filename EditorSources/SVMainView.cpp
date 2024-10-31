@@ -9,6 +9,11 @@
 #include "nsLib/log.h"
 #include "Engine/display/particles/VisualParticles.h"
 #include "SVSceneView.h"
+#include "nsLib/locator/ServiceLocator.h"
+
+nsSVMainView::nsSVMainView() {
+    _appModel = Locate<nsSVModel>();
+}
 
 bool nsSVMainView::Prepare() {
     nsSVUtils::GetButton(this, "buttonEmit")->SetClickHandler([this] {
@@ -22,19 +27,15 @@ bool nsSVMainView::Prepare() {
     });
 
     nsSVUtils::GetButton(this, "buttonXFlip")->SetClickHandler([this] {
-        if (_scene) {
-            nsVec2 s = _scene->origin.scale;
-            s.x = -s.x;
-            _scene->origin.scale = s;
-        }
+        _appModel->xFlip = !_appModel->xFlip.GetValue();
     });
 
     nsSVUtils::GetButton(this, "buttonYFlip")->SetClickHandler([this] {
-        if (_scene) {
-            nsVec2 s = _scene->origin.scale;
-            s.y = -s.y;
-            _scene->origin.scale = s;
-        }
+        _appModel->yFlip = !_appModel->yFlip.GetValue();
+    });
+
+    nsSVUtils::OnButtonClick(this, "buttonResetZoom", [this] {
+        _appModel->zoom = 1;
     });
 
     return true;
@@ -112,7 +113,9 @@ bool nsSVMainView::OnPointerMove(float x, float y, int pointerId) {
 
 void nsSVMainView::OnMouseWheel(float delta) {
     nsVisualContainer2d::OnMouseWheel(delta);
-    _angle += nsMath::Sign(delta) * nsMath::ToRad(10);
+    float zoom = _appModel->zoom;
+    _appModel->zoom = zoom + (zoom * 0.05f) * delta;
+    //_angle += nsMath::Sign(delta) * nsMath::ToRad(10);
 }
 
 void nsSVMainView::EmitParticles(bool emit) {
@@ -131,6 +134,7 @@ void nsSVMainView::BlastParticles() {
         }
     }
 }
+
 
 
 

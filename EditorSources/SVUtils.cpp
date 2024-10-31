@@ -22,3 +22,7 @@ nsBaseButton * nsSVUtils::GetButton(nsVisualContainer2d *container, const char *
 
     return button;
 }
+
+void nsSVUtils::OnButtonClick(nsVisualContainer2d *container, const char *buttonId, const nsBaseButton::handler_t &handler) {
+    GetButton(container, buttonId)->SetClickHandler(handler);
+}
