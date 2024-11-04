@@ -13,12 +13,14 @@
 
 nsSVMainView::nsSVMainView() {
     _appModel = Locate<nsSVModel>();
+    _appModel->emitParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent&) {
+        EmitParticles(_appModel->emitParticles);
+    });
 }
 
 bool nsSVMainView::Prepare() {
     nsSVUtils::GetButton(this, "buttonEmit")->SetClickHandler([this] {
-        Log::Info("Emit");
-        EmitParticles(!_emitParticles);
+        _appModel->emitParticles = !_appModel->emitParticles;
     });
 
     nsSVUtils::GetButton(this, "buttonBlast")->SetClickHandler([this]{
@@ -54,7 +56,7 @@ void nsSVMainView::SetScene(nsVisualObject2d *scene) {
                 return dynamic_cast<nsVisualParticles*>(child);
             }, _particles);
         }
-        EmitParticles(true);
+        EmitParticles(_appModel->emitParticles);
     }
 }
 
@@ -119,7 +121,7 @@ void nsSVMainView::OnMouseWheel(float delta) {
 }
 
 void nsSVMainView::EmitParticles(bool emit) {
-    _emitParticles = emit;
+    Log::Info("emit: %i", emit ? 1 : 0);
     for (auto p : _particles) {
         auto ps = dynamic_cast<nsVisualParticles*>(p);
         ps->GetSystem().spawnEnabled = emit;

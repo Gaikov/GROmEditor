@@ -15,6 +15,7 @@ public:
     nsProperty<float>   zoom;
     nsProperty<bool>    xFlip;
     nsProperty<bool>    yFlip;
+    nsProperty<bool>    emitParticles;
 
 protected:
     void OnCreated() override;

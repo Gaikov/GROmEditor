@@ -29,7 +29,6 @@ private:
     nsVisualObject2d    *_scene = nullptr;
 
     std::vector<nsVisualObject2d*>  _particles;
-    bool    _emitParticles = false;
 
     float   _angle = 0;
 

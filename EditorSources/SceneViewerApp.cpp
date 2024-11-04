@@ -61,6 +61,10 @@ bool nsSceneViewerApp::Init() {
         }
     });
 
+    g_cfg->RegCmd("sv_unload", [this](int, const char*[]) {
+        _root->SetScene(nullptr);
+    });
+
     ReloadLayout();
 
     _inputHandler.AddInput(_root);
