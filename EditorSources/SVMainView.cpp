@@ -56,7 +56,6 @@ void nsSVMainView::SetScene(nsVisualObject2d *scene) {
                 return dynamic_cast<nsVisualParticles*>(child);
             }, _particles);
         }
-        EmitParticles(_appModel->emitParticles);
     }
 }
 
