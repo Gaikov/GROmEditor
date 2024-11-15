@@ -52,9 +52,7 @@ void nsSVMainView::SetScene(nsVisualObject2d *scene) {
 
     if (_scene) {
         if (auto container = dynamic_cast<nsVisualContainer2d*>(_scene)) {
-            container->FindChildrenRecursive([](nsVisualObject2d *child) -> bool {
-                return dynamic_cast<nsVisualParticles*>(child);
-            }, _particles);
+            container->GetChildrenRecursive(_particles);
         }
     }
 }
@@ -122,14 +120,13 @@ void nsSVMainView::OnMouseWheel(float delta) {
 void nsSVMainView::EmitParticles(bool emit) {
     Log::Info("emit: %i", emit ? 1 : 0);
     for (auto p : _particles) {
-        auto ps = dynamic_cast<nsVisualParticles*>(p);
-        ps->GetSystem().spawnEnabled = emit;
+        p->GetSystem().spawnEnabled = emit;
     }
 }
 
 void nsSVMainView::BlastParticles() {
     for (auto p : _particles) {
-        auto &ps = dynamic_cast<nsVisualParticles*>(p)->GetSystem();
+        auto &ps = p->GetSystem();
         if (!ps.spawnEnabled) {
             ps.Emit();
         }

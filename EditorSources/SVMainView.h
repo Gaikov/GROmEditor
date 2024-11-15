@@ -7,6 +7,7 @@
 
 #include "Engine/display/layouts/GroupLayout.h"
 #include "SVModel.h"
+#include "Engine/display/particles/VisualParticles.h"
 
 class nsSVMainView : public nsGroupLayout {
 public:
@@ -28,7 +29,7 @@ private:
     nsSVModel           *_appModel;
     nsVisualObject2d    *_scene = nullptr;
 
-    std::vector<nsVisualObject2d*>  _particles;
+    std::vector<nsVisualParticles*>  _particles;
 
     float   _angle = 0;
 
