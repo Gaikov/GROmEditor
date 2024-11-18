@@ -7,13 +7,12 @@
 #include "SVUtils.h"
 #include "Engine/TimeFormat.h"
 #include "nsLib/log.h"
-#include "Engine/display/particles/VisualParticles.h"
 #include "SVSceneView.h"
 #include "nsLib/locator/ServiceLocator.h"
 
 nsSVMainView::nsSVMainView() {
     _appModel = Locate<nsSVModel>();
-    _appModel->emitParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent&) {
+    _appModel->emitParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
         EmitParticles(_appModel->emitParticles);
     });
 }
