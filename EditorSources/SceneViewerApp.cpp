@@ -21,6 +21,7 @@
 
 static nsSceneViewerApp    g_sceneViewer;
 static nsVar    *sv_last_layout = nullptr;
+nsVar    *sv_bg_color = nullptr;
 
 IGameApp*	App_GetGame() {
     return &g_sceneViewer;
@@ -32,6 +33,12 @@ bool nsSceneViewerApp::InitDialog() {
 
 bool nsSceneViewerApp::Init() {
     Log::Info("################### Init SceneViewer ###################");
+
+    g_cfg->RegCmd("sv_unload", [this](int, const char*[]) {
+        _root->SetScene(nullptr);
+    });
+    sv_bg_color = g_cfg->RegVar("sv_bg_color", "0.1 0.1 0.1 1", GVF_SAVABLE);
+
     nsServiceLocator::Init();
     auto locator = nsServiceLocator::Shared();
     locator->MapClass<nsSVModel>().AsSingleton();
@@ -59,10 +66,6 @@ bool nsSceneViewerApp::Init() {
         } else {
             Log::Warning("usages: sv_load [layout path]");
         }
-    });
-
-    g_cfg->RegCmd("sv_unload", [this](int, const char*[]) {
-        _root->SetScene(nullptr);
     });
 
     ReloadLayout();

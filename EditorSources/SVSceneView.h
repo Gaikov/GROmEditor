@@ -7,15 +7,18 @@
 
 #include "Engine/display/layouts/GroupLayout.h"
 #include "SVModel.h"
+#include "Engine/display/factory/CustomVisual.h"
 
-class nsSVSceneView : public nsGroupLayout {
+class nsSVSceneView : public nsGroupLayout, public nsCustomVisual {
 public:
     nsSVSceneView();
 
     void SetScene(nsVisualObject2d *scene);
     void Loop() override;
+    bool ParseCustomProps(script_state_t *ss) override;
 protected:
     void DrawContent(const nsVisualContext2d &context) override;
+    void UpdateBackColor();
 
 private:
     nsVisualObject2d    *_scene = nullptr;

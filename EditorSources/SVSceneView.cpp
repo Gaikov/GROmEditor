@@ -5,9 +5,22 @@
 #include "SVSceneView.h"
 #include "nsLib/locator/ServiceLocator.h"
 #include "Engine/TimeFormat.h"
+#include "Core/Var.h"
+#include "Engine/display/Sprite.h"
+
+extern nsVar *sv_bg_color;
 
 nsSVSceneView::nsSVSceneView() {
     _appModel = Locate<nsSVModel>();
+
+    sv_bg_color->AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *e) {
+        UpdateBackColor();
+    });
+}
+
+bool nsSVSceneView::ParseCustomProps(script_state_t *ss) {
+    UpdateBackColor();
+    return true;
 }
 
 void nsSVSceneView::SetScene(nsVisualObject2d *scene) {
@@ -58,3 +71,14 @@ void nsSVSceneView::DrawContent(const nsVisualContext2d &context) {
 
     nsBaseLayout::DrawContent(context);
 }
+
+void nsSVSceneView::UpdateBackColor() {
+    auto back = dynamic_cast<nsSprite*>(GetChildByIdRecursive("background"));
+    if (back) {
+        nsColor c;
+        sscanf(sv_bg_color->String(), "%f %f %f %f", &c.r, &c.g, &c.b, &c.a);
+        back->desc.color = c;
+    }
+}
+
+
