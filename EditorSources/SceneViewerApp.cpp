@@ -3,6 +3,7 @@
 //
 
 #include "SceneViewerApp.h"
+#include "Core/AppInfo.h"
 #include "Engine/Platform.h"
 #include "Engine/display/VisualSceneRender2d.h"
 #include "Engine/RenManager.h"
@@ -42,7 +43,6 @@ bool nsSceneViewerApp::Init() {
     nsServiceLocator::Init();
     auto locator = nsServiceLocator::Shared();
     locator->MapClass<nsSVModel>().AsSingleton();
-    auto model = Locate<nsSVModel>();
 
     g_inp.ShowCursor(true);
     App_GetPlatform()->SetAppTitle(VIEWER_APP);

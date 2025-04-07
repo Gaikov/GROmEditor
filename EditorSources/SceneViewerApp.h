@@ -5,14 +5,12 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 
-#include "Core/AppInfo.h"
 #include "Engine/GameApp.h"
-#include "Engine/display/layouts/GroupLayout.h"
 #include "nsLib/math/ortho/OrthogonalNativeView.h"
 #include "Engine/input/MultiUserInput.h"
 #include "SVMainView.h"
 
-class nsSceneViewerApp : public IGameApp, IUserInput {
+class nsSceneViewerApp : public IGameApp, public IUserInput {
 public:
     bool InitDialog() override;
     bool Init() override;
@@ -40,8 +38,8 @@ private:
     void ReloadLayout();
 
 private:
-    nsSVMainView   *_root;
-    IRenDevice      *_device;
+    nsSVMainView   *_root = nullptr;
+    IRenDevice      *_device = nullptr;
     nsOrthogonalNativeView  _ortho;
 
     nsMultiUserInput    _inputHandler;
