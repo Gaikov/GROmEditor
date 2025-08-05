@@ -6,7 +6,7 @@
 #include "nsLib/locator/ServiceLocator.h"
 #include "Engine/TimeFormat.h"
 #include "Core/Var.h"
-#include "Engine/display/Sprite.h"
+#include "Engine/display/sprite/Sprite.h"
 
 extern nsVar *sv_bg_color;
 
