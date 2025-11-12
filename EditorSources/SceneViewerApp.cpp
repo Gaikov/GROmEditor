@@ -73,9 +73,11 @@ bool nsSceneViewerApp::Init() {
 
     ReloadLayout();
 
-    _inputHandler.AddInput(_root);
-    _inputHandler.AddInput(this);
-    _inputHandler._pointerTransform = &_ortho;
+    _appInput.AddInput(_root);
+    _appInput.AddInput(this);
+    _appInput._pointerTransform = &_ortho;
+    _inputHandler.AddInput(&_guiBackend);
+    _inputHandler.AddInput(&_appInput);
 
     return true;
 }

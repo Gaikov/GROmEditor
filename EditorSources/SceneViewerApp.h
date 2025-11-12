@@ -43,6 +43,7 @@ private:
     IRenDevice      *_device = nullptr;
     nsOrthogonalNativeView  _ortho;
 
+    nsMultiUserInput    _appInput;
     nsMultiUserInput    _inputHandler;
     nsImGUI_gles3       _guiBackend;
 };
