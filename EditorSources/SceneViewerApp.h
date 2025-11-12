@@ -9,6 +9,7 @@
 #include "nsLib/math/ortho/OrthogonalNativeView.h"
 #include "Engine/input/MultiUserInput.h"
 #include "SVMainView.h"
+#include "imgui/ImGUI_gles3.h"
 
 class nsSceneViewerApp : public IGameApp, public IUserInput {
 public:
@@ -43,4 +44,5 @@ private:
     nsOrthogonalNativeView  _ortho;
 
     nsMultiUserInput    _inputHandler;
+    nsImGUI_gles3       _guiBackend;
 };

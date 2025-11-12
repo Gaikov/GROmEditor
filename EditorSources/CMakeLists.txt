@@ -19,4 +19,4 @@ include_directories(
 
 add_executable(SceneViewer ${SOURCES})
 
-target_link_libraries(SceneViewer ${ENGINE_LIBS})
+target_link_libraries(SceneViewer ${ENGINE_LIBS} imgui)
