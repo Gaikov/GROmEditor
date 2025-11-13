@@ -16,7 +16,8 @@ public:
     nsProperty<bool>    xFlip;
     nsProperty<bool>    yFlip;
     nsProperty<bool>    emitParticles;
-    nsProperty<bool>    testView;
+    nsProperty<bool>          testView;
+    nsProperty<std::string>   projectPath;
 
 protected:
     void OnCreated() override;

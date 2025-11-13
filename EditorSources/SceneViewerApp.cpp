@@ -170,8 +170,8 @@ void nsSceneViewerApp::OnChar(char ch) {
 
 }
 
-void nsSceneViewerApp::OnMouseWheel(float delta) {
-
+bool nsSceneViewerApp::OnMouseWheel(float delta) {
+    return false;
 }
 
 void nsSceneViewerApp::LoadLayout(const char *filePath) {

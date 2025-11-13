@@ -20,7 +20,7 @@ protected:
     bool OnPointerUp(float x, float y, int pointerId) override;
     bool OnPointerDown(float x, float y, int pointerId) override;
     bool OnPointerMove(float x, float y, int pointerId) override;
-    void OnMouseWheel(float delta) override;
+    bool OnMouseWheel(float delta) override;
 
     void EmitParticles(bool emit);
     void BlastParticles();

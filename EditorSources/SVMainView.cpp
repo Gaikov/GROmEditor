@@ -109,10 +109,11 @@ bool nsSVMainView::OnPointerMove(float x, float y, int pointerId) {
     return false;
 }
 
-void nsSVMainView::OnMouseWheel(float delta) {
+bool nsSVMainView::OnMouseWheel(float delta) {
     nsVisualContainer2d::OnMouseWheel(delta);
     float zoom = _appModel->zoom;
     _appModel->zoom = zoom + (zoom * 0.05f) * delta;
+    return true;
     //_angle += nsMath::Sign(delta) * nsMath::ToRad(10);
 }
 
