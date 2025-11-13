@@ -1,16 +1,6 @@
 project(SceneViewer)
 
-set(SOURCES
-        SceneViewerApp.cpp
-        SVMainView.cpp
-        SVMainView.h
-        SVSceneView.cpp
-        SVSceneView.h
-        SVUtils.cpp
-        SVUtils.h
-        SVModel.cpp
-        SVModel.h
-)
+file(GLOB_RECURSE SOURCES "*.cpp" "*.c" "*.h")
 
 include_directories(
         ./
