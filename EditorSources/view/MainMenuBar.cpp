@@ -4,6 +4,8 @@
 
 #include "MainMenuBar.h"
 
+#include "ViewsRoot.h"
+#include "alerts/AlertPopup.h"
 #include "Core/sys.h"
 #include "imgui/imgui.h"
 #include "nsLib/locator/ServiceLocator.h"
@@ -67,7 +69,7 @@ void nsMainMenuBar::Draw() {
                 _model->emitParticles = !_model->emitParticles;
             }
             if (ImGui::MenuItem("Blast Particles")) {
-                Log::Info("Blast");
+                nsViewsRoot::Shared()->AddView<nsAlertPopup>("Info", "Not Implemented!");
             }
             if (ImGui::MenuItem("Flip X")) {
                 _model->xFlip = !_model->xFlip;
