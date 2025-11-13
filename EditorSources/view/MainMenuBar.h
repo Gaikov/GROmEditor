@@ -1,14 +1,17 @@
 // Copyright (c) 2003-2025, Roman Gaikov. All rights reserved.
 //--------------------------------------------------------------------------------------------------
-// file TestView.h
+// file MainMenuBar.h
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
 #include "BaseView.h"
+#include "SVModel.h"
 
-class nsTestView : public nsBaseView {
+class nsMainMenuBar : public nsBaseView {
 public:
-    nsTestView();
+    nsMainMenuBar();
     void Draw() override;
-};
 
+private:
+    nsSVModel *_model;
+};

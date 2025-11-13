@@ -5,14 +5,13 @@
 #include "SVModel.h"
 #include "nsLib/log.h"
 
-nsSVModel::nsSVModel() :
-        zoom(1),
-        xFlip(false),
-        yFlip(false),
-        emitParticles(true) {
+nsSVModel::nsSVModel() : zoom(1),
+                         xFlip(false),
+                         yFlip(false),
+                         emitParticles(true),
+                         testView(false) {
 }
 
 void nsSVModel::OnCreated() {
     Log::Info("sv model created");
 }
-

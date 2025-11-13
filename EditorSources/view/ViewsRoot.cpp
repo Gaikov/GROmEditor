@@ -4,6 +4,18 @@
 
 #include "ViewsRoot.h"
 
+#include "MainMenuBar.h"
+#include "TestView.h"
+
+bool nsViewsRoot::OnInit() {
+    nsSubSystem::OnInit();
+
+    AddView<nsMainMenuBar>();
+    AddView<nsTestView>();
+
+    return true;
+}
+
 void nsViewsRoot::RemoveView(const nsBaseView *view) {
     const auto it = std::find_if(_views.begin(), _views.end(), [view](const auto& v) { return v.get() == view; });
     if (it != _views.end()) {
@@ -13,6 +25,8 @@ void nsViewsRoot::RemoveView(const nsBaseView *view) {
 
 void nsViewsRoot::Draw() const {
     for (const auto& view : _views) {
-        view->Draw();
+        if (view->visible) {
+            view->Draw();
+        }
     }
 }

@@ -16,6 +16,7 @@ public:
     nsProperty<bool>    xFlip;
     nsProperty<bool>    yFlip;
     nsProperty<bool>    emitParticles;
+    nsProperty<bool>    testView;
 
 protected:
     void OnCreated() override;

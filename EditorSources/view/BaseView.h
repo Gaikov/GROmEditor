@@ -7,11 +7,15 @@
 #include <memory>
 
 class nsBaseView {
+    friend class nsViewsRoot;
+
 public:
     typedef std::shared_ptr<nsBaseView> view_t;
 
     virtual ~nsBaseView() = default;
 
     bool visible = true;
+
+protected:
     virtual void Draw() = 0;
 };

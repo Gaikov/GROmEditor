@@ -17,7 +17,6 @@
 #include "SVModel.h"
 #include "SVSceneView.h"
 #include "ThirdParty/imgui/ImGUI_gles3.h"
-#include "view/TestView.h"
 #include "view/ViewsRoot.h"
 
 #define VIEWER_VERSION "SceneViewer 1.0.0-dev.0"
@@ -38,8 +37,6 @@ bool nsSceneViewerApp::InitDialog() {
 bool nsSceneViewerApp::Init() {
     Log::Info("################### Init SceneViewer ###################");
     _guiBackend.Init(App_GetPlatform()->GetWindowHandler());
-    nsViewsRoot::Init();
-    nsViewsRoot::Shared()->AddView<nsTestView>();
 
     g_cfg->RegCmd("sv_unload", [this](int, const char*[]) {
         _root->SetScene(nullptr);
@@ -53,6 +50,7 @@ bool nsSceneViewerApp::Init() {
     g_inp.ShowCursor(true);
     App_GetPlatform()->SetAppTitle(VIEWER_APP);
     _device = nsRenDevice::Shared()->Device();
+    nsViewsRoot::Init();
 
     auto factory = nsVisualFactory2d::Shared();
     factory->BindClass<nsSVMainView>("MainView");
@@ -90,8 +88,8 @@ void nsSceneViewerApp::Release() {
     if (_root) {
         _root->Destroy();
     }
-    nsServiceLocator::Release();
     nsViewsRoot::Release();
+    nsServiceLocator::Release();
     _guiBackend.Shutdown();
 }
 

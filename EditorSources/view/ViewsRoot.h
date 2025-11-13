@@ -19,6 +19,9 @@ public:
     void RemoveView(const nsBaseView *view);
     void Draw() const;
 
+protected:
+    bool OnInit() override;
+
 private:
     std::vector<nsBaseView::view_t> _views;
 };

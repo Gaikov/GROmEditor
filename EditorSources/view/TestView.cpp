@@ -4,8 +4,18 @@
 
 #include "TestView.h"
 
+#include "SVModel.h"
 #include "imgui/imgui.h"
 #include "nsLib/color.h"
+#include "nsLib/locator/ServiceLocator.h"
+
+nsTestView::nsTestView() {
+    const auto model = Locate<nsSVModel>();
+    model->testView.AddHandler(nsPropChangedName::CHANGED, [this, model](const nsBaseEvent*) {
+        visible = model->testView;
+    });
+    visible = model->testView;
+}
 
 void nsTestView::Draw() {
     // 2. Показываем простое окно
@@ -35,10 +45,12 @@ void nsTestView::Draw() {
 
     // 3. Показываем другое окно
     if (show_another_window) {
-        ImGui::Begin("Another Window", &show_another_window);
+        ImGui::Begin("Another Window", &show_another_window, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse);
         ImGui::Text("Hello from another window!");
         if (ImGui::Button("Close Me"))
             show_another_window = false;
         ImGui::End();
     }
+
+    ImGui::ShowDemoWindow();
 }
