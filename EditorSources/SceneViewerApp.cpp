@@ -18,6 +18,7 @@
 #include "SVSceneView.h"
 #include "ThirdParty/imgui/ImGUI_gles3.h"
 #include "view/ViewsRoot.h"
+#include "view/popups/PopupsStack.h"
 
 #define VIEWER_VERSION "SceneViewer 1.0.0-dev.0"
 #define VIEWER_APP "GROm Scene Viewer"
@@ -51,6 +52,7 @@ bool nsSceneViewerApp::Init() {
     App_GetPlatform()->SetAppTitle(VIEWER_APP);
     _device = nsRenDevice::Shared()->Device();
     nsViewsRoot::Init();
+    nsPopupsStack::Init();
 
     auto factory = nsVisualFactory2d::Shared();
     factory->BindClass<nsSVMainView>("MainView");
@@ -88,6 +90,7 @@ void nsSceneViewerApp::Release() {
     if (_root) {
         _root->Destroy();
     }
+    nsPopupsStack::Release();
     nsViewsRoot::Release();
     nsServiceLocator::Release();
     _guiBackend.Shutdown();
@@ -108,6 +111,7 @@ void nsSceneViewerApp::DrawWorld() {
 
     _guiBackend.StartFrame();
     nsViewsRoot::Shared()->Draw();
+    nsPopupsStack::Shared()->Draw();
     _guiBackend.EndFrame();
 }
 

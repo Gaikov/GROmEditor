@@ -4,19 +4,19 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
-#include "view/BaseView.h"
+#include "view/popups/Popup.h"
 
-class nsAlertPopup : public nsBaseView {
+class nsAlertPopup : public nsPopup {
 public:
     nsAlertPopup(const char *title, const char *message);
 
+    static void Info(const char *message);
+    static void Error(const char *message);
+    static void Warning(const char *message);
+
 protected:
-    std::string _title;
     std::string _message;
-    std::string _id;
 
-    bool _show = true;
-
-    void Draw() override;
+    void DrawContent() override;
 };
 
