@@ -64,7 +64,6 @@ bool nsSceneViewerApp::Init() {
         Sys_FatalError("Invalid main layout!");
         return false;
     }
-    _root->Prepare();
 
     g_cfg->RegCmd("sv_load", [this](int argc, const char *argv[] ) {
         if (argc > 1) {

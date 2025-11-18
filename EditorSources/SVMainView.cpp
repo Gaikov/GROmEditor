@@ -17,31 +17,6 @@ nsSVMainView::nsSVMainView() {
     });
 }
 
-bool nsSVMainView::Prepare() {
-    nsSVUtils::GetButton(this, "buttonEmit")->SetClickHandler([this] {
-        _appModel->emitParticles = !_appModel->emitParticles;
-    });
-
-    nsSVUtils::GetButton(this, "buttonBlast")->SetClickHandler([this]{
-        Log::Info("Blast");
-        BlastParticles();
-    });
-
-    nsSVUtils::GetButton(this, "buttonXFlip")->SetClickHandler([this] {
-        _appModel->xFlip = !_appModel->xFlip.GetValue();
-    });
-
-    nsSVUtils::GetButton(this, "buttonYFlip")->SetClickHandler([this] {
-        _appModel->yFlip = !_appModel->yFlip.GetValue();
-    });
-
-    nsSVUtils::OnButtonClick(this, "buttonResetZoom", [this] {
-        _appModel->zoom = 1;
-    });
-
-    return true;
-}
-
 void nsSVMainView::SetScene(nsVisualObject2d *scene) {
     auto view = dynamic_cast<nsSVSceneView*>(GetChildById("sceneView"));
     _particles.clear();

@@ -12,7 +12,6 @@
 class nsSVMainView : public nsGroupLayout {
 public:
     nsSVMainView();
-    bool Prepare();
     void SetScene(nsVisualObject2d *scene);
 
     void Loop() override;
