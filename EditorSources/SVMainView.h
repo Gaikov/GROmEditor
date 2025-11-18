@@ -6,7 +6,7 @@
 #pragma once
 
 #include "Engine/display/layouts/GroupLayout.h"
-#include "SVModel.h"
+#include "models/SVModel.h"
 #include "Engine/display/particles/VisualParticles.h"
 
 class nsSVMainView : public nsGroupLayout {

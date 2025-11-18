@@ -11,8 +11,7 @@ nsSVModel::nsSVModel()
       yFlip(false),
       emitParticles(true),
       blastParticles(0),
-      testView(false),
-      projectPath("") {
+      testView(false) {
 }
 
 void nsSVModel::OnCreated() {

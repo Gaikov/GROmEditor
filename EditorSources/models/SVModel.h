@@ -7,6 +7,7 @@
 
 #include "nsLib/locator/Locatable.h"
 #include "nsLib/models/Property.h"
+#include "project/ProjectModel.h"
 
 class nsSVModel : public nsLocatable {
 public:
@@ -18,7 +19,7 @@ public:
     nsProperty<bool>    emitParticles;
     nsProperty<int>     blastParticles;
     nsProperty<bool>          testView;
-    nsProperty<std::string>   projectPath;
+    nsProjectModel  project;
 
 protected:
     void OnCreated() override;

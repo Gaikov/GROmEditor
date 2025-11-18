@@ -1,26 +1,17 @@
 // Copyright (c) 2003-2025, Roman Gaikov. All rights reserved.
 //--------------------------------------------------------------------------------------------------
-// file BaseView.h
+// file ProjectModel.h
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
-#include <memory>
+#include "ScenesCache.h"
+#include "nsLib/models/Property.h"
 
-#include "models/SVModel.h"
-
-class nsBaseView {
-    friend class nsViewsRoot;
-
+class nsProjectModel {
 public:
-    typedef std::shared_ptr<nsBaseView> view_t;
+    nsProperty<std::string> projectPath;
 
-    nsBaseView();
-    virtual ~nsBaseView() = default;
+    nsScenesCache scenes;
 
-    bool visible = true;
-
-protected:
-    nsSVModel const *_model;
-
-    virtual void Draw() = 0;
+    nsProjectModel();
 };

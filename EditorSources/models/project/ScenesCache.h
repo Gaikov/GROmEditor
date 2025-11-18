@@ -1,17 +1,16 @@
 // Copyright (c) 2003-2025, Roman Gaikov. All rights reserved.
 //--------------------------------------------------------------------------------------------------
-// file MainMenuBar.h
+// file ScenesCache.h
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
-#include "BaseView.h"
-#include "models/SVModel.h"
+#include "Engine/display/VisualObject2d.h"
 
-class nsMainMenuBar : public nsBaseView {
+class nsScenesCache {
 public:
-    nsMainMenuBar();
-    void Draw() override;
+    ~nsScenesCache();
+    nsVisualObject2d* Get(const std::string &path);
 
 private:
-    nsSVModel *_model;
+    std::map<std::string, nsVisualObject2d*> _cache;
 };

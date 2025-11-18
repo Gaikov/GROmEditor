@@ -23,12 +23,18 @@ bool nsSVSceneView::ParseCustomProps(script_state_t *ss) {
     return true;
 }
 
+void nsSVSceneView::Destroy() {
+    if (_scene) {
+        RemoveChild(_scene);
+    }
+    nsGroupLayout::Destroy();
+}
+
 void nsSVSceneView::SetScene(nsVisualObject2d *scene) {
     auto m = _appModel;
 
     if (_scene) {
         RemoveChild(_scene);
-        _scene->Destroy();
     }
 
     _scene = scene;

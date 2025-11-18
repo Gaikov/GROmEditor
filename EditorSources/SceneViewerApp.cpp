@@ -14,7 +14,7 @@
 #include "Engine/renderer/particles/ParticlesManager.h"
 #include "Core/sys.h"
 #include "nsLib/locator/ServiceLocator.h"
-#include "SVModel.h"
+#include "models/SVModel.h"
 #include "SVSceneView.h"
 #include "ThirdParty/imgui/ImGUI_gles3.h"
 #include "view/ViewsRoot.h"
@@ -182,7 +182,7 @@ bool nsSceneViewerApp::OnMouseWheel(float delta) {
 }
 
 void nsSceneViewerApp::LoadLayout(const char *filePath) {
-    const auto layout = nsVisualFactory2d::Shared()->Create(filePath);
+    const auto layout = Locate<nsSVModel>()->project.scenes.Get(filePath);
     if (layout) {
         _root->SetScene(layout);
         sv_last_layout->SetString(filePath);

@@ -1,26 +1,12 @@
 // Copyright (c) 2003-2025, Roman Gaikov. All rights reserved.
 //--------------------------------------------------------------------------------------------------
-// file BaseView.h
+// file ScenePropsView.h
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
-#include <memory>
+#include "view/BaseView.h"
 
-#include "models/SVModel.h"
-
-class nsBaseView {
-    friend class nsViewsRoot;
-
-public:
-    typedef std::shared_ptr<nsBaseView> view_t;
-
-    nsBaseView();
-    virtual ~nsBaseView() = default;
-
-    bool visible = true;
-
+class nsScenePropsView : public nsBaseView {
 protected:
-    nsSVModel const *_model;
-
-    virtual void Draw() = 0;
+    void Draw() override;
 };

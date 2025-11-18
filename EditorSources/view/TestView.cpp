@@ -4,7 +4,7 @@
 
 #include "TestView.h"
 
-#include "SVModel.h"
+#include "models/SVModel.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_internal.h"
 #include "nsLib/color.h"
