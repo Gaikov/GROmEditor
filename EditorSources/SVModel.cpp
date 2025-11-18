@@ -10,6 +10,7 @@ nsSVModel::nsSVModel()
       xFlip(false),
       yFlip(false),
       emitParticles(true),
+      blastParticles(0),
       testView(false),
       projectPath("") {
 }

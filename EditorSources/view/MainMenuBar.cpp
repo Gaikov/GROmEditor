@@ -65,11 +65,11 @@ void nsMainMenuBar::Draw() {
         }
 
         if (ImGui::BeginMenu("View")) {
-            if (ImGui::MenuItem("Emit Particles")) {
+            if (ImGui::MenuItem("Emit Particles", nullptr, _model->emitParticles)) {
                 _model->emitParticles = !_model->emitParticles;
             }
             if (ImGui::MenuItem("Blast Particles")) {
-                nsAlertPopup::Warning("Not Implemented!");
+                _model->blastParticles = _model->blastParticles + 1;
             }
             if (ImGui::MenuItem("Flip X")) {
                 _model->xFlip = !_model->xFlip;

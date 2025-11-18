@@ -3,8 +3,6 @@
 //
 
 #include "SVMainView.h"
-
-#include "SVUtils.h"
 #include "Engine/TimeFormat.h"
 #include "nsLib/log.h"
 #include "SVSceneView.h"
@@ -14,6 +12,10 @@ nsSVMainView::nsSVMainView() {
     _appModel = Locate<nsSVModel>();
     _appModel->emitParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
         EmitParticles(_appModel->emitParticles);
+    });
+
+    _appModel->blastParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
+        BlastParticles();
     });
 }
 
@@ -28,6 +30,7 @@ void nsSVMainView::SetScene(nsVisualObject2d *scene) {
         if (auto container = dynamic_cast<nsVisualContainer2d*>(_scene)) {
             container->GetChildrenRecursive(_particles);
         }
+        EmitParticles(_appModel->emitParticles);
     }
 }
 

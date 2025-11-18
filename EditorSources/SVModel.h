@@ -16,6 +16,7 @@ public:
     nsProperty<bool>    xFlip;
     nsProperty<bool>    yFlip;
     nsProperty<bool>    emitParticles;
+    nsProperty<int>     blastParticles;
     nsProperty<bool>          testView;
     nsProperty<std::string>   projectPath;
 
