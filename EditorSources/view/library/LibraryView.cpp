@@ -23,11 +23,19 @@ void nsLibraryView::Draw() {
         Refresh();
     }
 
+    ImGui::InputText("Search", _filter.AsChar(), nsString::MAX_SIZE - 1);
+    ImGui::SameLine();
+    if (ImGui::Button("Clear")) {
+        _filter = "";
+    }
+
     ImGui::BeginChild("ScrollingRegion", ImVec2(0, 300), true, ImGuiWindowFlags_HorizontalScrollbar);
     for (auto file : _files) {
-        if (ImGui::MenuItem(file.AsChar())) {
-            Log::Info("Selected: %s", file.AsChar());
-            sv_last_layout->SetString(file.AsChar());
+        if (_filter.IsEmpty() || strstr(file.AsChar(), _filter.AsChar())) {
+            if (ImGui::MenuItem(file.AsChar())) {
+                Log::Info("Selected: %s", file.AsChar());
+                sv_last_layout->SetString(file.AsChar());
+            }
         }
     }
     ImGui::EndChild();

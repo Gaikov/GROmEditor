@@ -18,4 +18,5 @@ protected:
     void Refresh();
 
     std::vector<nsFilePath> _files;
+    nsString _filter;
 };
