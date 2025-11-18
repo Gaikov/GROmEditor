@@ -6,12 +6,14 @@
 
 #include "MainMenuBar.h"
 #include "TestView.h"
+#include "library/LibraryView.h"
 
 bool nsViewsRoot::OnInit() {
     nsSubSystem::OnInit();
 
     AddView<nsMainMenuBar>();
     AddView<nsTestView>();
+    AddView<nsLibraryView>();
 
     return true;
 }

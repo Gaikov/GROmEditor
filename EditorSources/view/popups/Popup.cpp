@@ -45,5 +45,4 @@ bool nsPopup::BeginPopup() {
 
 void nsPopup::EndPopup() {
     ImGui::EndPopup();
-
 }

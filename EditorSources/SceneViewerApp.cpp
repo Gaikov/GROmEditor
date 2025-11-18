@@ -24,7 +24,7 @@
 #define VIEWER_APP "GROm Scene Viewer"
 
 static nsSceneViewerApp    g_sceneViewer;
-static nsVar    *sv_last_layout = nullptr;
+nsVar    *sv_last_layout = nullptr;
 nsVar    *sv_bg_color = nullptr;
 
 IGameApp*	App_GetGame() {
@@ -74,6 +74,10 @@ bool nsSceneViewerApp::Init() {
         }
     });
 
+    sv_last_layout = g_cfg->RegVar("sv_last_layout", "", GVF_SAVABLE);
+    sv_last_layout->AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *e) {
+        ReloadLayout();
+    });
     ReloadLayout();
 
     _appInput.AddInput(_root);
@@ -179,7 +183,7 @@ bool nsSceneViewerApp::OnMouseWheel(float delta) {
 }
 
 void nsSceneViewerApp::LoadLayout(const char *filePath) {
-    auto layout = nsVisualFactory2d::Shared()->Create(filePath);
+    const auto layout = nsVisualFactory2d::Shared()->Create(filePath);
     if (layout) {
         _root->SetScene(layout);
         sv_last_layout->SetString(filePath);
@@ -187,7 +191,6 @@ void nsSceneViewerApp::LoadLayout(const char *filePath) {
 }
 
 void nsSceneViewerApp::ReloadLayout() {
-    sv_last_layout = g_cfg->RegVar("sv_last_layout", "", GVF_SAVABLE);
     if (StrCheck(sv_last_layout->String())) {
         LoadLayout(sv_last_layout->String());
     }
