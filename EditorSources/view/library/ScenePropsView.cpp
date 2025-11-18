@@ -3,11 +3,20 @@
 //
 
 #include "ScenePropsView.h"
+#include "Engine/display/container/VisualContainer2d.h"
 
 #include "Core/Var.h"
 #include "imgui/imgui.h"
 
-extern nsVar    *sv_last_layout;
+
+
+nsScenePropsView::nsScenePropsView() {
+    auto &scenePath = _model->project.currentScene;
+    scenePath.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *e) {
+        _scene = _model->project.scenes.Get(scenePath);
+        _selected = _scene;
+    });
+}
 
 void nsScenePropsView::Draw() {
 
@@ -15,11 +24,39 @@ void nsScenePropsView::Draw() {
 
     ImGui::Text("Layout:");
     ImGui::SameLine();
-    ImGui::Text(sv_last_layout->String());
+    ImGui::Text(_model->project.currentScene->c_str());
 
-    if (ImGui::Button("Test")) {
-
+    if (_scene) {
+        DrawNode(_scene);
     }
 
     ImGui::End();
+}
+
+void nsScenePropsView::DrawNode(nsVisualObject2d *node) {
+
+    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None | ImGuiTreeNodeFlags_DrawLinesFull;
+    const auto container = dynamic_cast<nsVisualContainer2d*>(node);
+    if (container) {
+        flags |= ImGuiTreeNodeFlags_DefaultOpen;
+    } else {
+        flags |= ImGuiTreeNodeFlags_Leaf;
+    }
+    if (node == _selected) {
+        flags |= ImGuiTreeNodeFlags_Selected;
+    }
+
+    if (ImGui::TreeNodeEx(node->id.empty() ? "noname" : node->id.c_str(), flags)) {
+        if (ImGui::IsItemClicked()) {
+            _selected = node;
+        }
+
+        if (container) {
+            auto &list = container->GetChildren();
+            for (const auto child : list) {
+                DrawNode(child);
+            }
+        }
+        ImGui::TreePop();
+    }
 }

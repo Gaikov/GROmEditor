@@ -24,7 +24,6 @@
 #define VIEWER_APP "GROm Scene Viewer"
 
 static nsSceneViewerApp    g_sceneViewer;
-nsVar    *sv_last_layout = nullptr;
 nsVar    *sv_bg_color = nullptr;
 
 IGameApp*	App_GetGame() {
@@ -46,7 +45,8 @@ bool nsSceneViewerApp::Init() {
 
     nsServiceLocator::Init();
     auto locator = nsServiceLocator::Shared();
-    locator->MapClass<nsSVModel>().AsSingleton();
+    locator->MapClass<nsSVModel>().AsSingleton().GetInstance();
+    _appModel = Locate<nsSVModel>();
 
     g_inp.ShowCursor(true);
     App_GetPlatform()->SetAppTitle(VIEWER_APP);
@@ -73,11 +73,9 @@ bool nsSceneViewerApp::Init() {
         }
     });
 
-    sv_last_layout = g_cfg->RegVar("sv_last_layout", "", GVF_SAVABLE);
-    sv_last_layout->AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *e) {
+    _appModel->project.currentScene.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
         ReloadLayout();
     });
-    ReloadLayout();
 
     _appInput.AddInput(_root);
     _appInput.AddInput(this);
@@ -185,13 +183,13 @@ void nsSceneViewerApp::LoadLayout(const char *filePath) {
     const auto layout = Locate<nsSVModel>()->project.scenes.Get(filePath);
     if (layout) {
         _root->SetScene(layout);
-        sv_last_layout->SetString(filePath);
+        _appModel->project.currentScene = filePath;
     }
 }
 
 void nsSceneViewerApp::ReloadLayout() {
-    if (StrCheck(sv_last_layout->String())) {
-        LoadLayout(sv_last_layout->String());
+    if (!_appModel->project.currentScene->empty()) {
+        LoadLayout(_appModel->project.currentScene->c_str());
     }
 }
 

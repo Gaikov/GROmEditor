@@ -20,7 +20,7 @@ public:
     bool visible = true;
 
 protected:
-    nsSVModel const *_model;
+    nsSVModel* const _model;
 
     virtual void Draw() = 0;
 };

@@ -34,7 +34,7 @@ void nsLibraryView::Draw() {
         if (_filter.IsEmpty() || strstr(file.AsChar(), _filter.AsChar())) {
             if (ImGui::MenuItem(file.AsChar())) {
                 Log::Info("Selected: %s", file.AsChar());
-                sv_last_layout->SetString(file.AsChar());
+                _model->project.currentScene = file.AsChar();
             }
         }
     }

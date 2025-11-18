@@ -11,6 +11,7 @@ class nsProjectModel {
 public:
     nsProperty<std::string> projectPath;
 
+    nsProperty<std::string> currentScene;
     nsScenesCache scenes;
 
     nsProjectModel();

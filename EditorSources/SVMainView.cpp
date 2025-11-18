@@ -10,12 +10,17 @@
 
 nsSVMainView::nsSVMainView() {
     _appModel = Locate<nsSVModel>();
+    auto &p = _appModel->project;
     _appModel->emitParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
         EmitParticles(_appModel->emitParticles);
     });
 
     _appModel->blastParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
         BlastParticles();
+    });
+
+    p.currentScene.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent*) {
+        SetScene(p.scenes.Get(_appModel->project.currentScene));
     });
 }
 

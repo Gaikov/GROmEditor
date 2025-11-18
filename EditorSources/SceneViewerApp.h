@@ -39,6 +39,7 @@ private:
     void ReloadLayout();
 
 private:
+    nsSVModel      *_appModel = nullptr;
     nsSVMainView   *_root = nullptr;
     IRenDevice      *_device = nullptr;
     nsOrthogonalNativeView  _ortho;

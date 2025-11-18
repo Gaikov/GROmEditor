@@ -6,6 +6,6 @@
 
 #include "nsLib/locator/ServiceLocator.h"
 
-nsBaseView::nsBaseView() {
-    _model = Locate<nsSVModel>();
+nsBaseView::nsBaseView() : _model(Locate<nsSVModel>()) {
+
 }

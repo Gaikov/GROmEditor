@@ -4,5 +4,5 @@
 
 #include "ProjectModel.h"
 
-nsProjectModel::nsProjectModel() : projectPath("") {
+nsProjectModel::nsProjectModel() : projectPath(""), currentScene("") {
 }
