@@ -5,12 +5,9 @@
 #include "LibraryView.h"
 
 #include "Core/Package.h"
-#include "Core/Var.h"
 #include "imgui/imgui.h"
 #include "nsLib/FilePath.h"
 #include "nsLib/log.h"
-
-extern  nsVar    *sv_last_layout;
 
 nsLibraryView::nsLibraryView() {
     Refresh();
@@ -30,7 +27,7 @@ void nsLibraryView::Draw() {
     }
 
     ImGui::BeginChild("ScrollingRegion", ImVec2(0, 300), true, ImGuiWindowFlags_HorizontalScrollbar);
-    for (auto file : _files) {
+    for (auto file: _files) {
         if (_filter.IsEmpty() || strstr(file.AsChar(), _filter.AsChar())) {
             if (ImGui::MenuItem(file.AsChar())) {
                 Log::Info("Selected: %s", file.AsChar());
@@ -51,7 +48,7 @@ void nsLibraryView::Refresh() {
     const nsFilePath path(".");
     path.ListingRecursive(list);
 
-    for (auto item : list) {
+    for (auto item: list) {
         auto ext = item.GetExtension();
         ext.ToLower();
         if (ext == "layout") {

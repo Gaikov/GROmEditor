@@ -4,11 +4,8 @@
 
 #include "ScenePropsView.h"
 #include "Engine/display/container/VisualContainer2d.h"
-
 #include "Core/Var.h"
 #include "imgui/imgui.h"
-
-
 
 nsScenePropsView::nsScenePropsView() {
     auto &scenePath = _model->project.currentScene;
@@ -19,7 +16,6 @@ nsScenePropsView::nsScenePropsView() {
 }
 
 void nsScenePropsView::Draw() {
-
     ImGui::Begin("Scene Properties");
 
     ImGui::Text("Layout:");
@@ -27,16 +23,33 @@ void nsScenePropsView::Draw() {
     ImGui::Text(_model->project.currentScene->c_str());
 
     if (_scene) {
-        DrawNode(_scene);
+        if (ImGui::CollapsingHeader("Scene Tree", ImGuiTreeNodeFlags_DefaultOpen)) {
+            ImGui::BeginChild("Tree List", ImVec2(0, 0),
+                              ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeY,
+                              ImGuiWindowFlags_HorizontalScrollbar);
+            DrawNode(_scene);
+            ImGui::EndChild();
+        }
+
+        if (ImGui::CollapsingHeader("Properties", ImGuiTreeNodeFlags_DefaultOpen)) {
+            ImGui::BeginChild("Props List", ImVec2(0, 0),
+                              ImGuiChildFlags_AutoResizeY,
+                              ImGuiWindowFlags_HorizontalScrollbar);
+            if (_selected) {
+                ImGui::Text("Selected: %s", _selected->id.c_str());
+            } else {
+                ImGui::Text("No selection");
+            }
+            ImGui::EndChild();
+        }
     }
 
     ImGui::End();
 }
 
 void nsScenePropsView::DrawNode(nsVisualObject2d *node) {
-
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None | ImGuiTreeNodeFlags_DrawLinesFull;
-    const auto container = dynamic_cast<nsVisualContainer2d*>(node);
+    const auto container = dynamic_cast<nsVisualContainer2d *>(node);
     if (container) {
         flags |= ImGuiTreeNodeFlags_DefaultOpen;
     } else {
@@ -53,7 +66,7 @@ void nsScenePropsView::DrawNode(nsVisualObject2d *node) {
 
         if (container) {
             auto &list = container->GetChildren();
-            for (const auto child : list) {
+            for (const auto child: list) {
                 DrawNode(child);
             }
         }
