@@ -5,13 +5,15 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 #include "ScenesCache.h"
+#include "Core/serialization/SerializableFile.h"
+#include "Core/serialization/var/StringVar.h"
 #include "nsLib/models/Property.h"
 
-class nsProjectModel {
+class nsProjectModel : public nsSerializableFile {
 public:
     nsProperty<std::string> projectPath;
 
-    nsProperty<std::string> currentScene;
+    nsStringVar currentScene;
     nsScenesCache scenes;
 
     nsProjectModel();

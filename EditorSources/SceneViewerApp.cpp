@@ -75,9 +75,12 @@ bool nsSceneViewerApp::Init() {
         }
     });
 
+    _appModel->project.Load("project.ggml");
+
     _appModel->project.currentScene.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
         ReloadLayout();
     });
+    ReloadLayout();
 
     _appInput.AddInput(_root);
     _appInput.AddInput(this);
@@ -93,6 +96,9 @@ void nsSceneViewerApp::Release() {
     if (_root) {
         _root->Destroy();
     }
+
+    _appModel->project.Save("project.ggml");
+
     nsPopupsStack::Release();
     nsViewsRoot::Release();
     nsServiceLocator::Release();
@@ -125,7 +131,6 @@ void nsSceneViewerApp::Loop(float frameTime) {
 
 void nsSceneViewerApp::OnActivate(bool active) {
     if (active) {
-        ReloadLayout();
         nsParticlesManager::Shared()->ReloadParticles();
     }
 }
