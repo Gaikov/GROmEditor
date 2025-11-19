@@ -5,11 +5,12 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 #include "BaseVisualPropsView.h"
+#include "view/components/UndoTextInput.h"
 
 class nsVisualPropsView : public nsBaseVisualPropsView {
 public:
     void Draw(nsVisualObject2d *target) override;
 
 private:
-    nsString _id;
+    nsUndoTextInput<std::string> _idInput = "ID";
 };
