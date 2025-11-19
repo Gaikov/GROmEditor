@@ -29,9 +29,9 @@ void nsLibraryView::Draw() {
     ImGui::BeginChild("ScrollingRegion", ImVec2(0, 300), true, ImGuiWindowFlags_HorizontalScrollbar);
     for (auto file: _files) {
         if (_filter.IsEmpty() || strstr(file.AsChar(), _filter.AsChar())) {
-            if (ImGui::MenuItem(file.AsChar())) {
+            if (ImGui::MenuItem(file.AsChar(), nullptr, _model->user.currentScene == file.AsChar())) {
                 Log::Info("Selected: %s", file.AsChar());
-                _model->project.currentScene = file.AsChar();
+                _model->user.currentScene = file.AsChar();
             }
         }
     }

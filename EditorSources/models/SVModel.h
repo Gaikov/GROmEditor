@@ -5,13 +5,17 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 
+#include "ProjectStateModel.h"
+#include "Core/serialization/var/StringVar.h"
 #include "nsLib/locator/Locatable.h"
 #include "nsLib/models/Property.h"
 #include "project/ProjectModel.h"
 
-class nsSVModel : public nsLocatable {
+class nsSVModel : public nsLocatable, public nsSerializableFile {
 public:
     nsSVModel();
+
+    nsStringVar         projectPath;
 
     nsProperty<float>   zoom;
     nsProperty<bool>    xFlip;
@@ -19,7 +23,14 @@ public:
     nsProperty<bool>    emitParticles;
     nsProperty<int>     blastParticles;
     nsProperty<bool>          testView;
-    nsProjectModel  project;
+
+    nsProjectModel      project;
+    nsProjectStateModel user;
+
+    nsFilePath GetProjectPath();
+
+    bool Load(const char *fileName) override;
+    bool Save(const char *fileName) override;
 
 protected:
     void OnCreated() override;

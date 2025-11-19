@@ -6,12 +6,38 @@
 #include "nsLib/log.h"
 
 nsSVModel::nsSVModel()
-    : zoom(1),
+    : nsSerializableFile("user"),
+      projectPath("project_path", ""),
+      zoom(1),
       xFlip(false),
       yFlip(false),
       emitParticles(true),
       blastParticles(0),
       testView(false) {
+
+    AddItem(&projectPath);
+}
+
+nsFilePath nsSVModel::GetProjectPath() {
+    return nsFilePath(projectPath.GetValue().c_str());
+}
+
+bool nsSVModel::Load(const char *fileName) {
+    if (nsSerializableFile::Load(fileName)) {
+        const nsFilePath path = GetProjectPath();
+        user.Load(path.ResolvePath("user.ggml"));
+        return true;
+    }
+    return false;
+}
+
+bool nsSVModel::Save(const char *fileName) {
+    if (nsSerializableFile::Save(fileName)) {
+        const nsFilePath path = GetProjectPath();
+        user.Save(path.ResolvePath("user.ggml"));
+        return true;
+    }
+    return false;
 }
 
 void nsSVModel::OnCreated() {

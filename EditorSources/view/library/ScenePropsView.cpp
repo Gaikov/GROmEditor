@@ -9,7 +9,7 @@
 #include "props/VisualPropsView.h"
 
 nsScenePropsView::nsScenePropsView() {
-    auto &scenePath = _model->project.currentScene;
+    auto &scenePath = _model->user.currentScene;
     scenePath.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *e) {
         _scene = _model->project.scenes.Get(scenePath);
         _selected = _scene;
@@ -23,7 +23,7 @@ void nsScenePropsView::Draw() {
 
     ImGui::Text("Layout:");
     ImGui::SameLine();
-    ImGui::Text(_model->project.currentScene->c_str());
+    ImGui::Text(_model->user.currentScene->c_str());
 
     if (_scene) {
         if (ImGui::CollapsingHeader("Scene Tree", ImGuiTreeNodeFlags_DefaultOpen)) {

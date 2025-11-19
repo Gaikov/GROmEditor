@@ -75,9 +75,9 @@ bool nsSceneViewerApp::Init() {
         }
     });
 
-    _appModel->project.Load("project.ggml");
+    _appModel->Load("editor.ggml");
 
-    _appModel->project.currentScene.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
+    _appModel->user.currentScene.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
         ReloadLayout();
     });
     ReloadLayout();
@@ -97,7 +97,7 @@ void nsSceneViewerApp::Release() {
         _root->Destroy();
     }
 
-    _appModel->project.Save("project.ggml");
+    _appModel->Save("editor.ggml");
 
     nsPopupsStack::Release();
     nsViewsRoot::Release();
@@ -191,13 +191,13 @@ void nsSceneViewerApp::LoadLayout(const char *filePath) {
     const auto layout = Locate<nsSVModel>()->project.scenes.Get(filePath);
     if (layout) {
         _root->SetScene(layout);
-        _appModel->project.currentScene = filePath;
+        _appModel->user.currentScene = filePath;
     }
 }
 
 void nsSceneViewerApp::ReloadLayout() {
-    if (!_appModel->project.currentScene->empty()) {
-        LoadLayout(_appModel->project.currentScene->c_str());
+    if (!_appModel->user.currentScene->empty()) {
+        LoadLayout(_appModel->user.currentScene->c_str());
     }
 }
 

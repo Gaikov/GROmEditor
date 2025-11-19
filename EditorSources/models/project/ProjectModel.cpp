@@ -5,9 +5,5 @@
 #include "ProjectModel.h"
 
 nsProjectModel::nsProjectModel()
-    : nsSerializableFile("project"),
-      projectPath(""),
-      currentScene("current_scene", "") {
-
-    AddItem(&currentScene);
+    : nsSerializableFile("project") {
 }

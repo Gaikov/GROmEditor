@@ -19,8 +19,8 @@ nsSVMainView::nsSVMainView() {
         BlastParticles();
     });
 
-    p.currentScene.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent*) {
-        SetScene(p.scenes.Get(_appModel->project.currentScene));
+    _appModel->user.currentScene.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent*) {
+        SetScene(p.scenes.Get(_appModel->user.currentScene));
     });
 }
 
