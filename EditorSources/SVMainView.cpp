@@ -11,8 +11,8 @@
 nsSVMainView::nsSVMainView() {
     _appModel = Locate<nsSVModel>();
     auto &p = _appModel->project;
-    _appModel->emitParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
-        EmitParticles(_appModel->emitParticles);
+    _appModel->user.emitParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
+        EmitParticles(_appModel->user.emitParticles);
     });
 
     _appModel->blastParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
@@ -35,7 +35,7 @@ void nsSVMainView::SetScene(nsVisualObject2d *scene) {
         if (auto container = dynamic_cast<nsVisualContainer2d*>(_scene)) {
             container->GetChildrenRecursive(_particles);
         }
-        EmitParticles(_appModel->emitParticles);
+        EmitParticles(_appModel->user.emitParticles);
     }
 }
 

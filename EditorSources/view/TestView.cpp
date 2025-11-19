@@ -88,11 +88,10 @@ private:
 CascadingModals models;
 
 nsTestView::nsTestView() {
-    const auto model = Locate<nsSVModel>();
-    model->testView.AddHandler(nsPropChangedName::CHANGED, [this, model](const nsBaseEvent*) {
-        visible = model->testView;
+    _model->user.testView.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
+        visible = _model->user.testView;
     });
-    visible = model->testView;
+    visible = _model->user.testView;
 }
 
 void nsTestView::Draw() {

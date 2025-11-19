@@ -9,11 +9,7 @@ nsSVModel::nsSVModel()
     : nsSerializableFile("user"),
       projectPath("project_path", ""),
       zoom(1),
-      xFlip(false),
-      yFlip(false),
-      emitParticles(true),
-      blastParticles(0),
-      testView(false) {
+      blastParticles(0) {
 
     AddItem(&projectPath);
 }

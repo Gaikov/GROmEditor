@@ -31,7 +31,8 @@ void nsSVSceneView::Destroy() {
 }
 
 void nsSVSceneView::SetScene(nsVisualObject2d *scene) {
-    auto m = _appModel;
+    const auto m = _appModel;
+    const auto &user = _appModel->user;
 
     if (_scene) {
         RemoveChild(_scene);
@@ -40,8 +41,8 @@ void nsSVSceneView::SetScene(nsVisualObject2d *scene) {
     _scene = scene;
     if (_scene) {
         _scene->origin.scale = {
-                m->xFlip ? -1 : 1 * m->zoom,
-                m->yFlip ? -1 : 1 * m->zoom,
+                user.xFlip ? -1 : 1 * m->zoom,
+                user.yFlip ? -1 : 1 * m->zoom,
         };
         AddChild(_scene);
     }
@@ -52,10 +53,11 @@ void nsSVSceneView::Loop() {
 
         auto &t = _scene->origin;
         auto m = _appModel;
+        auto &user = _appModel->user;
 
         nsVec2 targetScale = {
-                (m->xFlip ? -1.0f : 1.0f) * m->zoom,
-                (m->yFlip ? -1.0f : 1.0f) * m->zoom,
+                (user.xFlip ? -1.0f : 1.0f) * m->zoom,
+                (user.yFlip ? -1.0f : 1.0f) * m->zoom,
         };
 
         nsVec2 scale = t.scale;

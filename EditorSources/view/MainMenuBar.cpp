@@ -66,18 +66,19 @@ void nsMainMenuBar::Draw() {
             ImGui::EndMenu();
         }
 
+        auto &user = _model->user;
         if (ImGui::BeginMenu("View")) {
-            if (ImGui::MenuItem("Emit Particles", nullptr, _model->emitParticles)) {
-                _model->emitParticles = !_model->emitParticles;
+            if (ImGui::MenuItem("Emit Particles", nullptr, user.emitParticles)) {
+                user.emitParticles = !user.emitParticles;
             }
             if (ImGui::MenuItem("Blast Particles")) {
                 _model->blastParticles = _model->blastParticles + 1;
             }
-            if (ImGui::MenuItem("Flip X")) {
-                _model->xFlip = !_model->xFlip;
+            if (ImGui::MenuItem("Flip X", nullptr, user.xFlip)) {
+                user.xFlip = !user.xFlip;
             }
-            if (ImGui::MenuItem("Flip Y")) {
-                _model->yFlip = !_model->yFlip;
+            if (ImGui::MenuItem("Flip Y", nullptr, user.yFlip)) {
+                user.yFlip = !user.yFlip;
             }
             if (ImGui::MenuItem("Reset Zoom")) {
                 _model->zoom = 1;
@@ -87,8 +88,8 @@ void nsMainMenuBar::Draw() {
         }
 
         if (ImGui::BeginMenu("Debug")) {
-            if (ImGui::MenuItem("Demo View", nullptr, _model->testView)) {
-                _model->testView = !_model->testView;
+            if (ImGui::MenuItem("Demo View", nullptr, user.testView)) {
+                user.testView = !user.testView;
             }
 
             ImGui::EndMenu();

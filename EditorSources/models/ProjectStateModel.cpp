@@ -6,6 +6,15 @@
 
 nsProjectStateModel::nsProjectStateModel()
     : nsSerializableFile("user"),
-      currentScene("current_scene", "") {
+      currentScene("current_scene", ""),
+      xFlip("x_flip", false),
+      yFlip("y_flip", false),
+      emitParticles("emit_particles", true),
+      testView("test_view", false) {
+
     AddItem(&currentScene);
+    AddItem(&xFlip);
+    AddItem(&yFlip);
+    AddItem(&emitParticles);
+    AddItem(&testView);
 }

@@ -18,11 +18,7 @@ public:
     nsStringVar         projectPath;
 
     nsProperty<float>   zoom;
-    nsProperty<bool>    xFlip;
-    nsProperty<bool>    yFlip;
-    nsProperty<bool>    emitParticles;
     nsProperty<int>     blastParticles;
-    nsProperty<bool>          testView;
 
     nsProjectModel      project;
     nsProjectStateModel user;
