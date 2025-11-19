@@ -11,9 +11,9 @@
 #include "nsLib/StrTools.h"
 
 template<typename TString>
-class nsUndoTextInput {
+class nsTextInputUndo {
 public:
-    nsUndoTextInput(const char *title) : _title(title) {
+    nsTextInputUndo(const char *title) : _title(title) {
     }
 
     void Draw(TString &text) {
