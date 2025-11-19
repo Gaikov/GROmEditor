@@ -4,11 +4,10 @@
 
 #include "MainMenuBar.h"
 
-#include "alerts/AlertPopup.h"
 #include "Core/sys.h"
+#include "Core/undo/UndoService.h"
 #include "imgui/imgui.h"
 #include "nsLib/locator/ServiceLocator.h"
-#include "view/popups/PopupsStack.h"
 
 nsMainMenuBar::nsMainMenuBar() {
     _model = Locate<nsSVModel>();
@@ -45,12 +44,14 @@ void nsMainMenuBar::Draw() {
 
         // Меню Edit
         if (ImGui::BeginMenu("Edit")) {
-            if (ImGui::MenuItem("Undo", "Ctrl+Z")) {
-                printf("Undo\n");
+            const auto undo = nsUndoService::Shared();
+            if (ImGui::MenuItem("Undo", "Ctrl+Z", false, undo->HasUndo())) {
+                undo->Undo();
             }
-            if (ImGui::MenuItem("Redo", "Ctrl+Y", false, false)) {
-                // Disabled item
+            if (ImGui::MenuItem("Redo", "Ctrl+Y", false, undo->HasRedo())) {
+                undo->Redo();
             }
+            /*
             ImGui::Separator();
             if (ImGui::MenuItem("Cut", "Ctrl+X")) {
                 printf("Cut\n");
@@ -61,6 +62,7 @@ void nsMainMenuBar::Draw() {
             if (ImGui::MenuItem("Paste", "Ctrl+V")) {
                 printf("Paste\n");
             }
+            */
             ImGui::EndMenu();
         }
 

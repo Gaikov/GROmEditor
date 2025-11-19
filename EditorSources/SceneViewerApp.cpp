@@ -16,6 +16,7 @@
 #include "nsLib/locator/ServiceLocator.h"
 #include "models/SVModel.h"
 #include "SVSceneView.h"
+#include "Core/undo/UndoService.h"
 #include "ThirdParty/imgui/ImGUI_gles3.h"
 #include "view/ViewsRoot.h"
 #include "view/popups/PopupsStack.h"
@@ -43,6 +44,7 @@ bool nsSceneViewerApp::Init() {
     });
     sv_bg_color = g_cfg->RegVar("sv_bg_color", "0.1 0.1 0.1 1", GVF_SAVABLE);
 
+    nsUndoService::Init();
     nsServiceLocator::Init();
     auto locator = nsServiceLocator::Shared();
     locator->MapClass<nsSVModel>().AsSingleton().GetInstance();
@@ -94,6 +96,7 @@ void nsSceneViewerApp::Release() {
     nsPopupsStack::Release();
     nsViewsRoot::Release();
     nsServiceLocator::Release();
+    nsUndoService::Release();
     _guiBackend.Shutdown();
 }
 

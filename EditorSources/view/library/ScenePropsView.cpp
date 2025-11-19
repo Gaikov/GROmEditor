@@ -6,6 +6,7 @@
 #include "Engine/display/container/VisualContainer2d.h"
 #include "Core/Var.h"
 #include "imgui/imgui.h"
+#include "props/VisualPropsView.h"
 
 nsScenePropsView::nsScenePropsView() {
     auto &scenePath = _model->project.currentScene;
@@ -13,6 +14,8 @@ nsScenePropsView::nsScenePropsView() {
         _scene = _model->project.scenes.Get(scenePath);
         _selected = _scene;
     });
+
+    _propsViews.push_back(std::make_shared<nsVisualPropsView>());
 }
 
 void nsScenePropsView::Draw() {
@@ -36,7 +39,9 @@ void nsScenePropsView::Draw() {
                               ImGuiChildFlags_AutoResizeY,
                               ImGuiWindowFlags_HorizontalScrollbar);
             if (_selected) {
-                ImGui::Text("Selected: %s", _selected->id.c_str());
+                for (const auto &propsView: _propsViews) {
+                    propsView->Draw(_selected);
+                }
             } else {
                 ImGui::Text("No selection");
             }
