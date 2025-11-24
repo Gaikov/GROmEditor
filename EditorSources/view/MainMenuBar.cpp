@@ -81,7 +81,7 @@ void nsMainMenuBar::Draw() {
                 user.yFlip = !user.yFlip;
             }
             if (ImGui::MenuItem("Reset Zoom")) {
-                _model->zoom = 1;
+                _model->user.zoom = 1.0f;
             }
 
             ImGui::EndMenu();

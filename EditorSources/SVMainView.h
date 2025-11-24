@@ -39,5 +39,4 @@ private:
     bool _dragging = false;
     nsVec2  _mouseDown;
     nsVec2  _startDragPos;
-    nsVec2  _targetPos;
 };

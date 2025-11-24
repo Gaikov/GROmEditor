@@ -7,7 +7,6 @@
 
 #include "Engine/display/layouts/GroupLayout.h"
 #include "models/SVModel.h"
-#include "Engine/display/factory/CustomVisual.h"
 
 class nsSVSceneView : public nsVisualContainer2d {
 public:
@@ -19,7 +18,6 @@ public:
 
 protected:
     void DrawContent(const nsVisualContext2d &context) override;
-    void UpdateBackColor();
 
 private:
     nsVisualObject2d    *_scene = nullptr;

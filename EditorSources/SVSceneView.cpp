@@ -5,17 +5,10 @@
 #include "SVSceneView.h"
 #include "nsLib/locator/ServiceLocator.h"
 #include "Engine/TimeFormat.h"
-#include "Core/Var.h"
 #include "Engine/display/sprite/Sprite.h"
-
-extern nsVar *sv_bg_color;
 
 nsSVSceneView::nsSVSceneView() {
     _appModel = Locate<nsSVModel>();
-
-    sv_bg_color->AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *e) {
-        UpdateBackColor();
-    });
 }
 
 void nsSVSceneView::Destroy() {
@@ -43,8 +36,8 @@ void nsSVSceneView::Loop() {
         auto &user = _appModel->user;
 
         nsVec2 targetScale = {
-                (user.xFlip ? -1.0f : 1.0f) * m->zoom,
-                (user.yFlip ? -1.0f : 1.0f) * m->zoom,
+                (user.xFlip ? -1.0f : 1.0f) * m->user.zoom,
+                (user.yFlip ? -1.0f : 1.0f) * m->user.zoom,
         };
 
         nsVec2 scale = t.scale;
@@ -67,13 +60,5 @@ void nsSVSceneView::DrawContent(const nsVisualContext2d &context) {
     nsVisualContainer2d::DrawContent(context);
 }
 
-void nsSVSceneView::UpdateBackColor() {
-    auto back = dynamic_cast<nsSprite*>(GetChildByIdRecursive("background"));
-    if (back) {
-        nsColor c;
-        sscanf(sv_bg_color->String(), "%f %f %f %f", &c.r, &c.g, &c.b, &c.a);
-        back->desc.color = c;
-    }
-}
 
 

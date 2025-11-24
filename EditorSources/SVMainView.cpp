@@ -12,19 +12,19 @@
 nsSVMainView::nsSVMainView() {
     _appModel = Locate<nsSVModel>();
     auto &p = _appModel->project;
-    _appModel->user.emitParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
+    _appModel->user.emitParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *) {
         EmitParticles(_appModel->user.emitParticles);
     });
 
-    _appModel->blastParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
+    _appModel->blastParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *) {
         BlastParticles();
     });
 
-    _appModel->user.currentScene.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent*) {
+    _appModel->user.currentScene.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *) {
         SetScene(p.scenes.Get(_appModel->user.currentScene));
     });
 
-    _appModel->user.backColor.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
+    _appModel->user.backColor.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *) {
         _back->desc.color = _appModel->user.backColor;
     });
     _sceneView = new nsSVSceneView();
@@ -40,7 +40,7 @@ void nsSVMainView::SetScene(nsVisualObject2d *scene) {
     _sceneView->SetScene(scene);
 
     if (_scene) {
-        if (auto container = dynamic_cast<nsVisualContainer2d*>(_scene)) {
+        if (auto container = dynamic_cast<nsVisualContainer2d *>(_scene)) {
             container->GetChildrenRecursive(_particles);
         }
         EmitParticles(_appModel->user.emitParticles);
@@ -57,15 +57,14 @@ void nsSVMainView::Loop() {
     const auto size = nsAppUtils::GetClientSize();
     _back->desc.size = size;
 
-    if (_scene) {
-        auto &t = _scene->origin;
-        t.angle = nsMath::MoveExp(t.angle, _angle, 10, g_frameTime);
+    auto &t = _sceneView->origin;
+    t.angle = nsMath::MoveExp(t.angle, _angle, 10, g_frameTime);
 
-        nsVec2 pos = t.pos;
-        pos.x = nsMath::MoveExp(pos.x, _targetPos.x, 50, g_frameTime);
-        pos.y = nsMath::MoveExp(pos.y, _targetPos.y, 50, g_frameTime);
-        t.pos = pos;
-    }
+    auto &user = _appModel->user;
+    nsVec2 pos = t.pos;
+    pos.x = nsMath::MoveExp(pos.x, user.sceneX, 50, g_frameTime);
+    pos.y = nsMath::MoveExp(pos.y, user.sceneY, 50, g_frameTime);
+    t.pos = pos;
 
     nsVisualContainer2d::Loop();
 }
@@ -84,14 +83,11 @@ bool nsSVMainView::OnPointerDown(float x, float y, int pointerId) {
         return true;
     }
 
-    if (_scene) {
-        _dragging = true;
-        _mouseDown = {x, y};
-        _startDragPos = _scene->origin.pos;
-        return true;
-    }
 
-    return false;
+    _dragging = true;
+    _mouseDown = {x, y};
+    _startDragPos = _sceneView->origin.pos;
+    return true;
 }
 
 bool nsSVMainView::OnPointerMove(float x, float y, int pointerId) {
@@ -100,8 +96,11 @@ bool nsSVMainView::OnPointerMove(float x, float y, int pointerId) {
     }
 
     if (_dragging) {
-        auto delta = nsVec2(x, y) - _mouseDown;
-        _targetPos = _startDragPos + delta;
+        const auto delta = nsVec2(x, y) - _mouseDown;
+        const auto pos = _startDragPos + delta;
+        auto &user = _appModel->user;
+        user.sceneX = pos.x;
+        user.sceneY = pos.y;
         return true;
     }
 
@@ -110,28 +109,23 @@ bool nsSVMainView::OnPointerMove(float x, float y, int pointerId) {
 
 bool nsSVMainView::OnMouseWheel(float delta) {
     nsVisualContainer2d::OnMouseWheel(delta);
-    float zoom = _appModel->zoom;
-    _appModel->zoom = zoom + (zoom * 0.05f) * delta;
+    const float zoom = _appModel->user.zoom;
+    _appModel->user.zoom = zoom + (zoom * 0.05f) * delta;
     return true;
-    //_angle += nsMath::Sign(delta) * nsMath::ToRad(10);
 }
 
 void nsSVMainView::EmitParticles(bool emit) {
     Log::Info("emit: %i", emit ? 1 : 0);
-    for (auto p : _particles) {
+    for (auto p: _particles) {
         p->GetSystem().spawnEnabled = emit;
     }
 }
 
 void nsSVMainView::BlastParticles() {
-    for (auto p : _particles) {
+    for (auto p: _particles) {
         auto &ps = p->GetSystem();
         if (!ps.spawnEnabled) {
             ps.Emit();
         }
     }
 }
-
-
-
-

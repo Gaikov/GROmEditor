@@ -15,8 +15,15 @@ void nsTopBarView::Draw() {
         }
 
         ImGui::SameLine();
+        float zoom = _model->user.zoom * 100.0f;
+        if (ImGui::InputFloat("Zoom", &zoom, 10, 50, "%.2f")) {
+            _model->user.zoom = zoom / 100.0f;
+        }
 
-        //ImGui::InputFloat("Zoom", &_model->user.zoom);
+        ImGui::SameLine();
+        if (ImGui::Button("100%")) {
+            _model->user.zoom = 1.0f;
+        }
     }
     ImGui::End();
 }

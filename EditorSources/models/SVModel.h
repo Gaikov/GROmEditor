@@ -17,7 +17,6 @@ public:
 
     nsStringVar         projectPath;
 
-    nsProperty<float>   zoom;
     nsProperty<int>     blastParticles;
 
     nsProjectModel      project;
