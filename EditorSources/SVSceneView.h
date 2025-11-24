@@ -9,13 +9,12 @@
 #include "models/SVModel.h"
 #include "Engine/display/factory/CustomVisual.h"
 
-class nsSVSceneView : public nsGroupLayout, public nsCustomVisual {
+class nsSVSceneView : public nsVisualContainer2d {
 public:
     nsSVSceneView();
 
     void SetScene(nsVisualObject2d *scene);
     void Loop() override;
-    bool ParseCustomProps(script_state_t *ss) override;
     void Destroy() override;
 
 protected:

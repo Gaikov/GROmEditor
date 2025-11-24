@@ -40,7 +40,8 @@ private:
 
 private:
     nsSVModel      *_appModel = nullptr;
-    nsSVMainView   *_root = nullptr;
+    nsVisualContainer2d *_stage = nullptr;
+    nsSVMainView   *_view = nullptr;
     IRenDevice      *_device = nullptr;
     nsOrthogonalNativeView  _ortho;
 

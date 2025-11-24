@@ -5,17 +5,19 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 
+#include "SVSceneView.h"
 #include "Engine/display/layouts/GroupLayout.h"
 #include "models/SVModel.h"
 #include "Engine/display/particles/VisualParticles.h"
 
-class nsSVMainView : public nsGroupLayout {
+class nsSVMainView : public nsVisualContainer2d {
 public:
     nsSVMainView();
     void SetScene(nsVisualObject2d *scene);
 
     void Loop() override;
 protected:
+    void OnAddedToStage() override;
     bool OnPointerUp(float x, float y, int pointerId) override;
     bool OnPointerDown(float x, float y, int pointerId) override;
     bool OnPointerMove(float x, float y, int pointerId) override;
@@ -26,6 +28,7 @@ protected:
 
 private:
     nsSVModel           *_appModel;
+    nsSVSceneView       *_sceneView;
     nsVisualObject2d    *_scene = nullptr;
 
     std::vector<nsVisualParticles*>  _particles;

@@ -22,14 +22,14 @@ nsSVMainView::nsSVMainView() {
     _appModel->user.currentScene.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent*) {
         SetScene(p.scenes.Get(_appModel->user.currentScene));
     });
+    _sceneView = new nsSVSceneView();
 }
 
 void nsSVMainView::SetScene(nsVisualObject2d *scene) {
-    auto view = dynamic_cast<nsSVSceneView*>(GetChildById("sceneView"));
     _particles.clear();
 
     _scene = scene;
-    view->SetScene(scene);
+    _sceneView->SetScene(scene);
 
     if (_scene) {
         if (auto container = dynamic_cast<nsVisualContainer2d*>(_scene)) {
@@ -39,6 +39,10 @@ void nsSVMainView::SetScene(nsVisualObject2d *scene) {
     }
 }
 
+void nsSVMainView::OnAddedToStage() {
+    nsVisualContainer2d::OnAddedToStage();
+    AddChild(_sceneView);
+}
 
 void nsSVMainView::Loop() {
     if (_scene) {

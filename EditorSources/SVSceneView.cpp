@@ -18,32 +18,19 @@ nsSVSceneView::nsSVSceneView() {
     });
 }
 
-bool nsSVSceneView::ParseCustomProps(script_state_t *ss) {
-    UpdateBackColor();
-    return true;
-}
-
 void nsSVSceneView::Destroy() {
     if (_scene) {
         RemoveChild(_scene);
     }
-    nsGroupLayout::Destroy();
+    nsVisualContainer2d::Destroy();
 }
 
 void nsSVSceneView::SetScene(nsVisualObject2d *scene) {
-    const auto m = _appModel;
-    const auto &user = _appModel->user;
-
     if (_scene) {
         RemoveChild(_scene);
     }
-
     _scene = scene;
     if (_scene) {
-        _scene->origin.scale = {
-                user.xFlip ? -1 : 1 * m->zoom,
-                user.yFlip ? -1 : 1 * m->zoom,
-        };
         AddChild(_scene);
     }
 }
@@ -51,7 +38,7 @@ void nsSVSceneView::SetScene(nsVisualObject2d *scene) {
 void nsSVSceneView::Loop() {
     if (_scene) {
 
-        auto &t = _scene->origin;
+        auto &t = origin;
         auto m = _appModel;
         auto &user = _appModel->user;
 
@@ -73,11 +60,11 @@ void nsSVSceneView::Loop() {
 
 void nsSVSceneView::DrawContent(const nsVisualContext2d &context) {
     if (_scene) {
-        auto coords = GetChildById("coordSystem");
-        coords->origin.pos = (nsVec2) _scene->origin.pos;
+        //auto coords = GetChildById("coordSystem");
+        //coords->origin.pos = (nsVec2) _scene->origin.pos;
     }
 
-    nsBaseLayout::DrawContent(context);
+    nsVisualContainer2d::DrawContent(context);
 }
 
 void nsSVSceneView::UpdateBackColor() {

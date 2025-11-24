@@ -87,6 +87,72 @@ private:
 
 CascadingModals models;
 
+void BasicDragDrop() {
+    ImGui::Begin("Basic Drag & Drop");
+
+    // Источник для перетаскивания
+    ImGui::Button("Drag me!");
+    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+        // Устанавливаем данные для перетаскивания
+        const char* payload_data = "Dragged button data";
+        ImGui::SetDragDropPayload("MY_DND_TYPE", payload_data, strlen(payload_data) + 1);
+
+        // Предпросмотр при перетаскивании
+        ImGui::Text("Dragging button...");
+        ImGui::EndDragDropSource();
+    }
+
+    // Цель для бросания
+    ImGui::Button("Drop here");
+    if (ImGui::BeginDragDropTarget()) {
+        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("MY_DND_TYPE")) {
+            const char* received_data = (const char*)payload->Data;
+            printf("Received: %s\n", received_data);
+        }
+        ImGui::EndDragDropTarget();
+    }
+
+    ImGui::End();
+}
+
+void DraggableMenuItem() {
+    ImGui::Begin("Draggable MenuItem Example");
+
+    if (ImGui::BeginMenu("File")) {
+        // Обычный MenuItem
+        if (ImGui::MenuItem("New")) {
+            // Обработка клика
+        }
+
+        // Draggable MenuItem
+        if (ImGui::MenuItem("Open")) {
+            // Обработка клика
+        }
+
+        // Добавляем перетаскивание для MenuItem "Open"
+        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+            const char* payload_data = "OPEN_OPERATION";
+            ImGui::SetDragDropPayload("MENU_ITEM", payload_data, strlen(payload_data) + 1);
+            ImGui::Text("Dragging: Open");
+            ImGui::EndDragDropSource();
+        }
+
+        ImGui::EndMenu();
+    }
+
+    // Область для бросания
+    ImGui::Button("Drop Menu Items Here", ImVec2(-1, 100));
+    if (ImGui::BeginDragDropTarget()) {
+        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("MENU_ITEM")) {
+            const char* received = (const char*)payload->Data;
+            printf("Dropped menu item: %s\n", received);
+        }
+        ImGui::EndDragDropTarget();
+    }
+
+    ImGui::End();
+}
+
 nsTestView::nsTestView() {
     _model->user.testView.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
         visible = _model->user.testView;
@@ -170,4 +236,7 @@ void nsTestView::Draw() {
 
     ImGui::End();
 
+    BasicDragDrop();
+
+    DraggableMenuItem();
 }

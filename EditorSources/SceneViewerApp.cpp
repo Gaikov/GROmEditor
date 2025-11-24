@@ -9,13 +9,11 @@
 #include "Engine/RenManager.h"
 #include "nsLib/log.h"
 #include "Engine/utils/AppUtils.h"
-#include "Engine/display/factory/VisualFactory2d.h"
 #include "Engine/Input.h"
 #include "Engine/renderer/particles/ParticlesManager.h"
 #include "Core/sys.h"
 #include "nsLib/locator/ServiceLocator.h"
 #include "models/SVModel.h"
-#include "SVSceneView.h"
 #include "Core/undo/UndoService.h"
 #include "ThirdParty/imgui/ImGUI_gles3.h"
 #include "view/ViewsRoot.h"
@@ -39,9 +37,6 @@ bool nsSceneViewerApp::Init() {
     Log::Info("################### Init SceneViewer ###################");
     _guiBackend.Init(App_GetPlatform()->GetWindowHandler());
 
-    g_cfg->RegCmd("sv_unload", [this](int, const char*[]) {
-        _root->SetScene(nullptr);
-    });
     sv_bg_color = g_cfg->RegVar("sv_bg_color", "0.1 0.1 0.1 1", GVF_SAVABLE);
 
     nsUndoService::Init();
@@ -56,16 +51,9 @@ bool nsSceneViewerApp::Init() {
     nsViewsRoot::Init();
     nsPopupsStack::Init();
 
-    auto factory = nsVisualFactory2d::Shared();
-    factory->BindClass<nsSVMainView>("MainView");
-    factory->BindClass<nsSVSceneView>("SceneView");
-
-    auto view = factory->Create("default/viewer/main.layout");
-    _root = dynamic_cast<nsSVMainView *>(view);
-    if (!_root) {
-        Sys_FatalError("Invalid main layout!");
-        return false;
-    }
+    _view = new nsSVMainView();
+    _stage = nsVisualContainer2d::CreateStage();
+    _stage->AddChild(_view);
 
     g_cfg->RegCmd("sv_load", [this](int argc, const char *argv[] ) {
         if (argc > 1) {
@@ -82,7 +70,7 @@ bool nsSceneViewerApp::Init() {
     });
     ReloadLayout();
 
-    _appInput.AddInput(_root);
+    _appInput.AddInput(_stage);
     _appInput.AddInput(this);
     _appInput._pointerTransform = &_ortho;
     _inputHandler.AddInput(&_guiBackend);
@@ -93,8 +81,8 @@ bool nsSceneViewerApp::Init() {
 
 void nsSceneViewerApp::Release() {
     Log::Info("################### Release SceneViewer ###################");
-    if (_root) {
-        _root->Destroy();
+    if (_stage) {
+        _stage->Destroy();
     }
 
     _appModel->Save("editor.ggml");
@@ -114,10 +102,8 @@ void nsSceneViewerApp::DrawWorld() {
     _ortho.SetScreenSize(size.x, size.y);
     _device->LoadProjMatrix(_ortho.GetViewMatrix());
 
-    _root->SetWidth(size.x);
-    _root->SetHeight(size.y);
 
-    nsVisualSceneRender2d::DrawScene(_root);
+    nsVisualSceneRender2d::DrawScene(_stage);
 
     _guiBackend.StartFrame();
     nsViewsRoot::Shared()->Draw();
@@ -126,7 +112,7 @@ void nsSceneViewerApp::DrawWorld() {
 }
 
 void nsSceneViewerApp::Loop(float frameTime) {
-    _root->Loop();
+    _stage->Loop();
 }
 
 void nsSceneViewerApp::OnActivate(bool active) {
@@ -190,7 +176,7 @@ bool nsSceneViewerApp::OnMouseWheel(float delta) {
 void nsSceneViewerApp::LoadLayout(const char *filePath) {
     const auto layout = Locate<nsSVModel>()->project.scenes.Get(filePath);
     if (layout) {
-        _root->SetScene(layout);
+        _view->SetScene(layout);
         _appModel->user.currentScene = filePath;
     }
 }
