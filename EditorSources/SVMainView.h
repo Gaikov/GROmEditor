@@ -9,12 +9,12 @@
 #include "Engine/display/layouts/GroupLayout.h"
 #include "models/SVModel.h"
 #include "Engine/display/particles/VisualParticles.h"
+#include "Engine/display/sprite/Sprite.h"
 
 class nsSVMainView : public nsVisualContainer2d {
 public:
     nsSVMainView();
     void SetScene(nsVisualObject2d *scene);
-
     void Loop() override;
 protected:
     void OnAddedToStage() override;
@@ -30,6 +30,7 @@ private:
     nsSVModel           *_appModel;
     nsSVSceneView       *_sceneView;
     nsVisualObject2d    *_scene = nullptr;
+    nsSprite *_back = nullptr;
 
     std::vector<nsVisualParticles*>  _particles;
 

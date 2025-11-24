@@ -6,6 +6,7 @@
 
 #include "MainMenuBar.h"
 #include "TestView.h"
+#include "TopBarView.h"
 #include "library/LibraryView.h"
 #include "library/ScenePropsView.h"
 
@@ -16,6 +17,7 @@ bool nsViewsRoot::OnInit() {
     AddView<nsTestView>();
     AddView<nsLibraryView>();
     AddView<nsScenePropsView>();
+    AddView<nsTopBarView>();
 
     return true;
 }

@@ -6,6 +6,7 @@
 #include "Engine/TimeFormat.h"
 #include "nsLib/log.h"
 #include "SVSceneView.h"
+#include "Engine/utils/AppUtils.h"
 #include "nsLib/locator/ServiceLocator.h"
 
 nsSVMainView::nsSVMainView() {
@@ -22,7 +23,14 @@ nsSVMainView::nsSVMainView() {
     _appModel->user.currentScene.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent*) {
         SetScene(p.scenes.Get(_appModel->user.currentScene));
     });
+
+    _appModel->user.backColor.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
+        _back->desc.color = _appModel->user.backColor;
+    });
     _sceneView = new nsSVSceneView();
+    _back = new nsSprite();
+    _back->desc.size = {100, 100};
+    _back->desc.color = _appModel->user.backColor;
 }
 
 void nsSVMainView::SetScene(nsVisualObject2d *scene) {
@@ -41,10 +49,14 @@ void nsSVMainView::SetScene(nsVisualObject2d *scene) {
 
 void nsSVMainView::OnAddedToStage() {
     nsVisualContainer2d::OnAddedToStage();
+    AddChild(_back);
     AddChild(_sceneView);
 }
 
 void nsSVMainView::Loop() {
+    const auto size = nsAppUtils::GetClientSize();
+    _back->desc.size = size;
+
     if (_scene) {
         auto &t = _scene->origin;
         t.angle = nsMath::MoveExp(t.angle, _angle, 10, g_frameTime);

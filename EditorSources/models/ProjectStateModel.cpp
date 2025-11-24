@@ -10,11 +10,12 @@ nsProjectStateModel::nsProjectStateModel()
       xFlip("x_flip", false),
       yFlip("y_flip", false),
       emitParticles("emit_particles", true),
+      backColor("back_color", nsColor::gray),
       testView("test_view", false) {
-
     AddItem(&currentScene);
     AddItem(&xFlip);
     AddItem(&yFlip);
     AddItem(&emitParticles);
+    AddItem(&backColor);
     AddItem(&testView);
 }

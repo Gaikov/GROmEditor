@@ -6,6 +6,7 @@
 #pragma once
 #include "Core/serialization/SerializableFile.h"
 #include "Core/serialization/var/BoolVar.h"
+#include "Core/serialization/var/ColorVar.h"
 #include "Core/serialization/var/StringVar.h"
 
 class nsProjectStateModel : public nsSerializableFile {
@@ -16,5 +17,6 @@ public:
     nsBoolVar xFlip;
     nsBoolVar yFlip;
     nsBoolVar emitParticles;
+    nsColorVar backColor;
     nsBoolVar testView;
 };
