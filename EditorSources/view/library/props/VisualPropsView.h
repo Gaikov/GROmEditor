@@ -6,6 +6,7 @@
 #pragma once
 #include "BaseVisualPropsView.h"
 #include "view/components/TextInputUndo.h"
+#include "view/components/Vec2InputUndo.h"
 
 class nsVisualPropsView : public nsBaseVisualPropsView {
 public:
@@ -16,4 +17,5 @@ public:
 
 private:
     nsTextInputUndo<std::string> _idInput = "ID";
+    nsVec2InputUndo<nsProperty<nsVec2>> _posInput = "Position";
 };
