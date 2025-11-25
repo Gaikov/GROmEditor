@@ -17,6 +17,9 @@ public:
         : nsBaseVisualPropsView("Common") {
     }
     void Draw(nsVisualObject2d *target) override;
+    bool IsSupport(nsVisualObject2d *target) override {
+        return true;
+    };
 
 private:
     nsTextInputUndo<std::string> _idInput = "ID";

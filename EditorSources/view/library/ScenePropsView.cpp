@@ -6,6 +6,7 @@
 #include "Engine/display/container/VisualContainer2d.h"
 #include "Core/Var.h"
 #include "imgui/imgui.h"
+#include "props/SpritePropsView.h"
 #include "props/VisualPropsView.h"
 
 nsScenePropsView::nsScenePropsView() {
@@ -16,6 +17,7 @@ nsScenePropsView::nsScenePropsView() {
     });
 
     _propsViews.push_back(std::make_shared<nsVisualPropsView>());
+    _propsViews.push_back(std::make_shared<nsSpritePropsView>());
 }
 
 void nsScenePropsView::Draw() {
@@ -40,7 +42,9 @@ void nsScenePropsView::Draw() {
                               ImGuiWindowFlags_HorizontalScrollbar);
             if (_selected) {
                 for (const auto &propsView: _propsViews) {
-                    propsView->DrawPanel(_selected);
+                    if (propsView->IsSupport(_selected)) {
+                        propsView->DrawPanel(_selected);
+                    }
                 }
             } else {
                 ImGui::Text("No selection");
@@ -68,7 +72,7 @@ void nsScenePropsView::DrawNode(nsVisualObject2d *node, int index) {
     if (node->id.empty()) {
         name.Format("noname##%d", index);
     } else {
-        name = node->id;
+        name.Format("%s##%d", node->id.c_str(), index);
     }
 
     if (ImGui::TreeNodeEx(name, flags)) {

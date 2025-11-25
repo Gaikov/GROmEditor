@@ -14,6 +14,7 @@ public:
     explicit nsBaseVisualPropsView(const char *label);
     virtual ~nsBaseVisualPropsView() = default;
 
+    virtual bool IsSupport(nsVisualObject2d *target) = 0;
 
     virtual void DrawPanel(nsVisualObject2d *target);
 
