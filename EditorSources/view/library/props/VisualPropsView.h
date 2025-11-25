@@ -9,6 +9,9 @@
 
 class nsVisualPropsView : public nsBaseVisualPropsView {
 public:
+    explicit nsVisualPropsView()
+        : nsBaseVisualPropsView("Common") {
+    }
     void Draw(nsVisualObject2d *target) override;
 
 private:

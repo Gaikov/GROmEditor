@@ -13,7 +13,7 @@ public:
 
 protected:
     void Draw() override;
-    void DrawNode(nsVisualObject2d *node);
+    void DrawNode(nsVisualObject2d *node, int index);
 
 private:
     nsVisualObject2d *_selected = nullptr;

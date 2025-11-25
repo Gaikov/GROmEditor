@@ -30,7 +30,7 @@ void nsScenePropsView::Draw() {
             ImGui::BeginChild("Tree List", ImVec2(0, 0),
                               ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeY,
                               ImGuiWindowFlags_HorizontalScrollbar);
-            DrawNode(_scene);
+            DrawNode(_scene, 0);
             ImGui::EndChild();
         }
 
@@ -40,7 +40,7 @@ void nsScenePropsView::Draw() {
                               ImGuiWindowFlags_HorizontalScrollbar);
             if (_selected) {
                 for (const auto &propsView: _propsViews) {
-                    propsView->Draw(_selected);
+                    propsView->DrawPanel(_selected);
                 }
             } else {
                 ImGui::Text("No selection");
@@ -52,7 +52,7 @@ void nsScenePropsView::Draw() {
     ImGui::End();
 }
 
-void nsScenePropsView::DrawNode(nsVisualObject2d *node) {
+void nsScenePropsView::DrawNode(nsVisualObject2d *node, int index) {
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None | ImGuiTreeNodeFlags_DrawLinesFull;
     const auto container = dynamic_cast<nsVisualContainer2d *>(node);
     if (container) {
@@ -64,15 +64,22 @@ void nsScenePropsView::DrawNode(nsVisualObject2d *node) {
         flags |= ImGuiTreeNodeFlags_Selected;
     }
 
-    if (ImGui::TreeNodeEx(node->id.empty() ? "noname" : node->id.c_str(), flags)) {
+    nsString name;
+    if (node->id.empty()) {
+        name.Format("noname##%d", index);
+    } else {
+        name = node->id;
+    }
+
+    if (ImGui::TreeNodeEx(name, flags)) {
         if (ImGui::IsItemClicked()) {
             _selected = node;
         }
 
         if (container) {
             auto &list = container->GetChildren();
-            for (const auto child: list) {
-                DrawNode(child);
+            for (int i = 0; i < list.size(); i++) {
+                DrawNode(list[i], i);
             }
         }
         ImGui::TreePop();

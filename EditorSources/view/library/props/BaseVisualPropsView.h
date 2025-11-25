@@ -11,6 +11,14 @@ class nsBaseVisualPropsView {
 public:
     typedef std::shared_ptr<nsBaseVisualPropsView> sp_t;
 
+    explicit nsBaseVisualPropsView(const char *label);
     virtual ~nsBaseVisualPropsView() = default;
+
+
+    virtual void DrawPanel(nsVisualObject2d *target);
+
+protected:
+    std::string _header;
+
     virtual void Draw(nsVisualObject2d *target) = 0;
 };
