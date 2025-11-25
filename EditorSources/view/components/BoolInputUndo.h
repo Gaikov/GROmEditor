@@ -1,6 +1,6 @@
 // Copyright (c) 2003-2025, Roman Gaikov. All rights reserved.
 //--------------------------------------------------------------------------------------------------
-// file Vec2InputUndo.h
+// file BoolInputUndo.h
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
@@ -9,20 +9,16 @@
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVarChange.h"
 #include "imgui/imgui.h"
-#include "nsLib/log.h"
-#include "nsLib/Vec2.h"
 
-template<typename TVec2>
-class nsVec2InputUndo {
+template<typename TVar>
+class nsBoolInputUndo {
 public:
-    nsVec2InputUndo(const char *title) : _title(title) {
+    nsBoolInputUndo(const char *title) : _title(title) {
     }
 
-    void Draw(TVec2 &var) {
-        nsVec2 value = var;
-
-        if (ImGui::InputFloat2(_title.c_str(), value)) {
-            Log::Info("changed: %s", value.ToStr());
+    void Draw(TVar &var) {
+        bool value = var;
+        if (ImGui::Checkbox(_title.c_str(), &value)) {
             nsUndoService::Shared()->Push(new nsUndoVarChange(var, value));
         }
     }

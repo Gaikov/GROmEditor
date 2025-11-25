@@ -6,5 +6,6 @@
 
 void nsVisualPropsView::Draw(nsVisualObject2d *target) {
     _idInput.Draw(target->id);
+    _visibleInput.Draw(target->visible);
     _posInput.Draw(target->origin.pos);
 }

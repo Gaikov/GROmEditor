@@ -5,6 +5,8 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 #include "BaseVisualPropsView.h"
+#include "Core/serialization/var/BoolVar.h"
+#include "view/components/BoolInputUndo.h"
 #include "view/components/TextInputUndo.h"
 #include "view/components/Vec2InputUndo.h"
 
@@ -17,5 +19,6 @@ public:
 
 private:
     nsTextInputUndo<std::string> _idInput = "ID";
+    nsBoolInputUndo<nsProperty<bool>> _visibleInput = "Visible";
     nsVec2InputUndo<nsProperty<nsVec2>> _posInput = "Position";
 };
