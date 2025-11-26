@@ -6,6 +6,7 @@
 #pragma once
 #include "BaseVisualPropsView.h"
 #include "view/components/ColorInputUndo.h"
+#include "view/components/TextureSelectUndo.h"
 
 class nsSpritePropsView : public nsBaseVisualPropsView {
 public:
@@ -19,4 +20,5 @@ protected:
     void Draw(nsVisualObject2d *target) override;
 
     nsColorInputUndo<nsColor> _colorInput = "Color";
+    nsTextureSelectUndo<ITexture*> _textureInput = "Texture";
 };

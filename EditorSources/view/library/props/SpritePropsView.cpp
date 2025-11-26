@@ -14,4 +14,5 @@ void nsSpritePropsView::Draw(nsVisualObject2d *target) {
     const auto sprite = dynamic_cast<nsSprite*>(target);
 
     _colorInput.Draw(sprite->desc.color);
+    _textureInput.Draw(sprite->desc.tex);
 }
