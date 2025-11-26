@@ -18,12 +18,14 @@ template<typename TTexture>
 class nsTextureSelectUndo {
 public:
     static constexpr auto POPUP_ID = "Texture selection";
+    static constexpr auto IMAGE_SIZE = 300;
 
 public:
     nsTextureSelectUndo(const char *title) : _title(title), _device(nsRenDevice::Shared()->Device()) {
     }
 
     void Draw(TTexture &var) {
+        //TODO: relative project path
         ITexture *tex = var;
 
         nsString path = _device->TextureGetPath(tex);
@@ -48,18 +50,26 @@ public:
         }
 
         if (ImGui::BeginPopup(POPUP_ID, ImGuiWindowFlags_AlwaysAutoResize)) {
-            ImGui::BeginChild("Images", ImVec2(0, 300),
+            ImGui::BeginChild("Images", ImVec2(0, IMAGE_SIZE),
                 ImGuiChildFlags_AlwaysAutoResize | ImGuiChildFlags_AutoResizeX, ImGuiWindowFlags_HorizontalScrollbar);
             for (auto file: _files) {
                 if (ImGui::Selectable(file.AsChar(), path == file.AsChar(), ImGuiSelectableFlags_AllowDoubleClick)) {
+                    Log::Info("click: %s", file.AsChar());
+                    _current = _device->TextureLoad(file.AsChar());
+                    _device->TextureBind(_current);
+
                     if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
                         Log::Info("Selected: %s", file.AsChar());
-                        auto t = _device->TextureLoad(file.AsChar());
-                        nsUndoService::Shared()->Push(new nsUndoVarChange(var, t));
+                        nsUndoService::Shared()->Push(new nsUndoVarChange(var, _current));
                     }
                 }
             }
             ImGui::EndChild();
+            ImGui::SameLine();
+
+            const auto id = _current ? _current->GetId() : 0;
+            ImGui::Image(static_cast<intptr_t>(id), ImVec2(IMAGE_SIZE, IMAGE_SIZE));
+
             ImGui::EndPopup();
         }
     }
