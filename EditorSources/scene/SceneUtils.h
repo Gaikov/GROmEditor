@@ -9,4 +9,5 @@
 class nsSceneUtils {
 public:
     static void DrawBounds(nsVisualObject2d *obj);
+    static void DrawOrigin(nsVisualObject2d *obj);
 };

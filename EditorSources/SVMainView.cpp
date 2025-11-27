@@ -75,6 +75,7 @@ void nsSVMainView::DrawNode(const nsVisualContext2d &context) {
 
     ApplyWorldMatrix();
     nsSceneUtils::DrawBounds(_appModel->user.selectedObject);
+    nsSceneUtils::DrawOrigin(_appModel->user.selectedObject);
 }
 
 bool nsSVMainView::OnPointerUp(float x, float y, int pointerId) {

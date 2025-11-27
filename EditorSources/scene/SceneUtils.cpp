@@ -26,3 +26,22 @@ void nsSceneUtils::DrawBounds(nsVisualObject2d *obj) {
     RX_DrawLine(v3, v4, c);
     RX_DrawLine(v1, v4, c);
 }
+
+void nsSceneUtils::DrawOrigin(nsVisualObject2d *obj) {
+    if (!obj) return;
+
+    auto &l = obj->origin;
+    constexpr float size = 10.0f;
+
+    const nsColor c2 = nsColor::magenta;
+
+    const auto pos = l.ToGlobal(nsVec2(0, 0));
+
+    const auto v1 = pos + nsVec2(-size, 0);
+    const auto v2 = pos + nsVec2(size, 0);
+    const auto v3 = pos + nsVec2(0, -size);
+    const auto v4 = pos + nsVec2(0, size);
+
+    RX_DrawLine(v1, v2, c2);
+    RX_DrawLine(v3, v4, c2);
+}
