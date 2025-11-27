@@ -50,17 +50,32 @@ public:
         }
 
         if (ImGui::BeginPopup(POPUP_ID, ImGuiWindowFlags_AlwaysAutoResize)) {
-            ImGui::BeginChild("Images", ImVec2(0, IMAGE_SIZE),
-                ImGuiChildFlags_AlwaysAutoResize | ImGuiChildFlags_AutoResizeX, ImGuiWindowFlags_HorizontalScrollbar);
-            for (auto file: _files) {
-                if (ImGui::Selectable(file.AsChar(), path == file.AsChar(), ImGuiSelectableFlags_AllowDoubleClick)) {
-                    Log::Info("click: %s", file.AsChar());
-                    _current = _device->TextureLoad(file.AsChar());
-                    _device->TextureBind(_current);
+            ImGui::InputText("Search", _filter.AsChar(), nsString::MAX_SIZE - 1);
+            ImGui::SameLine();
+            if (ImGui::Button("Clear")) {
+                _filter = "";
+            }
 
-                    if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
-                        Log::Info("Selected: %s", file.AsChar());
-                        nsUndoService::Shared()->Push(new nsUndoVarChange(var, _current));
+            if (_current) {
+                int w, h;
+                _current->GetSize(w, h);
+                ImGui::Text("%s [%dx%d]", _device->TextureGetPath(_current), w, h);
+            }
+
+            ImGui::BeginChild("Images", ImVec2(IMAGE_SIZE * 1.5f, IMAGE_SIZE),
+                ImGuiChildFlags_AlwaysAutoResize | ImGuiChildFlags_AutoResizeX | ImGuiChildFlags_Borders,
+                ImGuiWindowFlags_HorizontalScrollbar);
+            for (auto file: _files) {
+                if (_filter.IsEmpty() || strstr(file.AsChar(), _filter.AsChar())) {
+                    if (ImGui::Selectable(file.AsChar(), path == file.AsChar(), ImGuiSelectableFlags_AllowDoubleClick)) {
+                        Log::Info("click: %s", file.AsChar());
+                        _current = _device->TextureLoad(file.AsChar());
+                        _device->TextureBind(_current);
+
+                        if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
+                            Log::Info("Selected: %s", file.AsChar());
+                            nsUndoService::Shared()->Push(new nsUndoVarChange(var, _current));
+                        }
                     }
                 }
             }
@@ -79,5 +94,6 @@ private:
     IRenDevice *_device;
     ITexture *_current = nullptr;
 
+    nsString _filter;
     std::vector<nsFilePath> _files;
 };
