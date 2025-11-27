@@ -7,6 +7,7 @@
 #include "BaseVisualPropsView.h"
 #include "view/components/ColorInputUndo.h"
 #include "view/components/TextureSelectUndo.h"
+#include "view/components/Vec2InputUndo.h"
 
 class nsSpritePropsView : public nsBaseVisualPropsView {
 public:
@@ -21,4 +22,8 @@ protected:
 
     nsColorInputUndo<nsColor> _colorInput = "Color";
     nsTextureSelectUndo<ITexture*> _textureInput = "Texture";
+    nsVec2InputUndo<nsVec2> _uv1Input = "UV1";
+    nsVec2InputUndo<nsVec2> _uv2Input = "UV2";
+    nsVec2InputUndo<nsVec2> _pivotInput = "Pivot";
+    nsVec2InputUndo<nsVec2> _sizeInput = "Rect Size";
 };
