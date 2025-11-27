@@ -9,10 +9,13 @@
 #include "Core/serialization/var/ColorVar.h"
 #include "Core/serialization/var/FloatVar.h"
 #include "Core/serialization/var/StringVar.h"
+#include "Engine/display/VisualObject2d.h"
 
 class nsProjectStateModel : public nsSerializableFile {
 public:
     explicit nsProjectStateModel();
+
+    nsProperty<nsVisualObject2d*> selectedObject = nullptr;
 
     nsStringVar currentScene;
     nsBoolVar xFlip;

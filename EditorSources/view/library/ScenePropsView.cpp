@@ -13,7 +13,6 @@ nsScenePropsView::nsScenePropsView() {
     auto &scenePath = _model->user.currentScene;
     scenePath.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *e) {
         _scene = _model->project.scenes.Get(scenePath);
-        _selected = _scene;
     });
 
     _propsViews.push_back(std::make_shared<nsVisualPropsView>());
@@ -40,10 +39,10 @@ void nsScenePropsView::Draw() {
             ImGui::BeginChild("Props List", ImVec2(0, 0),
                               ImGuiChildFlags_AutoResizeY,
                               ImGuiWindowFlags_HorizontalScrollbar);
-            if (_selected) {
+            if (nsVisualObject2d *selected = _model->user.selectedObject) {
                 for (const auto &propsView: _propsViews) {
-                    if (propsView->IsSupport(_selected)) {
-                        propsView->DrawPanel(_selected);
+                    if (propsView->IsSupport(selected)) {
+                        propsView->DrawPanel(selected);
                     }
                 }
             } else {
@@ -57,6 +56,7 @@ void nsScenePropsView::Draw() {
 }
 
 void nsScenePropsView::DrawNode(nsVisualObject2d *node, int index) {
+    nsVisualObject2d *selected = _model->user.selectedObject;
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None | ImGuiTreeNodeFlags_DrawLinesFull;
     const auto container = dynamic_cast<nsVisualContainer2d *>(node);
     if (container) {
@@ -64,7 +64,7 @@ void nsScenePropsView::DrawNode(nsVisualObject2d *node, int index) {
     } else {
         flags |= ImGuiTreeNodeFlags_Leaf;
     }
-    if (node == _selected) {
+    if (node == selected) {
         flags |= ImGuiTreeNodeFlags_Selected;
     }
 
@@ -77,7 +77,7 @@ void nsScenePropsView::DrawNode(nsVisualObject2d *node, int index) {
 
     if (ImGui::TreeNodeEx(name, flags)) {
         if (ImGui::IsItemClicked()) {
-            _selected = node;
+            nsUndoService::Shared()->Push(new nsUndoVarChange(_model->user.selectedObject, node));
         }
 
         if (container) {

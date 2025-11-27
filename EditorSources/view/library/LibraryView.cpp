@@ -5,8 +5,10 @@
 #include "LibraryView.h"
 
 #include "Core/Package.h"
+#include "Core/undo/UndoBatch.h"
 #include "Core/undo/UndoPropertyChange.h"
 #include "Core/undo/UndoService.h"
+#include "Core/undo/UndoVarChange.h"
 #include "imgui/imgui.h"
 #include "nsLib/FilePath.h"
 #include "nsLib/log.h"
@@ -34,7 +36,13 @@ void nsLibraryView::Draw() {
             if (ImGui::Selectable(file.AsChar(), _model->user.currentScene == file.AsChar(), ImGuiSelectableFlags_AllowDoubleClick)) {
                 if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
                     const std::string value = file.AsChar();
-                    nsUndoService::Shared()->Push(new nsUndoPropertyChange(_model->user.currentScene, value));
+                    const auto undo = nsUndoService::Shared();
+                    const auto batch = new nsUndoBatch();
+
+                    batch->Add(new nsUndoVarChange(_model->user.selectedObject, static_cast<nsVisualObject2d *>(nullptr)));
+                    batch->Add(new nsUndoVarChange(_model->user.currentScene, value));
+
+                    undo->Push(batch);
                     Log::Info("Selected: %s", file.AsChar());
                 }
             }

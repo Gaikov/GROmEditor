@@ -3,6 +3,8 @@
 //
 
 #include "SVSceneView.h"
+
+#include "Engine/RenAux.h"
 #include "nsLib/locator/ServiceLocator.h"
 #include "Engine/TimeFormat.h"
 #include "Engine/display/sprite/Sprite.h"
@@ -30,21 +32,20 @@ void nsSVSceneView::SetScene(nsVisualObject2d *scene) {
 
 void nsSVSceneView::Loop() {
     if (_scene) {
-
         auto &t = origin;
         auto m = _appModel;
         auto &user = _appModel->user;
 
         nsVec2 targetScale = {
-                (user.xFlip ? -1.0f : 1.0f) * m->user.zoom,
-                (user.yFlip ? -1.0f : 1.0f) * m->user.zoom,
+            (user.xFlip ? -1.0f : 1.0f) * m->user.zoom,
+            (user.yFlip ? -1.0f : 1.0f) * m->user.zoom,
         };
 
         nsVec2 scale = t.scale;
 
         t.scale = {
-                nsMath::MoveExp(scale.x, targetScale.x, 10, g_frameTime),
-                nsMath::MoveExp(scale.y, targetScale.y, 10, g_frameTime)
+            nsMath::MoveExp(scale.x, targetScale.x, 10, g_frameTime),
+            nsMath::MoveExp(scale.y, targetScale.y, 10, g_frameTime)
         };
     }
 
@@ -52,13 +53,9 @@ void nsSVSceneView::Loop() {
 }
 
 void nsSVSceneView::DrawContent(const nsVisualContext2d &context) {
-    if (_scene) {
-        //auto coords = GetChildById("coordSystem");
-        //coords->origin.pos = (nsVec2) _scene->origin.pos;
-    }
+    constexpr float size = 10000.0f;
+    RX_DrawLine({-size, 0}, {size, 0}, nsColor::green);
+    RX_DrawLine({0, -size}, {0, size}, nsColor::red);
 
     nsVisualContainer2d::DrawContent(context);
 }
-
-
-

@@ -8,6 +8,7 @@
 #include "SVSceneView.h"
 #include "Engine/utils/AppUtils.h"
 #include "nsLib/locator/ServiceLocator.h"
+#include "scene/SceneUtils.h"
 
 nsSVMainView::nsSVMainView() {
     _appModel = Locate<nsSVModel>();
@@ -67,6 +68,13 @@ void nsSVMainView::Loop() {
     t.pos = pos;
 
     nsVisualContainer2d::Loop();
+}
+
+void nsSVMainView::DrawNode(const nsVisualContext2d &context) {
+    nsVisualContainer2d::DrawNode(context);
+
+    ApplyWorldMatrix();
+    nsSceneUtils::DrawBounds(_appModel->user.selectedObject);
 }
 
 bool nsSVMainView::OnPointerUp(float x, float y, int pointerId) {

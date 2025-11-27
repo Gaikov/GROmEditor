@@ -16,6 +16,8 @@ public:
     nsSVMainView();
     void SetScene(nsVisualObject2d *scene);
     void Loop() override;
+    void DrawNode(const nsVisualContext2d &context) override;
+
 protected:
     void OnAddedToStage() override;
     bool OnPointerUp(float x, float y, int pointerId) override;

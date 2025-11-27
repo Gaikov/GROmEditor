@@ -16,7 +16,6 @@ protected:
     void DrawNode(nsVisualObject2d *node, int index);
 
 private:
-    nsVisualObject2d *_selected = nullptr;
     nsVisualObject2d *_scene = nullptr;
 
     std::vector<nsBaseVisualPropsView::sp_t> _propsViews;
