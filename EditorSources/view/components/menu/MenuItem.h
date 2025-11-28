@@ -9,21 +9,29 @@
 #include <string>
 
 #include "BaseMenuItem.h"
+#include "imgui/imgui.h"
 
 class nsMenuItem : public nsBaseMenuItem {
 public:
+    typedef std::function<void()> action_t;
+
     explicit nsMenuItem(const char *label);
 
-    void Shortcut(const char *label) { _shortcut = label; }
-    void SetCallback(const std::function<void()> &callback) { _callback = callback; }
+    nsMenuItem* Shortcut(const char *label, ImGuiKeyChord hotkeys, bool global = true);
+    nsMenuItem* Action(const action_t &callback) { _action = callback; return this; }
     nsMenuItem* AddItem(const char *label);
+    void AddSeparator();
 
     void Draw() override;
+    void Update() override;
 
 protected:
     std::string _label;
     std::string _shortcut;
-    std::function<void()> _callback;
+    ImGuiKeyChord _hotkeys = 0;
+    bool _global = false;
+
+    action_t _action;
 
     std::vector<sp_t> _children;
 

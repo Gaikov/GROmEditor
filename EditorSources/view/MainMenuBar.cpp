@@ -13,53 +13,36 @@ nsMainMenuBar::nsMainMenuBar() {
     _model = Locate<nsSVModel>();
 
     const auto file = _menu.AddItem("File");
-    file->AddItem("Exit");
+    file->AddItem("New")
+            ->Action([] { Log::Info("New project"); })
+            ->Shortcut("Ctrl+N", ImGuiMod_Ctrl | ImGuiKey_N);
+    file->AddItem("Open")
+            ->Action([] { Log::Info("Open project"); })
+            ->Shortcut("Ctrl+O", ImGuiMod_Ctrl | ImGuiKey_O);
+
+    file->AddSeparator();
+    file->AddItem("Save")
+            ->Shortcut("Ctrl+S", ImGuiMod_Ctrl | ImGuiKey_S)
+            ->Action([] { Log::Info("Save project"); });
+
+    file->AddSeparator();
+    file->AddItem("Exit")
+            ->Action([] { Sys_Exit(); })
+            ->Shortcut("Alt+F4", ImGuiMod_Alt | ImGuiKey_F4);
 }
 
 void nsMainMenuBar::Draw() {
+    nsUndoService *undo = Locate<nsUndoService>();
 
     _menu.Draw();
+    _menu.Update();
     return;
 
-    const auto undo = nsUndoService::Shared();
-    if (ImGui::Shortcut(ImGuiMod_Ctrl | ImGuiKey_Z, ImGuiInputFlags_RouteGlobal)) {
-        Log::Debug("ctrl+z");
-        //undo->Undo();
-    }
-
     if (ImGui::BeginMainMenuBar()) {
-        // Меню File
-        if (ImGui::BeginMenu("File")) {
-            if (ImGui::MenuItem("New", "Ctrl+N")) {
-                // Обработка New
-                printf("New project\n");
-            }
-            if (ImGui::MenuItem("Open", "Ctrl+O")) {
-                // Обработка Open
-                printf("Open project\n");
-            }
-            ImGui::Separator();
-            if (ImGui::MenuItem("Save", "Ctrl+S")) {
-                // Обработка Save
-                printf("Save project\n");
-            }
-            if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {
-                // Обработка Save As
-                printf("Save As\n");
-            }
-            ImGui::Separator();
-            if (ImGui::MenuItem("Exit", "Alt+F4")) {
-                // Выход из приложения
-                Sys_Exit();
-            }
-            ImGui::EndMenu();
-        }
-
 
 
         // Меню Edit
         if (ImGui::BeginMenu("Edit")) {
-
             if (ImGui::MenuItem("Undo", "Ctrl+Z", false, undo->HasUndo())) {
                 Log::Debug("edit->undo");
                 undo->Undo();
