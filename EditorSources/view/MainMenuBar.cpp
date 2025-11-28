@@ -11,9 +11,16 @@
 
 nsMainMenuBar::nsMainMenuBar() {
     _model = Locate<nsSVModel>();
+
+    const auto file = _menu.AddItem("File");
+    file->AddItem("Exit");
 }
 
 void nsMainMenuBar::Draw() {
+
+    _menu.Draw();
+    return;
+
     const auto undo = nsUndoService::Shared();
     if (ImGui::Shortcut(ImGuiMod_Ctrl | ImGuiKey_Z, ImGuiInputFlags_RouteGlobal)) {
         Log::Debug("ctrl+z");

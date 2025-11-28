@@ -1,19 +1,16 @@
 // Copyright (c) 2003-2025, Roman Gaikov. All rights reserved.
 //--------------------------------------------------------------------------------------------------
-// file MainMenuBar.h
+// file BaseMenuItem.h
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
-#include "BaseView.h"
-#include "components/menu/MenuBar.h"
-#include "models/SVModel.h"
+#include <memory>
 
-class nsMainMenuBar : public nsBaseView {
+class nsBaseMenuItem {
 public:
-    nsMainMenuBar();
-    void Draw() override;
+    typedef std::shared_ptr<nsBaseMenuItem> sp_t;
 
-private:
-    nsMenuBar _menu;
-    nsSVModel *_model;
+    virtual ~nsBaseMenuItem() = default;
+    virtual void Draw() = 0;
+    virtual void Update() {};
 };

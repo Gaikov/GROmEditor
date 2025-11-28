@@ -1,19 +1,16 @@
 // Copyright (c) 2003-2025, Roman Gaikov. All rights reserved.
 //--------------------------------------------------------------------------------------------------
-// file MainMenuBar.h
+// file MenuBar.h
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
-#include "BaseView.h"
-#include "components/menu/MenuBar.h"
-#include "models/SVModel.h"
+#include "MenuItem.h"
 
-class nsMainMenuBar : public nsBaseView {
+class nsMenuBar final : public nsMenuItem {
 public:
-    nsMainMenuBar();
-    void Draw() override;
+    explicit nsMenuBar()
+        : nsMenuItem("") {
+    }
 
-private:
-    nsMenuBar _menu;
-    nsSVModel *_model;
+    void Draw() override;
 };
