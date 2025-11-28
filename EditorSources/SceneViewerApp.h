@@ -30,8 +30,8 @@ private:
     bool OnPointerDown(float x, float y, int pointerId) override;
     bool OnPointerMove(float x, float y, int pointerId) override;
     void OnPointerCancel(int pointerId) override;
-    void OnKeyUp(int key) override;
-    void OnKeyDown(int key, bool rept) override;
+    void OnKeyUp(int key, int mods) override;
+    void OnKeyDown(int key, bool rept, int mods) override;
     void OnChar(char ch) override;
     bool OnMouseWheel(float delta) override;
 

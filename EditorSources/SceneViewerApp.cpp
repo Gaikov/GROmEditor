@@ -157,11 +157,11 @@ void nsSceneViewerApp::OnPointerCancel(int pointerId) {
 
 }
 
-void nsSceneViewerApp::OnKeyUp(int key) {
+void nsSceneViewerApp::OnKeyUp(int key, int mods) {
 
 }
 
-void nsSceneViewerApp::OnKeyDown(int key, bool rept) {
+void nsSceneViewerApp::OnKeyDown(int key, bool rept, int mods) {
 
 }
 

@@ -14,6 +14,12 @@ nsMainMenuBar::nsMainMenuBar() {
 }
 
 void nsMainMenuBar::Draw() {
+    const auto undo = nsUndoService::Shared();
+    if (ImGui::Shortcut(ImGuiMod_Ctrl | ImGuiKey_Z, ImGuiInputFlags_RouteGlobal)) {
+        Log::Debug("ctrl+z");
+        //undo->Undo();
+    }
+
     if (ImGui::BeginMainMenuBar()) {
         // Меню File
         if (ImGui::BeginMenu("File")) {
@@ -42,13 +48,17 @@ void nsMainMenuBar::Draw() {
             ImGui::EndMenu();
         }
 
+
+
         // Меню Edit
         if (ImGui::BeginMenu("Edit")) {
-            const auto undo = nsUndoService::Shared();
+
             if (ImGui::MenuItem("Undo", "Ctrl+Z", false, undo->HasUndo())) {
+                Log::Debug("edit->undo");
                 undo->Undo();
             }
             if (ImGui::MenuItem("Redo", "Ctrl+Y", false, undo->HasRedo())) {
+                Log::Debug("edit->redo");
                 undo->Redo();
             }
             /*
