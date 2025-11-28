@@ -32,6 +32,11 @@ void nsViewsRoot::Draw() {
             view->Draw();
         }
     }
+    for (const auto& view : _views) {
+        if (view->visible) {
+            view->PostDraw();
+        }
+    }
 
     for (auto added : _addedViews) {
         _views.push_back(added);

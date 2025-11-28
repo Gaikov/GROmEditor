@@ -15,6 +15,10 @@ nsScenePropsView::nsScenePropsView() {
         _scene = _model->project.scenes.Get(scenePath);
     });
 
+    _model->user.selectedObject.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *e) {
+        _preselect = _model->user.selectedObject;
+    });
+
     _propsViews.push_back(std::make_shared<nsVisualPropsView>());
     _propsViews.push_back(std::make_shared<nsSpritePropsView>());
 }
@@ -77,7 +81,7 @@ void nsScenePropsView::DrawNode(nsVisualObject2d *node, int index) {
 
     if (ImGui::TreeNodeEx(name, flags)) {
         if (ImGui::IsItemClicked()) {
-            nsUndoService::Shared()->Push(new nsUndoVarChange(_model->user.selectedObject, node));
+            _preselect = node;
         }
 
         if (container) {
@@ -87,5 +91,13 @@ void nsScenePropsView::DrawNode(nsVisualObject2d *node, int index) {
             }
         }
         ImGui::TreePop();
+    }
+}
+
+void nsScenePropsView::PostDraw() {
+    nsBaseView::PostDraw();
+    if (_preselect != _model->user.selectedObject) {
+        Log::Debug("Selected node changed");
+        nsUndoService::Shared()->Push(new nsUndoVarChange(_model->user.selectedObject, _preselect));
     }
 }
