@@ -15,6 +15,9 @@ class nsMenuItem : public nsBaseMenuItem {
 public:
     typedef std::function<void()> action_t;
 
+    bool enabled = true;
+    bool selected = false;
+
     explicit nsMenuItem(const char *label);
 
     nsMenuItem* Shortcut(const char *label, ImGuiKeyChord hotkeys, bool global = true);

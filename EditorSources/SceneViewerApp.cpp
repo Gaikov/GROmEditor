@@ -23,7 +23,7 @@
 #define VIEWER_APP "GROm Scene Viewer"
 
 static nsSceneViewerApp    g_sceneViewer;
-nsVar    *sv_bg_color = nullptr;
+
 
 IGameApp*	App_GetGame() {
     return &g_sceneViewer;
@@ -36,8 +36,6 @@ bool nsSceneViewerApp::InitDialog() {
 bool nsSceneViewerApp::Init() {
     Log::Info("################### Init SceneViewer ###################");
     _guiBackend.Init(App_GetPlatform()->GetWindowHandler());
-
-    sv_bg_color = g_cfg->RegVar("sv_bg_color", "0.1 0.1 0.1 1", GVF_SAVABLE);
 
     nsUndoService::Init();
     nsServiceLocator::Init();

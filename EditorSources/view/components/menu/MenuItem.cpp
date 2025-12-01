@@ -28,13 +28,13 @@ void nsMenuItem::AddSeparator() {
 
 void nsMenuItem::Draw() {
     if (_children.empty()) {
-        if (ImGui::MenuItem(_label.c_str(), _shortcut.empty() ? nullptr : _shortcut.c_str())) {
+        if (ImGui::MenuItem(_label.c_str(), _shortcut.empty() ? nullptr : _shortcut.c_str(), selected, enabled)) {
             if (_action) {
                 _action();
             }
         }
     } else {
-        if (ImGui::BeginMenu(_label.c_str())) {
+        if (ImGui::BeginMenu(_label.c_str(), enabled)) {
             for (const auto &child: _children) {
                 child->Draw();
             }

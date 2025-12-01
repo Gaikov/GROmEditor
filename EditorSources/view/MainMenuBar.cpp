@@ -29,72 +29,44 @@ nsMainMenuBar::nsMainMenuBar() {
     file->AddItem("Exit")
             ->Action([] { Sys_Exit(); })
             ->Shortcut("Alt+F4", ImGuiMod_Alt | ImGuiKey_F4);
+
+    nsUndoService *undo = nsUndoService::Shared();
+    const auto edit = _menu.AddItem("Edit");
+    _undo = edit->AddItem("Undo")
+            ->Shortcut("Ctrl+Z", ImGuiMod_Ctrl | ImGuiKey_Z)
+            ->Action([undo] { undo->Undo(); });
+    _redo = edit->AddItem("Redo")
+            ->Shortcut("Ctrl+Y", ImGuiMod_Ctrl | ImGuiKey_Y)
+            ->Action([undo] { undo->Redo(); });
+    edit->AddSeparator();
+    edit->AddItem("Cut");
+    edit->AddItem("Copy");
+    edit->AddItem("Paste");
+
+    auto &user = _model->user;
+    const auto view = _menu.AddItem("View");
+    _emitParticles = view->AddItem("Emit Particles")->Action([&] { user.emitParticles = !user.emitParticles; });
+    view->AddItem("Blast Particles")->Action([&] { _model->blastParticles = _model->blastParticles + 1; });
+    _xFlip = view->AddItem("Flip X")->Action([&] { user.xFlip = !user.xFlip; });
+    _yFlip = view->AddItem("Flip Y")->Action([&] { user.yFlip = !user.yFlip; });
+    view->AddItem("Reset Zoom")->Action([&] { _model->user.zoom = 1.0f; });
+
+    const auto debug = _menu.AddItem("Debug");
+    _demoView = debug->AddItem("Demo View")->Action([&] { user.testView = !user.testView; });
 }
 
 void nsMainMenuBar::Draw() {
-    nsUndoService *undo = Locate<nsUndoService>();
+    const nsUndoService *undo = nsUndoService::Shared();
+
+    _undo->enabled = undo->HasUndo();
+    _redo->enabled = undo->HasRedo();
+
+    _emitParticles->selected = _model->user.emitParticles;
+    _xFlip->selected = _model->user.xFlip;
+    _yFlip->selected = _model->user.yFlip;
+
+    _demoView->selected = _model->user.testView;
 
     _menu.Draw();
     _menu.Update();
-    return;
-
-    if (ImGui::BeginMainMenuBar()) {
-
-
-        // Меню Edit
-        if (ImGui::BeginMenu("Edit")) {
-            if (ImGui::MenuItem("Undo", "Ctrl+Z", false, undo->HasUndo())) {
-                Log::Debug("edit->undo");
-                undo->Undo();
-            }
-            if (ImGui::MenuItem("Redo", "Ctrl+Y", false, undo->HasRedo())) {
-                Log::Debug("edit->redo");
-                undo->Redo();
-            }
-            /*
-            ImGui::Separator();
-            if (ImGui::MenuItem("Cut", "Ctrl+X")) {
-                printf("Cut\n");
-            }
-            if (ImGui::MenuItem("Copy", "Ctrl+C")) {
-                printf("Copy\n");
-            }
-            if (ImGui::MenuItem("Paste", "Ctrl+V")) {
-                printf("Paste\n");
-            }
-            */
-            ImGui::EndMenu();
-        }
-
-        auto &user = _model->user;
-        if (ImGui::BeginMenu("View")) {
-            if (ImGui::MenuItem("Emit Particles", nullptr, user.emitParticles)) {
-                user.emitParticles = !user.emitParticles;
-            }
-            if (ImGui::MenuItem("Blast Particles")) {
-                _model->blastParticles = _model->blastParticles + 1;
-            }
-            if (ImGui::MenuItem("Flip X", nullptr, user.xFlip)) {
-                user.xFlip = !user.xFlip;
-            }
-            if (ImGui::MenuItem("Flip Y", nullptr, user.yFlip)) {
-                user.yFlip = !user.yFlip;
-            }
-            if (ImGui::MenuItem("Reset Zoom")) {
-                _model->user.zoom = 1.0f;
-            }
-
-            ImGui::EndMenu();
-        }
-
-        if (ImGui::BeginMenu("Debug")) {
-            if (ImGui::MenuItem("Demo View", nullptr, user.testView)) {
-                user.testView = !user.testView;
-            }
-
-            ImGui::EndMenu();
-        }
-
-        ImGui::EndMainMenuBar();
-    }
 }
