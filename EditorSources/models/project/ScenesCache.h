@@ -11,6 +11,12 @@ public:
     ~nsScenesCache();
     nsVisualObject2d* Get(const std::string &path);
 
+    bool Load(const nsFilePath &projectFolder);
+    void Save(const nsFilePath &projectFolder);
+
+    const std::vector<nsFilePath>& GetFiles() const { return _files; }
+
 private:
+    std::vector<nsFilePath> _files;
     std::map<std::string, nsVisualObject2d*> _cache;
 };

@@ -61,18 +61,19 @@ bool nsSceneViewerApp::Init() {
         }
     });
 
-    _appModel->Load("editor.ggml");
-
     _appModel->user.currentScene.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
         ReloadLayout();
     });
-    ReloadLayout();
 
     _appInput.AddInput(_stage);
     _appInput.AddInput(this);
     _appInput._pointerTransform = &_ortho;
     _inputHandler.AddInput(&_guiBackend);
     _inputHandler.AddInput(&_appInput);
+
+    _appModel->Load("editor.ggml");
+    const auto projectPath = _appModel->GetProjectPath();
+    _appModel->project.Load(projectPath);
 
     return true;
 }

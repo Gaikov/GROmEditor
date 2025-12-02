@@ -5,11 +5,13 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 #include "ScenesCache.h"
-#include "Core/serialization/SerializableFile.h"
 
-class nsProjectModel : public nsSerializableFile {
+class nsProjectModel {
 public:
     nsScenesCache scenes;
 
-    nsProjectModel();
+    nsProjectModel() = default;
+
+    bool Load(const nsFilePath &projectFolder);
+    bool Save(const nsFilePath &projectFolder);
 };

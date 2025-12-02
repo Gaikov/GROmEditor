@@ -4,6 +4,18 @@
 
 #include "ProjectModel.h"
 
-nsProjectModel::nsProjectModel()
-    : nsSerializableFile("project") {
+#include "nsLib/log.h"
+
+bool nsProjectModel::Load(const nsFilePath &projectFolder) {
+    Log::Info("Loading project from folder: %s", projectFolder.AsChar());
+    if (!scenes.Load(projectFolder)) {
+        return false;
+    }
+
+    return true;
 }
+
+bool nsProjectModel::Save(const nsFilePath &projectFolder) {
+    return true;
+}
+

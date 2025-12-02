@@ -24,3 +24,25 @@ nsVisualObject2d * nsScenesCache::Get(const std::string &path) {
     }
     return _cache[path];
 }
+
+bool nsScenesCache::Load(const nsFilePath &projectFolder) {
+    Log::Info("Loading scenes cache from folder: %s", projectFolder.AsChar());
+    _files.clear();
+
+    nsFilePath::tList list;
+    projectFolder.ListingRecursive(list);
+
+    for (auto item: list) {
+        auto ext = item.GetExtension();
+        ext.ToLower();
+        if (ext == "layout") {
+            Log::Info("Found layout file: %s", item.AsChar());
+            _files.push_back(item);
+        }
+    }
+    return true;
+}
+
+void nsScenesCache::Save(const nsFilePath &projectFolder) {
+
+}

@@ -4,9 +4,6 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
-#include <vector>
-
-#include "nsLib/FilePath.h"
 #include "view/BaseView.h"
 
 class nsLibraryView : public nsBaseView {
@@ -15,8 +12,6 @@ public:
 
 protected:
     void Draw() override;
-    void Refresh();
 
-    std::vector<nsFilePath> _files;
     nsString _filter;
 };
