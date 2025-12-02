@@ -43,6 +43,16 @@ bool nsScenesCache::Load(const nsFilePath &projectFolder) {
     return true;
 }
 
-bool nsScenesCache::Save(const nsFilePath &projectFolder) {
-    return true;
+bool nsScenesCache::Save(const nsFilePath &projectFolder) const {
+    Log::Info("Saving scenes cache to folder: %s", projectFolder.AsChar());
+    bool result = true;
+    const auto vf = nsVisualFactory2d::Shared();
+
+    for (const auto &pair : _cache) {
+        if (!vf->Serialize(pair.first.c_str(), pair.second)) {
+            result = false;
+        }
+    }
+
+    return result;
 }

@@ -12,7 +12,7 @@ public:
     nsVisualObject2d* Get(const std::string &path);
 
     bool Load(const nsFilePath &projectFolder);
-    bool Save(const nsFilePath &projectFolder);
+    bool Save(const nsFilePath &projectFolder) const;
 
     const std::vector<nsFilePath>& GetFiles() const { return _files; }
 
