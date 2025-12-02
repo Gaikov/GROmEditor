@@ -43,6 +43,6 @@ bool nsScenesCache::Load(const nsFilePath &projectFolder) {
     return true;
 }
 
-void nsScenesCache::Save(const nsFilePath &projectFolder) {
-
+bool nsScenesCache::Save(const nsFilePath &projectFolder) {
+    return true;
 }

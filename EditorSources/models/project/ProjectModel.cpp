@@ -16,6 +16,9 @@ bool nsProjectModel::Load(const nsFilePath &projectFolder) {
 }
 
 bool nsProjectModel::Save(const nsFilePath &projectFolder) {
+    Log::Info("Saving project to folder: %s", projectFolder.AsChar());
+    scenes.Save(projectFolder);
+
     return true;
 }
 

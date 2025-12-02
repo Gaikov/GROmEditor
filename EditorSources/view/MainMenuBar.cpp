@@ -4,10 +4,13 @@
 
 #include "MainMenuBar.h"
 
+#include "alerts/AlertPopup.h"
 #include "Core/sys.h"
 #include "Core/undo/UndoService.h"
 #include "imgui/imgui.h"
 #include "nsLib/locator/ServiceLocator.h"
+#include "popups/FolderSelectPopup.h"
+#include "popups/PopupsStack.h"
 
 nsMainMenuBar::nsMainMenuBar() {
     _model = Locate<nsSVModel>();
@@ -17,13 +20,25 @@ nsMainMenuBar::nsMainMenuBar() {
             ->Action([] { Log::Info("New project"); })
             ->Shortcut("Ctrl+N", ImGuiMod_Ctrl | ImGuiKey_N);
     file->AddItem("Open")
-            ->Action([] { Log::Info("Open project"); })
+            ->Action([&] {
+                    nsPopupsStack::Shared()->AddPopup<nsFolderSelectDialog>();
+            })
             ->Shortcut("Ctrl+O", ImGuiMod_Ctrl | ImGuiKey_O);
 
     file->AddSeparator();
     file->AddItem("Save")
             ->Shortcut("Ctrl+S", ImGuiMod_Ctrl | ImGuiKey_S)
-            ->Action([] { Log::Info("Save project"); });
+            ->Action([&] {
+                    const nsFilePath path = _model->GetProjectPath();
+                    if (path.IsExists() && path.IsFolder()) {
+                        _model->project.Save(path);
+                        nsAlertPopup::Info("Project saved!");
+                    } else {
+                        nsString msg;
+                        msg.Format("Project path '%s' is invalid!", path.AsChar());
+                        nsAlertPopup::Error(msg);
+                    }
+            });
 
     file->AddSeparator();
     file->AddItem("Exit")
