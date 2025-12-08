@@ -4,6 +4,7 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
+#include "imgui/imgui.h"
 #include "nsLib/FilePath.h"
 #include "nsLib/StrTools.h"
 
@@ -12,15 +13,21 @@ public:
     virtual ~nsBaseAssetSelect() = default;
 
     void DrawInputField(const char *title, const char *currentPath);
+    bool DrawSelectionPopup(const nsString &path);
 
 protected:
     std::vector<std::string> _extensions;
+    ImVec2 _popupSize = {100, 100};
 
     virtual const char* GetPopupId() = 0;
     virtual void OnClickBrowse() = 0;
-
-    std::vector<nsFilePath> _files;
+    virtual void DrawSelectedInfo() = 0;
+    virtual void DrawSelectedPreview() = 0;
+    virtual void OnClickSelectPreview(const nsFilePath &path) = 0;
 
 private:
+    std::vector<nsFilePath> _files;
+    nsString _filter;
+
     bool HasValidExtension(const nsFilePath &path) const;
 };

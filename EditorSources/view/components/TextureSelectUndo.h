@@ -11,9 +11,7 @@
 #include "Engine/RenManager.h"
 #include "imgui/imgui.h"
 #include "models/SVModel.h"
-#include "nsLib/FilePath.h"
 #include "nsLib/StrTools.h"
-#include "nsLib/locator/ServiceLocator.h"
 
 template<typename TTexture>
 class nsTextureSelectUndo : public nsBaseAssetSelect {
@@ -21,9 +19,9 @@ public:
     static constexpr auto POPUP_ID = "Texture selection";
     static constexpr auto IMAGE_SIZE = 300;
 
-public:
     nsTextureSelectUndo(const char *title) : _title(title), _device(nsRenDevice::Shared()->Device()) {
         _extensions = { "png", "jpg" };
+        _popupSize = { IMAGE_SIZE * 1.5f, IMAGE_SIZE };
     }
 
     void Draw(TTexture &var) {
@@ -32,48 +30,30 @@ public:
         const nsString path = _device->TextureGetPath(_passedTexture);
         DrawInputField(_title.c_str(), path);
 
-
-        if (ImGui::BeginPopup(GetPopupId(), ImGuiWindowFlags_AlwaysAutoResize)) {
-            ImGui::InputText("Search", _filter.AsChar(), nsString::MAX_SIZE - 1);
-            ImGui::SameLine();
-            if (ImGui::Button("Clear")) {
-                _filter = "";
-            }
-
-            if (_current) {
-                int w, h;
-                _current->GetSize(w, h);
-                ImGui::Text("%s [%dx%d]", _device->TextureGetPath(_current), w, h);
-            }
-
-            ImGui::BeginChild("Images", ImVec2(IMAGE_SIZE * 1.5f, IMAGE_SIZE),
-                ImGuiChildFlags_AlwaysAutoResize | ImGuiChildFlags_AutoResizeX | ImGuiChildFlags_Borders,
-                ImGuiWindowFlags_HorizontalScrollbar);
-            for (auto file: _files) {
-                if (_filter.IsEmpty() || strstr(file.AsChar(), _filter.AsChar())) {
-                    if (ImGui::Selectable(file.AsChar(), path == file.AsChar(), ImGuiSelectableFlags_AllowDoubleClick)) {
-                        Log::Info("click: %s", file.AsChar());
-                        _current = _device->TextureLoad(file.AsChar());
-                        _device->TextureBind(_current);
-
-                        if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
-                            Log::Info("Selected: %s", file.AsChar());
-                            nsUndoService::Shared()->Push(new nsUndoVarChange(var, _current));
-                        }
-                    }
-                }
-            }
-            ImGui::EndChild();
-            ImGui::SameLine();
-
-            const auto id = _current ? _current->GetId() : 0;
-            ImGui::Image(static_cast<intptr_t>(id), ImVec2(IMAGE_SIZE, IMAGE_SIZE));
-
-            ImGui::EndPopup();
+        if (DrawSelectionPopup(path)) {
+            nsUndoService::Shared()->Push(new nsUndoVarChange(var, _current));
         }
     }
 
 protected:
+    void DrawSelectedInfo() override {
+        if (_current) {
+            int w, h;
+            _current->GetSize(w, h);
+            ImGui::Text("%s [%dx%d]", _device->TextureGetPath(_current), w, h);
+        }
+    }
+
+    void DrawSelectedPreview() override {
+        const auto id = _current ? _current->GetId() : 0;
+        ImGui::Image(static_cast<intptr_t>(id), ImVec2(IMAGE_SIZE, IMAGE_SIZE));
+    }
+
+    void OnClickSelectPreview(const nsFilePath &path) override {
+        _current = _device->TextureLoad(path);
+        _device->TextureBind(_current);
+    }
+
     const char * GetPopupId() override {
         return POPUP_ID;
     }
@@ -87,6 +67,4 @@ private:
     IRenDevice *_device;
     ITexture *_current = nullptr;
     ITexture *_passedTexture = nullptr;
-
-    nsString _filter;
 };
