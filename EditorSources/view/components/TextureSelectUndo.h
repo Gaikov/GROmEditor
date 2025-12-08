@@ -4,6 +4,7 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
+#include "BaseAssetSelect.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVarChange.h"
 #include "Engine/RenDevice.h"
@@ -15,41 +16,24 @@
 #include "nsLib/locator/ServiceLocator.h"
 
 template<typename TTexture>
-class nsTextureSelectUndo {
+class nsTextureSelectUndo : public nsBaseAssetSelect {
 public:
     static constexpr auto POPUP_ID = "Texture selection";
     static constexpr auto IMAGE_SIZE = 300;
 
 public:
     nsTextureSelectUndo(const char *title) : _title(title), _device(nsRenDevice::Shared()->Device()) {
+        _extensions = { "png", "jpg" };
     }
 
     void Draw(TTexture &var) {
         //TODO: relative project path
-        ITexture *tex = var;
+        _passedTexture = var;
+        const nsString path = _device->TextureGetPath(_passedTexture);
+        DrawInputField(_title.c_str(), path);
 
-        nsString path = _device->TextureGetPath(tex);
-        ImGui::InputText(_title.c_str(), path.AsChar(), nsString::MAX_SIZE - 1, ImGuiInputTextFlags_ReadOnly);
-        ImGui::SameLine();
-        if (ImGui::Button("Browse")) {
-            _current = tex;
-            const auto model = Locate<nsSVModel>();
-            const auto projectPath = model->GetProjectPath();
-            _files.clear();
-            std::vector<nsFilePath> files;
-            projectPath.ListingRecursive(files);
-            for (auto &item: files) {
-                auto ext = item.GetExtension();
-                ext.ToLower();
-                if (ext == "png" || ext == "jpg") {
-                    _files.push_back(item);
-                }
-            }
 
-            ImGui::OpenPopup(POPUP_ID);
-        }
-
-        if (ImGui::BeginPopup(POPUP_ID, ImGuiWindowFlags_AlwaysAutoResize)) {
+        if (ImGui::BeginPopup(GetPopupId(), ImGuiWindowFlags_AlwaysAutoResize)) {
             ImGui::InputText("Search", _filter.AsChar(), nsString::MAX_SIZE - 1);
             ImGui::SameLine();
             if (ImGui::Button("Clear")) {
@@ -89,11 +73,20 @@ public:
         }
     }
 
+protected:
+    const char * GetPopupId() override {
+        return POPUP_ID;
+    }
+
+    void OnClickBrowse() override {
+        _current = _passedTexture;
+    }
+
 private:
     std::string _title;
     IRenDevice *_device;
     ITexture *_current = nullptr;
+    ITexture *_passedTexture = nullptr;
 
     nsString _filter;
-    std::vector<nsFilePath> _files;
 };
