@@ -27,6 +27,8 @@ bool nsVisualRefBuilder::Parse(script_state_t *ss, nsVisualObject2d *object, nsV
         const auto item = ref->_ref;
         const auto o = ref;
 
+        ref->id = ParseStrP(ss, "id", o->id.c_str());
+
         if (!ParseAnchor(ss, "xMin", o->xMin)) {
             o->xMin = item->xMin;
         }
@@ -47,20 +49,20 @@ bool nsVisualRefBuilder::Parse(script_state_t *ss, nsVisualObject2d *object, nsV
         }
 
         o->origin.pos = {
-            ParseFloat(ss, "x", item->origin.pos->x),
-            ParseFloat(ss, "y", item->origin.pos->y)};
+            ParseFloat(ss, "x", o->_itemPos.x),
+            ParseFloat(ss, "y", o->_itemPos.y)};
 
         o->origin.scale = {
-            ParseFloat(ss, "sx", item->origin.scale->x),
-            ParseFloat(ss, "sy", item->origin.scale->y)};
+            ParseFloat(ss, "sx", o->_itemScale.x),
+            ParseFloat(ss, "sy", o->_itemScale.y)};
 
         if (ps_var_begin(ss, "angle")) {
             o->origin.angle = nsMath::ToRad(ps_var_f(ss));
         } else {
-            o->origin.angle = item->origin.angle;
+            o->origin.angle = o->_itemAngle;
         }
 
-        o->visible = ParseBool(ss, "visible", item->visible);
+        o->visible = ParseBool(ss, "visible", o->_itemVisible);
     }
 
     return true;
@@ -72,14 +74,15 @@ bool nsVisualRefBuilder::SerializeProps(nsScriptSaver &saver, nsVisualObject2d *
     ref->UpdateRef(); //update if item was changed
     const auto item = ref->_ref;
 
+    if (!ref->source->empty()) {
+        saver.VarString("source", ref->source->c_str());
+    }
+
     if (!item) {
         nsVisualBuilder2d::SerializeProps(saver, o, context);
     } else {
-        if (!o->id.empty()) {
+        if (o->id != item->id) {
             saver.VarString("id", o->id.c_str());
-        }
-        if (!ref->source->empty()) {
-            saver.VarString("source", ref->source->c_str());
         }
 
         if (o->xMin != item->xMin) {
@@ -101,20 +104,13 @@ bool nsVisualRefBuilder::SerializeProps(nsScriptSaver &saver, nsVisualObject2d *
             SaveAnchor(saver, "yCenter", o->yCenter);
         }
 
-        if (o->origin.pos != item->origin.pos) {
-            saver.VarFloat("x", o->origin.pos->x, 0); TODO: 
-            saver.VarFloat("y", o->origin.pos->y, 0);
-        }
-        if (o->origin.scale != item->origin.scale) {
-            saver.VarFloat("sx", o->origin.scale->x, 1);
-            saver.VarFloat("sy", o->origin.scale->y, 1);
-        }
-        if (o->origin.angle != item->origin.angle) {
-            saver.VarFloat("angle",  nsMath::ToDeg(o->origin.angle), 0);
-        }
-        if (o->visible != item->visible) {
-            saver.VarBool("visible", o->visible, true);
-        }
+        saver.VarFloat("x", o->origin.pos->x, ref->_itemPos.x);
+        saver.VarFloat("y", o->origin.pos->y, ref->_itemPos.y);
+        saver.VarFloat("sx", o->origin.scale->x, ref->_itemScale.x);
+        saver.VarFloat("sy", o->origin.scale->y, ref->_itemScale.y);
+        saver.VarFloat("angle",  nsMath::ToDeg(o->origin.angle), nsMath::ToDeg(ref->_itemAngle));
+        saver.VarBool("visible", o->visible, ref->_itemVisible);
+
     }
 
     return true;

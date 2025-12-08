@@ -24,10 +24,16 @@ public:
 
 protected:
     void OnAddedToStage() override;
+    void OnRemovedFromStage() override;
 
 private:
     nsVisualObject2d *_ref = nullptr;
     nsVisualCreationContext2d *_context = nullptr;
+
+    nsVec2 _itemPos;
+    nsVec2 _itemScale = {1, 1};
+    float _itemAngle = 0;
+    bool _itemVisible = true;
 
     void UpdateRef();
 };
