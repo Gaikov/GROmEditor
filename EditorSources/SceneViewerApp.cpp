@@ -57,18 +57,6 @@ bool nsSceneViewerApp::Init() {
     _stage = nsVisualContainer2d::CreateStage();
     _stage->AddChild(_view);
 
-    g_cfg->RegCmd("sv_load", [this](int argc, const char *argv[] ) {
-        if (argc > 1) {
-            LoadLayout(argv[1]);
-        } else {
-            Log::Warning("usages: sv_load [layout path]");
-        }
-    });
-
-    _appModel->user.currentScene.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
-        ReloadLayout();
-    });
-
     _appInput.AddInput(_stage);
     _appInput.AddInput(this);
     _appInput._pointerTransform = &_ortho;
@@ -174,20 +162,6 @@ void nsSceneViewerApp::OnChar(char ch) {
 
 bool nsSceneViewerApp::OnMouseWheel(float delta) {
     return false;
-}
-
-void nsSceneViewerApp::LoadLayout(const char *filePath) {
-    const auto layout = Locate<nsSVModel>()->project.scenes.Get(filePath);
-    if (layout) {
-        _view->SetScene(layout);
-        _appModel->user.currentScene = filePath;
-    }
-}
-
-void nsSceneViewerApp::ReloadLayout() {
-    if (!_appModel->user.currentScene->empty()) {
-        LoadLayout(_appModel->user.currentScene->c_str());
-    }
 }
 
 class nsSceneViewerInfo : public IAppInfo {

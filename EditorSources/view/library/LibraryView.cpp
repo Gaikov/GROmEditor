@@ -29,6 +29,7 @@ void nsLibraryView::Draw() {
         if (_filter.IsEmpty() || strstr(file.AsChar(), _filter.AsChar())) {
             if (ImGui::Selectable(file.AsChar(), _model->user.currentScene == file.AsChar(), ImGuiSelectableFlags_AllowDoubleClick)) {
                 if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
+                    Log::Info("Selected: %s", file.AsChar());
                     const std::string value = file.AsChar();
                     const auto undo = nsUndoService::Shared();
                     const auto batch = new nsUndoBatch();
@@ -37,7 +38,6 @@ void nsLibraryView::Draw() {
                     batch->Add(new nsUndoVarChange(_model->user.currentScene, value));
 
                     undo->Push(batch);
-                    Log::Info("Selected: %s", file.AsChar());
                 }
             }
 

@@ -4,13 +4,11 @@
 
 #include "VisualRef.h"
 #include "Engine/display/VisualType.h"
+#include "nsLib/log.h"
 
 nsVisualRef::nsVisualRef() : source("") {
     source.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *) {
-        if (_ref) {
-            _ref->Destroy();
-        }
-        _ref = _context->Create(source->c_str());
+        UpdateRef();
     });
 }
 
@@ -44,4 +42,17 @@ void nsVisualRef::Destroy() {
         _ref->Destroy();
     }
     nsVisualObject2d::Destroy();
+}
+
+void nsVisualRef::OnAddedToStage() {
+    nsVisualObject2d::OnAddedToStage();
+    UpdateRef();
+}
+
+void nsVisualRef::UpdateRef() {
+    if (_ref) {
+        _ref->Destroy();
+    }
+    _ref = _context->Create(source->c_str());
+    Log::Debug("Visual ref updated: %s", source->c_str());
 }

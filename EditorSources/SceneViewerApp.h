@@ -35,9 +35,6 @@ private:
     void OnChar(char ch) override;
     bool OnMouseWheel(float delta) override;
 
-    void LoadLayout(const char *filePath);
-    void ReloadLayout();
-
 private:
     nsSVModel      *_appModel = nullptr;
     nsVisualContainer2d *_stage = nullptr;

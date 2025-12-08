@@ -22,7 +22,12 @@ public:
     nsVisualObject2d* GetRef() const { return _ref; }
     void Destroy() override;
 
+protected:
+    void OnAddedToStage() override;
+
 private:
     nsVisualObject2d *_ref = nullptr;
     nsVisualCreationContext2d *_context = nullptr;
+
+    void UpdateRef();
 };
