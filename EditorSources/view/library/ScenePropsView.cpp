@@ -6,6 +6,7 @@
 #include "Engine/display/container/VisualContainer2d.h"
 #include "Core/Var.h"
 #include "imgui/imgui.h"
+#include "props/LayoutRefPropsView.h"
 #include "props/SpritePropsView.h"
 #include "props/VisualPropsView.h"
 
@@ -19,8 +20,9 @@ nsScenePropsView::nsScenePropsView() {
         _preselect = _model->user.selectedObject;
     });
 
-    _propsViews.push_back(std::make_shared<nsVisualPropsView>());
-    _propsViews.push_back(std::make_shared<nsSpritePropsView>());
+    _propsViews.emplace_back(new nsVisualPropsView());
+    _propsViews.emplace_back(new nsLayoutRefPropsView());
+    _propsViews.emplace_back(new nsSpritePropsView());
 }
 
 void nsScenePropsView::Draw() {

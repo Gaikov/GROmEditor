@@ -41,7 +41,6 @@ bool nsBaseAssetSelect::DrawSelectionPopup(const nsString &path) {
 
         DrawSelectedInfo();
 
-
         ImGui::BeginChild("Assets List", _popupSize,
             ImGuiChildFlags_AlwaysAutoResize | ImGuiChildFlags_AutoResizeX | ImGuiChildFlags_Borders,
             ImGuiWindowFlags_HorizontalScrollbar);
