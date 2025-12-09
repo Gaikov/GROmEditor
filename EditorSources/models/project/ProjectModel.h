@@ -13,5 +13,5 @@ public:
     nsProjectModel() = default;
 
     bool Load(const nsFilePath &projectFolder);
-    bool Save(const nsFilePath &projectFolder);
+    bool Save(const nsFilePath &projectFolder) const;
 };

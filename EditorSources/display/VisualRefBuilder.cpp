@@ -21,7 +21,7 @@ bool nsVisualRefBuilder::Parse(script_state_t *ss, nsVisualObject2d *object, nsV
         return false;
     }
     ref->_context = context;
-    ref->source = ParseStrP(ss, "source", "");
+    ref->source = context->ParseAssetPath(ss, "source").AsChar();
 
     if (ref->_ref) {
         const auto item = ref->_ref;

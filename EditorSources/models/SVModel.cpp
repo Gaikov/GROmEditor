@@ -7,7 +7,7 @@
 
 nsSVModel::nsSVModel()
     : nsSerializableFile("user"),
-      projectPath("project_path", ""),
+      projectPath("project_path", "."),
       blastParticles(0) {
 
     AddItem(&projectPath);
