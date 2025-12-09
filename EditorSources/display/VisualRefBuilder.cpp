@@ -75,7 +75,7 @@ bool nsVisualRefBuilder::SerializeProps(nsScriptSaver &saver, nsVisualObject2d *
     const auto item = ref->_ref;
 
     if (!ref->source->empty()) {
-        saver.VarString("source", ref->source->c_str());
+        context->SaveAssetPath(saver, "source", ref->source->c_str());
     }
 
     if (!item) {
