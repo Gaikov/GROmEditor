@@ -14,4 +14,8 @@ void nsTextLabelPropsView::Draw(nsVisualObject2d *target) {
 
     _renStateSelect.Draw(label->renState);
     _fontSelect.Draw(label->font);
+    _textInput.Draw(label->text);
+    _colorInput.Draw(label->color);
+    _drawFrameInput.Draw(label->drawFrame);
+    _alignInput.Draw(label->hAlign);
 }

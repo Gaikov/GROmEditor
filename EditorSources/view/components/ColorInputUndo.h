@@ -18,7 +18,7 @@ public:
 
     void Draw(TColor &var) {
         ImGui::ColorEdit4(_title.c_str(), _color);
-        if (ImGui::IsItemDeactivated()) {
+        if (ImGui::IsItemDeactivatedAfterEdit()) {
             Log::Info("color changed");
             nsUndoService::Shared()->Push(new nsUndoVarChange(var, _color));
         }
@@ -30,4 +30,5 @@ public:
 private:
     std::string _title;
     nsColor _color;
+    bool _active = false;
 };
