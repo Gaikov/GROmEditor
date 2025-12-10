@@ -9,6 +9,7 @@
 #include "view/components/BoolInputUndo.h"
 #include "view/components/ColorInputUndo.h"
 #include "view/components/EnumInputUndo.h"
+#include "view/components/FloatInputUndo.h"
 #include "view/components/FontSelectUndo.h"
 #include "view/components/RenStateSelectUndo.h"
 #include "view/components/TextInputUndo.h"
@@ -20,6 +21,9 @@ public:
         _alignInput.AddVariant("Left", nsAlign::BEGIN);
         _alignInput.AddVariant("Center", nsAlign::CENTER);
         _alignInput.AddVariant("Right", nsAlign::END);
+
+        _letterSpace.step = 1;
+        _letterSpace.fastStep = 10;
     }
 
     bool IsSupport(nsVisualObject2d *target) override;
@@ -33,6 +37,6 @@ private:
     nsTextInputUndo<nsString>           _textInput = "Text";
     nsColorInputUndo<nsColor>           _colorInput = "Color";
     nsBoolInputUndo<bool>               _drawFrameInput = "Draw Frame";
-    nsEnumInputUndo<nsAlign::Type>      _alignInput = "HAlign";
-
+    nsEnumInputUndo<nsAlign::Type>      _alignInput = "Horizontal Align";
+    nsFloatInputUndo<float>             _letterSpace = "Letters Space";
 };

@@ -1,25 +1,28 @@
 // Copyright (c) 2003-2025, Roman Gaikov. All rights reserved.
 //--------------------------------------------------------------------------------------------------
-// file AngleInputUndo.h
+// file FloatInputUndo.h
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
+#include <string>
+
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVarChange.h"
 #include "imgui/imgui.h"
-#include "nsLib/MathTools.h"
 
-
-template<typename TVar>
-class nsAngleInputUndo {
+template<typename TFloat>
+class nsFloatInputUndo {
 public:
-    nsAngleInputUndo(const char *title) : _title(title) {
-    }
+    float step = 0.01f;
+    float fastStep = 1;
 
-    void Draw(TVar &var) {
-        float value = nsMath::ToDeg(var);
-        if (ImGui::InputFloat(_title.c_str(), &value, 1.0f, 10.0f)) {
-            nsUndoService::Shared()->Push(new nsUndoVarChange(var, nsMath::ToRad(value)));
+    nsFloatInputUndo(const char *title) : _title(title) {
+    };
+
+    void Draw(TFloat &var) {
+        float value = var;
+        if (ImGui::InputFloat(_title.c_str(), &value, step, fastStep)) {
+            nsUndoService::Shared()->Push(new nsUndoVarChange(var, value));
         }
     }
 

@@ -18,4 +18,5 @@ void nsTextLabelPropsView::Draw(nsVisualObject2d *target) {
     _colorInput.Draw(label->color);
     _drawFrameInput.Draw(label->drawFrame);
     _alignInput.Draw(label->hAlign);
+    _letterSpace.Draw(label->letterSpace);
 }
