@@ -8,6 +8,7 @@
 #include "imgui/imgui.h"
 #include "props/LayoutRefPropsView.h"
 #include "props/SpritePropsView.h"
+#include "props/TextLabelPropsView.h"
 #include "props/VisualPropsView.h"
 
 nsScenePropsView::nsScenePropsView() {
@@ -23,6 +24,7 @@ nsScenePropsView::nsScenePropsView() {
     _propsViews.emplace_back(new nsVisualPropsView());
     _propsViews.emplace_back(new nsLayoutRefPropsView());
     _propsViews.emplace_back(new nsSpritePropsView());
+    _propsViews.emplace_back(new nsTextLabelPropsView());
 }
 
 void nsScenePropsView::Draw() {
