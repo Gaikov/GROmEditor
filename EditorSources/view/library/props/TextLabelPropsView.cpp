@@ -3,8 +3,8 @@
 //
 
 #include "TextLabelPropsView.h"
-
 #include "Engine/display/text/TextLabel.h"
+
 bool nsTextLabelPropsView::IsSupport(nsVisualObject2d *target) {
     return dynamic_cast<nsTextLabel*>(target);
 }
@@ -12,5 +12,6 @@ bool nsTextLabelPropsView::IsSupport(nsVisualObject2d *target) {
 void nsTextLabelPropsView::Draw(nsVisualObject2d *target) {
     const auto label = dynamic_cast<nsTextLabel*>(target);
 
+    _renStateSelect.Draw(label->renState);
     _fontSelect.Draw(label->font);
 }

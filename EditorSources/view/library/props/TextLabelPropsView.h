@@ -6,6 +6,7 @@
 #pragma once
 #include "BaseVisualPropsView.h"
 #include "view/components/FontSelectUndo.h"
+#include "view/components/RenStateSelectUndo.h"
 
 class nsTextLabelPropsView final : public nsBaseVisualPropsView {
 public:
@@ -18,5 +19,6 @@ protected:
     void Draw(nsVisualObject2d *target) override;
 
 private:
-    nsFontSelectUndo<nsFont*>   _fontSelect;
+    nsFontSelectUndo<nsFont*>           _fontSelect;
+    nsRenStateSelectUndo<IRenState*>    _renStateSelect;
 };

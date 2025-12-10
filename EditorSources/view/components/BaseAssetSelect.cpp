@@ -12,7 +12,11 @@ void nsBaseAssetSelect::DrawInputField(const char *title, const char *currentPat
     nsString path = currentPath;
     ImGui::InputText(title, path.AsChar(), nsString::MAX_SIZE - 1, ImGuiInputTextFlags_ReadOnly);
     ImGui::SameLine();
-    if (ImGui::Button("Browse")) {
+
+    nsString buttonId;
+    buttonId.Format("Browse##%s", GetPopupId());
+
+    if (ImGui::Button(buttonId)) {
         OnClickBrowse();
 
         const auto model = Locate<nsSVModel>();
