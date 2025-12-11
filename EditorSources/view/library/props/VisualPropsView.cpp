@@ -6,6 +6,7 @@
 
 #include "Core/undo/UndoBatch.h"
 #include "Engine/display/undo/UndoRemoveChild.h"
+#include "gizmos/VisualHolder.h"
 
 void nsVisualPropsView::Draw(nsVisualObject2d *target) {
     _idInput.Draw(target->id);
@@ -16,7 +17,8 @@ void nsVisualPropsView::Draw(nsVisualObject2d *target) {
 }
 
 bool nsVisualPropsView::DrawContextMenu(nsVisualObject2d *target, const bool hasPrevItems) {
-    if (target->GetParent()) {
+
+    if (!nsVisualHolder::isRoot(target)) {
         DrawMenuSeparator(hasPrevItems);
         if (ImGui::MenuItem("Delete")) {
             const auto batch = new nsUndoBatch();

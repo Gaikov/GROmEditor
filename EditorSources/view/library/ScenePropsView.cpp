@@ -35,7 +35,7 @@ void nsScenePropsView::Draw() {
             ImGui::BeginChild("Tree List", ImVec2(0, 0),
                               ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeY,
                               ImGuiWindowFlags_HorizontalScrollbar);
-            DrawNode(_scene, 0);
+            DrawNode(_scene, 1);
             ImGui::EndChild();
         }
 
@@ -56,11 +56,11 @@ void nsScenePropsView::Draw() {
 }
 
 void nsScenePropsView::DrawNode(nsVisualObject2d *node, int index) {
-    nsVisualObject2d *selected = _model->user.selectedObject;
+    const nsVisualObject2d *selected = _model->user.selectedObject;
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None | ImGuiTreeNodeFlags_DrawLinesFull;
     const auto container = dynamic_cast<nsVisualContainer2d *>(node);
     if (container) {
-        flags |= ImGuiTreeNodeFlags_DefaultOpen;
+        flags |= ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnDoubleClick;
     } else {
         flags |= ImGuiTreeNodeFlags_Leaf;
     }
@@ -75,24 +75,25 @@ void nsScenePropsView::DrawNode(nsVisualObject2d *node, int index) {
         name.Format("%s##%d", node->id.c_str(), index);
     }
 
-    if (ImGui::TreeNodeEx(name, flags)) {
-        if (ImGui::IsItemClicked()) {
-            _preselect = node;
-        }
+    const bool open = ImGui::TreeNodeEx(name, flags);
+    if (ImGui::IsItemClicked()) {
+        _preselect = node;
+    }
 
+    nsString contextId;
+    contextId.Format("context_%s", name.AsChar());
+
+    if (ImGui::BeginPopupContextItem(contextId)) {
+        nsVisualsLifecycle::Shared()->DrawContextMenu(node);
+        ImGui::EndPopup();
+    }
+
+    if (open) {
         if (container) {
             auto &list = container->GetChildren();
             for (int i = 0; i < list.size(); i++) {
                 DrawNode(list[i], index * 10 + i);
             }
-        }
-
-        nsString contextId;
-        contextId.Format("context_%s", name.AsChar());
-
-        if (ImGui::BeginPopupContextItem(contextId)) {
-            nsVisualsLifecycle::Shared()->DrawContextMenu(node);
-            ImGui::EndPopup();
         }
 
         ImGui::TreePop();

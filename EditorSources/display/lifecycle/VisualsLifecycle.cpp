@@ -4,6 +4,7 @@
 
 #include "VisualsLifecycle.h"
 
+#include "ContainerPropsView.h"
 #include "view/library/props/LayoutRefPropsView.h"
 #include "view/library/props/SpritePropsView.h"
 #include "view/library/props/TextLabelPropsView.h"
@@ -11,6 +12,7 @@
 
 nsVisualsLifecycle::nsVisualsLifecycle() {
     _policies.emplace_back(new nsVisualPropsView());
+    _policies.emplace_back(new nsContainerPropsView());
     _policies.emplace_back(new nsLayoutRefPropsView());
     _policies.emplace_back(new nsSpritePropsView());
     _policies.emplace_back(new nsTextLabelPropsView());
@@ -27,8 +29,11 @@ void nsVisualsLifecycle::DrawProps(nsVisualObject2d *target) const {
 void nsVisualsLifecycle::DrawContextMenu(nsVisualObject2d *target) const {
     bool hasPrevItems = false;
     for (int i = _policies.size() - 1; i >= 0; --i) {
-        if (_policies[i]->DrawContextMenu(target, hasPrevItems)) {
-            hasPrevItems = true;
+        auto &p = _policies[i];
+        if (p->IsSupport(target)) {
+            if (p->DrawContextMenu(target, hasPrevItems)) {
+                hasPrevItems = true;
+            }
         }
     }
 }

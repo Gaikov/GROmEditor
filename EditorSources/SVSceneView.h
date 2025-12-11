@@ -5,10 +5,10 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 
-#include "Engine/display/layouts/GroupLayout.h"
+#include "gizmos/VisualHolder.h"
 #include "models/SVModel.h"
 
-class nsSVSceneView : public nsVisualContainer2d {
+class nsSVSceneView : public nsVisualHolder {
 public:
     nsSVSceneView();
 
