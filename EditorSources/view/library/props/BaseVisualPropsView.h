@@ -6,6 +6,7 @@
 #pragma once
 #include <memory>
 #include "Engine/display/VisualObject2d.h"
+#include "models/SVModel.h"
 
 class nsBaseVisualPropsView {
 public:
@@ -17,9 +18,12 @@ public:
     virtual bool IsSupport(nsVisualObject2d *target) = 0;
 
     virtual void DrawPanel(nsVisualObject2d *target);
+    virtual bool DrawContextMenu(nsVisualObject2d *target, bool hasPrevItems) { return false; };
 
 protected:
     std::string _header;
+    nsSVModel *_model;
 
     virtual void Draw(nsVisualObject2d *target) = 0;
+    static void DrawMenuSeparator(bool hasPrevItems);
 };

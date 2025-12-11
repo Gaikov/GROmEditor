@@ -23,3 +23,12 @@ void nsVisualsLifecycle::DrawProps(nsVisualObject2d *target) const {
         }
     }
 }
+
+void nsVisualsLifecycle::DrawContextMenu(nsVisualObject2d *target) const {
+    bool hasPrevItems = false;
+    for (int i = _policies.size() - 1; i >= 0; --i) {
+        if (_policies[i]->DrawContextMenu(target, hasPrevItems)) {
+            hasPrevItems = true;
+        }
+    }
+}

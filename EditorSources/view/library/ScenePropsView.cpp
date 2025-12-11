@@ -83,9 +83,18 @@ void nsScenePropsView::DrawNode(nsVisualObject2d *node, int index) {
         if (container) {
             auto &list = container->GetChildren();
             for (int i = 0; i < list.size(); i++) {
-                DrawNode(list[i], i);
+                DrawNode(list[i], index * 10 + i);
             }
         }
+
+        nsString contextId;
+        contextId.Format("context_%s", name.AsChar());
+
+        if (ImGui::BeginPopupContextItem(contextId)) {
+            nsVisualsLifecycle::Shared()->DrawContextMenu(node);
+            ImGui::EndPopup();
+        }
+
         ImGui::TreePop();
     }
 }

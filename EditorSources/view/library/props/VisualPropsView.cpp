@@ -4,10 +4,31 @@
 
 #include "VisualPropsView.h"
 
+#include "Core/undo/UndoBatch.h"
+#include "Engine/display/undo/UndoRemoveChild.h"
+
 void nsVisualPropsView::Draw(nsVisualObject2d *target) {
     _idInput.Draw(target->id);
     _visibleInput.Draw(target->visible);
     _posInput.Draw(target->origin.pos);
     _scaleInput.Draw(target->origin.scale);
     _angleInput.Draw(target->origin.angle);
+}
+
+bool nsVisualPropsView::DrawContextMenu(nsVisualObject2d *target, const bool hasPrevItems) {
+    if (target->GetParent()) {
+        DrawMenuSeparator(hasPrevItems);
+        if (ImGui::MenuItem("Delete")) {
+            const auto batch = new nsUndoBatch();
+
+            batch->Add(new nsUndoRemoveChild(target));
+            if (_model->user.selectedObject == target) {
+                batch->Add(new nsUndoVarChange(_model->user.selectedObject, static_cast<nsVisualObject2d *>(nullptr)));
+            }
+
+            nsUndoService::Shared()->Push(batch);
+        }
+        return true;
+    }
+    return false;
 }

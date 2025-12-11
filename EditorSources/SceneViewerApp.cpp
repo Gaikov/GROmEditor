@@ -39,14 +39,15 @@ bool nsSceneViewerApp::Init() {
     Log::Info("################### Init SceneViewer ###################");
     _guiBackend.Init(App_GetPlatform()->GetWindowHandler());
 
-    nsVisualFactory2d::Shared()->RegisterBuilderWithName<nsVisualRefBuilder>();
-    nsVisualsLifecycle::Init();
-
     nsUndoService::Init();
+
     nsServiceLocator::Init();
     auto locator = nsServiceLocator::Shared();
     locator->MapClass<nsSVModel>().AsSingleton().GetInstance();
     _appModel = Locate<nsSVModel>();
+
+    nsVisualFactory2d::Shared()->RegisterBuilderWithName<nsVisualRefBuilder>();
+    nsVisualsLifecycle::Init();
 
     g_inp.ShowCursor(true);
     App_GetPlatform()->SetAppTitle(VIEWER_APP);
@@ -81,9 +82,9 @@ void nsSceneViewerApp::Release() {
 
     nsPopupsStack::Release();
     nsViewsRoot::Release();
+    nsVisualsLifecycle::Release();
     nsServiceLocator::Release();
     nsUndoService::Release();
-    nsVisualsLifecycle::Release();
     _guiBackend.Shutdown();
 }
 

@@ -12,6 +12,7 @@ public:
     nsVisualsLifecycle();
 
     void DrawProps(nsVisualObject2d *target) const;
+    void DrawContextMenu(nsVisualObject2d *target) const;
 
 private:
     std::vector<nsBaseVisualPropsView::sp_t> _policies;

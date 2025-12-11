@@ -20,6 +20,8 @@ public:
         return true;
     };
 
+    bool DrawContextMenu(nsVisualObject2d *target, bool hasPrevItems) override;
+
 private:
     nsTextInputUndo<std::string> _idInput = "ID";
     nsBoolInputUndo<nsProperty<bool>> _visibleInput = "Visible";
