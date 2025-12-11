@@ -5,6 +5,7 @@
 #include "ScenePropsView.h"
 #include "Engine/display/container/VisualContainer2d.h"
 #include "Core/Var.h"
+#include "display/lifecycle/VisualsLifecycle.h"
 #include "imgui/imgui.h"
 #include "props/LayoutRefPropsView.h"
 #include "props/SpritePropsView.h"
@@ -20,11 +21,6 @@ nsScenePropsView::nsScenePropsView() {
     _model->user.selectedObject.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *e) {
         _preselect = _model->user.selectedObject;
     });
-
-    _propsViews.emplace_back(new nsVisualPropsView());
-    _propsViews.emplace_back(new nsLayoutRefPropsView());
-    _propsViews.emplace_back(new nsSpritePropsView());
-    _propsViews.emplace_back(new nsTextLabelPropsView());
 }
 
 void nsScenePropsView::Draw() {
@@ -48,11 +44,7 @@ void nsScenePropsView::Draw() {
                               ImGuiChildFlags_AutoResizeY,
                               ImGuiWindowFlags_HorizontalScrollbar);
             if (nsVisualObject2d *selected = _model->user.selectedObject) {
-                for (const auto &propsView: _propsViews) {
-                    if (propsView->IsSupport(selected)) {
-                        propsView->DrawPanel(selected);
-                    }
-                }
+                nsVisualsLifecycle::Shared()->DrawProps(selected);
             } else {
                 ImGui::Text("No selection");
             }

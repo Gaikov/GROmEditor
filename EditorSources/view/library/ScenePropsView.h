@@ -4,7 +4,6 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
-#include "props/BaseVisualPropsView.h"
 #include "view/BaseView.h"
 
 class nsScenePropsView : public nsBaseView {
@@ -19,7 +18,5 @@ protected:
 private:
     nsVisualObject2d *_scene = nullptr;
     nsVisualObject2d *_preselect = nullptr;
-
-    std::vector<nsBaseVisualPropsView::sp_t> _propsViews;
 
 };

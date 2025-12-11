@@ -5,7 +5,6 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 #include "BaseVisualPropsView.h"
-#include "Core/serialization/var/BoolVar.h"
 #include "view/components/AngleInputUndo.h"
 #include "view/components/BoolInputUndo.h"
 #include "view/components/TextInputUndo.h"

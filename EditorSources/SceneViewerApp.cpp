@@ -11,11 +11,11 @@
 #include "Engine/utils/AppUtils.h"
 #include "Engine/Input.h"
 #include "Engine/renderer/particles/ParticlesManager.h"
-#include "Core/sys.h"
 #include "nsLib/locator/ServiceLocator.h"
 #include "models/SVModel.h"
 #include "Core/undo/UndoService.h"
 #include "display/VisualRefBuilder.h"
+#include "display/lifecycle/VisualsLifecycle.h"
 #include "Engine/display/factory/VisualFactory2d.h"
 #include "ThirdParty/imgui/ImGUI_gles3.h"
 #include "view/ViewsRoot.h"
@@ -40,6 +40,7 @@ bool nsSceneViewerApp::Init() {
     _guiBackend.Init(App_GetPlatform()->GetWindowHandler());
 
     nsVisualFactory2d::Shared()->RegisterBuilderWithName<nsVisualRefBuilder>();
+    nsVisualsLifecycle::Init();
 
     nsUndoService::Init();
     nsServiceLocator::Init();
@@ -82,6 +83,7 @@ void nsSceneViewerApp::Release() {
     nsViewsRoot::Release();
     nsServiceLocator::Release();
     nsUndoService::Release();
+    nsVisualsLifecycle::Release();
     _guiBackend.Shutdown();
 }
 
