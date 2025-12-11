@@ -8,7 +8,7 @@
 #include "display/lifecycle/VisualsLifecycle.h"
 #include "imgui/imgui.h"
 #include "props/LayoutRefPropsView.h"
-#include "props/SpritePropsView.h"
+#include "display/lifecycle/SpritePropsView.h"
 #include "props/TextLabelPropsView.h"
 #include "props/VisualPropsView.h"
 

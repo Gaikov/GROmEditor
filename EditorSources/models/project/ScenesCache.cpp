@@ -4,12 +4,13 @@
 
 #include "ScenesCache.h"
 
+#include "Engine/display/container/VisualContainer2d.h"
 #include "Engine/display/factory/VisualFactory2d.h"
 
 nsScenesCache::~nsScenesCache() {
     Log::Info("...destroy scenes cache");
-    for (const auto &pair : _cache) {
-        pair.second->Destroy();
+    for (const auto obj : _allocated) {
+        Destroy(obj);
     }
 }
 
@@ -19,6 +20,7 @@ nsVisualObject2d * nsScenesCache::Get(const std::string &path) {
         if (scene) {
             Log::Info("scene cached: %s", path.c_str());
             _cache[path] = scene;
+            AddAllocated(scene);
         }
         return scene;
     }
@@ -55,4 +57,21 @@ bool nsScenesCache::Save(const nsFilePath &projectFolder) const {
     }
 
     return result;
+}
+
+void nsScenesCache::AddAllocated(nsVisualObject2d *obj) {
+    _allocated.push_back(obj);
+
+    if (const auto container = dynamic_cast<nsVisualContainer2d*>(obj)) {
+        for (const auto child : container->GetChildren()) {
+            AddAllocated(child);
+        }
+    }
+}
+
+void nsScenesCache::Destroy(nsVisualObject2d *obj) {
+    if (auto const container = dynamic_cast<nsVisualContainer2d*>(obj)) {
+        container->RemoveChildren();
+    }
+    obj->Destroy();
 }

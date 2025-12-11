@@ -16,7 +16,19 @@ public:
 
     const std::vector<nsFilePath>& GetFiles() const { return _files; }
 
+    template<typename TVisual>
+    TVisual* Create() {
+        auto obj = new TVisual();
+        AddAllocated(obj);
+        return obj;
+    }
+
 private:
     std::vector<nsFilePath> _files;
     std::map<std::string, nsVisualObject2d*> _cache;
+    std::vector<nsVisualObject2d*> _allocated;
+
+    void AddAllocated(nsVisualObject2d *obj);
+    static void Destroy(nsVisualObject2d *obj);
+
 };

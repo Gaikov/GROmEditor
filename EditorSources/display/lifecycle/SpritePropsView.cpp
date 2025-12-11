@@ -3,7 +3,6 @@
 //
 
 #include "SpritePropsView.h"
-
 #include "Engine/display/sprite/Sprite.h"
 
 bool nsSpritePropsView::IsSupport(nsVisualObject2d *target) {
@@ -14,8 +13,9 @@ void nsSpritePropsView::Draw(nsVisualObject2d *target) {
     const auto sprite = dynamic_cast<nsSprite*>(target);
     const auto undo = nsUndoService::Shared();
 
-    _colorInput.Draw(sprite->desc.color);
     _textureInput.Draw(sprite->desc.tex);
+    _shaderInput.Draw(sprite->renState);
+    _colorInput.Draw(sprite->desc.color);
 
     _sizeInput.Draw(sprite->desc.size);
     if (sprite->desc.tex) {
@@ -36,4 +36,5 @@ void nsSpritePropsView::Draw(nsVisualObject2d *target) {
 
     _uv1Input.Draw(sprite->desc.tex1);
     _uv2Input.Draw(sprite->desc.tex2);
+    _frameInput.Draw(sprite->drawFrame);
 }

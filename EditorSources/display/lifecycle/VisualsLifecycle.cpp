@@ -6,7 +6,7 @@
 
 #include "ContainerPropsView.h"
 #include "view/library/props/LayoutRefPropsView.h"
-#include "view/library/props/SpritePropsView.h"
+#include "SpritePropsView.h"
 #include "view/library/props/TextLabelPropsView.h"
 #include "view/library/props/VisualPropsView.h"
 
