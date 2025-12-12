@@ -4,6 +4,7 @@
 
 #include "ContainerPropsView.h"
 
+#include "Engine/RenManager.h"
 #include "Engine/display/container/VisualContainer2d.h"
 #include "Engine/display/sprite/Sprite.h"
 #include "Engine/display/text/TextLabel.h"
