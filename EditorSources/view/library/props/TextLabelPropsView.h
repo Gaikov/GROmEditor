@@ -37,6 +37,6 @@ private:
     nsTextInputUndo<nsString>           _textInput = "Text";
     nsColorInputUndo<nsColor>           _colorInput = "Color";
     nsBoolInputUndo<bool>               _drawFrameInput = "Draw Frame";
-    nsEnumInputUndo<nsAlign::Type>      _alignInput = "Horizontal Align";
+    nsEnumInputUndo<nsAlign::Type, nsAlign::Type>      _alignInput = "Horizontal Align";
     nsFloatInputUndo<float>             _letterSpace = "Letters Space";
 };

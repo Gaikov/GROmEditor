@@ -12,7 +12,7 @@
 #include "Core/undo/UndoVarChange.h"
 #include "imgui/imgui.h"
 
-template<typename TEnum>
+template<typename TEnum, typename TProperty>
 class nsEnumInputUndo {
     struct EnumValue {
         std::string name;
@@ -27,7 +27,7 @@ public:
         _values.emplace_back(EnumValue{name, value});
     }
 
-    void Draw(TEnum &value) {
+    void Draw(TProperty &value) {
         int selectedIndex = 0;
         for (int i = 0; i < _values.size(); i++) {
             auto &v = _values[i];

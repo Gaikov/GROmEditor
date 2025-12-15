@@ -5,6 +5,7 @@
 #include "VisualsLifecycle.h"
 
 #include "ContainerPropsView.h"
+#include "ParticlesPropsView.h"
 #include "view/library/props/LayoutRefPropsView.h"
 #include "SpritePropsView.h"
 #include "view/library/props/TextLabelPropsView.h"
@@ -16,6 +17,7 @@ nsVisualsLifecycle::nsVisualsLifecycle() {
     _policies.emplace_back(new nsLayoutRefPropsView());
     _policies.emplace_back(new nsSpritePropsView());
     _policies.emplace_back(new nsTextLabelPropsView());
+    _policies.emplace_back(new nsParticlesPropsView());
 }
 
 void nsVisualsLifecycle::DrawProps(nsVisualObject2d *target) const {
