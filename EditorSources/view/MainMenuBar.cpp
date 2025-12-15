@@ -21,7 +21,7 @@ nsMainMenuBar::nsMainMenuBar() {
             ->Shortcut("Ctrl+N", ImGuiMod_Ctrl | ImGuiKey_N);
     file->AddItem("Open")
             ->Action([&] {
-                    nsPopupsStack::Shared()->AddPopup<nsFolderSelectDialog>();
+                nsPopupsStack::Shared()->AddPopup<nsFolderSelectDialog>();
             })
             ->Shortcut("Ctrl+O", ImGuiMod_Ctrl | ImGuiKey_O);
 
@@ -29,15 +29,18 @@ nsMainMenuBar::nsMainMenuBar() {
     file->AddItem("Save")
             ->Shortcut("Ctrl+S", ImGuiMod_Ctrl | ImGuiKey_S)
             ->Action([&] {
-                    const nsFilePath path = _model->GetProjectPath();
-                    if (path.IsExists() && path.IsFolder()) {
-                        _model->project.Save(path);
-                        nsAlertPopup::Info("Project saved!");
+                const nsFilePath path = _model->GetProjectPath();
+                if (path.IsExists() && path.IsFolder()) {
+                    if (!_model->project.Save(path)) {
+                        nsAlertPopup::Error("Project save failed!");
                     } else {
-                        nsString msg;
-                        msg.Format("Project path '%s' is invalid!", path.AsChar());
-                        nsAlertPopup::Error(msg);
+                        nsAlertPopup::Info("Project saved!");
                     }
+                } else {
+                    nsString msg;
+                    msg.Format("Project path '%s' is invalid!", path.AsChar());
+                    nsAlertPopup::Error(msg);
+                }
             });
 
     file->AddSeparator();
@@ -60,7 +63,6 @@ nsMainMenuBar::nsMainMenuBar() {
 
     auto &user = _model->user;
     const auto view = _menu.AddItem("View");
-    _emitParticles = view->AddItem("Emit Particles")->Action([&] { user.emitParticles = !user.emitParticles; });
     view->AddItem("Blast Particles")->Action([&] { _model->blastParticles = _model->blastParticles + 1; });
     _xFlip = view->AddItem("Flip X")->Action([&] { user.xFlip = !user.xFlip; });
     _yFlip = view->AddItem("Flip Y")->Action([&] { user.yFlip = !user.yFlip; });
@@ -76,7 +78,6 @@ void nsMainMenuBar::Draw() {
     _undo->enabled = undo->HasUndo();
     _redo->enabled = undo->HasRedo();
 
-    _emitParticles->selected = _model->user.emitParticles;
     _xFlip->selected = _model->user.xFlip;
     _yFlip->selected = _model->user.yFlip;
 

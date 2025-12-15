@@ -20,7 +20,6 @@ public:
     nsStringVar currentScene;
     nsBoolVar xFlip;
     nsBoolVar yFlip;
-    nsBoolVar emitParticles;
     nsFloatVar zoom;
     nsColorVar backColor;
     nsFloatVar sceneX, sceneY;

@@ -18,7 +18,6 @@ private:
     nsSVModel *_model;
 
     nsMenuItem *_undo, *_redo;
-    nsMenuItem * _emitParticles;
     nsMenuItem * _xFlip;
     nsMenuItem * _yFlip;
     nsMenuItem * _demoView;
