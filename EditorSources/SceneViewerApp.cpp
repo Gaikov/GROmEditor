@@ -10,7 +10,6 @@
 #include "nsLib/log.h"
 #include "Engine/utils/AppUtils.h"
 #include "Engine/Input.h"
-#include "Engine/renderer/particles/ParticlesManager.h"
 #include "nsLib/locator/ServiceLocator.h"
 #include "models/SVModel.h"
 #include "Core/undo/UndoService.h"
@@ -110,9 +109,6 @@ void nsSceneViewerApp::Loop(float frameTime) {
 }
 
 void nsSceneViewerApp::OnActivate(bool active) {
-    if (active) {
-        nsParticlesManager::Shared()->ReloadParticles();
-    }
 }
 
 void nsSceneViewerApp::OnPause(bool paused) {
