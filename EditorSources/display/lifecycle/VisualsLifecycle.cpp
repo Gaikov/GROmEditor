@@ -5,9 +5,10 @@
 #include "VisualsLifecycle.h"
 
 #include "ContainerPropsView.h"
-#include "ParticlesPropsView.h"
+#include "particles/ParticlesAssetPropsView.h"
 #include "view/library/props/LayoutRefPropsView.h"
 #include "SpritePropsView.h"
+#include "particles/ParticlesPropsView.h"
 #include "view/library/props/TextLabelPropsView.h"
 #include "view/library/props/VisualPropsView.h"
 
@@ -18,6 +19,7 @@ nsVisualsLifecycle::nsVisualsLifecycle() {
     _policies.emplace_back(new nsSpritePropsView());
     _policies.emplace_back(new nsTextLabelPropsView());
     _policies.emplace_back(new nsParticlesPropsView());
+    _policies.emplace_back(new nsParticlesAssetPropsView());
 }
 
 void nsVisualsLifecycle::DrawProps(nsVisualObject2d *target) const {
