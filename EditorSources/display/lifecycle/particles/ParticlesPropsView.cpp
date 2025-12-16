@@ -14,7 +14,10 @@ void nsParticlesPropsView::Draw(nsVisualObject2d *target) {
     const auto parts = dynamic_cast<nsVisualParticles*>(target);
 
     auto &system = parts->GetSystem();
-    _particlesInput.Draw(system.behaviour);
-    _spawnInput.Draw(system.spawnEnabled);
+    auto b = system.behaviour;
+    _particlesInput.Draw(b);
+    if (!(b && b->spawnTime > 0)) {
+        _spawnInput.Draw(system.spawnEnabled);
+    }
     _spaceInput.Draw(parts->space);
 }

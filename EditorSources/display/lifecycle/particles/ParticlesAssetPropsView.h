@@ -4,6 +4,8 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
+#include "view/components/FloatInputUndo.h"
+#include "view/components/IntInputUndo.h"
 #include "view/library/props/BaseVisualPropsView.h"
 
 class nsParticlesAssetPropsView : public nsBaseVisualPropsView {
@@ -15,4 +17,7 @@ public:
 
 protected:
     void Draw(nsVisualObject2d *target) override;
+
+    nsIntInputUndo<int> _particlesPerSec = "Particles Per Sec";
+    nsFloatInputUndo<float> _blastTime = "Blast Time";
 };

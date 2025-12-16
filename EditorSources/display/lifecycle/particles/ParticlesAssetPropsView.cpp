@@ -14,7 +14,11 @@ bool nsParticlesAssetPropsView::IsSupport(nsVisualObject2d *target) {
 
 void nsParticlesAssetPropsView::Draw(nsVisualObject2d *target) {
 
-    //const auto ps = dynamic_cast<nsVisualParticles*>(target);
+    const auto ps = dynamic_cast<nsVisualParticles*>(target);
+    const auto b = ps->GetSystem().behaviour;
+
+    _particlesPerSec.Draw(b->amountPerSecond);
+    _blastTime.Draw(b->spawnTime);
 
     if (ImGui::BeginTabBar("##parts_behaviour", ImGuiTabBarFlags_None)) {
         if (ImGui::BeginTabItem("Spawners")) {
