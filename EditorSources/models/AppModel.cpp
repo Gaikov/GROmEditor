@@ -2,18 +2,18 @@
 // Created by Roman on 10/22/2024.
 //
 
-#include "SVModel.h"
+#include "AppModel.h"
 #include "nsLib/log.h"
 
-nsSVModel::nsSVModel() : blastParticles(0) {
+nsAppModel::nsAppModel() : blastParticles(0) {
 
 }
 
-nsFilePath nsSVModel::GetProjectPath() const {
+nsFilePath nsAppModel::GetProjectPath() const {
     return nsFilePath(settings.projectPath.GetValue().c_str());
 }
 
-bool nsSVModel::Load() {
+bool nsAppModel::Load() {
     if (settings.Load("editor.ggml")) {
         const nsFilePath path = GetProjectPath();
 
@@ -28,7 +28,7 @@ bool nsSVModel::Load() {
     return false;
 }
 
-bool nsSVModel::Save() {
+bool nsAppModel::Save() {
     if (!settings.Save("editor.ggml")) {
         return false;
     }
@@ -42,6 +42,6 @@ bool nsSVModel::Save() {
     return true;
 }
 
-void nsSVModel::OnCreated() {
+void nsAppModel::OnCreated() {
     Log::Info("sv model created");
 }

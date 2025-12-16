@@ -7,7 +7,7 @@
 #include "nsLib/locator/ServiceLocator.h"
 
 nsBaseVisualPropsView::nsBaseVisualPropsView(const char *label) : _header(label) {
-    _model = Locate<nsSVModel>();
+    _model = Locate<nsAppModel>();
 }
 
 void nsBaseVisualPropsView::DrawPanel(nsVisualObject2d *target) {

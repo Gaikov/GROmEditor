@@ -13,7 +13,7 @@
 #include "popups/PopupsStack.h"
 
 nsMainMenuBar::nsMainMenuBar() {
-    _model = Locate<nsSVModel>();
+    _model = Locate<nsAppModel>();
 
     const auto file = _menu.AddItem("File");
     file->AddItem("New")

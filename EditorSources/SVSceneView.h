@@ -6,7 +6,7 @@
 #pragma once
 
 #include "gizmos/VisualHolder.h"
-#include "models/SVModel.h"
+#include "models/AppModel.h"
 
 class nsSVSceneView : public nsVisualHolder {
 public:
@@ -21,5 +21,5 @@ protected:
 
 private:
     nsVisualObject2d    *_scene = nullptr;
-    nsSVModel           *_appModel;
+    nsAppModel           *_appModel;
 };

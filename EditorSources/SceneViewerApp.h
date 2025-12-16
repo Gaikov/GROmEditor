@@ -36,7 +36,7 @@ private:
     bool OnMouseWheel(float delta) override;
 
 private:
-    nsSVModel      *_appModel = nullptr;
+    nsAppModel      *_appModel = nullptr;
     nsVisualContainer2d *_stage = nullptr;
     nsSVMainView   *_view = nullptr;
     IRenDevice      *_device = nullptr;

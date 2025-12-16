@@ -7,7 +7,7 @@
 
 #include "SVSceneView.h"
 #include "Engine/display/layouts/GroupLayout.h"
-#include "models/SVModel.h"
+#include "models/AppModel.h"
 #include "Engine/display/particles/VisualParticles.h"
 #include "Engine/display/sprite/Sprite.h"
 
@@ -29,7 +29,7 @@ protected:
     void BlastParticles();
 
 private:
-    nsSVModel           *_appModel;
+    nsAppModel           *_appModel;
     nsSVSceneView       *_sceneView;
     nsVisualObject2d    *_scene = nullptr;
     nsSprite *_back = nullptr;

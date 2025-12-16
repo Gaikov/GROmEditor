@@ -11,7 +11,7 @@
 #include "Engine/utils/AppUtils.h"
 #include "Engine/Input.h"
 #include "nsLib/locator/ServiceLocator.h"
-#include "models/SVModel.h"
+#include "models/AppModel.h"
 #include "Core/undo/UndoService.h"
 #include "display/VisualRefBuilder.h"
 #include "display/lifecycle/VisualsLifecycle.h"
@@ -42,8 +42,8 @@ bool nsSceneViewerApp::Init() {
 
     nsServiceLocator::Init();
     auto locator = nsServiceLocator::Shared();
-    locator->MapClass<nsSVModel>().AsSingleton().GetInstance();
-    _appModel = Locate<nsSVModel>();
+    locator->MapClass<nsAppModel>().AsSingleton().GetInstance();
+    _appModel = Locate<nsAppModel>();
 
     nsVisualFactory2d::Shared()->RegisterBuilderWithName<nsVisualRefBuilder>();
     nsVisualsLifecycle::Init();

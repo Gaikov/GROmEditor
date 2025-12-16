@@ -5,12 +5,13 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 #include "imgui/imgui.h"
+#include "models/AppModel.h"
 #include "nsLib/FilePath.h"
 #include "nsLib/StrTools.h"
 
-class nsBaseAssetSelect {
+class nsBaseAssetSelect : public nsNoCopyable {
 public:
-    virtual ~nsBaseAssetSelect() = default;
+    nsBaseAssetSelect();
 
     void DrawInputField(const char *title, const char *currentPath);
     bool DrawSelectionPopup(const nsString &path);
@@ -18,6 +19,7 @@ public:
 protected:
     std::vector<std::string> _extensions;
     ImVec2 _popupSize = {100, 100};
+    nsAppModel * const _model;
 
     virtual const char* GetPopupId() = 0;
     virtual void OnClickBrowse() = 0;

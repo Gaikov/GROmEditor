@@ -5,8 +5,11 @@
 #include "BaseAssetSelect.h"
 
 #include "imgui/imgui.h"
-#include "models/SVModel.h"
+#include "models/AppModel.h"
 #include "nsLib/locator/ServiceLocator.h"
+
+nsBaseAssetSelect::nsBaseAssetSelect() : _model(Locate<nsAppModel>()) {
+}
 
 void nsBaseAssetSelect::DrawInputField(const char *title, const char *currentPath) {
     nsString path = currentPath;
@@ -19,8 +22,7 @@ void nsBaseAssetSelect::DrawInputField(const char *title, const char *currentPat
     if (ImGui::Button(buttonId)) {
         OnClickBrowse();
 
-        const auto model = Locate<nsSVModel>();
-        const auto projectPath = model->GetProjectPath();
+        const auto projectPath = _model->GetProjectPath();
         _files.clear();
         std::vector<nsFilePath> files;
         projectPath.ListingRecursive(files);

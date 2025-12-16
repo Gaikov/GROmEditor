@@ -6,7 +6,7 @@
 #pragma once
 #include <memory>
 
-#include "models/SVModel.h"
+#include "models/AppModel.h"
 
 class nsBaseView {
     friend class nsViewsRoot;
@@ -20,7 +20,7 @@ public:
     bool visible = true;
 
 protected:
-    nsSVModel* const _model;
+    nsAppModel* const _model;
 
     virtual void Draw() = 0;
     virtual void PostDraw() {}

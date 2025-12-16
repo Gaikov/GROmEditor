@@ -6,7 +6,7 @@
 #pragma once
 #include "BaseView.h"
 #include "components/menu/MenuBar.h"
-#include "models/SVModel.h"
+#include "models/AppModel.h"
 
 class nsMainMenuBar : public nsBaseView {
 public:
@@ -15,7 +15,7 @@ public:
 
 private:
     nsMenuBar _menu;
-    nsSVModel *_model;
+    nsAppModel *_model;
 
     nsMenuItem *_undo, *_redo;
     nsMenuItem * _xFlip;

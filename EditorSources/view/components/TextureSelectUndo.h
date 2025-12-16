@@ -10,7 +10,7 @@
 #include "Engine/RenDevice.h"
 #include "Engine/RenManager.h"
 #include "imgui/imgui.h"
-#include "models/SVModel.h"
+#include "models/AppModel.h"
 #include "nsLib/StrTools.h"
 
 template<typename TTexture>

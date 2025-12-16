@@ -11,7 +11,7 @@
 #include "scene/SceneUtils.h"
 
 nsSVMainView::nsSVMainView() {
-    _appModel = Locate<nsSVModel>();
+    _appModel = Locate<nsAppModel>();
     auto &p = _appModel->project;
 
     _appModel->blastParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *) {

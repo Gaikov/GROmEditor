@@ -10,7 +10,7 @@
 #include "Engine/display/sprite/Sprite.h"
 
 nsSVSceneView::nsSVSceneView() {
-    _appModel = Locate<nsSVModel>();
+    _appModel = Locate<nsAppModel>();
 }
 
 void nsSVSceneView::Destroy() {

@@ -11,9 +11,9 @@
 #include "nsLib/models/Property.h"
 #include "project/ProjectModel.h"
 
-class nsSVModel : public nsLocatable {
+class nsAppModel : public nsLocatable {
 public:
-    nsSVModel();
+    nsAppModel();
 
     nsAppSettings       settings;
 

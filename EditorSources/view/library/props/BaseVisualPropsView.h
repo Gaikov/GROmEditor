@@ -6,7 +6,7 @@
 #pragma once
 #include <memory>
 #include "Engine/display/VisualObject2d.h"
-#include "models/SVModel.h"
+#include "models/AppModel.h"
 
 class nsBaseVisualPropsView {
 public:
@@ -22,7 +22,7 @@ public:
 
 protected:
     std::string _header;
-    nsSVModel *_model;
+    nsAppModel *_model;
 
     virtual void Draw(nsVisualObject2d *target) = 0;
     static void DrawMenuSeparator(bool hasPrevItems);
