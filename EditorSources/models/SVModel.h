@@ -5,27 +5,27 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 
+#include "AppSettings.h"
 #include "ProjectStateModel.h"
-#include "Core/serialization/var/StringVar.h"
 #include "nsLib/locator/Locatable.h"
 #include "nsLib/models/Property.h"
 #include "project/ProjectModel.h"
 
-class nsSVModel : public nsLocatable, public nsSerializableFile {
+class nsSVModel : public nsLocatable {
 public:
     nsSVModel();
 
-    nsStringVar         projectPath;
+    nsAppSettings       settings;
 
     nsProperty<int>     blastParticles;
 
     nsProjectModel      project;
     nsProjectStateModel user;
 
-    nsFilePath GetProjectPath();
+    nsFilePath GetProjectPath() const;
 
-    bool Load(const char *fileName) override;
-    bool Save(const char *fileName) override;
+    bool Load();
+    bool Save();
 
 protected:
     void OnCreated() override;

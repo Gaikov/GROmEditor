@@ -64,9 +64,7 @@ bool nsSceneViewerApp::Init() {
     _inputHandler.AddInput(&_guiBackend);
     _inputHandler.AddInput(&_appInput);
 
-    _appModel->Load("editor.ggml");
-    const auto projectPath = _appModel->GetProjectPath();
-    _appModel->project.Load(projectPath);
+    _appModel->Load();
 
     return true;
 }
@@ -77,7 +75,7 @@ void nsSceneViewerApp::Release() {
         _stage->Destroy();
     }
 
-    _appModel->Save("editor.ggml");
+    _appModel->Save();
 
     nsPopupsStack::Release();
     nsViewsRoot::Release();

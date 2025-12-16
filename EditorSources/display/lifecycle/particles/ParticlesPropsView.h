@@ -7,6 +7,7 @@
 #include "Engine/display/particles/VisualParticles.h"
 #include "view/components/BoolInputUndo.h"
 #include "view/components/EnumInputUndo.h"
+#include "view/components/ParticlesSelectUndo.h"
 #include "view/library/props/BaseVisualPropsView.h"
 
 class nsParticlesPropsView : public nsBaseVisualPropsView {
@@ -22,6 +23,7 @@ public:
 protected:
     void Draw(nsVisualObject2d *target) override;
 
+    nsParticlesSelectUndo<nsParticlesBehaviour*> _particlesInput;
     nsBoolInputUndo<bool> _spawnInput = "Spawn";
     nsEnumInputUndo<nsVisualParticles::Space, nsProperty<nsVisualParticles::Space>> _spaceInput = "Space";
 };
