@@ -24,18 +24,20 @@ void nsLibraryView::Draw() {
         _filter = "";
     }
 
+    auto &user = _model->project.user;
+
     ImGui::BeginChild("LayoutsLib", ImVec2(0, 300), true, ImGuiWindowFlags_HorizontalScrollbar);
     for (auto file: _model->project.scenes.GetFiles()) {
         if (_filter.IsEmpty() || strstr(file.AsChar(), _filter.AsChar())) {
-            if (ImGui::Selectable(file.AsChar(), _model->user.currentScene == file.AsChar(), ImGuiSelectableFlags_AllowDoubleClick)) {
+            if (ImGui::Selectable(file.AsChar(), user.currentScene == file.AsChar(), ImGuiSelectableFlags_AllowDoubleClick)) {
                 if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
                     Log::Info("Selected: %s", file.AsChar());
                     const std::string value = file.AsChar();
                     const auto undo = nsUndoService::Shared();
                     const auto batch = new nsUndoBatch();
 
-                    batch->Add(new nsUndoVarChange(_model->user.selectedObject, static_cast<nsVisualObject2d *>(nullptr)));
-                    batch->Add(new nsUndoVarChange(_model->user.currentScene, value));
+                    batch->Add(new nsUndoVarChange(user.selectedObject, static_cast<nsVisualObject2d *>(nullptr)));
+                    batch->Add(new nsUndoVarChange(user.currentScene, value));
 
                     undo->Push(batch);
                 }

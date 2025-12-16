@@ -28,7 +28,7 @@ protected:
             obj->id = name;
             const auto batch = new nsUndoBatch();
             batch->Add(new nsUndoAddChild(c, obj));
-            batch->Add(new nsUndoVarChange(_model->user.selectedObject, obj));
+            batch->Add(new nsUndoVarChange(_model->project.user.selectedObject, obj));
             nsUndoService::Shared()->Push(batch);
             return res;
         }

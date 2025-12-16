@@ -23,3 +23,15 @@ nsProjectStateModel::nsProjectStateModel()
     AddItem(&sceneY);
     AddItem(&testView);
 }
+
+void nsProjectStateModel::Reset() {
+    ResetDefault();
+}
+
+bool nsProjectStateModel::Load(const nsFilePath &folder) {
+    return nsSerializableFile::Load(folder.ResolvePath("user.ggml"));
+}
+
+bool nsProjectStateModel::Save(const nsFilePath &folder) {
+    return nsSerializableFile::Save(folder.ResolvePath("user.ggml"));
+}

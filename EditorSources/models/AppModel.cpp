@@ -21,7 +21,6 @@ bool nsAppModel::Load() {
             return false;
         }
 
-        user.Load(path.ResolvePath("user.ggml"));
         return true;
     }
 
@@ -38,7 +37,6 @@ bool nsAppModel::Save() {
         return false;
     }
 
-    user.Save(path.ResolvePath("user.ggml"));
     return true;
 }
 

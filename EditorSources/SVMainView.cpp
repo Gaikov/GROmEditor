@@ -18,17 +18,19 @@ nsSVMainView::nsSVMainView() {
         BlastParticles();
     });
 
-    _appModel->user.currentScene.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *) {
-        SetScene(p.scenes.Get(_appModel->user.currentScene));
+    auto &user = _appModel->project.user;
+
+    user.currentScene.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *) {
+        SetScene(p.scenes.Get(user.currentScene));
     });
 
-    _appModel->user.backColor.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *) {
-        _back->desc.color = _appModel->user.backColor;
+    user.backColor.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *) {
+        _back->desc.color = user.backColor;
     });
     _sceneView = new nsSVSceneView();
     _back = new nsSprite();
     _back->desc.size = {100, 100};
-    _back->desc.color = _appModel->user.backColor;
+    _back->desc.color = user.backColor;
 }
 
 void nsSVMainView::SetScene(nsVisualObject2d *scene) {
@@ -57,7 +59,7 @@ void nsSVMainView::Loop() {
     auto &t = _sceneView->origin;
     t.angle = nsMath::MoveExp(t.angle, _angle, 10, g_frameTime);
 
-    auto &user = _appModel->user;
+    const auto &user = _appModel->project.user;
     nsVec2 pos = t.pos;
     pos.x = nsMath::MoveExp(pos.x, user.sceneX, 50, g_frameTime);
     pos.y = nsMath::MoveExp(pos.y, user.sceneY, 50, g_frameTime);
@@ -70,8 +72,9 @@ void nsSVMainView::DrawNode(const nsVisualContext2d &context) {
     nsVisualContainer2d::DrawNode(context);
 
     ApplyWorldMatrix();
-    nsSceneUtils::DrawBounds(_appModel->user.selectedObject);
-    nsSceneUtils::DrawOrigin(_appModel->user.selectedObject);
+    nsVisualObject2d *selected = _appModel->project.user.selectedObject;
+    nsSceneUtils::DrawBounds(selected);
+    nsSceneUtils::DrawOrigin(selected);
 }
 
 bool nsSVMainView::OnPointerUp(float x, float y, int pointerId) {
@@ -103,7 +106,7 @@ bool nsSVMainView::OnPointerMove(float x, float y, int pointerId) {
     if (_dragging) {
         const auto delta = nsVec2(x, y) - _mouseDown;
         const auto pos = _startDragPos + delta;
-        auto &user = _appModel->user;
+        auto &user = _appModel->project.user;
         user.sceneX = pos.x;
         user.sceneY = pos.y;
         return true;
@@ -114,8 +117,9 @@ bool nsSVMainView::OnPointerMove(float x, float y, int pointerId) {
 
 bool nsSVMainView::OnMouseWheel(float delta) {
     nsVisualContainer2d::OnMouseWheel(delta);
-    const float zoom = _appModel->user.zoom;
-    _appModel->user.zoom = zoom + (zoom * 0.05f) * delta;
+    auto &user = _appModel->project.user;
+    const float zoom = user.zoom;
+    user.zoom = zoom + (zoom * 0.05f) * delta;
     return true;
 }
 

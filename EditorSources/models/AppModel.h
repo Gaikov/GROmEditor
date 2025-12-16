@@ -6,7 +6,6 @@
 #pragma once
 
 #include "AppSettings.h"
-#include "ProjectStateModel.h"
 #include "nsLib/locator/Locatable.h"
 #include "nsLib/models/Property.h"
 #include "project/ProjectModel.h"
@@ -20,7 +19,6 @@ public:
     nsProperty<int>     blastParticles;
 
     nsProjectModel      project;
-    nsProjectStateModel user;
 
     nsFilePath GetProjectPath() const;
 

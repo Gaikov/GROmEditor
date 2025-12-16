@@ -4,11 +4,13 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
+#include "ProjectStateModel.h"
 #include "ScenesCache.h"
 
 class nsProjectModel {
 public:
     nsScenesCache scenes;
+    nsProjectStateModel user;
 
     nsProjectModel();
 

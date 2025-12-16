@@ -34,11 +34,11 @@ void nsSVSceneView::Loop() {
     if (_scene) {
         auto &t = origin;
         auto m = _appModel;
-        auto &user = _appModel->user;
+        auto &user = _appModel->project.user;
 
         nsVec2 targetScale = {
-            (user.xFlip ? -1.0f : 1.0f) * m->user.zoom,
-            (user.yFlip ? -1.0f : 1.0f) * m->user.zoom,
+            (user.xFlip ? -1.0f : 1.0f) * user.zoom,
+            (user.yFlip ? -1.0f : 1.0f) * user.zoom,
         };
 
         nsVec2 scale = t.scale;

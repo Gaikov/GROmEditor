@@ -9,6 +9,10 @@
 
 nsProjectModel::nsProjectModel() {
     _models.push_back(&scenes);
+
+
+    //project state should be loaded after all the models
+    _models.push_back(&user);
 }
 
 bool nsProjectModel::Load(const nsFilePath &projectFolder) {

@@ -21,11 +21,12 @@ bool nsVisualPropsView::DrawContextMenu(nsVisualObject2d *target, const bool has
     if (!nsVisualHolder::isRoot(target)) {
         DrawMenuSeparator(hasPrevItems);
         if (ImGui::MenuItem("Delete")) {
+            auto &user = _model->project.user;
             const auto batch = new nsUndoBatch();
 
             batch->Add(new nsUndoRemoveChild(target));
-            if (_model->user.selectedObject == target) {
-                batch->Add(new nsUndoVarChange(_model->user.selectedObject, static_cast<nsVisualObject2d *>(nullptr)));
+            if (user.selectedObject == target) {
+                batch->Add(new nsUndoVarChange(user.selectedObject, static_cast<nsVisualObject2d *>(nullptr)));
             }
 
             nsUndoService::Shared()->Push(batch);

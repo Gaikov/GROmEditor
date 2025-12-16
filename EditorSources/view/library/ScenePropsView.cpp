@@ -13,22 +13,25 @@
 #include "props/VisualPropsView.h"
 
 nsScenePropsView::nsScenePropsView() {
-    auto &scenePath = _model->user.currentScene;
+    auto &user = _model->project.user;
+    auto &scenePath = user.currentScene;
     scenePath.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *e) {
         _scene = _model->project.scenes.Get(scenePath);
     });
 
-    _model->user.selectedObject.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *e) {
-        _preselect = _model->user.selectedObject;
+    user.selectedObject.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *e) {
+        _preselect = user.selectedObject;
     });
 }
 
 void nsScenePropsView::Draw() {
+    auto &user = _model->project.user;
+
     ImGui::Begin("Scene Properties");
 
     ImGui::Text("Layout:");
     ImGui::SameLine();
-    ImGui::Text(_model->user.currentScene->c_str());
+    ImGui::Text(user.currentScene->c_str());
 
     if (_scene) {
         if (ImGui::CollapsingHeader("Scene Tree", ImGuiTreeNodeFlags_DefaultOpen)) {
@@ -43,7 +46,7 @@ void nsScenePropsView::Draw() {
             ImGui::BeginChild("Props List", ImVec2(0, 0),
                               ImGuiChildFlags_AutoResizeY,
                               ImGuiWindowFlags_HorizontalScrollbar);
-            if (nsVisualObject2d *selected = _model->user.selectedObject) {
+            if (nsVisualObject2d *selected = user.selectedObject) {
                 nsVisualsLifecycle::Shared()->DrawProps(selected);
             } else {
                 ImGui::Text("No selection");
@@ -56,7 +59,8 @@ void nsScenePropsView::Draw() {
 }
 
 void nsScenePropsView::DrawNode(nsVisualObject2d *node, int index) {
-    const nsVisualObject2d *selected = _model->user.selectedObject;
+    auto &user = _model->project.user;
+    const nsVisualObject2d *selected = user.selectedObject;
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None | ImGuiTreeNodeFlags_DrawLinesFull;
     const auto container = dynamic_cast<nsVisualContainer2d *>(node);
     if (container) {
@@ -102,8 +106,9 @@ void nsScenePropsView::DrawNode(nsVisualObject2d *node, int index) {
 
 void nsScenePropsView::PostDraw() {
     nsBaseView::PostDraw();
-    if (_preselect != _model->user.selectedObject) {
+    auto &user = _model->project.user;
+    if (_preselect != user.selectedObject) {
         Log::Debug("Selected node changed");
-        nsUndoService::Shared()->Push(new nsUndoVarChange(_model->user.selectedObject, _preselect));
+        nsUndoService::Shared()->Push(new nsUndoVarChange(user.selectedObject, _preselect));
     }
 }

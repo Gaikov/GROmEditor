@@ -154,10 +154,11 @@ void DraggableMenuItem() {
 }
 
 nsTestView::nsTestView() {
-    _model->user.testView.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent*) {
-        visible = _model->user.testView;
+    auto &user = _model->project.user;
+    user.testView.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent*) {
+        visible = user.testView;
     });
-    visible = _model->user.testView;
+    visible = user.testView;
 }
 
 void nsTestView::Draw() {

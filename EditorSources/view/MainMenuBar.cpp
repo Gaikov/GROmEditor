@@ -61,12 +61,12 @@ nsMainMenuBar::nsMainMenuBar() {
     edit->AddItem("Copy");
     edit->AddItem("Paste");
 
-    auto &user = _model->user;
+    auto &user = _model->project.user;
     const auto view = _menu.AddItem("View");
     view->AddItem("Blast Particles")->Action([&] { _model->blastParticles = _model->blastParticles + 1; });
     _xFlip = view->AddItem("Flip X")->Action([&] { user.xFlip = !user.xFlip; });
     _yFlip = view->AddItem("Flip Y")->Action([&] { user.yFlip = !user.yFlip; });
-    view->AddItem("Reset Zoom")->Action([&] { _model->user.zoom = 1.0f; });
+    view->AddItem("Reset Zoom")->Action([&] { user.zoom = 1.0f; });
 
     const auto debug = _menu.AddItem("Debug");
     _demoView = debug->AddItem("Demo View")->Action([&] { user.testView = !user.testView; });
@@ -78,10 +78,12 @@ void nsMainMenuBar::Draw() {
     _undo->enabled = undo->HasUndo();
     _redo->enabled = undo->HasRedo();
 
-    _xFlip->selected = _model->user.xFlip;
-    _yFlip->selected = _model->user.yFlip;
+    const auto &user = _model->project.user;
 
-    _demoView->selected = _model->user.testView;
+    _xFlip->selected = user.xFlip;
+    _yFlip->selected = user.yFlip;
+
+    _demoView->selected = user.testView;
 
     _menu.Draw();
     _menu.Update();
