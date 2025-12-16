@@ -10,8 +10,12 @@ class nsProjectModel {
 public:
     nsScenesCache scenes;
 
-    nsProjectModel() = default;
+    nsProjectModel();
 
     bool Load(const nsFilePath &projectFolder);
-    bool Save(const nsFilePath &projectFolder) const;
+    bool Save(const nsFilePath &projectFolder);
+    void Reset();
+
+private:
+    std::vector<nsProjectSubModel*> _models;
 };

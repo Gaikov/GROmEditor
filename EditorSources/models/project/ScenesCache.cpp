@@ -8,10 +8,7 @@
 #include "Engine/display/factory/VisualFactory2d.h"
 
 nsScenesCache::~nsScenesCache() {
-    Log::Info("...destroy scenes cache");
-    for (const auto obj : _allocated) {
-        Destroy(obj);
-    }
+    Clear();
 }
 
 nsVisualObject2d * nsScenesCache::Get(const std::string &path) {
@@ -25,6 +22,20 @@ nsVisualObject2d * nsScenesCache::Get(const std::string &path) {
         return scene;
     }
     return _cache[path];
+}
+
+void nsScenesCache::Reset() {
+    Clear();
+}
+
+void nsScenesCache::Clear() {
+    Log::Info("...destroy scenes cache");
+    for (const auto obj : _allocated) {
+        Destroy(obj);
+    }
+    _allocated.clear();
+    _cache.clear();
+    _files.clear();
 }
 
 bool nsScenesCache::Load(const nsFilePath &projectFolder) {
@@ -45,7 +56,7 @@ bool nsScenesCache::Load(const nsFilePath &projectFolder) {
     return true;
 }
 
-bool nsScenesCache::Save(const nsFilePath &projectFolder) const {
+bool nsScenesCache::Save(const nsFilePath &projectFolder) {
     Log::Info("Saving scenes cache to folder: %s", projectFolder.AsChar());
     bool result = true;
     const auto vf = nsVisualFactory2d::Shared();

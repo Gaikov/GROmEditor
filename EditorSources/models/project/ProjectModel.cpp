@@ -7,20 +7,41 @@
 #include "Engine/display/factory/VisualFactory2d.h"
 #include "nsLib/log.h"
 
+nsProjectModel::nsProjectModel() {
+    _models.push_back(&scenes);
+}
+
 bool nsProjectModel::Load(const nsFilePath &projectFolder) {
+    Reset();
     Log::Info("Loading project from folder: %s", projectFolder.AsChar());
     nsVisualFactory2d::Shared()->assetsPath = projectFolder;
-    if (!scenes.Load(projectFolder)) {
-        return false;
+
+    for (const auto model : _models) {
+        if (!model->Load(projectFolder)) {
+            Reset();
+            return false;
+        }
     }
 
     return true;
 }
 
-bool nsProjectModel::Save(const nsFilePath &projectFolder) const {
+bool nsProjectModel::Save(const nsFilePath &projectFolder) {
     Log::Info("Saving project to folder: %s", projectFolder.AsChar());
-    bool res = scenes.Save(projectFolder);
+
+    bool res = true;
+    for (const auto model : _models) {
+        if (!model->Save(projectFolder)) {
+            res = false;
+        }
+    }
 
     return res;
+}
+
+void nsProjectModel::Reset() {
+    for (const auto model : _models) {
+        model->Reset();
+    }
 }
 

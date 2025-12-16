@@ -4,15 +4,13 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
+#include "ProjectSubModel.h"
 #include "Engine/display/VisualObject2d.h"
 
-class nsScenesCache {
+class nsScenesCache final : public nsProjectSubModel {
 public:
-    ~nsScenesCache();
+    ~nsScenesCache() override;
     nsVisualObject2d* Get(const std::string &path);
-
-    bool Load(const nsFilePath &projectFolder);
-    bool Save(const nsFilePath &projectFolder) const;
 
     const std::vector<nsFilePath>& GetFiles() const { return _files; }
 
@@ -22,6 +20,12 @@ public:
         AddAllocated(obj);
         return obj;
     }
+protected:
+    void Reset() override;
+    bool Load(const nsFilePath &projectFolder) override;
+    bool Save(const nsFilePath &projectFolder) override;
+
+    void Clear();
 
 private:
     std::vector<nsFilePath> _files;
