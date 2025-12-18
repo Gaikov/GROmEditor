@@ -22,6 +22,7 @@ void nsParticlesAssetPropsView::Draw(nsVisualObject2d *target) {
 
     if (ImGui::BeginTabBar("##parts_behaviour", ImGuiTabBarFlags_None)) {
         if (ImGui::BeginTabItem("Spawners")) {
+            _spawnerProps.DrawProps(b->spawner);
             ImGui::EndTabItem();
         }
 
