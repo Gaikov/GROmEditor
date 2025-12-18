@@ -4,14 +4,21 @@
 
 #include "SpawnerPropsRegistry.h"
 
+#include "Core/serialization/var/FloatVar.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVectorAdd.h"
 #include "Core/undo/UndoVectorRemove.h"
 #include "Engine/renderer/particles/spawner/ParticlesAngleSpawner.h"
+#include "Engine/renderer/particles/spawner/ParticlesColorSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesMultiSpawner.h"
+#include "Engine/renderer/particles/spawner/position/ParticlesCircleSpawner.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
 #include "view/components/AngleInputUndo.h"
+#include "view/components/BoolInputUndo.h"
+#include "view/components/ColorInputUndo.h"
+#include "view/components/FloatInputUndo.h"
+#include "view/components/Vec2InputUndo.h"
 
 class nsMultiSpawnerPropsView : public nsSpawnerPropsView {
 protected:
@@ -36,6 +43,8 @@ protected:
 
         if (ImGui::BeginPopup("AddSpawnerPopup")) {
             AddSpawner<nsParticlesAngleSpawner>(s);
+            AddSpawner<nsParticlesCircleSpawner>(s);
+            AddSpawner<nsParticlesColorSpawner>(s);
             ImGui::EndPopup();
         }
 
@@ -71,9 +80,47 @@ protected:
     }
 };
 
+class nsCircleSpawnerPropsView final : public nsSpawnerPropsView {
+protected:
+
+    nsFloatInputUndo<float> _radius = "Radius";
+    nsBoolInputUndo<bool> _onEdge = "On Edge";
+    nsFloatInputUndo<float> _minRadius = "Min Radius";
+
+    bool IsSupported(nsParticlesSpawner *spawner) override {
+        return dynamic_cast<nsParticlesCircleSpawner*>(spawner);
+    }
+
+    void Draw(nsParticlesSpawner *spawner, nsSpawnerPropsContext *context) override {
+        const auto s = dynamic_cast<nsParticlesCircleSpawner*>(spawner);
+        _radius.Draw(s->radius);
+        _onEdge.Draw(s->onEdge);
+        if (s->onEdge) {
+            _minRadius.Draw(s->minRadius);
+        }
+    }
+};
+
+class nsColorSpawnerPropsView final : public nsSpawnerPropsView {
+protected:
+    nsColorInputUndo<nsColor> _color1 = "Color 1";
+    nsColorInputUndo<nsColor> _color2 = "Color 2";
+
+    bool IsSupported(nsParticlesSpawner *spawner) override {
+        return dynamic_cast<nsParticlesColorSpawner*>(spawner);
+    }
+    void Draw(nsParticlesSpawner *spawner, nsSpawnerPropsContext *context) override {
+        const auto s = dynamic_cast<nsParticlesColorSpawner*>(spawner);
+        _color1.Draw(s->color1);
+        _color2.Draw(s->color2);
+    }
+};
+
 nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsMultiSpawnerPropsView());
     _views.emplace_back(new nsAngleSpawnerPropsView());
+    _views.emplace_back(new nsCircleSpawnerPropsView());
+    _views.emplace_back(new nsColorSpawnerPropsView());
 }
 
 void nsSpawnerPropsRegistry::DrawProps(nsParticlesSpawner *spawner) {
