@@ -12,6 +12,7 @@
 #include "Engine/renderer/particles/spawner/ParticlesColorSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesMultiSpawner.h"
 #include "Engine/renderer/particles/spawner/position/ParticlesCircleSpawner.h"
+#include "Engine/renderer/particles/spawner/position/ParticlesEdgesSpawner.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
 #include "view/components/AngleInputUndo.h"
@@ -45,6 +46,7 @@ protected:
             AddSpawner<nsParticlesAngleSpawner>(s);
             AddSpawner<nsParticlesCircleSpawner>(s);
             AddSpawner<nsParticlesColorSpawner>(s);
+            AddSpawner<nsParticlesEdgesSpawner>(s);
             ImGui::EndPopup();
         }
 
@@ -116,11 +118,25 @@ protected:
     }
 };
 
+class nsEdgesSpawnerPropsView final : public nsSpawnerPropsView {
+protected:
+    bool IsSupported(nsParticlesSpawner *spawner) override {
+        return dynamic_cast<nsParticlesEdgesSpawner*>(spawner);
+    }
+    void Draw(nsParticlesSpawner *spawner, nsSpawnerPropsContext *context) override {
+        const auto s = dynamic_cast<nsParticlesEdgesSpawner*>(spawner);
+        if (ImGui::Button("Add Edge")) {
+
+        }
+    }
+};
+
 nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsMultiSpawnerPropsView());
     _views.emplace_back(new nsAngleSpawnerPropsView());
     _views.emplace_back(new nsCircleSpawnerPropsView());
     _views.emplace_back(new nsColorSpawnerPropsView());
+    _views.emplace_back(new nsEdgesSpawnerPropsView());
 }
 
 void nsSpawnerPropsRegistry::DrawProps(nsParticlesSpawner *spawner) {
