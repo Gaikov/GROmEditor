@@ -24,11 +24,11 @@ protected:
 public:
     nsProperty<nsVisualObject2d*> selectedObject = nullptr;
 
-    nsStringVar currentScene;
-    nsBoolVar xFlip;
-    nsBoolVar yFlip;
-    nsFloatVar zoom;
-    nsColorVar backColor;
-    nsFloatVar sceneX, sceneY;
-    nsBoolVar testView;
+    nsStringVar currentScene = "";
+    nsBoolVar xFlip = false;
+    nsBoolVar yFlip = false;
+    nsFloatVar zoom = 1;
+    nsColorVar backColor = nsColor::black;
+    nsFloatVar sceneX = 1, sceneY = 1;
+    nsBoolVar testView = false;
 };

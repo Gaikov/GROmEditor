@@ -4,24 +4,15 @@
 
 #include "ProjectStateModel.h"
 
-nsProjectStateModel::nsProjectStateModel()
-    : nsSerializableFile("user"),
-      currentScene("current_scene", ""),
-      xFlip("x_flip", false),
-      yFlip("y_flip", false),
-      zoom("zoom", 1.0f),
-      backColor("back_color", nsColor::gray),
-      sceneX("scene_x", 0), sceneY("scene_y", 0),
-      testView("test_view", false) {
-
-    AddItem(&currentScene);
-    AddItem(&xFlip);
-    AddItem(&yFlip);
-    AddItem(&zoom);
-    AddItem(&backColor);
-    AddItem(&sceneX);
-    AddItem(&sceneY);
-    AddItem(&testView);
+nsProjectStateModel::nsProjectStateModel() {
+    AddItem("current_scene", &currentScene);
+    AddItem("x_flip", &xFlip);
+    AddItem("y_flip", &yFlip);
+    AddItem("zoom", &zoom);
+    AddItem("back_color", &backColor);
+    AddItem("scene_x", &sceneX);
+    AddItem( "scene_y", &sceneY);
+    AddItem( "test_view", &testView);
 }
 
 void nsProjectStateModel::Reset() {

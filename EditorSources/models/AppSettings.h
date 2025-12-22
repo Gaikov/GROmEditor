@@ -9,11 +9,9 @@
 
 class nsAppSettings final : public nsSerializableFile {
 public:
-    nsAppSettings()
-        : nsSerializableFile("user"),
-          projectPath("project_path", ".") {
-        AddItem(&projectPath);
+    nsAppSettings() {
+        AddItem("project_path", &projectPath);
     }
 
-    nsStringVar         projectPath;
+    nsStringVar         projectPath = ".";
 };
