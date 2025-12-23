@@ -2,25 +2,30 @@
 // Created by Roman on 12/2/2025.
 //
 
-#include "FolderSelectPopup.h"
+#include "OpenFilePopup.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
 #include <filesystem>
 
+#include "nsLib/log.h"
 #include "utils/FileUtils.h"
 #include "view/alerts/AlertPopup.h"
 
-nsFolderSelectDialog::nsFolderSelectDialog(const nsFilePath &startPath) : _currentPath(startPath) {
+nsOpenFilePopup::nsOpenFilePopup(const nsFilePath &startPath) : _currentPath(startPath) {
     SetTitle("Browse");
     Refresh();
 }
 
-void nsFolderSelectDialog::SetExtensions(const std::vector<std::string> &extensions) {
+void nsOpenFilePopup::SetExtensions(const std::vector<std::string> &extensions) {
     _extensions = extensions;
     Refresh();
 }
 
-void nsFolderSelectDialog::DrawContent() {
+void nsOpenFilePopup::SetOpenCallback(const OpenCallback_t &callback) {
+    _callback = callback;
+}
+
+void nsOpenFilePopup::DrawContent() {
     ImGui::BeginChild("Folders List", ImVec2(400, 300), true, ImGuiWindowFlags_HorizontalScrollbar);
     for (auto &file: _items) {
         if (ImGui::Selectable(file.c_str(), _selectedItem == file.c_str(), ImGuiSelectableFlags_AllowDoubleClick)) {
@@ -41,10 +46,13 @@ void nsFolderSelectDialog::DrawContent() {
     ImGui::InputText("File", _selectedItem.AsChar(), nsString::MAX_SIZE - 1);
 
     if (ImGui::Button("Open")) {
-        if (_currentPath.IsEmpty()) {
+        if (_selectedPath.IsEmpty()) {
             nsAlertPopup::Warning("File is not selected!");
         } else {
-            //TODO: callback
+            if (_callback) {
+                Log::Info("Selected file path: %s", _selectedPath.AsChar());
+                _callback(_selectedPath);
+            }
             ImGui::CloseCurrentPopup();
         }
     }
@@ -54,7 +62,7 @@ void nsFolderSelectDialog::DrawContent() {
     }
 }
 
-void nsFolderSelectDialog::Refresh() {
+void nsOpenFilePopup::Refresh() {
     _items.clear();
 
     const auto parent = _currentPath.GetParent();
@@ -82,7 +90,7 @@ void nsFolderSelectDialog::Refresh() {
     }
 }
 
-void nsFolderSelectDialog::UpdateSelected(const char *item) {
+void nsOpenFilePopup::UpdateSelected(const char *item) {
     _selectedItem = item;
     if (_selectedItem.IsEmpty()) {
         _selectedPath = "";

@@ -9,8 +9,7 @@
 #include "Core/undo/UndoService.h"
 #include "imgui/imgui.h"
 #include "nsLib/locator/ServiceLocator.h"
-#include "popups/FolderSelectPopup.h"
-#include "popups/PopupsStack.h"
+#include "popups/OpenFilePopup.h"
 
 nsMainMenuBar::nsMainMenuBar() {
     _model = Locate<nsAppModel>();

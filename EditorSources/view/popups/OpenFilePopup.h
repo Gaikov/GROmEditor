@@ -8,10 +8,13 @@
 #include "Popup.h"
 #include "nsLib/FilePath.h"
 
-class nsFolderSelectDialog final : public nsPopup {
+class nsOpenFilePopup final : public nsPopup {
 public:
-    explicit nsFolderSelectDialog(const nsFilePath &startPath);
+    typedef std::function<void(const nsFilePath &)> OpenCallback_t;
+
+    explicit nsOpenFilePopup(const nsFilePath &startPath);
     void SetExtensions(const std::vector<std::string> &extensions);
+    void SetOpenCallback(const OpenCallback_t &callback);
 
 private:
     nsFilePath _currentPath;
@@ -19,6 +22,7 @@ private:
     nsString _selectedItem;
     nsFilePath _selectedPath = "";
     std::vector<std::string> _extensions;
+    OpenCallback_t _callback;
 
 protected:
     void DrawContent() override;
