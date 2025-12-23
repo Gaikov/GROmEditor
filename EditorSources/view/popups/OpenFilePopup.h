@@ -10,11 +10,18 @@
 
 class nsOpenFilePopup final : public nsPopup {
 public:
+    enum Flags {
+        None = 0,
+        AllowOverwrite = 1 << 0,
+        OpenFolder = 1 << 1
+    };
+
     typedef std::function<void(const nsFilePath &)> OpenCallback_t;
 
     explicit nsOpenFilePopup(const nsFilePath &startPath);
     void SetExtensions(const std::vector<std::string> &extensions);
     void SetOpenCallback(const OpenCallback_t &callback);
+    void SetFlags(Flags flags);
 
 private:
     nsFilePath                  _currentPath;
@@ -23,6 +30,7 @@ private:
     nsFilePath                  _selectedPath = "";
     std::vector<std::string>    _extensions;
     OpenCallback_t              _callback;
+    Flags                       _flags = None;
 
 protected:
     void DrawContent() override;

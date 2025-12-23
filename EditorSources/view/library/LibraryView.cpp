@@ -11,6 +11,7 @@
 #include "Core/undo/UndoVarChange.h"
 #include "imgui/imgui.h"
 #include "nsLib/log.h"
+#include "view/alerts/AlertPopup.h"
 #include "view/popups/OpenFilePopup.h"
 #include "view/popups/PopupsStack.h"
 
@@ -60,6 +61,9 @@ void nsLibraryView::Draw() {
         const auto popup = nsPopupsStack::Shared()->AddPopup<nsOpenFilePopup>(path);
         popup->SetTitle("Select layout file");
         popup->SetExtensions( {"layout"});
+        popup->SetOpenCallback([](const nsFilePath &path) {
+            nsAlertPopup::Info(path);
+        });
     }
 
     ImGui::End();

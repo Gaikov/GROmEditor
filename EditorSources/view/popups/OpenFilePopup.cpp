@@ -23,6 +23,10 @@ void nsOpenFilePopup::SetOpenCallback(const OpenCallback_t &callback) {
     _callback = callback;
 }
 
+void nsOpenFilePopup::SetFlags(const Flags flags) {
+    _flags = flags;
+}
+
 void nsOpenFilePopup::DrawContent() {
     ImGui::BeginChild("Folders List", ImVec2(400, 300),
         //ImGuiChildFlags_AlwaysAutoResize | ImGuiChildFlags_Borders | ImGuiChildFlags_AutoResizeX | ImGuiChildFlags_AutoResizeY,
@@ -44,7 +48,9 @@ void nsOpenFilePopup::DrawContent() {
     }
     ImGui::EndChild();
 
-    ImGui::InputText("File", _selectedItem.AsChar(), nsString::MAX_SIZE - 1);
+    if (ImGui::InputText("File", _selectedItem.AsChar(), nsString::MAX_SIZE - 1)) {
+        UpdateSelected(_selectedItem.AsChar());
+    }
 
     if (ImGui::Button("Open")) {
         if (ValidatePath()) {
@@ -93,6 +99,7 @@ void nsOpenFilePopup::UpdateSelected(const char *item) {
         _selectedPath = "";
     } else {
         _selectedPath = _currentPath.ResolvePath(_selectedItem);
+        nsFileUtils::EnsureExtension(_selectedPath, _extensions);
     }
 }
 
@@ -102,8 +109,21 @@ bool nsOpenFilePopup::ValidatePath() const {
         return false;
     }
 
-    if (_selectedPath.IsFolder()) {
-        return false;
+    if (_flags & OpenFolder) {
+        if (!_selectedPath.IsFolder()) {
+            return false;
+        }
+    } else {
+        if (_selectedPath.IsFolder()) {
+            return false;
+        }
+    }
+
+    if (!(_flags & AllowOverwrite)) {
+        if (_selectedPath.IsExists()) {
+            nsAlertPopup::Warning("File or folder already exists!");
+            return false;
+        }
     }
 
     if (!_callback) {
