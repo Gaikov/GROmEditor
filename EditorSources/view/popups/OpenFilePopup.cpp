@@ -5,8 +5,6 @@
 #include "OpenFilePopup.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
-#include <filesystem>
-
 #include "nsLib/log.h"
 #include "utils/FileUtils.h"
 #include "view/alerts/AlertPopup.h"
@@ -26,7 +24,10 @@ void nsOpenFilePopup::SetOpenCallback(const OpenCallback_t &callback) {
 }
 
 void nsOpenFilePopup::DrawContent() {
-    ImGui::BeginChild("Folders List", ImVec2(400, 300), true, ImGuiWindowFlags_HorizontalScrollbar);
+    ImGui::BeginChild("Folders List", ImVec2(400, 300),
+        //ImGuiChildFlags_AlwaysAutoResize | ImGuiChildFlags_Borders | ImGuiChildFlags_AutoResizeX | ImGuiChildFlags_AutoResizeY,
+        ImGuiChildFlags_Borders,
+        ImGuiWindowFlags_HorizontalScrollbar);
     for (auto &file: _items) {
         if (ImGui::Selectable(file.c_str(), _selectedItem == file.c_str(), ImGuiSelectableFlags_AllowDoubleClick)) {
             UpdateSelected(file.c_str());
@@ -46,13 +47,9 @@ void nsOpenFilePopup::DrawContent() {
     ImGui::InputText("File", _selectedItem.AsChar(), nsString::MAX_SIZE - 1);
 
     if (ImGui::Button("Open")) {
-        if (_selectedPath.IsEmpty()) {
-            nsAlertPopup::Warning("File is not selected!");
-        } else {
-            if (_callback) {
-                Log::Info("Selected file path: %s", _selectedPath.AsChar());
-                _callback(_selectedPath);
-            }
+        if (ValidatePath()) {
+            Log::Info("Selected file path: %s", _selectedPath.AsChar());
+            _callback(_selectedPath);
             ImGui::CloseCurrentPopup();
         }
     }
@@ -97,4 +94,22 @@ void nsOpenFilePopup::UpdateSelected(const char *item) {
     } else {
         _selectedPath = _currentPath.ResolvePath(_selectedItem);
     }
+}
+
+bool nsOpenFilePopup::ValidatePath() const {
+    if (_selectedPath.IsEmpty()) {
+        nsAlertPopup::Warning("File is not selected!");
+        return false;
+    }
+
+    if (_selectedPath.IsFolder()) {
+        return false;
+    }
+
+    if (!_callback) {
+        nsAlertPopup::Error("Open callback is not set!");
+        return false;
+    }
+
+    return true;
 }

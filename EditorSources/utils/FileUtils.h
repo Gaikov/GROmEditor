@@ -12,4 +12,5 @@
 class nsFileUtils final {
 public:
     static bool CheckExtension(const nsFilePath &path, const std::vector<std::string> &extensions);
+    static void EnsureExtension(nsFilePath &path, const std::vector<std::string> &extensions);
 };

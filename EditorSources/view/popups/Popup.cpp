@@ -30,8 +30,7 @@ bool nsPopup::BeginPopup() {
     const ImVec2 center = ImGui::GetMainViewport()->GetCenter();
     ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
 
-    if (ImGui::BeginPopupModal(_title.c_str(), &_isOpen,
-                                  ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize)) {
+    if (ImGui::BeginPopupModal(_title.c_str(), &_isOpen, _popupFlags)) {
         DrawContent();
         return true;
     }

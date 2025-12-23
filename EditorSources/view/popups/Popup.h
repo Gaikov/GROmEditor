@@ -7,6 +7,8 @@
 #include <memory>
 #include <string>
 
+#include "imgui/imgui.h"
+
 class nsPopup {
     friend class nsPopupsStack;
 public:
@@ -17,6 +19,8 @@ public:
     void SetTitle(const char *title);
 
 protected:
+    ImGuiWindowFlags _popupFlags = ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoResize;
+
     virtual bool BeginPopup();
     virtual void DrawContent() = 0;
     virtual void EndPopup();

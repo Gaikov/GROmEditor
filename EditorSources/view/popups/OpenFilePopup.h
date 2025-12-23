@@ -17,15 +17,16 @@ public:
     void SetOpenCallback(const OpenCallback_t &callback);
 
 private:
-    nsFilePath _currentPath;
-    std::vector<std::string> _items;
-    nsString _selectedItem;
-    nsFilePath _selectedPath = "";
-    std::vector<std::string> _extensions;
-    OpenCallback_t _callback;
+    nsFilePath                  _currentPath;
+    std::vector<std::string>    _items;
+    nsString                    _selectedItem;
+    nsFilePath                  _selectedPath = "";
+    std::vector<std::string>    _extensions;
+    OpenCallback_t              _callback;
 
 protected:
     void DrawContent() override;
     void Refresh();
     void UpdateSelected(const char *item);
+    bool ValidatePath() const;
 };

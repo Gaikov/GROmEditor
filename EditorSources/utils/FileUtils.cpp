@@ -18,3 +18,14 @@ bool nsFileUtils::CheckExtension(const nsFilePath &path, const std::vector<std::
     }
     return false;
 }
+
+void nsFileUtils::EnsureExtension(nsFilePath &path, const std::vector<std::string> &extensions) {
+    if (CheckExtension(path, extensions)) {
+        return;
+    }
+    auto name = path.GetNameOnly();
+    name += ".";
+    name += extensions[0].c_str();
+
+    path = path.GetParent().ResolvePath(name);
+}
