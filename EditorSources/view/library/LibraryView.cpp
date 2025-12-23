@@ -11,6 +11,8 @@
 #include "Core/undo/UndoVarChange.h"
 #include "imgui/imgui.h"
 #include "nsLib/log.h"
+#include "view/popups/FolderSelectPopup.h"
+#include "view/popups/PopupsStack.h"
 
 nsLibraryView::nsLibraryView() {
 }
@@ -52,6 +54,13 @@ void nsLibraryView::Draw() {
         }
     }
     ImGui::EndChild();
+
+    if (ImGui::Button("Create")) {
+        auto path = _model->GetProjectPath();
+        const auto popup = nsPopupsStack::Shared()->AddPopup<nsFolderSelectDialog>(path);
+        popup->SetTitle("Select layout file");
+        popup->SetExtensions( {"layout"});
+    }
 
     ImGui::End();
 }

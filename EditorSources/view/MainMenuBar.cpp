@@ -21,7 +21,7 @@ nsMainMenuBar::nsMainMenuBar() {
             ->Shortcut("Ctrl+N", ImGuiMod_Ctrl | ImGuiKey_N);
     file->AddItem("Open")
             ->Action([&] {
-                nsPopupsStack::Shared()->AddPopup<nsFolderSelectDialog>();
+                //nsPopupsStack::Shared()->AddPopup<nsFolderSelectDialog>();
             })
             ->Shortcut("Ctrl+O", ImGuiMod_Ctrl | ImGuiKey_O);
 

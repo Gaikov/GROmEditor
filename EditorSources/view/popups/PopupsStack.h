@@ -11,10 +11,10 @@
 class nsPopupsStack : public nsSubSystem<nsPopupsStack> {
 public:
     template <typename TPopup, class... Args>
-    nsPopup::sp_t AddPopup(Args&&... args) {
+    TPopup* AddPopup(Args&&... args) {
         auto popup = std::make_shared<TPopup>(std::forward<Args>(args)...);
         _addedPopups.push_back(popup);
-        return popup;
+        return popup.get();
     }
 
     void RemovePop(nsPopup *popup);
