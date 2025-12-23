@@ -99,7 +99,9 @@ void nsOpenFilePopup::UpdateSelected(const char *item) {
         _selectedPath = "";
     } else {
         _selectedPath = _currentPath.ResolvePath(_selectedItem);
-        nsFileUtils::EnsureExtension(_selectedPath, _extensions);
+        if (!(_flags & OpenFolder)) {
+            _selectedPath = nsFileUtils::EnsureExtension(_selectedPath, _extensions);
+        }
     }
 }
 
@@ -121,7 +123,9 @@ bool nsOpenFilePopup::ValidatePath() const {
 
     if (!(_flags & AllowOverwrite)) {
         if (_selectedPath.IsExists()) {
-            nsAlertPopup::Warning("File or folder already exists!");
+            nsString msg;
+            msg.Format("File or folder already exists:\n%s", _selectedPath.AsChar());
+            nsAlertPopup::Warning(msg);
             return false;
         }
     }
