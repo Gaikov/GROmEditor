@@ -31,9 +31,11 @@ private:
     std::vector<std::string>    _extensions;
     OpenCallback_t              _callback;
     Flags                       _flags = None;
+    nsString                    _folderNewName;
 
 protected:
     void DrawContent() override;
+    void DrawFolderCreation();
     void Refresh();
     void UpdateSelected(const char *item);
     bool ValidatePath() const;

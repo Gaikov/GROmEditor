@@ -28,6 +28,8 @@ void nsOpenFilePopup::SetFlags(const Flags flags) {
 }
 
 void nsOpenFilePopup::DrawContent() {
+    DrawFolderCreation();
+
     ImGui::BeginChild("Folders List", ImVec2(400, 300),
         //ImGuiChildFlags_AlwaysAutoResize | ImGuiChildFlags_Borders | ImGuiChildFlags_AutoResizeX | ImGuiChildFlags_AutoResizeY,
         ImGuiChildFlags_Borders,
@@ -62,6 +64,39 @@ void nsOpenFilePopup::DrawContent() {
     ImGui::SameLine();
     if (ImGui::Button("Cancel")) {
         ImGui::CloseCurrentPopup();
+    }
+}
+
+void nsOpenFilePopup::DrawFolderCreation() {
+    if (ImGui::Button("Create Folder")) {
+        _folderNewName = "";
+        ImGui::OpenPopup("Create Folder");
+    }
+
+    if (ImGui::BeginPopup("Create Folder")) {
+        ImGui::InputText("Folder Name", _folderNewName.AsChar(), nsString::MAX_SIZE - 1);
+        const nsFilePath path = _currentPath.ResolvePath(_folderNewName);
+
+
+        const bool exists = path.IsExists();
+        if (_folderNewName.IsEmpty()) {
+            ImGui::Text("Enter folder name.");
+        }
+        else if (exists) {
+            ImGui::TextColored(ImVec4(1, 0, 0, 1), "Folder already exists!");
+        }
+
+        if (!_folderNewName.IsEmpty() && !exists) {
+            if (ImGui::Button("Create")) {
+                ImGui::CloseCurrentPopup();
+                if (!path.CreateFolders()) {
+                    nsAlertPopup::Error("Failed to create folder!");
+                } else {
+                    Refresh();
+                }
+            }
+        }
+        ImGui::EndPopup();
     }
 }
 
