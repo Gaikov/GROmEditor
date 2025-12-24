@@ -12,6 +12,7 @@
 #include "Engine/display/factory/VisualFactory2d.h"
 #include "models/AppModel.h"
 #include "nsLib/locator/ServiceLocator.h"
+#include "utils/FileUtils.h"
 #include "view/alerts/AlertPopup.h"
 
 nsUndoCreateLayout::nsUndoCreateLayout(const nsFilePath &path, nsVisualObject2d *obj) {
@@ -21,15 +22,16 @@ nsUndoCreateLayout::nsUndoCreateLayout(const nsFilePath &path, nsVisualObject2d 
 
     Add(new nsUndoFileCreate(path, "//created layout"));
     Add(new nsUndoVectorAdd(scenes._files, path));
-    Add(new nsUndoMapInsert<std::string, nsVisualObject2d*>(scenes._cache, path.AsChar(), obj));
+    Add(new nsUndoMapInsert<std::string, nsVisualObject2d *>(scenes._cache, path.AsChar(), obj));
     Add(new nsUndoVarChange<nsStringVar, std::string>(project.user.currentScene, path.AsChar()));
+    Add(new nsUndoVarChange(project.user.selectedObject, obj));
 }
 
 nsScenesCache::~nsScenesCache() {
     Clear();
 }
 
-nsVisualObject2d * nsScenesCache::Get(const std::string &path) {
+nsVisualObject2d *nsScenesCache::Get(const std::string &path) {
     if (path.empty()) {
         return nullptr;
     }
@@ -52,7 +54,7 @@ void nsScenesCache::Reset() {
 
 void nsScenesCache::Clear() {
     Log::Info("...destroy scenes cache");
-    for (const auto obj : _allocated) {
+    for (const auto obj: _allocated) {
         Destroy(obj);
     }
     _allocated.clear();
@@ -67,18 +69,12 @@ bool nsScenesCache::Load(const nsFilePath &projectFolder) {
     nsFilePath::tList list;
     projectFolder.ListingRecursive(list);
 
+    const std::vector<std::string> extensions = {"layout"};
+
     for (auto item: list) {
-        auto ext = item.GetExtension();
-        ext.ToLower();
-        if (ext == "layout") {
+        if (nsFileUtils::CheckExtension(item, extensions)) {
             Log::Info("Found layout file: %s", item.AsChar());
-            if (!Get(item.AsChar())) {
-                nsString msg;
-                msg.Format("Invalid scene format: %s", item.AsChar());
-                nsAlertPopup::Error(msg);
-            } else {
-                _files.push_back(item);
-            }
+            _files.push_back(item);
         }
     }
     return true;
@@ -89,7 +85,7 @@ bool nsScenesCache::Save(const nsFilePath &projectFolder) {
     bool result = true;
     const auto vf = nsVisualFactory2d::Shared();
 
-    for (const auto &pair : _cache) {
+    for (const auto &pair: _cache) {
         if (!vf->Serialize(pair.first.c_str(), pair.second)) {
             result = false;
         }
@@ -101,15 +97,15 @@ bool nsScenesCache::Save(const nsFilePath &projectFolder) {
 void nsScenesCache::AddAllocated(nsVisualObject2d *obj) {
     _allocated.push_back(obj);
 
-    if (const auto container = dynamic_cast<nsVisualContainer2d*>(obj)) {
-        for (const auto child : container->GetChildren()) {
+    if (const auto container = dynamic_cast<nsVisualContainer2d *>(obj)) {
+        for (const auto child: container->GetChildren()) {
             AddAllocated(child);
         }
     }
 }
 
 void nsScenesCache::Destroy(nsVisualObject2d *obj) {
-    if (auto const container = dynamic_cast<nsVisualContainer2d*>(obj)) {
+    if (auto const container = dynamic_cast<nsVisualContainer2d *>(obj)) {
         container->RemoveChildren();
     }
     obj->Destroy();

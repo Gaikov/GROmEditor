@@ -6,6 +6,7 @@
 
 #include "Engine/RenManager.h"
 #include "Engine/display/container/VisualContainer2d.h"
+#include "Engine/display/particles/VisualParticles.h"
 #include "Engine/display/sprite/Sprite.h"
 #include "Engine/display/text/TextLabel.h"
 
@@ -23,6 +24,7 @@ bool nsContainerPropsView::DrawContextMenu(nsVisualObject2d *target, bool hasPre
         if (const auto label = MenuItemCreate<nsTextLabel>("Label", c)) {
             label->renState = GetDefaultRenState();
         }
+        MenuItemCreate<nsVisualParticles>("Particles", c);
 
         ImGui::EndMenu();
     }
