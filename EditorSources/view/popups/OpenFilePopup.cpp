@@ -40,11 +40,16 @@ void nsOpenFilePopup::DrawContent() {
             if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
                 if (file == "..") {
                     _currentPath = _currentPath.GetParent();
+                    _selectedItem = "";
+                    Refresh();
                 } else {
-                    _currentPath = _currentPath.ResolvePath(file.c_str());
+                    nsFilePath path = _currentPath.ResolvePath(file.c_str());
+                    if (path.IsFolder()) {
+                        _currentPath = _currentPath.ResolvePath(file.c_str());
+                        _selectedItem = "";
+                        Refresh();
+                    } //else if allow overwrite
                 }
-                _selectedItem = "";
-                Refresh();
             }
         }
     }

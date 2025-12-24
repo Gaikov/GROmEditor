@@ -8,6 +8,8 @@
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVarChange.h"
 #include "Engine/renderer/particles/factory/ParticlesManager.h"
+#include "view/popups/OpenFilePopup.h"
+#include "view/popups/PopupsStack.h"
 
 template <typename TParticlesVar>
 class nsParticlesSelectUndo : public nsBaseAssetSelect {
@@ -26,6 +28,16 @@ public:
         }
 
         DrawInputField("Asset", path);
+        ImGui::SameLine();
+        if (ImGui::Button("Create Asset")) {
+            auto projectPath = _model->GetProjectPath();
+            const auto popup = nsPopupsStack::Shared()->AddPopup<nsOpenFilePopup>(projectPath);
+            popup->SetTitle("Select particles file");
+            popup->SetExtensions( {"ggps"});
+            popup->SetOpenCallback([](const nsFilePath &particlesPath) {
+                Log::Info("Particles file created: %s", particlesPath.AsChar());
+            });
+        }
 
         if (DrawSelectionPopup(path)) {
             if (_current != _selected) {

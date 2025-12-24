@@ -41,11 +41,13 @@ bool nsSceneViewerApp::Init() {
     nsUndoService::Init();
 
     nsServiceLocator::Init();
-    auto locator = nsServiceLocator::Shared();
+    const auto locator = nsServiceLocator::Shared();
     locator->MapClass<nsAppModel>().AsSingleton().GetInstance();
     _appModel = Locate<nsAppModel>();
 
-    nsVisualFactory2d::Shared()->RegisterBuilderWithName<nsVisualRefBuilder>();
+    const auto vf = nsVisualFactory2d::Shared();
+    vf->particlesLoader = &_appModel->project.particles;
+    vf->RegisterBuilderWithName<nsVisualRefBuilder>();
     nsVisualsLifecycle::Init();
 
     g_inp.ShowCursor(true);

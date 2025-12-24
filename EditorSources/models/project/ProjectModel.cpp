@@ -9,7 +9,7 @@
 
 nsProjectModel::nsProjectModel() {
     _models.push_back(&scenes);
-
+    _models.push_back(&particles);
 
     //project state should be loaded after all the models
     _models.push_back(&user);
