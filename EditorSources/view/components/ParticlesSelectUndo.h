@@ -7,8 +7,7 @@
 #include "BaseAssetSelect.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVarChange.h"
-#include "Engine/renderer/particles/ParticlesManager.h"
-#include "Engine/renderer/particles/ParticleSystem.h"
+#include "Engine/renderer/particles/factory/ParticlesManager.h"
 
 template <typename TParticlesVar>
 class nsParticlesSelectUndo : public nsBaseAssetSelect {
