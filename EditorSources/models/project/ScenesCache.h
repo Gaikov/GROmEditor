@@ -4,10 +4,19 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
+#include "ProjectStateModel.h"
 #include "ProjectSubModel.h"
+#include "Core/undo/UndoBatch.h"
 #include "Engine/display/VisualObject2d.h"
 
+class nsUndoCreateLayout : public nsUndoBatch {
+public:
+    nsUndoCreateLayout(const nsFilePath &path, nsVisualObject2d *obj);
+};
+
+
 class nsScenesCache final : public nsProjectSubModel {
+    friend class nsUndoCreateLayout;
 public:
     ~nsScenesCache() override;
     nsVisualObject2d* Get(const std::string &path);
@@ -20,6 +29,7 @@ public:
         AddAllocated(obj);
         return obj;
     }
+
 protected:
     void Reset() override;
     bool Load(const nsFilePath &projectFolder) override;

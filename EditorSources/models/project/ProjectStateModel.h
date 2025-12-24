@@ -20,6 +20,7 @@ protected:
     void Reset() override;
     bool Load(const nsFilePath &folder) override;
     bool Save(const nsFilePath &folder) override;
+    void Validate(nsProjectModel *model) override;
 
 public:
     nsProperty<nsVisualObject2d*> selectedObject = nullptr;

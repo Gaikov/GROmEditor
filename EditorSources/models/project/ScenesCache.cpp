@@ -4,14 +4,36 @@
 
 #include "ScenesCache.h"
 
+#include "Core/undo/UndoMapInsert.h"
+#include "Core/undo/UndoVarChange.h"
+#include "Core/undo/UndoVectorAdd.h"
+#include "Core/undo/file/UndoFileCreate.h"
 #include "Engine/display/container/VisualContainer2d.h"
 #include "Engine/display/factory/VisualFactory2d.h"
+#include "models/AppModel.h"
+#include "nsLib/locator/ServiceLocator.h"
+#include "view/alerts/AlertPopup.h"
+
+nsUndoCreateLayout::nsUndoCreateLayout(const nsFilePath &path, nsVisualObject2d *obj) {
+    auto &project = Locate<nsAppModel>()->project;
+    auto &scenes = project.scenes;
+    scenes._allocated.push_back(obj);
+
+    Add(new nsUndoFileCreate(path, "//created layout"));
+    Add(new nsUndoVectorAdd(scenes._files, path));
+    Add(new nsUndoMapInsert<std::string, nsVisualObject2d*>(scenes._cache, path.AsChar(), obj));
+    Add(new nsUndoVarChange<nsStringVar, std::string>(project.user.currentScene, path.AsChar()));
+}
 
 nsScenesCache::~nsScenesCache() {
     Clear();
 }
 
 nsVisualObject2d * nsScenesCache::Get(const std::string &path) {
+    if (path.empty()) {
+        return nullptr;
+    }
+
     if (!_cache.contains(path)) {
         const auto scene = nsVisualFactory2d::Shared()->Create(path.c_str());
         if (scene) {
@@ -50,7 +72,13 @@ bool nsScenesCache::Load(const nsFilePath &projectFolder) {
         ext.ToLower();
         if (ext == "layout") {
             Log::Info("Found layout file: %s", item.AsChar());
-            _files.push_back(item);
+            if (!Get(item.AsChar())) {
+                nsString msg;
+                msg.Format("Invalid scene format: %s", item.AsChar());
+                nsAlertPopup::Error(msg);
+            } else {
+                _files.push_back(item);
+            }
         }
     }
     return true;

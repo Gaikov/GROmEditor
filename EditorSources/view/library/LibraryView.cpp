@@ -9,9 +9,10 @@
 #include "Core/undo/UndoPropertyChange.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVarChange.h"
+#include "Core/undo/file/UndoFileCreate.h"
+#include "Engine/display/container/VisualContainer2d.h"
 #include "imgui/imgui.h"
 #include "nsLib/log.h"
-#include "view/alerts/AlertPopup.h"
 #include "view/popups/OpenFilePopup.h"
 #include "view/popups/PopupsStack.h"
 
@@ -61,8 +62,8 @@ void nsLibraryView::Draw() {
         const auto popup = nsPopupsStack::Shared()->AddPopup<nsOpenFilePopup>(path);
         popup->SetTitle("Select layout file");
         popup->SetExtensions( {"layout"});
-        popup->SetOpenCallback([](const nsFilePath &path) {
-            nsAlertPopup::Info(path);
+        popup->SetOpenCallback([](const nsFilePath &layoutPath) {
+            nsUndoService::Shared()->Push(new nsUndoCreateLayout(layoutPath, new nsVisualContainer2d()));
         });
     }
 

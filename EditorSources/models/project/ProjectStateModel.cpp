@@ -4,6 +4,8 @@
 
 #include "ProjectStateModel.h"
 
+#include "ProjectModel.h"
+
 nsProjectStateModel::nsProjectStateModel() {
     AddItem("current_scene", &currentScene);
     AddItem("x_flip", &xFlip);
@@ -25,4 +27,12 @@ bool nsProjectStateModel::Load(const nsFilePath &folder) {
 
 bool nsProjectStateModel::Save(const nsFilePath &folder) {
     return nsSerializableFile::Save(folder.ResolvePath("user.ggml"));
+}
+
+void nsProjectStateModel::Validate(nsProjectModel *model) {
+    nsProjectSubModel::Validate(model);
+
+    if (!model->scenes.Get(currentScene)) {
+        currentScene = "";
+    }
 }
