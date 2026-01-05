@@ -52,7 +52,7 @@ protected:
 
         int buttonId = 0;
         for (auto &child : s->list) {
-            ImGui::SeparatorText(child->GetName());
+            ImGui::SeparatorText(child->GetTitle());
 
             nsString buttonLabel;
             buttonLabel.Format("Remove##%d", buttonId++);
