@@ -24,7 +24,7 @@ public:
 
         nsString path;
         if (_current) {
-            path = nsParticlesManager::Shared()->GetParticlesPath(_current);
+            path = _model->project.particles.GetParticlesPath(_current);
         }
 
         DrawInputField("Asset", path);
@@ -34,8 +34,14 @@ public:
             const auto popup = nsPopupsStack::Shared()->AddPopup<nsOpenFilePopup>(projectPath);
             popup->SetTitle("Select particles file");
             popup->SetExtensions( {"ggps"});
-            popup->SetOpenCallback([](const nsFilePath &particlesPath) {
+            popup->SetOpenCallback([&](const nsFilePath &particlesPath) {
                 Log::Info("Particles file created: %s", particlesPath.AsChar());
+
+                auto batch = new nsUndoBatch();
+                const auto create = new nsUndoCreateParticles(_model->project.particles, particlesPath.AsChar());
+                batch->Add(create);
+                batch->Add(new nsUndoVarChange(var, create->GetCreated()));
+                nsUndoService::Shared()->Push(batch);
             });
         }
 
@@ -71,7 +77,7 @@ void nsParticlesSelectUndo<TParticlesVar>::OnClickBrowse() {
 template<typename TParticlesVar>
 void nsParticlesSelectUndo<TParticlesVar>::DrawSelectedInfo() {
     if (_selected) {
-        ImGui::Text(nsParticlesManager::Shared()->GetParticlesPath(_selected));
+        ImGui::Text(_model->project.particles.GetParticlesPath(_selected));
     }
 }
 
@@ -81,5 +87,5 @@ void nsParticlesSelectUndo<TParticlesVar>::DrawSelectedPreview() {
 
 template<typename TParticlesVar>
 void nsParticlesSelectUndo<TParticlesVar>::OnClickSelectPreview(const nsFilePath &path) {
-    _selected = nsParticlesManager::Shared()->LoadParticles(path);
+    _selected = _model->project.particles.LoadParticles(path);
 }

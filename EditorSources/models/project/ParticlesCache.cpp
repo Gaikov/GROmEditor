@@ -3,6 +3,7 @@
 //
 
 #include "ParticlesCache.h"
+#include "Core/undo/file/UndoFileCreate.h"
 
 nsParticlesCache::~nsParticlesCache() {
     Reset();
@@ -31,6 +32,12 @@ const char * nsParticlesCache::GetParticlesPath(nsParticlesBehaviour *particles)
     return "";
 }
 
+nsParticlesBehaviour * nsParticlesCache::CreateDefault() {
+    const auto res = _factory.LoadBehaviour("default/editor/particles.ggps");
+    assert(res);
+    return res;
+}
+
 void nsParticlesCache::Reset() {
     for (const auto &item: _cache) {
         delete item.second;
@@ -50,4 +57,11 @@ bool nsParticlesCache::Save(const nsFilePath &folder) {
     }
 
     return true;
+}
+
+nsUndoCreateParticles::nsUndoCreateParticles(nsParticlesCache &cache, const std::string &path) {
+    _created = cache.CreateDefault();
+
+    Add(new nsUndoFileCreate(path.c_str(), ""));
+    Add(new nsUndoMapInsert(cache._cache, path, _created));
 }
