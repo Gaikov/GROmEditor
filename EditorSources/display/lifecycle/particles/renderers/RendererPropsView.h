@@ -4,7 +4,9 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
+#include "Engine/renderer/particles/ParticlesBehaviour.h"
 #include "Engine/renderer/particles/renderer/ParticlesRenderer.h"
+#include "Engine/renderer/particles/renderer/ParticlesRendererFactory.h"
 
 class nsRendererPropsView {
 public:
@@ -16,8 +18,10 @@ public:
 class nsRendererPropsRegistry final {
 public:
     nsRendererPropsRegistry();
-    void DrawProps(nsParticlesRenderer *r) const;
+    void DrawProps(nsParticlesBehaviour *b);
 
 private:
     std::vector<std::unique_ptr<nsRendererPropsView>> m_props;
+    nsParticlesRendererFactory _factory;
+    std::vector<std::string> _names;
 };
