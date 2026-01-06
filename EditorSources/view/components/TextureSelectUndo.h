@@ -10,18 +10,17 @@
 #include "Engine/RenDevice.h"
 #include "Engine/RenManager.h"
 #include "imgui/imgui.h"
-#include "models/AppModel.h"
 #include "nsLib/StrTools.h"
 
 template<typename TTexture>
 class nsTextureSelectUndo : public nsBaseAssetSelect {
 public:
-    static constexpr auto POPUP_ID = "Texture selection";
     static constexpr auto IMAGE_SIZE = 300;
 
     nsTextureSelectUndo(const char *title) : _title(title), _device(nsRenDevice::Shared()->Device()) {
         _extensions = { "png", "jpg" };
         _popupSize = { IMAGE_SIZE * 1.5f, IMAGE_SIZE };
+        _popupId = _title + "Texture selection";
     }
 
     void Draw(TTexture &var) {
@@ -55,7 +54,7 @@ protected:
     }
 
     const char * GetPopupId() override {
-        return POPUP_ID;
+        return _popupId.c_str();
     }
 
     void OnClickBrowse() override {
@@ -64,6 +63,7 @@ protected:
 
 private:
     std::string _title;
+    std::string _popupId;
     IRenDevice *_device;
     ITexture *_current = nullptr;
     ITexture *_passedTexture = nullptr;

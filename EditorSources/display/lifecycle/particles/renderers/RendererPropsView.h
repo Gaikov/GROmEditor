@@ -21,7 +21,7 @@ public:
     void DrawProps(nsParticlesBehaviour *b);
 
 private:
-    std::vector<std::unique_ptr<nsRendererPropsView>> m_props;
+    std::vector<std::unique_ptr<nsRendererPropsView>> _props;
     nsParticlesRendererFactory _factory;
     std::vector<std::string> _names;
 };
