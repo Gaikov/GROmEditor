@@ -4,6 +4,7 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
+#include "renderers/RendererPropsView.h"
 #include "spawners/SpawnerPropsRegistry.h"
 #include "view/components/FloatInputUndo.h"
 #include "view/components/IntInputUndo.h"
@@ -20,6 +21,7 @@ protected:
     void Draw(nsVisualObject2d *target) override;
 
     nsSpawnerPropsRegistry _spawnerProps;
+    nsRendererPropsRegistry _rendererProps;
 
     nsIntInputUndo<int> _particlesPerSec = "Particles Per Sec";
     nsFloatInputUndo<float> _blastTime = "Blast Time";

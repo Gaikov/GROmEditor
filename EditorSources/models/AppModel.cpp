@@ -32,11 +32,6 @@ bool nsAppModel::Save() {
         return false;
     }
 
-    const nsFilePath path = GetProjectPath();
-    if (!project.Save(path)) {
-        return false;
-    }
-
     return true;
 }
 
