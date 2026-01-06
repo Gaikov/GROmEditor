@@ -21,7 +21,7 @@ public:
         return dynamic_cast<nsParticlesRoundRenderer*>(r);
     }
 
-    void Draw(nsParticlesRenderer *r) override {
+    void Draw(nsParticlesRenderer *r, nsPropsContext *context) override {
         const auto s = dynamic_cast<nsParticlesRoundRenderer*>(r);
 
         _textureInput.Draw(s->texture);
@@ -38,7 +38,7 @@ public:
         return dynamic_cast<nsParticlesToonRenderer*>(r);
     }
 
-    void Draw(nsParticlesRenderer *r) override {
+    void Draw(nsParticlesRenderer *r, nsPropsContext *context) override {
         const auto s = dynamic_cast<nsParticlesToonRenderer*>(r);
 
         _frontTexture.Draw(s->frontTexture);
@@ -63,11 +63,11 @@ public:
 nsRendererPropsRegistry::nsRendererPropsRegistry() {
     _factory.GetNamesList(_names);
 
-    _props.emplace_back(new nsRoundRendererPropsView());
-    _props.emplace_back(new nsToonRendererPropsView());
+    _views.emplace_back(new nsRoundRendererPropsView());
+    _views.emplace_back(new nsToonRendererPropsView());
 }
 
-void nsRendererPropsRegistry::DrawProps(nsParticlesBehaviour *b) {
+void nsRendererPropsRegistry::Draw(nsParticlesBehaviour *b) {
     auto current = "";
     if (b->renderer) {
         current = b->renderer->GetName();
@@ -87,9 +87,5 @@ void nsRendererPropsRegistry::DrawProps(nsParticlesBehaviour *b) {
         ImGui::EndCombo();
     }
 
-    for (const auto &prop : _props) {
-        if (prop->IsSupported(b->renderer)) {
-            prop->Draw(b->renderer);
-        }
-    }
+    DrawProps(b->renderer);
 }

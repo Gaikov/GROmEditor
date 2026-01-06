@@ -4,15 +4,13 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
-#include <memory>
+#include "display/lifecycle/particles/ParticlesBasePropsView.h"
+#include "Engine/renderer/particles/spawner/ParticlesSpawner.h"
 
-#include "SpawnerPropsView.h"
+class nsSpawnerPropsView : public nsBasePropsView<nsParticlesSpawner> {
+};
 
-class nsSpawnerPropsRegistry : public nsSpawnerPropsContext {
+class nsSpawnerPropsRegistry : public nsBasePropsRegistry<nsParticlesSpawner> {
 public:
     nsSpawnerPropsRegistry();
-    void DrawProps(nsParticlesSpawner *spawner) override;
-
-private:
-    std::vector<std::shared_ptr<nsSpawnerPropsView>> _views;
 };

@@ -31,7 +31,7 @@ void nsParticlesAssetPropsView::Draw(nsVisualObject2d *target) {
         }
 
         if (ImGui::BeginTabItem("Renderer")) {
-            _rendererProps.DrawProps(b);
+            _rendererProps.Draw(b);
             ImGui::EndTabItem();
         }
 

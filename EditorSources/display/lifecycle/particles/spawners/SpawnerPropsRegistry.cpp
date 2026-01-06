@@ -4,7 +4,6 @@
 
 #include "SpawnerPropsRegistry.h"
 
-#include "Core/serialization/var/FloatVar.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVectorAdd.h"
 #include "Core/undo/UndoVectorRemove.h"
@@ -35,7 +34,7 @@ protected:
         }
     }
 
-    void Draw(nsParticlesSpawner *spawner, nsSpawnerPropsContext *context) override {
+    void Draw(nsParticlesSpawner *spawner, nsPropsContext *context) override {
         const auto s = dynamic_cast<nsParticlesMultiSpawner*>(spawner);
 
         if (ImGui::Button("Add")) {
@@ -75,7 +74,7 @@ protected:
         return dynamic_cast<nsParticlesAngleSpawner*>(spawner);
     }
 
-    void Draw(nsParticlesSpawner *spawner, nsSpawnerPropsContext *context) override {
+    void Draw(nsParticlesSpawner *spawner, nsPropsContext *context) override {
         const auto s = dynamic_cast<nsParticlesAngleSpawner*>(spawner);
         _minAngle.Draw(s->minAngle);
         _maxAngle.Draw(s->maxAngle);
@@ -93,7 +92,7 @@ protected:
         return dynamic_cast<nsParticlesCircleSpawner*>(spawner);
     }
 
-    void Draw(nsParticlesSpawner *spawner, nsSpawnerPropsContext *context) override {
+    void Draw(nsParticlesSpawner *spawner, nsPropsContext *context) override {
         const auto s = dynamic_cast<nsParticlesCircleSpawner*>(spawner);
         _radius.Draw(s->radius);
         _onEdge.Draw(s->onEdge);
@@ -111,7 +110,7 @@ protected:
     bool IsSupported(nsParticlesSpawner *spawner) override {
         return dynamic_cast<nsParticlesColorSpawner*>(spawner);
     }
-    void Draw(nsParticlesSpawner *spawner, nsSpawnerPropsContext *context) override {
+    void Draw(nsParticlesSpawner *spawner, nsPropsContext *context) override {
         const auto s = dynamic_cast<nsParticlesColorSpawner*>(spawner);
         _color1.Draw(s->color1);
         _color2.Draw(s->color2);
@@ -123,7 +122,7 @@ protected:
     bool IsSupported(nsParticlesSpawner *spawner) override {
         return dynamic_cast<nsParticlesEdgesSpawner*>(spawner);
     }
-    void Draw(nsParticlesSpawner *spawner, nsSpawnerPropsContext *context) override {
+    void Draw(nsParticlesSpawner *spawner, nsPropsContext *context) override {
         const auto s = dynamic_cast<nsParticlesEdgesSpawner*>(spawner);
         if (ImGui::Button("Add Edge")) {
 
@@ -137,12 +136,4 @@ nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsCircleSpawnerPropsView());
     _views.emplace_back(new nsColorSpawnerPropsView());
     _views.emplace_back(new nsEdgesSpawnerPropsView());
-}
-
-void nsSpawnerPropsRegistry::DrawProps(nsParticlesSpawner *spawner) {
-    for (auto &v : _views) {
-        if (v->IsSupported(spawner)) {
-            v->Draw(spawner, this);
-        }
-    }
 }

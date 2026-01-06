@@ -4,24 +4,20 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
+#include "display/lifecycle/particles/ParticlesBasePropsView.h"
 #include "Engine/renderer/particles/ParticlesBehaviour.h"
 #include "Engine/renderer/particles/renderer/ParticlesRenderer.h"
 #include "Engine/renderer/particles/renderer/ParticlesRendererFactory.h"
 
-class nsRendererPropsView {
-public:
-    virtual ~nsRendererPropsView() = default;
-    virtual bool IsSupported(nsParticlesRenderer *r) = 0;
-    virtual void Draw(nsParticlesRenderer *r) = 0;
+class nsRendererPropsView : public nsBasePropsView<nsParticlesRenderer> {
 };
 
-class nsRendererPropsRegistry final {
+class nsRendererPropsRegistry final : protected nsBasePropsRegistry<nsParticlesRenderer> {
 public:
     nsRendererPropsRegistry();
-    void DrawProps(nsParticlesBehaviour *b);
+    void Draw(nsParticlesBehaviour *b);
 
 private:
-    std::vector<std::unique_ptr<nsRendererPropsView>> _props;
     nsParticlesRendererFactory _factory;
     std::vector<std::string> _names;
 };
