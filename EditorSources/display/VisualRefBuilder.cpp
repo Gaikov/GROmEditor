@@ -21,7 +21,7 @@ bool nsVisualRefBuilder::Parse(script_state_t *ss, nsVisualObject2d *object, nsV
         return false;
     }
     ref->_context = context;
-    ref->source = context->ParseAssetPath(ss, "source").AsChar();
+    ref->source = context->assetsContext->ParseAssetPath(ss, "source").AsChar();
 
     if (ref->_ref) {
         const auto item = ref->_ref;
@@ -75,7 +75,7 @@ bool nsVisualRefBuilder::SerializeProps(nsScriptSaver &saver, nsVisualObject2d *
     const auto item = ref->_ref;
 
     if (!ref->source->empty()) {
-        context->SaveAssetPath(saver, "source", ref->source->c_str());
+        context->assetsContext->SaveAssetPath(saver, "source", ref->source->c_str());
     }
 
     if (!item) {

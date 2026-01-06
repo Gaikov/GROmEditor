@@ -44,9 +44,11 @@ bool nsSceneViewerApp::Init() {
     const auto locator = nsServiceLocator::Shared();
     locator->MapClass<nsAppModel>().AsSingleton().GetInstance();
     _appModel = Locate<nsAppModel>();
+    auto &project = _appModel->project;
 
     const auto vf = nsVisualFactory2d::Shared();
-    vf->particlesLoader = &_appModel->project.particles;
+    vf->assetsContext->particlesLoader = &project.particles;
+    project.particles.SetAssetsContext(vf->assetsContext);
     vf->RegisterBuilderWithName<nsVisualRefBuilder>();
     nsVisualsLifecycle::Init();
 

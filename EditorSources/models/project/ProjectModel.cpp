@@ -18,7 +18,7 @@ nsProjectModel::nsProjectModel() {
 bool nsProjectModel::Load(const nsFilePath &projectFolder) {
     Reset();
     Log::Info("Loading project from folder: %s", projectFolder.AsChar());
-    nsVisualFactory2d::Shared()->assetsPath = projectFolder;
+    nsVisualFactory2d::Shared()->assetsContext->assetsPath = projectFolder;
 
     for (const auto model: _models) {
         if (!model->Load(projectFolder)) {
@@ -34,7 +34,7 @@ bool nsProjectModel::Load(const nsFilePath &projectFolder) {
     return true;
 }
 
-bool nsProjectModel::Save(const nsFilePath &projectFolder) {
+bool nsProjectModel::Save(const nsFilePath &projectFolder) const {
     Log::Info("Saving project to folder: %s", projectFolder.AsChar());
 
     bool res = true;
@@ -47,7 +47,7 @@ bool nsProjectModel::Save(const nsFilePath &projectFolder) {
     return res;
 }
 
-void nsProjectModel::Reset() {
+void nsProjectModel::Reset() const {
     for (const auto model: _models) {
         model->Reset();
     }

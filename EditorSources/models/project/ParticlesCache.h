@@ -17,6 +17,7 @@ public:
     nsParticlesBehaviour * LoadParticles(const char *fileName) override;
     const char * GetParticlesPath(nsParticlesBehaviour *particles) override;
     nsParticlesBehaviour* CreateDefault();
+    void SetAssetsContext(const nsVisualAssetsContext::sp_t &context) { _factory.assetsContext = context; }
 
 protected:
     void Reset() override;

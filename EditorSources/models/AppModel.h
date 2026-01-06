@@ -20,7 +20,7 @@ public:
 
     nsProjectModel      project;
 
-    nsFilePath GetProjectPath() const;
+    [[nodiscard]] nsFilePath GetProjectPath() const;
 
     bool Load();
     bool Save();

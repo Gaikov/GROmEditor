@@ -17,8 +17,8 @@ public:
     nsProjectModel();
 
     bool Load(const nsFilePath &projectFolder);
-    bool Save(const nsFilePath &projectFolder);
-    void Reset();
+    bool Save(const nsFilePath &projectFolder) const;
+    void Reset() const;
 
 private:
     std::vector<nsProjectSubModel*> _models;
