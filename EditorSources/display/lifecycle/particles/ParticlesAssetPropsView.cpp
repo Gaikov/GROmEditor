@@ -27,6 +27,7 @@ void nsParticlesAssetPropsView::Draw(nsVisualObject2d *target) {
         }
 
         if (ImGui::BeginTabItem("Updaters")) {
+            _updaterProps.DrawProps(b->updater);
             ImGui::EndTabItem();
         }
 

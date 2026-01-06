@@ -6,6 +6,7 @@
 #pragma once
 #include "renderers/RendererPropsView.h"
 #include "spawners/SpawnerPropsRegistry.h"
+#include "updaters/UpdaterPropsRegistry.h"
 #include "view/components/FloatInputUndo.h"
 #include "view/components/IntInputUndo.h"
 #include "view/library/props/BaseVisualPropsView.h"
@@ -21,6 +22,7 @@ protected:
     void Draw(nsVisualObject2d *target) override;
 
     nsSpawnerPropsRegistry _spawnerProps;
+    nsUpdaterPropsRegistry _updaterProps;
     nsRendererPropsRegistry _rendererProps;
 
     nsIntInputUndo<int> _particlesPerSec = "Particles Per Sec";
