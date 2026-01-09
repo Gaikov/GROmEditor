@@ -19,9 +19,13 @@ public:
     }
 
     void Draw(TVec2 &var) {
+        nsVec2InputUndo::DrawField(_title.c_str(), var);
+    }
+
+    static void DrawField(const char *title, TVec2 &var) {
         nsVec2 value = var;
 
-        if (ImGui::InputFloat2(_title.c_str(), value)) {
+        if (ImGui::InputFloat2(title, value)) {
             Log::Info("changed: %s", value.ToStr());
             nsUndoService::Shared()->Push(new nsUndoVarChange(var, value));
         }

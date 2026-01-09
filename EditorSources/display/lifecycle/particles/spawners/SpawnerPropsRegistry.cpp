@@ -4,9 +4,11 @@
 
 #include "SpawnerPropsRegistry.h"
 
+#include "Core/undo/UndoBatch.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVectorAdd.h"
 #include "Core/undo/UndoVectorRemove.h"
+#include "Core/undo/array/UndoArrayAdd.h"
 #include "Engine/renderer/particles/spawner/ParticlesAngleSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesColorSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesMultiSpawner.h"
@@ -125,7 +127,30 @@ protected:
     void Draw(nsParticlesSpawner *spawner, nsPropsContext *context) override {
         const auto s = dynamic_cast<nsParticlesEdgesSpawner*>(spawner);
         if (ImGui::Button("Add Edge")) {
+            nsUndoBatch batch;
+            batch.Add(new nsUndoArrayAdd(s->points, std::make_shared<nsPoint>(nsVec2())));
+            batch.Add(new nsUndoArrayAdd(s->points, std::make_shared<nsPoint>(nsVec2())));
+            nsUndoService::Shared()->Push(&batch);
+        }
 
+        nsString title;
+        const auto &items = s->points.GetItems();
+        const int numEdges = items.size() / 2;
+        for (int i = 0; i < numEdges; ++i) {
+            const auto &p1 = items[i * 2];
+            const auto &p2 = items[i * 2 + 1];
+
+            ImGui::Separator();
+            title.Format("Remove##point%d", i);
+            if (ImGui::Button(title)) {
+
+            } else {
+                title.Format("Point 1##%d", i);
+                nsVec2InputUndo<nsPoint>::DrawField( title, *p1.get());
+
+                title.Format("Point 2##%d", i);
+                nsVec2InputUndo<nsPoint>::DrawField( title, *p2.get());
+            }
         }
     }
 };
