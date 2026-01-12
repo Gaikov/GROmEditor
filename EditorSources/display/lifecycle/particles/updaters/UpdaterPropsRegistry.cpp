@@ -7,17 +7,19 @@
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVectorAdd.h"
 #include "Core/undo/UndoVectorRemove.h"
+#include "Engine/renderer/particles/updater/ParticlesGravityUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesMultiUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesSizeUpdater.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
 #include "view/components/FloatInputUndo.h"
+#include "view/components/Vec2InputUndo.h"
 
 class nsMultiUpdaterPropsView : public nsUpdaterPropsView {
 public:
 
     template<typename TUpdater>
-    void AddSpawner(nsParticlesCompositeUpdater *updater) {
+    void AddUpdater(nsParticlesCompositeUpdater *updater) {
         if (ImGui::MenuItem(TUpdater::TITLE)) {
             const nsParticlesUpdater::sp_t s = new TUpdater();
             nsUndoService::Shared()->Push(new nsUndoVectorAdd(updater->list, s));
@@ -36,7 +38,8 @@ public:
         }
 
         if (ImGui::BeginPopup(ADD_UPDATER_POPUP_ID)) {
-            AddSpawner<nsParticlesSizeUpdater>(u);
+            AddUpdater<nsParticlesSizeUpdater>(u);
+            AddUpdater<nsParticlesGravityUpdater>(u);
             ImGui::EndPopup();
         }
 
@@ -44,14 +47,14 @@ public:
         for (auto &child : u->list) {
             ImGui::SeparatorText(child->GetTitle());
 
+            context->DrawProps(child);
+
             nsString buttonLabel;
             buttonLabel.Format("Remove##%d", buttonId++);
             if (ImGui::Button(buttonLabel)) {
                 nsUndoService::Shared()->Push(new nsUndoVectorRemove(u->list, child));
                 break;
             }
-
-            context->DrawProps(child);
         }
     }
 
@@ -72,7 +75,22 @@ public:
     nsFloatInputUndo<float> _size = "Scale To";
 };
 
+class nsGravityUpdaterPropsView : public nsUpdaterPropsView {
+public:
+    bool IsSupported(nsParticlesUpdater *object) override {
+        return dynamic_cast<nsParticlesGravityUpdater*>(object);
+    }
+
+    void Draw(nsParticlesUpdater *object, nsPropsContext *context) override {
+        const auto g = dynamic_cast<nsParticlesGravityUpdater*>(object);
+        _gravity.Draw(g->gravity);
+    }
+
+    nsVec2InputUndo<nsVec2> _gravity = "Gravity";
+};
+
 nsUpdaterPropsRegistry::nsUpdaterPropsRegistry() {
     _views.emplace_back(new nsMultiUpdaterPropsView());
     _views.emplace_back(new nsSizeUpdaterPropsView());
+    _views.emplace_back(new nsGravityUpdaterPropsView());
 }
