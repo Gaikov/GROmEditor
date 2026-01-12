@@ -17,6 +17,7 @@
 #include "Engine/renderer/particles/spawner/position/ParticlesCircleSpawner.h"
 #include "Engine/renderer/particles/spawner/position/ParticlesEdgesSpawner.h"
 #include "Engine/renderer/particles/spawner/position/ParticlesPolygonSpawner.h"
+#include "Engine/renderer/particles/spawner/velocity/ParticlesMultiDirectionSpawner.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
 #include "view/components/AngleInputUndo.h"
@@ -53,6 +54,7 @@ protected:
             AddSpawner<nsParticlesEdgesSpawner>(s);
             AddSpawner<nsParticlesPolygonSpawner>(s);
             AddSpawner<nsParticlesLifeSpawner>(s);
+            AddSpawner<nsParticlesMultiDirectionSpawner>(s);
             ImGui::EndPopup();
         }
 
@@ -215,6 +217,44 @@ class nsLifeSpawnerPropsView : public nsSpawnerPropsView {
     nsFloatInputUndo<float> _maxTime = "Max Time";
 };
 
+class nsMultiDirSpawnerPropsView : public nsSpawnerPropsView {
+public:
+    bool IsSupported(nsParticlesSpawner *object) override {
+        return dynamic_cast<nsParticlesMultiDirectionSpawner*>(object);
+    }
+
+    void Draw(nsParticlesSpawner *object, nsPropsContext *context) override {
+        const auto s = dynamic_cast<nsParticlesMultiDirectionSpawner*>(object);
+        if (ImGui::Button("Add Direction")) {
+            nsUndoService::Shared()->Push(new nsUndoVectorAdd(s->directions, std::make_shared<nsParticlesMultiDirectionSpawner::Direction>()));
+        }
+
+        for (int i = 0; i < s->directions.size(); ++i) {
+            auto &d = s->directions[i];
+            nsString title;
+
+            ImGui::Text("Direction %d", i);
+
+            title.Format("Min Angle##%d", i);
+            nsAngleInputUndo<float>::DrawField(title, d->minAngle);
+            title.Format("Max Angle##%d", i);
+            nsAngleInputUndo<float>::DrawField(title, d->maxAngle);
+            title.Format("Min Speed##%d", i);
+            nsFloatInputUndo<float>::DrawField(title, d->minSpeed);
+            title.Format("Max Speed##%d", i);
+            nsFloatInputUndo<float>::DrawField(title, d->maxSpeed);
+
+            title.Format("Remove Direction##%d", i);
+            if (ImGui::Button(title)) {
+                nsUndoService::Shared()->Push(new nsUndoVectorRemove(s->directions, d));
+                break;
+            }
+            ImGui::Separator();
+        }
+
+    }
+};
+
 nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsMultiSpawnerPropsView());
     _views.emplace_back(new nsAngleSpawnerPropsView());
@@ -223,4 +263,5 @@ nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsEdgesSpawnerPropsView());
     _views.emplace_back(new nsPolygonSpawnerPropsView());
     _views.emplace_back(new nsLifeSpawnerPropsView());
+    _views.emplace_back(new nsMultiDirSpawnerPropsView());
 }

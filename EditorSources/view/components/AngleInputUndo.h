@@ -17,8 +17,12 @@ public:
     }
 
     void Draw(TVar &var) {
+        DrawField(_title.c_str(), var);
+    }
+
+    static void DrawField(const char *title, TVar &var) {
         float value = nsMath::ToDeg(var);
-        if (ImGui::InputFloat(_title.c_str(), &value, 1.0f, 10.0f)) {
+        if (ImGui::InputFloat(title, &value, 1.0f, 10.0f)) {
             nsUndoService::Shared()->Push(new nsUndoVarChange(var, nsMath::ToRad(value)));
         }
     }
