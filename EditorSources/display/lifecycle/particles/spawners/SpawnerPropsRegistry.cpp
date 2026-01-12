@@ -15,6 +15,7 @@
 #include "Engine/renderer/particles/spawner/ParticlesMultiSpawner.h"
 #include "Engine/renderer/particles/spawner/position/ParticlesCircleSpawner.h"
 #include "Engine/renderer/particles/spawner/position/ParticlesEdgesSpawner.h"
+#include "Engine/renderer/particles/spawner/position/ParticlesPolygonSpawner.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
 #include "view/components/AngleInputUndo.h"
@@ -40,7 +41,7 @@ protected:
     void Draw(nsParticlesSpawner *spawner, nsPropsContext *context) override {
         const auto s = dynamic_cast<nsParticlesMultiSpawner*>(spawner);
 
-        if (ImGui::Button("Add")) {
+        if (ImGui::Button("Add Spawner")) {
             ImGui::OpenPopup("AddSpawnerPopup");
         }
 
@@ -49,6 +50,7 @@ protected:
             AddSpawner<nsParticlesCircleSpawner>(s);
             AddSpawner<nsParticlesColorSpawner>(s);
             AddSpawner<nsParticlesEdgesSpawner>(s);
+            AddSpawner<nsParticlesPolygonSpawner>(s);
             ImGui::EndPopup();
         }
 
@@ -57,7 +59,7 @@ protected:
             ImGui::SeparatorText(child->GetTitle());
 
             nsString buttonLabel;
-            buttonLabel.Format("Remove##%d", buttonId++);
+            buttonLabel.Format("Remove Spawner##%d", buttonId++);
             if (ImGui::Button(buttonLabel)) {
                 nsUndoService::Shared()->Push(new nsUndoVectorRemove(s->list, child));
                 break;
@@ -123,6 +125,9 @@ protected:
 class nsEdgesSpawnerPropsView final : public nsSpawnerPropsView {
 protected:
     bool IsSupported(nsParticlesSpawner *spawner) override {
+        if (dynamic_cast<nsParticlesPolygonSpawner*>(spawner)) {
+            return false;
+        }
         return dynamic_cast<nsParticlesEdgesSpawner*>(spawner);
     }
     void Draw(nsParticlesSpawner *spawner, nsPropsContext *context) override {
@@ -160,10 +165,44 @@ protected:
     }
 };
 
+class nsPolygonSpawnerPropsView : public nsSpawnerPropsView {
+public:
+    bool IsSupported(nsParticlesSpawner *object) override {
+        return dynamic_cast<nsParticlesPolygonSpawner*>(object);
+    }
+
+    void Draw(nsParticlesSpawner *object, nsPropsContext *context) override {
+        const auto s = dynamic_cast<nsParticlesPolygonSpawner*>(object);
+
+        if (ImGui::Button("Add Point")) {
+            const auto batch = new nsUndoBatch();
+            batch->Add(new nsUndoArrayAdd(s->points, std::make_shared<nsPoint>(nsVec2())));
+            nsUndoService::Shared()->Push(batch);
+        }
+
+        nsString title;
+
+        for (int i = 0; i < s->points.Size(); ++i) {
+            auto &p = s->points[i];
+
+            ImGui::Separator();
+            title.Format("Remove##point%d", i);
+            if (ImGui::Button(title)) {
+                nsUndoService::Shared()->Push(new nsUndoArrayRemove(s->points, p));
+                break;
+            } else {
+                title.Format("Point %d", i);
+                nsVec2InputUndo<nsPoint>::DrawField( title, *p.get());
+            }
+        }
+    }
+};
+
 nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsMultiSpawnerPropsView());
     _views.emplace_back(new nsAngleSpawnerPropsView());
     _views.emplace_back(new nsCircleSpawnerPropsView());
     _views.emplace_back(new nsColorSpawnerPropsView());
     _views.emplace_back(new nsEdgesSpawnerPropsView());
+    _views.emplace_back(new nsPolygonSpawnerPropsView());
 }
