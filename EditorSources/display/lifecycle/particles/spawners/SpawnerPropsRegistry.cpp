@@ -19,6 +19,7 @@
 #include "Engine/renderer/particles/spawner/position/ParticlesPolygonSpawner.h"
 #include "Engine/renderer/particles/spawner/velocity/ParticlesMultiDirectionSpawner.h"
 #include "Engine/renderer/particles/spawner/velocity/ParticlesRadialVelocitySpawner.h"
+#include "Engine/renderer/particles/spawner/velocity/ParticlesRightVelSpawner.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
 #include "view/components/AngleInputUndo.h"
@@ -57,6 +58,7 @@ protected:
             AddSpawner<nsParticlesLifeSpawner>(s);
             AddSpawner<nsParticlesMultiDirectionSpawner>(s);
             AddSpawner<nsParticlesRadialVelSpawner>(s);
+            AddSpawner<nsParticlesRightVelSpawner>(s);
             ImGui::EndPopup();
         }
 
@@ -271,6 +273,20 @@ class nsRadialVelSpawnerPropsView : public nsSpawnerPropsView {
     }
 };
 
+class nsRightVelSpawnerPropsView final : public nsSpawnerPropsView {
+    bool IsSupported(nsParticlesSpawner *object) override {
+        return dynamic_cast<nsParticlesRightVelSpawner*>(object);
+    }
+
+    void Draw(nsParticlesSpawner *object, nsPropsContext *context) override {
+        const auto s = dynamic_cast<nsParticlesRightVelSpawner*>(object);
+
+        nsFloatInputUndo<float>::DrawField("Min Speed##right vel", s->minSpeed);
+        nsFloatInputUndo<float>::DrawField("Max Speed##right vel", s->maxSpeed);
+        nsBoolInputUndo<bool>::DrawField("Random Direction##right vel", s->randomDirection);
+    }
+};
+
 nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsMultiSpawnerPropsView());
     _views.emplace_back(new nsAngleSpawnerPropsView());
@@ -281,4 +297,5 @@ nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsLifeSpawnerPropsView());
     _views.emplace_back(new nsMultiDirSpawnerPropsView());
     _views.emplace_back(new nsRadialVelSpawnerPropsView());
+    _views.emplace_back(new nsRightVelSpawnerPropsView());
 }
