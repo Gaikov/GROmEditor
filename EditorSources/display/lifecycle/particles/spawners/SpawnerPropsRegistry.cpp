@@ -9,6 +9,7 @@
 #include "Core/undo/UndoVectorAdd.h"
 #include "Core/undo/UndoVectorRemove.h"
 #include "Core/undo/array/UndoArrayAdd.h"
+#include "Core/undo/array/UndoArrayRemove.h"
 #include "Engine/renderer/particles/spawner/ParticlesAngleSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesColorSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesMultiSpawner.h"
@@ -127,23 +128,27 @@ protected:
     void Draw(nsParticlesSpawner *spawner, nsPropsContext *context) override {
         const auto s = dynamic_cast<nsParticlesEdgesSpawner*>(spawner);
         if (ImGui::Button("Add Edge")) {
-            nsUndoBatch batch;
-            batch.Add(new nsUndoArrayAdd(s->points, std::make_shared<nsPoint>(nsVec2())));
-            batch.Add(new nsUndoArrayAdd(s->points, std::make_shared<nsPoint>(nsVec2())));
-            nsUndoService::Shared()->Push(&batch);
+            const auto batch = new nsUndoBatch();
+            batch->Add(new nsUndoArrayAdd(s->points, std::make_shared<nsPoint>(nsVec2())));
+            batch->Add(new nsUndoArrayAdd(s->points, std::make_shared<nsPoint>(nsVec2())));
+            nsUndoService::Shared()->Push(batch);
         }
 
         nsString title;
-        const auto &items = s->points.GetItems();
-        const int numEdges = items.size() / 2;
+
+        const int numEdges = s->points.Size() / 2;
         for (int i = 0; i < numEdges; ++i) {
-            const auto &p1 = items[i * 2];
-            const auto &p2 = items[i * 2 + 1];
+            auto &p1 = s->points[i * 2];
+            auto &p2 = s->points[i * 2 + 1];
 
             ImGui::Separator();
             title.Format("Remove##point%d", i);
             if (ImGui::Button(title)) {
-
+                const auto batch = new nsUndoBatch();
+                batch->Add(new nsUndoArrayRemove(s->points, p1));
+                batch->Add(new nsUndoArrayRemove(s->points, p2));
+                nsUndoService::Shared()->Push(batch);
+                break;
             } else {
                 title.Format("Point 1##%d", i);
                 nsVec2InputUndo<nsPoint>::DrawField( title, *p1.get());
