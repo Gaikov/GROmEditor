@@ -17,8 +17,12 @@ public:
     }
 
     void Draw(TVar &var) {
+        DrawField(_title.c_str(), var);
+    }
+
+    static void DrawField(const char *title, TVar &var) {
         bool value = var;
-        if (ImGui::Checkbox(_title.c_str(), &value)) {
+        if (ImGui::Checkbox(title, &value)) {
             nsUndoService::Shared()->Push(new nsUndoVarChange(var, value));
         }
     }
