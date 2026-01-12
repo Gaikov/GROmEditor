@@ -20,8 +20,12 @@ public:
     };
 
     void Draw(TFloat &var) {
+        DrawField(_title.c_str(), var, step, fastStep);
+    }
+
+    static void DrawField(const char *title, TFloat &var, float step = 0.01f, float fastStep = 1) {
         float value = var;
-        if (ImGui::InputFloat(_title.c_str(), &value, step, fastStep)) {
+        if (ImGui::InputFloat(title, &value, step, fastStep)) {
             nsUndoService::Shared()->Push(new nsUndoVarChange(var, value));
         }
     }

@@ -12,6 +12,7 @@
 #include "Core/undo/array/UndoArrayRemove.h"
 #include "Engine/renderer/particles/spawner/ParticlesAngleSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesColorSpawner.h"
+#include "Engine/renderer/particles/spawner/ParticlesLifeSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesMultiSpawner.h"
 #include "Engine/renderer/particles/spawner/position/ParticlesCircleSpawner.h"
 #include "Engine/renderer/particles/spawner/position/ParticlesEdgesSpawner.h"
@@ -51,6 +52,7 @@ protected:
             AddSpawner<nsParticlesColorSpawner>(s);
             AddSpawner<nsParticlesEdgesSpawner>(s);
             AddSpawner<nsParticlesPolygonSpawner>(s);
+            AddSpawner<nsParticlesLifeSpawner>(s);
             ImGui::EndPopup();
         }
 
@@ -58,14 +60,14 @@ protected:
         for (auto &child : s->list) {
             ImGui::SeparatorText(child->GetTitle());
 
+            context->DrawProps(child);
+
             nsString buttonLabel;
             buttonLabel.Format("Remove Spawner##%d", buttonId++);
             if (ImGui::Button(buttonLabel)) {
                 nsUndoService::Shared()->Push(new nsUndoVectorRemove(s->list, child));
                 break;
             }
-
-            context->DrawProps(child);
         }
     }
 };
@@ -198,6 +200,21 @@ public:
     }
 };
 
+class nsLifeSpawnerPropsView : public nsSpawnerPropsView {
+    bool IsSupported(nsParticlesSpawner *spawner) override {
+        return dynamic_cast<nsParticlesLifeSpawner*>(spawner);
+    }
+    void Draw(nsParticlesSpawner *spawner, nsPropsContext *context) override {
+        const auto s = dynamic_cast<nsParticlesLifeSpawner*>(spawner);
+
+        _minTime.Draw(s->minLifeTime);
+        _maxTime.Draw(s->maxLifeTime);
+    }
+
+    nsFloatInputUndo<float> _minTime = "Min Time";
+    nsFloatInputUndo<float> _maxTime = "Max Time";
+};
+
 nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsMultiSpawnerPropsView());
     _views.emplace_back(new nsAngleSpawnerPropsView());
@@ -205,4 +222,5 @@ nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsColorSpawnerPropsView());
     _views.emplace_back(new nsEdgesSpawnerPropsView());
     _views.emplace_back(new nsPolygonSpawnerPropsView());
+    _views.emplace_back(new nsLifeSpawnerPropsView());
 }
