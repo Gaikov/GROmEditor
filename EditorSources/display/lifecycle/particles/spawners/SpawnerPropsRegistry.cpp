@@ -21,6 +21,7 @@
 #include "Engine/renderer/particles/spawner/velocity/ParticlesMultiDirectionSpawner.h"
 #include "Engine/renderer/particles/spawner/velocity/ParticlesRadialVelocitySpawner.h"
 #include "Engine/renderer/particles/spawner/velocity/ParticlesRightVelSpawner.h"
+#include "Engine/renderer/particles/spawner/velocity/ParticlesVectorVelSpawner.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
 #include "view/components/AngleInputUndo.h"
@@ -61,6 +62,7 @@ protected:
             AddSpawner<nsParticlesRadialVelSpawner>(s);
             AddSpawner<nsParticlesRightVelSpawner>(s);
             AddSpawner<nsParticlesSizeSpawner>(s);
+            AddSpawner<nsParticlesVectorVelSpawner>(s);
             ImGui::EndPopup();
         }
 
@@ -301,6 +303,22 @@ class nsSizeSpawnerPropsView final : public nsSpawnerPropsView {
     }
 };
 
+class nsVectorVelSpawnerPropsView final : public nsSpawnerPropsView {
+protected:
+    bool IsSupported(nsParticlesSpawner *spawner) override {
+        return dynamic_cast<nsParticlesVectorVelSpawner*>(spawner);
+    }
+
+    void Draw(nsParticlesSpawner *object, nsPropsContext *context) override {
+        const auto s = dynamic_cast<nsParticlesVectorVelSpawner*>(object);
+
+        nsFloatInputUndo<float>::DrawField("Min Speed##vector vel", s->minSpeed);
+        nsFloatInputUndo<float>::DrawField("Max Speed##vector vel", s->maxSpeed);
+        nsVec2InputUndo<nsVec2>::DrawField("Direction##vector vel", s->direction);
+        nsBoolInputUndo<bool>::DrawField("Random Direction##vector vel", s->randomDirection);
+    }
+};
+
 nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsMultiSpawnerPropsView());
     _views.emplace_back(new nsAngleSpawnerPropsView());
@@ -313,4 +331,5 @@ nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsRadialVelSpawnerPropsView());
     _views.emplace_back(new nsRightVelSpawnerPropsView());
     _views.emplace_back(new nsSizeSpawnerPropsView());
+    _views.emplace_back(new nsVectorVelSpawnerPropsView());
 }
