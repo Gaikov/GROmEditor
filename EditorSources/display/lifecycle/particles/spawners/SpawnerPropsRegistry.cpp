@@ -14,6 +14,7 @@
 #include "Engine/renderer/particles/spawner/ParticlesColorSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesLifeSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesMultiSpawner.h"
+#include "Engine/renderer/particles/spawner/ParticlesSizeSpawner.h"
 #include "Engine/renderer/particles/spawner/position/ParticlesCircleSpawner.h"
 #include "Engine/renderer/particles/spawner/position/ParticlesEdgesSpawner.h"
 #include "Engine/renderer/particles/spawner/position/ParticlesPolygonSpawner.h"
@@ -59,6 +60,7 @@ protected:
             AddSpawner<nsParticlesMultiDirectionSpawner>(s);
             AddSpawner<nsParticlesRadialVelSpawner>(s);
             AddSpawner<nsParticlesRightVelSpawner>(s);
+            AddSpawner<nsParticlesSizeSpawner>(s);
             ImGui::EndPopup();
         }
 
@@ -287,6 +289,18 @@ class nsRightVelSpawnerPropsView final : public nsSpawnerPropsView {
     }
 };
 
+class nsSizeSpawnerPropsView final : public nsSpawnerPropsView {
+    bool IsSupported(nsParticlesSpawner *object) override {
+        return dynamic_cast<nsParticlesSizeSpawner*>(object);
+    }
+
+    void Draw(nsParticlesSpawner *object, nsPropsContext *context) override {
+        const auto s = dynamic_cast<nsParticlesSizeSpawner*>(object);
+        nsFloatInputUndo<float>::DrawField("Min Size##size_spawner", s->minSize);
+        nsFloatInputUndo<float>::DrawField("Max Size##size_spawner", s->maxSize);
+    }
+};
+
 nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsMultiSpawnerPropsView());
     _views.emplace_back(new nsAngleSpawnerPropsView());
@@ -298,4 +312,5 @@ nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsMultiDirSpawnerPropsView());
     _views.emplace_back(new nsRadialVelSpawnerPropsView());
     _views.emplace_back(new nsRightVelSpawnerPropsView());
+    _views.emplace_back(new nsSizeSpawnerPropsView());
 }
