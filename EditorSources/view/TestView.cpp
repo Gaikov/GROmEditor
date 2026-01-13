@@ -162,6 +162,8 @@ nsTestView::nsTestView() {
 }
 
 void nsTestView::Draw() {
+    _editable.Draw();
+
     models.Render();
     // 2. Показываем простое окно
     static bool show_another_window = false;

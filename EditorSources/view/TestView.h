@@ -5,10 +5,15 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 #include "BaseView.h"
+#include "test/EditablePlotTest.h"
+
 
 class nsTestView : public nsBaseView {
 public:
     nsTestView();
     void Draw() override;
+
+private:
+    EditablePlot _editable;
 };
 
