@@ -10,6 +10,9 @@
 #include "Engine/renderer/particles/updater/ParticlesGravityUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesMultiUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesSizeUpdater.h"
+#include "Engine/renderer/particles/updater/ParticlesVelocityApplyUpdater.h"
+#include "Engine/renderer/particles/updater/ParticlesVelToAngleUpdater.h"
+#include "Engine/renderer/particles/updater/velocity/ParticlesVelDampUpdater.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
 #include "view/components/FloatInputUndo.h"
@@ -40,6 +43,9 @@ public:
         if (ImGui::BeginPopup(ADD_UPDATER_POPUP_ID)) {
             AddUpdater<nsParticlesSizeUpdater>(u);
             AddUpdater<nsParticlesGravityUpdater>(u);
+            AddUpdater<nsParticlesVelDampUpdater>(u);
+            AddUpdater<nsParticlesVelocityApplyUpdater>(u);
+            AddUpdater<nsParticlesVelToAngleUpdater>(u);
             ImGui::EndPopup();
         }
 
@@ -89,8 +95,23 @@ public:
     nsVec2InputUndo<nsVec2> _gravity = "Gravity";
 };
 
+class nsVelDampUpdaterPropsView : public nsUpdaterPropsView {
+public:
+    bool IsSupported(nsParticlesUpdater *object) override {
+        return dynamic_cast<nsParticlesVelDampUpdater*>(object);
+    }
+
+    void Draw(nsParticlesUpdater *object, nsPropsContext *context) override {
+        const auto v = dynamic_cast<nsParticlesVelDampUpdater*>(object);
+        _damping.Draw(v->value);
+    }
+
+    nsFloatInputUndo<float> _damping = "Damping";
+};
+
 nsUpdaterPropsRegistry::nsUpdaterPropsRegistry() {
     _views.emplace_back(new nsMultiUpdaterPropsView());
     _views.emplace_back(new nsSizeUpdaterPropsView());
     _views.emplace_back(new nsGravityUpdaterPropsView());
+    _views.emplace_back(new nsVelDampUpdaterPropsView());
 }
