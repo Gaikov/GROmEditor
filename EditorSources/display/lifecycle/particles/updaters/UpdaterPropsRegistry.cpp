@@ -4,6 +4,7 @@
 
 #include "UpdaterPropsRegistry.h"
 
+#include "SizeTimelineUpdaterPropsView.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVectorAdd.h"
 #include "Core/undo/UndoVectorRemove.h"
@@ -12,6 +13,7 @@
 #include "Engine/renderer/particles/updater/ParticlesSizeUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesVelocityApplyUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesVelToAngleUpdater.h"
+#include "Engine/renderer/particles/updater/size/ParticlesSizeTimelineUpdater.h"
 #include "Engine/renderer/particles/updater/velocity/ParticlesVelDampUpdater.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
@@ -46,6 +48,7 @@ public:
             AddUpdater<nsParticlesVelDampUpdater>(u);
             AddUpdater<nsParticlesVelocityApplyUpdater>(u);
             AddUpdater<nsParticlesVelToAngleUpdater>(u);
+            AddUpdater<nsParticlesSizeTimelineUpdater>(u);
             ImGui::EndPopup();
         }
 
@@ -114,4 +117,5 @@ nsUpdaterPropsRegistry::nsUpdaterPropsRegistry() {
     _views.emplace_back(new nsSizeUpdaterPropsView());
     _views.emplace_back(new nsGravityUpdaterPropsView());
     _views.emplace_back(new nsVelDampUpdaterPropsView());
+    _views.emplace_back(new nsSizeTimelineUpdaterPropsView());
 }
