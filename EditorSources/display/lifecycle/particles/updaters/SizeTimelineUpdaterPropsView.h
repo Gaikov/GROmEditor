@@ -14,4 +14,8 @@ public:
 private:
     std::vector<float> xs;
     std::vector<float> ys;
+
+    int _selectedPoint = -1;
+    int _draggingPoint = -1;
+
 };
