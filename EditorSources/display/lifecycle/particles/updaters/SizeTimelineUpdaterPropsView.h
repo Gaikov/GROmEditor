@@ -22,7 +22,9 @@ private:
     int _selectedPoint = -1;
     int _draggingPoint = -1;
 
-    void OnDragStarted(const nsParticlesSizeTimelineUpdater *object);
-    void OnDragStopped(const nsParticlesSizeTimelineUpdater *object) const;
+    nsParticlesSizeTimelineUpdater::Frame _prevValue = {};
+
+    void OnDragStarted(const nsParticlesSizeTimelineUpdater *object, int pointIndex);
+    void OnDragStopped(const nsParticlesSizeTimelineUpdater *object, int pointIndex) const;
 
 };

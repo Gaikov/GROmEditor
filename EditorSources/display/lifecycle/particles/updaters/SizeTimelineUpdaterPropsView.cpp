@@ -31,26 +31,25 @@ void nsSizeTimelineUpdaterPropsView::Draw(nsParticlesUpdater *object, nsPropsCon
         if (size > 1) {
             _xs.resize(size);
             _ys.resize(size);
-            float x = 0;
+
             for (int i = 0; i < size; ++i) {
-                x += points[i]->time;
-                _xs[i] = x;
+                _xs[i] = points[i]->time;
                 _ys[i] = points[i]->data;
             }
             ImPlot::PlotLine("Scale", _xs.data(), _ys.data(), static_cast<int>(size));
         }
 
-        float prev, next;
+        float min, max;
         for (int i = 0; i < size; ++i) {
             if (i == 0) {
-                prev = 0;
-                next = _xs[1];
+                min = 0;
+                max = 0;
             } else if (i == size - 1) {
-                prev = _xs[i - 1];
-                next = 1;
+                min = 1;
+                max = 1;
             } else {
-                prev = _xs[i - 1];
-                next = _xs[i + 1];
+                min = _xs[i - 1];
+                max = _xs[i + 1];
             }
 
             double x = _xs[i];
@@ -63,23 +62,12 @@ void nsSizeTimelineUpdaterPropsView::Draw(nsParticlesUpdater *object, nsPropsCon
                 _selectedPoint = i;
                 if (_draggingPoint != i) {
                     _draggingPoint = i;
-                    OnDragStarted(u);
+                    OnDragStarted(u, i);
                 }
 
-                x = nsMath::Clamp(static_cast<float>(x), prev, next);
-                const auto time = static_cast<float>(x - prev);
-                const auto timeNext = static_cast<float>(next - x);
-                if (!i) {
-                    points[i]->time = 0;
-                } else if (i == size - 1) {
-                    points[i]->time = static_cast<float>(1.0 - prev);
-                } else {
-                    points[i]->time = time;
-                }
+                x = nsMath::Clamp(static_cast<float>(x), min, max);
+                points[i]->time = static_cast<float>(x);
                 points[i]->data = static_cast<float>(std::max(y, 0.0));
-                if (i && i + 1 < size) {
-                    points[i + 1]->time = timeNext;
-                }
             }
 
             if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
@@ -95,33 +83,26 @@ void nsSizeTimelineUpdaterPropsView::Draw(nsParticlesUpdater *object, nsPropsCon
         }
 
         if (_draggingPoint != -1 && _draggingPoint != draggedPoint) {
+            OnDragStopped(u, _draggingPoint);
             _draggingPoint = -1;
-            OnDragStopped(u);
         }
 
         ImPlot::EndPlot();
     }
 }
 
-void nsSizeTimelineUpdaterPropsView::OnDragStarted(const nsParticlesSizeTimelineUpdater *object) {
+void nsSizeTimelineUpdaterPropsView::OnDragStarted(const nsParticlesSizeTimelineUpdater *object, int pointIndex) {
     Log::Info("Drag started");
-
-    _prevFrames.clear();
-    for (auto &f : object->timeline) {
-        _prevFrames.push_back(*f);
-    }
+    _prevValue = *object->timeline[pointIndex];
 }
 
-void nsSizeTimelineUpdaterPropsView::OnDragStopped(const nsParticlesSizeTimelineUpdater *object) const {
+void nsSizeTimelineUpdaterPropsView::OnDragStopped(const nsParticlesSizeTimelineUpdater *object, int pointIndex) const {
     Log::Info("Drag stopped");
 
     const auto batch = new nsUndoBatch();
-    for (int i = 0; i < _prevFrames.size(); ++i) {
-        const auto &frame = object->timeline[i];
-        const auto &prevValue = _prevFrames[i];
+        const auto &frame = object->timeline[pointIndex];
+        batch->Add(new nsUndoVarPrevChange(frame->time, _prevValue.time));
+        batch->Add(new nsUndoVarPrevChange(frame->data, _prevValue.data));
 
-        batch->Add(new nsUndoVarPrevChange(frame->time, prevValue.time));
-        batch->Add(new nsUndoVarPrevChange(frame->data, prevValue.data));
-    }
     nsUndoService::Shared()->Push(batch);
 }
