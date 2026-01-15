@@ -59,7 +59,8 @@ public:
             context->DrawProps(child);
 
             nsString buttonLabel;
-            buttonLabel.Format("Remove##%d", buttonId++);
+            ImGui::Separator();
+            buttonLabel.Format("Remove Updater##%d", buttonId++);
             if (ImGui::Button(buttonLabel)) {
                 nsUndoService::Shared()->Push(new nsUndoVectorRemove(u->list, child));
                 break;

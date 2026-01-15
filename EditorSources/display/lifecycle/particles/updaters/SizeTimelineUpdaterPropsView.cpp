@@ -7,9 +7,12 @@
 #include "Core/undo/UndoBatch.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVarPrevChange.h"
+#include "Core/undo/UndoVectorInsert.h"
+#include "Core/undo/UndoVectorRemove.h"
 #include "Engine/renderer/particles/updater/ParticlesSizeUpdater.h"
 #include "Engine/renderer/particles/updater/size/ParticlesSizeTimelineUpdater.h"
 #include "imgui/implot.h"
+#include "view/components/FloatInputUndo.h"
 
 static constexpr auto DEFAULT_POINT_COLOR = ImVec4(1, 0.5f, 0, 1);
 static constexpr auto SELECTED_POINT_COLOR = ImVec4(0, 1, 0, 1);
@@ -88,6 +91,28 @@ void nsSizeTimelineUpdaterPropsView::Draw(nsParticlesUpdater *object, nsPropsCon
         }
 
         ImPlot::EndPlot();
+
+        if (_selectedPoint >= 0 && _selectedPoint < u->timeline.size()) {
+            nsFloatInputUndo<float>::DrawField("Scale", u->timeline[_selectedPoint]->data);
+            if (_selectedPoint > 0 && _selectedPoint < u->timeline.size() - 1) {
+                if (ImGui::Button("Remove")) {
+                    nsUndoService::Shared()->Push(new nsUndoVectorRemove(u->timeline, u->timeline[_selectedPoint]));
+                }
+                ImGui::SameLine();
+            }
+
+            if (_selectedPoint < u->timeline.size() - 1) {
+                if (ImGui::Button("Add After")) {
+                    const auto frame = std::make_shared<nsParticlesSizeTimelineUpdater::Frame>();
+                    const auto curr = u->timeline[_selectedPoint];
+                    const auto next = u->timeline[_selectedPoint + 1];
+                    frame->time = (curr->time + next->time) * 0.5f;
+                    frame->data = (curr->data + next->data) * 0.5f;
+                    nsUndoService::Shared()->Push(new nsUndoVectorInsert(
+                        u->timeline, _selectedPoint + 1, frame));
+                }
+            }
+        }
     }
 }
 
@@ -100,9 +125,9 @@ void nsSizeTimelineUpdaterPropsView::OnDragStopped(const nsParticlesSizeTimeline
     Log::Info("Drag stopped");
 
     const auto batch = new nsUndoBatch();
-        const auto &frame = object->timeline[pointIndex];
-        batch->Add(new nsUndoVarPrevChange(frame->time, _prevValue.time));
-        batch->Add(new nsUndoVarPrevChange(frame->data, _prevValue.data));
+    const auto &frame = object->timeline[pointIndex];
+    batch->Add(new nsUndoVarPrevChange(frame->time, _prevValue.time));
+    batch->Add(new nsUndoVarPrevChange(frame->data, _prevValue.data));
 
     nsUndoService::Shared()->Push(batch);
 }
