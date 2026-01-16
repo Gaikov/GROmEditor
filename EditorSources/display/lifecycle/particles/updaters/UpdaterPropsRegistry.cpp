@@ -43,7 +43,7 @@ public:
     void Draw(nsParticlesUpdater *object, nsPropsContext *context) override {
         const auto u = dynamic_cast<nsParticlesCompositeUpdater*>(object);
 
-        if (ImGui::Button("Add")) {
+        if (ImGui::Button("Add Updater")) {
             ImGui::OpenPopup(ADD_UPDATER_POPUP_ID);
         }
 

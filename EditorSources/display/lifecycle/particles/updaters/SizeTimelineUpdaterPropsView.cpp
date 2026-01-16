@@ -25,9 +25,11 @@ bool nsSizeTimelineUpdaterPropsView::IsSupported(nsParticlesUpdater *object) {
 void nsSizeTimelineUpdaterPropsView::Draw(nsParticlesUpdater *object, nsPropsContext *context) {
     const auto u = dynamic_cast<nsParticlesSizeTimelineUpdater *>(object);
 
-    if (ImPlot::BeginPlot("Scale Curve")) {
+    if (ImPlot::BeginPlot("Scale Curve", ImVec2(-1, 0), ImPlotFlags_NoMenus)) {
         int draggedPoint = -1;
+        bool pointClicked = false;
         ImPlot::SetupAxesLimits(0, 1, 0, 2);
+        ImPlot::SetupAxes("Time", "Scale", ImPlotAxisFlags_LockMin | ImPlotAxisFlags_LockMax, ImPlotAxisFlags_LockMin);
 
         const auto size = u->timeline.size();
         const auto &points = u->timeline;
@@ -60,7 +62,7 @@ void nsSizeTimelineUpdaterPropsView::Draw(nsParticlesUpdater *object, nsPropsCon
 
             const auto color = _selectedPoint == i ? SELECTED_LINE_COLOR : DEFAULT_LINE_COLOR;
 
-            if (ImPlot::DragPoint(i, &x, &y, color, LINE_SIZE)) {
+            if (ImPlot::DragPoint(i, &x, &y, color, LINE_SIZE, 0, &pointClicked)) {
                 draggedPoint = i;
                 _selectedPoint = i;
                 if (_draggingPoint != i) {
@@ -73,15 +75,8 @@ void nsSizeTimelineUpdaterPropsView::Draw(nsParticlesUpdater *object, nsPropsCon
                 points[i]->data = static_cast<float>(std::max(y, 0.0));
             }
 
-            if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
-                const ImVec2 screen_pos = ImPlot::PlotToPixels(ImPlotPoint(x, y));
-                const ImVec2 current_mouse = ImGui::GetMousePos();
-
-                const float dx = nsMath::Absf(screen_pos.x - current_mouse.x);
-                const float dy = nsMath::Absf(screen_pos.y - current_mouse.y);
-                if (dx <= LINE_SIZE && dy <= LINE_SIZE) {
-                    _selectedPoint = i;
-                }
+            if (pointClicked) {
+                _selectedPoint = i;
             }
         }
 
@@ -90,26 +85,35 @@ void nsSizeTimelineUpdaterPropsView::Draw(nsParticlesUpdater *object, nsPropsCon
             _draggingPoint = -1;
         }
 
+        if (!pointClicked) {
+            if (ImGui::BeginPopupContextWindow("Size Scale Context")) {
+                if (ImGui::IsWindowAppearing()) {
+                    _addPos = ImPlot::GetPlotMousePos();
+                }
+                if (ImGui::MenuItem("Add Point##Scale")) {
+
+                    for (auto i = 0; i < size; ++i) {
+                        if (points[i]->time > _addPos.x) {
+                            const auto frame = std::make_shared<nsParticlesSizeTimelineUpdater::Frame>();
+                            frame->time = _addPos.x;
+                            frame->data = _addPos.y;
+                            nsUndoService::Shared()->Push(new nsUndoVectorInsert(u->timeline, i, frame));
+                            break;
+                        }
+                    }
+                }
+                ImGui::EndPopup();
+            }
+        }
+
         ImPlot::EndPlot();
 
         if (_selectedPoint >= 0 && _selectedPoint < u->timeline.size()) {
             nsFloatInputUndo<float>::DrawField("Scale##Scale", u->timeline[_selectedPoint]->data);
             if (_selectedPoint > 0 && _selectedPoint < u->timeline.size() - 1) {
+                ImGui::SameLine();
                 if (ImGui::Button("Remove##Scale")) {
                     nsUndoService::Shared()->Push(new nsUndoVectorRemove(u->timeline, u->timeline[_selectedPoint]));
-                }
-                ImGui::SameLine();
-            }
-
-            if (_selectedPoint < u->timeline.size() - 1) {
-                if (ImGui::Button("Add After##Scale")) {
-                    const auto frame = std::make_shared<nsParticlesSizeTimelineUpdater::Frame>();
-                    const auto curr = u->timeline[_selectedPoint];
-                    const auto next = u->timeline[_selectedPoint + 1];
-                    frame->time = (curr->time + next->time) * 0.5f;
-                    frame->data = (curr->data + next->data) * 0.5f;
-                    nsUndoService::Shared()->Push(new nsUndoVectorInsert(
-                        u->timeline, _selectedPoint + 1, frame));
                 }
             }
         }

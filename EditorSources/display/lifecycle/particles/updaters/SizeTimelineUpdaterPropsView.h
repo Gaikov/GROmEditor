@@ -6,6 +6,7 @@
 #pragma once
 #include "UpdaterPropsRegistry.h"
 #include "Engine/renderer/particles/updater/size/ParticlesSizeTimelineUpdater.h"
+#include "imgui/implot.h"
 
 class nsSizeTimelineUpdaterPropsView final : public nsUpdaterPropsView {
 public:
@@ -23,6 +24,7 @@ private:
     int _draggingPoint = -1;
 
     nsParticlesSizeTimelineUpdater::Frame _prevValue = {};
+    ImPlotPoint _addPos;
 
     void OnDragStarted(const nsParticlesSizeTimelineUpdater *object, int pointIndex);
     void OnDragStopped(const nsParticlesSizeTimelineUpdater *object, int pointIndex) const;

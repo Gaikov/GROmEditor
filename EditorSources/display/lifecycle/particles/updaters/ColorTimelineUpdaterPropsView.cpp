@@ -30,7 +30,8 @@ void nsColorTimelineUpdaterPropsView::Draw(nsParticlesUpdater *object, nsPropsCo
         bool clicked = false;
         bool hovered = false;
         int draggedPoint = -1;
-        ImPlot::SetupAxesLimits(-0.1, 1.1, 0, 1, ImGuiCond_Always);
+        ImPlot::SetupAxes("Time", "Color");
+        ImPlot::SetupAxesLimits(0, 1, 0, 1, ImGuiCond_Always);
 
         const auto size = u->timeline.size();
         const auto &points = u->timeline;
@@ -69,8 +70,6 @@ void nsColorTimelineUpdaterPropsView::Draw(nsParticlesUpdater *object, nsPropsCo
             const auto color = _selectedPoint == i ? SELECTED_LINE_COLOR : DEFAULT_LINE_COLOR;
 
             ImPlot::DragLineX(i, &x, OUTLINE_COLOR, LINE_SIZE + 2, ImPlotDragToolFlags_NoInputs);
-
-
             if (ImPlot::DragLineX(i, &x, color, LINE_SIZE, 0, &clicked, &hovered)) {
                 draggedPoint = i;
                 _selectedPoint = i;
