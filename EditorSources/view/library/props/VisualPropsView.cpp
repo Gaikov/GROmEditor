@@ -5,6 +5,7 @@
 #include "VisualPropsView.h"
 
 #include "Core/undo/UndoBatch.h"
+#include "Engine/display/undo/UndoAddChild.h"
 #include "Engine/display/undo/UndoRemoveChild.h"
 #include "gizmos/VisualHolder.h"
 
@@ -21,6 +22,16 @@ bool nsVisualPropsView::DrawContextMenu(nsVisualObject2d *target, const bool has
 
     if (!nsVisualHolder::isRoot(target)) {
         DrawMenuSeparator(hasPrevItems);
+        if (ImGui::MenuItem("Duplicate")) {
+            if (const auto clone = _model->project.scenes.Clone(target)) {
+                const auto batch = new nsUndoBatch();
+                clone->id = target->id + "_copy";
+                batch->Add(new nsUndoAddChild(target->GetParent(), clone));
+                batch->Add(new nsUndoVarChange(_model->project.user.selectedObject, clone));
+                nsUndoService::Shared()->Push(batch);
+            }
+        }
+
         if (ImGui::MenuItem("Delete")) {
             auto &user = _model->project.user;
             const auto batch = new nsUndoBatch();

@@ -4,6 +4,7 @@
 
 #include "ScenesCache.h"
 
+#include "Core/buffer/StringWriter.h"
 #include "Core/undo/UndoMapInsert.h"
 #include "Core/undo/UndoVarChange.h"
 #include "Core/undo/UndoVectorAdd.h"
@@ -46,6 +47,25 @@ nsVisualObject2d *nsScenesCache::Get(const std::string &path) {
         return scene;
     }
     return _cache[path];
+}
+
+nsVisualObject2d * nsScenesCache::Clone(nsVisualObject2d *source) {
+    const auto writer = std::make_shared<nsStringWriter>();
+    nsScriptSaver saver(writer);
+    if (nsVisualFactory2d::Shared()->Serialize(saver, source)) {
+        auto buffer = writer->GetBuffer();
+
+        if (const auto ss = ps_begin(buffer.data())) {
+            if (ps_block_begin(ss, nullptr)) {
+                const auto object = nsVisualFactory2d::Shared()->Create(ss);
+                ps_end(ss);
+                AddAllocated(object);
+                return object;
+            }
+        }
+    }
+
+    return nullptr;
 }
 
 void nsScenesCache::Reset() {
@@ -95,6 +115,7 @@ bool nsScenesCache::Save(const nsFilePath &projectFolder) {
 }
 
 void nsScenesCache::AddAllocated(nsVisualObject2d *obj) {
+    assert(obj);
     _allocated.push_back(obj);
 
     if (const auto container = dynamic_cast<nsVisualContainer2d *>(obj)) {

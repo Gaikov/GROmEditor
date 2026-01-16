@@ -30,6 +30,8 @@ public:
         return obj;
     }
 
+    nsVisualObject2d* Clone(nsVisualObject2d *source);
+
 protected:
     void Reset() override;
     bool Load(const nsFilePath &projectFolder) override;
