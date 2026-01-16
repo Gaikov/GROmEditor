@@ -97,6 +97,14 @@ void nsColorTimelineUpdaterPropsView::Draw(nsParticlesUpdater *object, nsPropsCo
             const auto pos = ImPlot::GetPlotMousePos();
             if (nsMath::InRange(pos.x, 0, 1) && nsMath::InRange(pos.y, 0, 1)) {
                 Log::Info("Add point: %f %f", pos.x, pos.y);
+                for (auto i = 0; i < size; ++i) {
+                    if (points[i]->time > pos.x) {
+                        const auto frame = std::make_shared<nsParticlesColorTimelineUpdater::Frame>();
+                        frame->time = pos.x;
+                        nsUndoService::Shared()->Push(new nsUndoVectorInsert(u->timeline, i, frame));
+                        break;
+                    }
+                }
             }
         }
 
@@ -105,20 +113,9 @@ void nsColorTimelineUpdaterPropsView::Draw(nsParticlesUpdater *object, nsPropsCo
         if (_selectedPoint >= 0 && _selectedPoint < u->timeline.size()) {
             _colorInput.Draw(u->timeline[_selectedPoint]->data);
             if (_selectedPoint > 0 && _selectedPoint < u->timeline.size() - 1) {
+                ImGui::SameLine();
                 if (ImGui::Button("Remove##Color")) {
                     nsUndoService::Shared()->Push(new nsUndoVectorRemove(u->timeline, u->timeline[_selectedPoint]));
-                }
-                ImGui::SameLine();
-            }
-
-            if (_selectedPoint < u->timeline.size() - 1) {
-                if (ImGui::Button("Add After##Color")) {
-                    const auto frame = std::make_shared<nsParticlesColorTimelineUpdater::Frame>();
-                    const auto curr = u->timeline[_selectedPoint];
-                    const auto next = u->timeline[_selectedPoint + 1];
-                    frame->time = (curr->time + next->time) * 0.5f;
-                    nsUndoService::Shared()->Push(new nsUndoVectorInsert(
-                        u->timeline, _selectedPoint + 1, frame));
                 }
             }
         }
