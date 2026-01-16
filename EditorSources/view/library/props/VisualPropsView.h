@@ -24,6 +24,7 @@ public:
 
 private:
     nsTextInputUndo<std::string> _idInput = "ID";
+    nsTextInputUndo<std::string> _bindingInput = "Binding Id";
     nsBoolInputUndo<nsProperty<bool>> _visibleInput = "Visible";
     nsVec2InputUndo<nsProperty<nsVec2>> _posInput = "Position";
     nsVec2InputUndo<nsProperty<nsVec2>> _scaleInput = "Scale";
