@@ -4,10 +4,12 @@
 
 #include "UpdaterPropsRegistry.h"
 
+#include "ColorTimelineUpdaterPropsView.h"
 #include "SizeTimelineUpdaterPropsView.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVectorAdd.h"
 #include "Core/undo/UndoVectorRemove.h"
+#include "Engine/renderer/particles/updater/ParticlesColorTimelineUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesGravityUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesMultiUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesSizeUpdater.h"
@@ -24,11 +26,14 @@ class nsMultiUpdaterPropsView : public nsUpdaterPropsView {
 public:
 
     template<typename TUpdater>
-    void AddUpdater(nsParticlesCompositeUpdater *updater) {
+    TUpdater* AddUpdater(nsParticlesCompositeUpdater *updater) {
         if (ImGui::MenuItem(TUpdater::TITLE)) {
-            const nsParticlesUpdater::sp_t s = new TUpdater();
-            nsUndoService::Shared()->Push(new nsUndoVectorAdd(updater->list, s));
+            auto res = new TUpdater();
+            const nsParticlesUpdater::sp_t u = res;
+            nsUndoService::Shared()->Push(new nsUndoVectorAdd(updater->list, u));
+            return res;
         }
+        return nullptr;
     }
 
     bool IsSupported(nsParticlesUpdater *object) override {
@@ -48,7 +53,12 @@ public:
             AddUpdater<nsParticlesVelDampUpdater>(u);
             AddUpdater<nsParticlesVelocityApplyUpdater>(u);
             AddUpdater<nsParticlesVelToAngleUpdater>(u);
-            AddUpdater<nsParticlesSizeTimelineUpdater>(u);
+            if (const auto size = AddUpdater<nsParticlesSizeTimelineUpdater>(u)) {
+                size->Validate();
+            }
+            if (const auto color = AddUpdater<nsParticlesColorTimelineUpdater>(u)) {
+                color->Validate();
+            }
             ImGui::EndPopup();
         }
 
@@ -119,4 +129,5 @@ nsUpdaterPropsRegistry::nsUpdaterPropsRegistry() {
     _views.emplace_back(new nsGravityUpdaterPropsView());
     _views.emplace_back(new nsVelDampUpdaterPropsView());
     _views.emplace_back(new nsSizeTimelineUpdaterPropsView());
+    _views.emplace_back(new nsColorTimelineUpdaterPropsView());
 }
