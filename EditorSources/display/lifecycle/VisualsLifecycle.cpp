@@ -8,12 +8,14 @@
 #include "particles/ParticlesAssetPropsView.h"
 #include "view/library/props/LayoutRefPropsView.h"
 #include "SpritePropsView.h"
+#include "VisualMaskProps.h"
 #include "particles/ParticlesPropsView.h"
 #include "view/library/props/TextLabelPropsView.h"
 #include "view/library/props/VisualPropsView.h"
 
 nsVisualsLifecycle::nsVisualsLifecycle() {
     _policies.emplace_back(new nsVisualPropsView());
+    _policies.emplace_back(new nsVisualMaskProps());
     _policies.emplace_back(new nsContainerPropsView());
     _policies.emplace_back(new nsLayoutRefPropsView());
     _policies.emplace_back(new nsSpritePropsView());

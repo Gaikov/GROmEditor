@@ -10,5 +10,6 @@ class nsVisualHolder : public nsVisualContainer2d {
 public:
     ~nsVisualHolder() override = default;
 
-    static bool isRoot(const nsVisualObject2d *node);
+    static bool IsRoot(const nsVisualObject2d *node);
+    static nsVisualContainer2d *GetRoot(nsVisualObject2d *node);
 };

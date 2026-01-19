@@ -20,7 +20,7 @@ void nsVisualPropsView::Draw(nsVisualObject2d *target) {
 
 bool nsVisualPropsView::DrawContextMenu(nsVisualObject2d *target, const bool hasPrevItems) {
 
-    if (!nsVisualHolder::isRoot(target)) {
+    if (!nsVisualHolder::IsRoot(target)) {
         DrawMenuSeparator(hasPrevItems);
         if (ImGui::MenuItem("Duplicate")) {
             if (const auto clone = _model->project.scenes.Clone(target)) {
