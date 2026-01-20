@@ -12,7 +12,7 @@
 class nsContainerPropsView : public nsBaseVisualPropsView {
 public:
     explicit nsContainerPropsView()
-        : nsBaseVisualPropsView("container") {
+        : nsBaseVisualPropsView("Container") {
     }
     bool IsSupport(nsVisualObject2d *target) override;
 

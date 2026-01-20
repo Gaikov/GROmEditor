@@ -18,6 +18,8 @@ bool nsContainerPropsView::DrawContextMenu(nsVisualObject2d *target, bool hasPre
     const auto c = dynamic_cast<nsVisualContainer2d*>(target);
 
     if (ImGui::BeginMenu("Create...")) {
+        MenuItemCreate<nsVisualContainer2d>("Container", c);
+
         if (const auto sprite = MenuItemCreate<nsSprite>("Sprite", c)) {
             sprite->renState = GetDefaultRenState();
         }

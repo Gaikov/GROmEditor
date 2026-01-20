@@ -106,8 +106,18 @@ bool nsScenesCache::Save(const nsFilePath &projectFolder) {
     const auto vf = nsVisualFactory2d::Shared();
 
     for (const auto &pair: _cache) {
+        const auto obj = pair.second;
+        const auto parent = obj->GetParent();
+        if (parent) {
+            parent->RemoveChild(obj);
+        }
+
         if (!vf->Serialize(pair.first.c_str(), pair.second)) {
             result = false;
+        }
+
+        if (parent) {
+            parent->AddChild(obj);
         }
     }
 

@@ -3,7 +3,6 @@
 //
 
 #include "VisualMaskProps.h"
-
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVectorAdd.h"
 #include "Core/undo/UndoVectorRemove.h"
@@ -13,7 +12,8 @@
 #define MASK_POPUP_ID "Mask Props"
 
 bool nsVisualMaskProps::IsSupport(nsVisualObject2d *target) {
-    return nsVisualHolder::GetRoot(target);
+    const auto root = nsVisualHolder::GetRoot(target);
+    return root && root != target;
 }
 
 void nsVisualMaskProps::Draw(nsVisualObject2d *target) {
@@ -33,7 +33,6 @@ void nsVisualMaskProps::Draw(nsVisualObject2d *target) {
                     } else {
                         nsUndoService::Shared()->Push(new nsUndoVectorAdd(target->masks, mask));
                     }
-                    //nsUndoService::Shared()->Push(new nsUndoVarChange(target, mask));
                 }
             }
         }
@@ -41,7 +40,18 @@ void nsVisualMaskProps::Draw(nsVisualObject2d *target) {
         ImGui::EndPopup();
     }
 
-    if (ImGui::Button("Add Mask")) {
+    if (ImGui::Button("Apply Mask")) {
         ImGui::OpenPopup(MASK_POPUP_ID);
+    }
+
+    for (int i = 0; i < target->masks.size(); i++) {
+        auto mask = target->masks[i];
+        nsString title;
+        title.Format("Remove##mask%d", i);
+        if (ImGui::Button(title)) {
+            nsUndoService::Shared()->Push(new nsUndoVectorRemove(target->masks, mask));
+        }
+        ImGui::SameLine();
+        ImGui::Text("Child Id: %s", mask->id.c_str());
     }
 }
