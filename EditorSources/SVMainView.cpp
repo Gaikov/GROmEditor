@@ -72,6 +72,8 @@ void nsSVMainView::DrawNode(const nsVisualContext2d &context) {
     nsVisualContainer2d::DrawNode(context);
 
     ApplyWorldMatrix();
+
+    _device->StencilApply(nullptr);
     nsVisualObject2d *selected = _appModel->project.user.selectedObject;
     nsSceneUtils::DrawBounds(selected);
     nsSceneUtils::DrawOrigin(selected);
