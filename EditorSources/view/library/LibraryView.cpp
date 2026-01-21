@@ -4,6 +4,7 @@
 
 #include "LibraryView.h"
 
+#include "SceneTreeView.h"
 #include "Core/Package.h"
 #include "Core/undo/UndoBatch.h"
 #include "Core/undo/UndoPropertyChange.h"
@@ -17,10 +18,13 @@
 #include "view/popups/PopupsStack.h"
 
 nsLibraryView::nsLibraryView() {
+    AddView<nsSceneTreeView>();
 }
 
 void nsLibraryView::Draw() {
     ImGui::Begin("Assets Library");
+
+    nsCompositeView::Draw();
 
     ImGui::InputText("Search", _filter.AsChar(), nsString::MAX_SIZE - 1);
     ImGui::SameLine();

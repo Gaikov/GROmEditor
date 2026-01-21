@@ -1,18 +1,21 @@
-// Copyright (c) 2003-2025, Roman Gaikov. All rights reserved.
+// Copyright (c) 2003-2026, Roman Gaikov. All rights reserved.
 //--------------------------------------------------------------------------------------------------
-// file LibraryView.h
+// file SceneTreeView.h
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
 #include "view/BaseView.h"
-#include "view/CompositeView.h"
 
-class nsLibraryView : public nsCompositeView {
+class nsSceneTreeView : public nsBaseView {
 public:
-    nsLibraryView();
+    nsSceneTreeView();
 
 protected:
     void Draw() override;
+    void DrawNode(nsVisualObject2d *node, int index);
+    void PostDraw();
 
-    nsString _filter;
+private:
+    nsVisualObject2d * _preselect;
+    nsVisualObject2d * _scene;
 };

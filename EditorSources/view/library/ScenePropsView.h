@@ -12,11 +12,7 @@ public:
 
 protected:
     void Draw() override;
-    void DrawNode(nsVisualObject2d *node, int index);
-    void PostDraw() override;
 
 private:
     nsVisualObject2d *_scene = nullptr;
-    nsVisualObject2d *_preselect = nullptr;
-
 };

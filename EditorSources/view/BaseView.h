@@ -9,10 +9,10 @@
 #include "models/AppModel.h"
 
 class nsBaseView {
-    friend class nsViewsRoot;
+    friend class nsCompositeView;
 
 public:
-    typedef std::shared_ptr<nsBaseView> view_t;
+    typedef std::shared_ptr<nsBaseView> sp_t;
 
     nsBaseView();
     virtual ~nsBaseView() = default;
