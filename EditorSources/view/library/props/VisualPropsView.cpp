@@ -6,6 +6,7 @@
 
 #include "Core/undo/UndoBatch.h"
 #include "Engine/display/undo/UndoAddChild.h"
+#include "Engine/display/undo/UndoInsertVisualChild.h"
 #include "Engine/display/undo/UndoRemoveChild.h"
 #include "gizmos/VisualHolder.h"
 
@@ -22,6 +23,29 @@ bool nsVisualPropsView::DrawContextMenu(nsVisualObject2d *target, const bool has
 
     if (!nsVisualHolder::IsRoot(target)) {
         DrawMenuSeparator(hasPrevItems);
+
+        const auto parent = target->GetParent();
+        const auto &children = parent->GetChildren();
+        if (children[0] != target) {
+            if (ImGui::MenuItem("Move Up")) {
+                const auto batch = new nsUndoBatch();
+                batch->Add(new nsUndoRemoveChild(target));
+                batch->Add(new nsUndoInsertVisualChild(parent, target, parent->GetChildIndex(target) - 1));
+                nsUndoService::Shared()->Push(batch);
+            }
+        }
+
+        if (children[children.size() - 1] != target) {
+            if (ImGui::MenuItem("Move Down")) {
+                const auto batch = new nsUndoBatch();
+                batch->Add(new nsUndoRemoveChild(target));
+                batch->Add(new nsUndoInsertVisualChild(parent, target, parent->GetChildIndex(target) + 1));
+                nsUndoService::Shared()->Push(batch);
+            }
+        }
+
+        ImGui::Separator();
+
         if (ImGui::MenuItem("Duplicate")) {
             if (const auto clone = _model->project.scenes.Clone(target)) {
                 const auto batch = new nsUndoBatch();
@@ -32,7 +56,7 @@ bool nsVisualPropsView::DrawContextMenu(nsVisualObject2d *target, const bool has
             }
         }
 
-        if (ImGui::MenuItem("Delete")) {
+        if (ImGui::MenuItem("Remove")) {
             auto &user = _model->project.user;
             const auto batch = new nsUndoBatch();
 

@@ -21,7 +21,14 @@ nsUndoCreateLayout::nsUndoCreateLayout(const nsFilePath &path, nsVisualObject2d 
     auto &scenes = project.scenes;
     scenes._allocated.push_back(obj);
 
-    Add(new nsUndoFileCreate(path, "//created layout"));
+    const auto writer = std::make_shared<nsStringWriter>();
+    std::string buffer = "//created by GROm Editor\n";
+    nsScriptSaver saver(writer);
+    if (nsVisualFactory2d::Shared()->Serialize(saver, obj)) {
+        buffer += writer->GetBuffer();
+    }
+
+    Add(new nsUndoFileCreate(path, buffer.c_str()));
     Add(new nsUndoVectorAdd(scenes._files, path));
     Add(new nsUndoMapInsert<std::string, nsVisualObject2d *>(scenes._cache, path.AsChar(), obj));
     Add(new nsUndoVarChange<nsStringVar, std::string>(project.user.currentScene, path.AsChar()));
