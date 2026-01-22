@@ -143,7 +143,23 @@ void nsSceneTreeView::OnDragDrop(nsVisualObject2d *source, const nsVisualObject2
         }
     }
 
-    //TODO: check if source contains targetParent
+    bool containsTarget = false;
+    if (source == targetParent) {
+        containsTarget = true;
+    } else if (const auto sourceContainer = dynamic_cast<nsVisualContainer2d *>(source)) {
+        sourceContainer->IterateRecursive([&](const nsVisualObject2d *child) {
+            if (child == targetParent) {
+                containsTarget = true;
+            }
+            return true;
+        });
+    }
+    if (containsTarget) {
+        nsAlertPopup::Warning("Can't drop on child");
+        return;
+    }
+
+
 
     const auto batch = new nsUndoBatch();
     batch->Add(new nsUndoRemoveChild(source));
