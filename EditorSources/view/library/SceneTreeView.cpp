@@ -8,7 +8,11 @@
 #include "Core/undo/UndoVarChange.h"
 #include "display/lifecycle/VisualsLifecycle.h"
 #include "Engine/display/container/VisualContainer2d.h"
+#include "Engine/display/undo/UndoInsertVisualChild.h"
+#include "Engine/display/undo/UndoRemoveChild.h"
+#include "gizmos/VisualHolder.h"
 #include "imgui/imgui.h"
+#include "view/alerts/AlertPopup.h"
 
 nsSceneTreeView::nsSceneTreeView() {
     auto &user = _model->project.user;
@@ -69,6 +73,8 @@ void nsSceneTreeView::DrawNode(nsVisualObject2d *node, int index) {
     nsString contextId;
     contextId.Format("context_%s", name.AsChar());
 
+    DrawDragDrop(node);
+
     if (ImGui::BeginPopupContextItem(contextId)) {
         nsVisualsLifecycle::Shared()->DrawContextMenu(node);
         ImGui::EndPopup();
@@ -93,4 +99,54 @@ void nsSceneTreeView::PostDraw() {
         Log::Debug("Selected node changed");
         nsUndoService::Shared()->Push(new nsUndoVarChange(user.selectedObject, _preselect));
     }
+}
+
+#define DND_TREE_VISUAL_TYPE "DND_TREE_VISUAL_TYPE"
+
+void nsSceneTreeView::DrawDragDrop(nsVisualObject2d *node) {
+    if (nsVisualHolder::IsRoot(node)) {
+        return;
+    }
+
+    if (ImGui::BeginDragDropSource())
+    {
+        ImGui::SetDragDropPayload(DND_TREE_VISUAL_TYPE, &node, sizeof(nsVisualObject2d*));
+        ImGui::Text("Moving: ", node->id.c_str());
+        ImGui::EndDragDropSource();
+    }
+
+    if (ImGui::BeginDragDropTarget())
+    {
+        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(DND_TREE_VISUAL_TYPE))
+        {
+            if (auto *dropped = *static_cast<nsVisualObject2d * const*>(payload->Data)) {
+                Log::Info("Dropped: %s", dropped->id.c_str());
+                if (node != dropped) {
+                    OnDragDrop(dropped, node);
+                } else {
+                    nsAlertPopup::Warning("Can't drop on itself");
+                }
+            }
+        }
+        ImGui::EndDragDropTarget();
+    }
+}
+
+void nsSceneTreeView::OnDragDrop(nsVisualObject2d *source, const nsVisualObject2d *target) {
+    const auto targetParent = target->GetParent();
+    const auto sourceParent = source->GetParent();
+    auto targetIndex = targetParent->GetChildIndex(target);
+    const auto sourceIndex = sourceParent->GetChildIndex(source);
+    if (targetParent == sourceParent) {
+        if (sourceIndex < targetIndex) {
+            targetIndex--;
+        }
+    }
+
+    //TODO: check if source contains targetParent
+
+    const auto batch = new nsUndoBatch();
+    batch->Add(new nsUndoRemoveChild(source));
+    batch->Add(new nsUndoInsertVisualChild(targetParent, source, targetIndex));
+    nsUndoService::Shared()->Push(batch);
 }

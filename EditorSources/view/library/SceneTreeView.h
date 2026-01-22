@@ -18,4 +18,7 @@ protected:
 private:
     nsVisualObject2d * _preselect;
     nsVisualObject2d * _scene;
+
+    void DrawDragDrop(nsVisualObject2d *node);
+    void OnDragDrop(nsVisualObject2d *source, const nsVisualObject2d *target);
 };
