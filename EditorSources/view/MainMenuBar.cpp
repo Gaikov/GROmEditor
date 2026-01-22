@@ -62,7 +62,6 @@ nsMainMenuBar::nsMainMenuBar() {
 
     auto &user = _model->project.user;
     const auto view = _menu.AddItem("View");
-    view->AddItem("Blast Particles")->Action([&] { _model->blastParticles = _model->blastParticles + 1; });
     _xFlip = view->AddItem("Flip X")->Action([&] { user.xFlip = !user.xFlip; });
     _yFlip = view->AddItem("Flip Y")->Action([&] { user.yFlip = !user.yFlip; });
     view->AddItem("Reset Zoom")->Action([&] { user.zoom = 1.0f; });

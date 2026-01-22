@@ -5,7 +5,7 @@
 #include "AppModel.h"
 #include "nsLib/log.h"
 
-nsAppModel::nsAppModel() : blastParticles(0) {
+nsAppModel::nsAppModel() {
 
 }
 

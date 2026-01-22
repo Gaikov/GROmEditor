@@ -7,7 +7,6 @@
 
 #include "AppSettings.h"
 #include "nsLib/locator/Locatable.h"
-#include "nsLib/models/Property.h"
 #include "project/ProjectModel.h"
 
 class nsAppModel : public nsLocatable {
@@ -15,9 +14,6 @@ public:
     nsAppModel();
 
     nsAppSettings       settings;
-
-    nsProperty<int>     blastParticles;
-
     nsProjectModel      project;
 
     [[nodiscard]] nsFilePath GetProjectPath() const;

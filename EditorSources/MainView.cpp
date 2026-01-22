@@ -4,7 +4,6 @@
 
 #include "MainView.h"
 #include "Engine/TimeFormat.h"
-#include "nsLib/log.h"
 #include "SceneView.h"
 #include "Engine/utils/AppUtils.h"
 #include "nsLib/locator/ServiceLocator.h"
@@ -13,11 +12,6 @@
 nsMainView::nsMainView() {
     _appModel = Locate<nsAppModel>();
     auto &p = _appModel->project;
-
-    _appModel->blastParticles.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *) {
-        BlastParticles();
-    });
-
     auto &user = _appModel->project.user;
 
     user.currentScene.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *) {
@@ -129,18 +123,4 @@ bool nsMainView::OnMouseWheel(float delta) {
     return true;
 }
 
-void nsMainView::EmitParticles(bool emit) {
-    Log::Info("emit: %i", emit ? 1 : 0);
-    for (auto p: _particles) {
-        p->GetSystem().spawnEnabled = emit;
-    }
-}
 
-void nsMainView::BlastParticles() {
-    for (auto p: _particles) {
-        auto &ps = p->GetSystem();
-        if (!ps.spawnEnabled) {
-            ps.Emit();
-        }
-    }
-}

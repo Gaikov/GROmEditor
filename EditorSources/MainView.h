@@ -25,9 +25,6 @@ protected:
     bool OnPointerMove(float x, float y, int pointerId) override;
     bool OnMouseWheel(float delta) override;
 
-    void EmitParticles(bool emit);
-    void BlastParticles();
-
 private:
     nsAppModel           *_appModel;
     nsSceneView       *_sceneView;
