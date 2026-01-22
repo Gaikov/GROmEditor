@@ -8,7 +8,7 @@
 #include "Engine/GameApp.h"
 #include "nsLib/math/ortho/OrthogonalNativeView.h"
 #include "Engine/input/MultiUserInput.h"
-#include "SVMainView.h"
+#include "MainView.h"
 #include "imgui/ImGUI_gles3.h"
 
 class nsSceneViewerApp : public IGameApp, public IUserInput {
@@ -38,7 +38,7 @@ private:
 private:
     nsAppModel      *_appModel = nullptr;
     nsVisualContainer2d *_stage = nullptr;
-    nsSVMainView   *_view = nullptr;
+    nsMainView   *_view = nullptr;
     IRenDevice      *_device = nullptr;
     nsOrthogonalNativeView  _ortho;
 

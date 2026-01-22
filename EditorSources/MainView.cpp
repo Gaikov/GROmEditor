@@ -2,15 +2,15 @@
 // Created by Roman on 10/21/2024.
 //
 
-#include "SVMainView.h"
+#include "MainView.h"
 #include "Engine/TimeFormat.h"
 #include "nsLib/log.h"
-#include "SVSceneView.h"
+#include "SceneView.h"
 #include "Engine/utils/AppUtils.h"
 #include "nsLib/locator/ServiceLocator.h"
 #include "scene/SceneUtils.h"
 
-nsSVMainView::nsSVMainView() {
+nsMainView::nsMainView() {
     _appModel = Locate<nsAppModel>();
     auto &p = _appModel->project;
 
@@ -27,7 +27,7 @@ nsSVMainView::nsSVMainView() {
     user.backColor.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *) {
         _back->desc.color = user.backColor;
     });
-    _sceneView = new nsSVSceneView();
+    _sceneView = new nsSceneView();
     _back = new nsSprite();
     _back->desc.size = {100, 100};
     _back->desc.color = user.backColor;
@@ -35,7 +35,7 @@ nsSVMainView::nsSVMainView() {
     _back->desc.tex = _device->TextureLoad("default/editor/back.jpg");
 }
 
-void nsSVMainView::SetScene(nsVisualObject2d *scene) {
+void nsMainView::SetScene(nsVisualObject2d *scene) {
     _particles.clear();
 
     _scene = scene;
@@ -48,13 +48,13 @@ void nsSVMainView::SetScene(nsVisualObject2d *scene) {
     }
 }
 
-void nsSVMainView::OnAddedToStage() {
+void nsMainView::OnAddedToStage() {
     nsVisualContainer2d::OnAddedToStage();
     AddChild(_back);
     AddChild(_sceneView);
 }
 
-void nsSVMainView::Loop() {
+void nsMainView::Loop() {
     const auto &user = _appModel->project.user;
     const auto size = nsAppUtils::GetClientSize();
 
@@ -72,7 +72,7 @@ void nsSVMainView::Loop() {
     nsVisualContainer2d::Loop();
 }
 
-void nsSVMainView::DrawNode(const nsVisualContext2d &context) {
+void nsMainView::DrawNode(const nsVisualContext2d &context) {
     nsVisualContainer2d::DrawNode(context);
 
     ApplyWorldMatrix();
@@ -83,7 +83,7 @@ void nsSVMainView::DrawNode(const nsVisualContext2d &context) {
     nsSceneUtils::DrawOrigin(selected);
 }
 
-bool nsSVMainView::OnPointerUp(float x, float y, int pointerId) {
+bool nsMainView::OnPointerUp(float x, float y, int pointerId) {
     if (nsVisualContainer2d::OnPointerUp(x, y, pointerId)) {
         return true;
     }
@@ -92,7 +92,7 @@ bool nsSVMainView::OnPointerUp(float x, float y, int pointerId) {
     return false;
 }
 
-bool nsSVMainView::OnPointerDown(float x, float y, int pointerId) {
+bool nsMainView::OnPointerDown(float x, float y, int pointerId) {
     if (nsVisualContainer2d::OnPointerDown(x, y, pointerId)) {
         return true;
     }
@@ -104,7 +104,7 @@ bool nsSVMainView::OnPointerDown(float x, float y, int pointerId) {
     return true;
 }
 
-bool nsSVMainView::OnPointerMove(float x, float y, int pointerId) {
+bool nsMainView::OnPointerMove(float x, float y, int pointerId) {
     if (nsVisualContainer2d::OnPointerMove(x, y, pointerId)) {
         return true;
     }
@@ -121,7 +121,7 @@ bool nsSVMainView::OnPointerMove(float x, float y, int pointerId) {
     return false;
 }
 
-bool nsSVMainView::OnMouseWheel(float delta) {
+bool nsMainView::OnMouseWheel(float delta) {
     nsVisualContainer2d::OnMouseWheel(delta);
     auto &user = _appModel->project.user;
     const float zoom = user.zoom;
@@ -129,14 +129,14 @@ bool nsSVMainView::OnMouseWheel(float delta) {
     return true;
 }
 
-void nsSVMainView::EmitParticles(bool emit) {
+void nsMainView::EmitParticles(bool emit) {
     Log::Info("emit: %i", emit ? 1 : 0);
     for (auto p: _particles) {
         p->GetSystem().spawnEnabled = emit;
     }
 }
 
-void nsSVMainView::BlastParticles() {
+void nsMainView::BlastParticles() {
     for (auto p: _particles) {
         auto &ps = p->GetSystem();
         if (!ps.spawnEnabled) {

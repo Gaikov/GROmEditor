@@ -8,9 +8,9 @@
 #include "gizmos/VisualHolder.h"
 #include "models/AppModel.h"
 
-class nsSVSceneView : public nsVisualHolder {
+class nsSceneView : public nsVisualHolder {
 public:
-    nsSVSceneView();
+    nsSceneView();
 
     void SetScene(nsVisualObject2d *scene);
     void Loop() override;

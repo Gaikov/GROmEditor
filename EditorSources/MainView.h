@@ -5,15 +5,15 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 
-#include "SVSceneView.h"
+#include "SceneView.h"
 #include "Engine/display/layouts/GroupLayout.h"
 #include "models/AppModel.h"
 #include "Engine/display/particles/VisualParticles.h"
 #include "Engine/display/sprite/Sprite.h"
 
-class nsSVMainView : public nsVisualContainer2d {
+class nsMainView : public nsVisualContainer2d {
 public:
-    nsSVMainView();
+    nsMainView();
     void SetScene(nsVisualObject2d *scene);
     void Loop() override;
     void DrawNode(const nsVisualContext2d &context) override;
@@ -30,7 +30,7 @@ protected:
 
 private:
     nsAppModel           *_appModel;
-    nsSVSceneView       *_sceneView;
+    nsSceneView       *_sceneView;
     nsVisualObject2d    *_scene = nullptr;
     nsSprite *_back = nullptr;
 

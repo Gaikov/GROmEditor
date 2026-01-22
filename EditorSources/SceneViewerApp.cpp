@@ -58,7 +58,7 @@ bool nsSceneViewerApp::Init() {
     nsViewsRoot::Init();
     nsPopupsStack::Init();
 
-    _view = new nsSVMainView();
+    _view = new nsMainView();
     _stage = nsVisualContainer2d::CreateStage();
     _stage->AddChild(_view);
 
@@ -90,7 +90,7 @@ void nsSceneViewerApp::Release() {
 }
 
 void nsSceneViewerApp::DrawWorld() {
-    auto size = nsAppUtils::GetClientSize();
+    const auto size = nsAppUtils::GetClientSize();
 
     _device->ClearScene(0xff);
 
