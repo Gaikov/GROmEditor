@@ -159,10 +159,13 @@ void nsSceneTreeView::OnDragDrop(nsVisualObject2d *source, const nsVisualObject2
         return;
     }
 
-
+    const auto targetAngle = targetParent->origin.ToLocalAngle(source->origin.ToGlobalAngle(0));
+    const auto targetPos = targetParent->origin.ToLocal(source->origin.ToGlobal(nsVec2(0, 0)));
 
     const auto batch = new nsUndoBatch();
     batch->Add(new nsUndoRemoveChild(source));
     batch->Add(new nsUndoInsertVisualChild(targetParent, source, targetIndex));
+    batch->Add(new nsUndoVarChange(source->origin.pos, targetPos));
+    batch->Add(new nsUndoVarChange(source->origin.angle, targetAngle));
     nsUndoService::Shared()->Push(batch);
 }
