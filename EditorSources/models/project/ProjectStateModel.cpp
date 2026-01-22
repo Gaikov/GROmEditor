@@ -13,8 +13,9 @@ nsProjectStateModel::nsProjectStateModel() {
     AddItem("zoom", &zoom);
     AddItem("back_color", &backColor);
     AddItem("scene_x", &sceneX);
-    AddItem( "scene_y", &sceneY);
-    AddItem( "test_view", &testView);
+    AddItem("scene_y", &sceneY);
+    AddItem("test_view", &testView);
+    AddItem("back_cell_size", &backCellSize);
 }
 
 void nsProjectStateModel::Reset() {

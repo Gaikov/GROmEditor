@@ -32,4 +32,5 @@ public:
     nsColorVar backColor = nsColor::black;
     nsFloatVar sceneX = 1, sceneY = 1;
     nsBoolVar testView = false;
+    nsFloatVar backCellSize = 20;
 };

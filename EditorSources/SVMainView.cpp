@@ -31,6 +31,8 @@ nsSVMainView::nsSVMainView() {
     _back = new nsSprite();
     _back->desc.size = {100, 100};
     _back->desc.color = user.backColor;
+    _back->renState = _device->StateLoad("default/rs/gui.ggrs");
+    _back->desc.tex = _device->TextureLoad("default/editor/back.jpg");
 }
 
 void nsSVMainView::SetScene(nsVisualObject2d *scene) {
@@ -53,13 +55,15 @@ void nsSVMainView::OnAddedToStage() {
 }
 
 void nsSVMainView::Loop() {
+    const auto &user = _appModel->project.user;
     const auto size = nsAppUtils::GetClientSize();
+
     _back->desc.size = size;
+    _back->desc.tex2 = size / (user.backCellSize * 2.0f);
 
     auto &t = _sceneView->origin;
     t.angle = nsMath::MoveExp(t.angle, _angle, 10, g_frameTime);
 
-    const auto &user = _appModel->project.user;
     nsVec2 pos = t.pos;
     pos.x = nsMath::MoveExp(pos.x, user.sceneX, 50, g_frameTime);
     pos.y = nsMath::MoveExp(pos.y, user.sceneY, 50, g_frameTime);
