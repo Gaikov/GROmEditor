@@ -4,6 +4,7 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #pragma once
+#include "CustomVisualsModel.h"
 #include "ParticlesCache.h"
 #include "ProjectStateModel.h"
 #include "ScenesCache.h"
@@ -13,6 +14,7 @@ public:
     nsScenesCache scenes;
     nsProjectStateModel user;
     nsParticlesCache particles;
+    nsCustomVisualsModel customVisuals;
 
     nsProjectModel();
 

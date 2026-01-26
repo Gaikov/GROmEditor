@@ -33,4 +33,5 @@ public:
     nsFloatVar sceneX = 1, sceneY = 1;
     nsBoolVar testView = false;
     nsFloatVar backCellSize = 20;
+    nsBoolVar showProjectSettings = false;
 };

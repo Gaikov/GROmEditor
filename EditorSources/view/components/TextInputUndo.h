@@ -17,12 +17,17 @@ public:
     }
 
     void Draw(TString &text) {
-        _text = text;
-        ImGui::InputText(_title.c_str(), _text.AsChar(), nsString::MAX_SIZE - 1);
+        DrawField(_title.c_str(), text);
+    }
+
+    static void DrawField(const char *title, TString &text) {
+        nsString current;
+        current = text;
+        ImGui::InputText(title, current.AsChar(), nsString::MAX_SIZE - 1);
         if (!ImGui::IsItemActive()) {
-            if (text != _text.AsChar()) {
-                Log::Info("changed: %s", _text.AsChar());
-                const TString str = _text.AsChar();
+            if (text != current.AsChar()) {
+                Log::Info("changed: %s", current.AsChar());
+                std::string str = current.AsChar();
                 nsUndoService::Shared()->Push(new nsUndoVarChange(text, str));
             }
         }
@@ -30,5 +35,4 @@ public:
 
 private:
     std::string _title;
-    nsString _text;
 };

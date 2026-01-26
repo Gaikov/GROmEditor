@@ -16,6 +16,7 @@ nsProjectStateModel::nsProjectStateModel() {
     AddItem("scene_y", &sceneY);
     AddItem("test_view", &testView);
     AddItem("back_cell_size", &backCellSize);
+    AddItem("show_project_settings", &showProjectSettings);
 }
 
 void nsProjectStateModel::Reset() {

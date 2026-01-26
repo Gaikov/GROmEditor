@@ -7,6 +7,7 @@
 #include "alerts/AlertPopup.h"
 #include "Core/sys.h"
 #include "Core/undo/UndoService.h"
+#include "Core/undo/UndoVarChange.h"
 #include "imgui/imgui.h"
 #include "nsLib/locator/ServiceLocator.h"
 #include "popups/OpenFilePopup.h"
@@ -41,6 +42,12 @@ nsMainMenuBar::nsMainMenuBar() {
                     nsAlertPopup::Error(msg);
                 }
             });
+
+    file->AddSeparator();
+    file->AddItem("Project Settings...")->Action([&] {
+        const bool invert = !_model->project.user.showProjectSettings;
+        nsUndoService::Shared()->Push(new nsUndoVarChange(_model->project.user.showProjectSettings, invert));
+    });
 
     file->AddSeparator();
     file->AddItem("Exit")
