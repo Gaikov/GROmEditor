@@ -10,9 +10,9 @@
 #include "Core/serialization/var/EnumVar.h"
 #include "Core/serialization/var/StringVar.h"
 
-class nsCustomVisualProp final : public nsSerializableGroup {
+class nsCustomVisualPropertyMeta final : public nsSerializableGroup {
 public:
-    nsCustomVisualProp();
+    nsCustomVisualPropertyMeta();
 
     enum Type {
         STRING,
@@ -27,17 +27,17 @@ public:
 };
 
 
-class nsCustomVisualData final : public nsSerializableGroup {
+class nsCustomVisualMeta final : public nsSerializableGroup {
 public:
-    nsCustomVisualData();
+    nsCustomVisualMeta();
 
     nsStringVar                     tag = "notag";
-    nsArrayVar<nsCustomVisualProp>  props;
+    nsArrayVar<nsCustomVisualPropertyMeta>  props;
 };
 
 class nsCustomVisualsModel final : public nsProjectSubModel {
 public:
-    nsArrayVar<nsCustomVisualData> visuals;
+    nsArrayVar<nsCustomVisualMeta> visuals;
 
 protected:
     void Reset() override;

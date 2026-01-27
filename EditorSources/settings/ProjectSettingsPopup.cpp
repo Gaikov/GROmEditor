@@ -15,10 +15,10 @@ nsProjectSettingsPopup::nsProjectSettingsPopup() {
         visible = _model->project.user.showProjectSettings;
     });
     visible = _model->project.user.showProjectSettings;
-    _typeInput.AddVariant("String", nsCustomVisualProp::STRING);
-    _typeInput.AddVariant("Enum", nsCustomVisualProp::ENUM);
-    _typeInput.AddVariant("Bool", nsCustomVisualProp::BOOL);
-    _typeInput.AddVariant("Number", nsCustomVisualProp::NUMBER);
+    _typeInput.AddVariant("String", nsCustomVisualPropertyMeta::STRING);
+    _typeInput.AddVariant("Enum", nsCustomVisualPropertyMeta::ENUM);
+    _typeInput.AddVariant("Bool", nsCustomVisualPropertyMeta::BOOL);
+    _typeInput.AddVariant("Number", nsCustomVisualPropertyMeta::NUMBER);
 }
 
 void nsProjectSettingsPopup::Draw() {
@@ -29,7 +29,7 @@ void nsProjectSettingsPopup::Draw() {
         if (ImGui::CollapsingHeader("Custom Visuals", ImGuiTreeNodeFlags_DefaultOpen)) {
             auto &visuals = project.customVisuals.visuals;
             if (ImGui::Button("Add Object")) {
-                const std::shared_ptr<nsSerializable> data = std::make_shared<nsCustomVisualData>();
+                const std::shared_ptr<nsSerializable> data = std::make_shared<nsCustomVisualMeta>();
                 nsUndoService::Shared()->Push(new nsUndoArrayAdd(visuals, data));
             }
 
@@ -37,7 +37,7 @@ void nsProjectSettingsPopup::Draw() {
             auto &items = visuals.GetItems();
             for (int i = 0; i < items.size(); ++i) {
                 auto &v = items[i];
-                const auto obj = dynamic_cast<nsCustomVisualData *>(v.get());
+                const auto obj = dynamic_cast<nsCustomVisualMeta *>(v.get());
 
                 title.Format("%s##%d", obj->tag->c_str(), i);
                 if (ImGui::CollapsingHeader(title, ImGuiTreeNodeFlags_DefaultOpen)) {
@@ -59,7 +59,7 @@ void nsProjectSettingsPopup::Draw() {
                     ImGui::Separator();
                     title.Format("Add Property##%d", i);
                     if (ImGui::Button(title)) {
-                        const std::shared_ptr<nsSerializable> data = std::make_shared<nsCustomVisualProp>();
+                        const std::shared_ptr<nsSerializable> data = std::make_shared<nsCustomVisualPropertyMeta>();
                         nsUndoService::Shared()->Push(new nsUndoArrayAdd(obj->props, data));
                     }
 
@@ -75,12 +75,12 @@ void nsProjectSettingsPopup::Draw() {
     }
 }
 
-void nsProjectSettingsPopup::DrawObjectProps(nsCustomVisualData *data, int index) {
+void nsProjectSettingsPopup::DrawObjectProps(nsCustomVisualMeta *data, int index) {
     nsString title;
 
     auto &props = data->props.GetItems();
     for (int i = 0; i < props.size(); ++i) {
-        const auto prop = dynamic_cast<nsCustomVisualProp *>(props[i].get());
+        const auto prop = dynamic_cast<nsCustomVisualPropertyMeta *>(props[i].get());
         ImGui::Separator();
         title.Format("Prop Name##%d%d", index, i);
         nsTextInputUndo<nsStringVar>::DrawField(title, prop->name);
@@ -94,7 +94,7 @@ void nsProjectSettingsPopup::DrawObjectProps(nsCustomVisualData *data, int index
         title.Format("Type##%d%d", index, i);
         _typeInput.Draw(prop->type, title);
 
-        if (prop->type == nsCustomVisualProp::ENUM) {
+        if (prop->type == nsCustomVisualPropertyMeta::ENUM) {
             title.Format("Add Variant##%d%d", index, i);
 
             if (ImGui::Button(title)) {
@@ -107,6 +107,11 @@ void nsProjectSettingsPopup::DrawObjectProps(nsCustomVisualData *data, int index
                 title.Format("Variant##%d%d%d", index, i, j);
                 const auto value = dynamic_cast<nsStringVar *>(values[j].get());
                 nsTextInputUndo<nsStringVar>::DrawField(title, *value);
+                ImGui::SameLine();
+                title.Format("Remove##%d%d%d", index, i, j);
+                if (ImGui::Button(title)) {
+                    nsUndoService::Shared()->Push(new nsUndoArrayRemove(prop->enumValues, values[j]));
+                }
             }
         }
     }

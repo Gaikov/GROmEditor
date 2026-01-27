@@ -60,9 +60,9 @@ void nsSceneTreeView::DrawNode(nsVisualObject2d *node, int index) {
 
     nsString name;
     if (node->id.empty()) {
-        name.Format("noname##%d", index);
+        name.Format("%s##%d", node->GetType(), index);
     } else {
-        name.Format("%s##%d", node->id.c_str(), index);
+        name.Format("%s (%s)##%d", node->id.c_str(), node->GetType(), index);
     }
 
     const bool open = ImGui::TreeNodeEx(name, flags);

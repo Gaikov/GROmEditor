@@ -13,9 +13,9 @@ public:
 
 protected:
     void Draw() override;
-    void DrawObjectProps(nsCustomVisualData *data, int index);
+    void DrawObjectProps(nsCustomVisualMeta *data, int index);
 
 private:
-    nsEnumInputUndo<nsCustomVisualProp::Type, nsEnumVar<nsCustomVisualProp::Type>> _typeInput = "Type";
+    nsEnumInputUndo<nsCustomVisualPropertyMeta::Type, nsEnumVar<nsCustomVisualPropertyMeta::Type>> _typeInput = "Type";
 };
 

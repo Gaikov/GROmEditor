@@ -10,13 +10,13 @@
 #define FILE_NAME "custom_visuals.ggml"
 #define PROP_NAME "custom_visual"
 
-nsCustomVisualProp::nsCustomVisualProp() {
+nsCustomVisualPropertyMeta::nsCustomVisualPropertyMeta() {
     AddItem("name", &name);
     AddItem("type", &type);
     AddItem("enum_values", &enumValues);
 }
 
-nsCustomVisualData::nsCustomVisualData() {
+nsCustomVisualMeta::nsCustomVisualMeta() {
     AddItem("tag", &tag);
     AddItem("props", &props);
 }
