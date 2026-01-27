@@ -15,10 +15,10 @@ nsProjectSettingsPopup::nsProjectSettingsPopup() {
         visible = _model->project.user.showProjectSettings;
     });
     visible = _model->project.user.showProjectSettings;
-    _typeInput.AddVariant("String", nsCustomVisualProp::Type::STRING);
-    _typeInput.AddVariant("Enum", nsCustomVisualProp::Type::ENUM);
-    _typeInput.AddVariant("Bool", nsCustomVisualProp::Type::BOOL);
-    _typeInput.AddVariant("Number", nsCustomVisualProp::Type::NUMBER);
+    _typeInput.AddVariant("String", nsCustomVisualProp::STRING);
+    _typeInput.AddVariant("Enum", nsCustomVisualProp::ENUM);
+    _typeInput.AddVariant("Bool", nsCustomVisualProp::BOOL);
+    _typeInput.AddVariant("Number", nsCustomVisualProp::NUMBER);
 }
 
 void nsProjectSettingsPopup::Draw() {
