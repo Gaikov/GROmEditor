@@ -5,6 +5,7 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 #include "view/BaseView.h"
+#include "view/components/EnumInputUndo.h"
 
 class nsProjectSettingsPopup : public nsBaseView {
 public:
@@ -12,5 +13,9 @@ public:
 
 protected:
     void Draw() override;
+    void DrawObjectProps(nsCustomVisualData *data, int index);
+
+private:
+    nsEnumInputUndo<nsCustomVisualProp::Type, nsEnumVar<nsCustomVisualProp::Type>> _typeInput = "Type";
 };
 

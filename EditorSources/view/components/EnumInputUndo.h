@@ -27,7 +27,11 @@ public:
         _values.emplace_back(EnumValue{name, value});
     }
 
-    void Draw(TProperty &value) {
+    void Draw(TProperty &value, const char *title = nullptr) {
+        if (!title) {
+            title = _title.c_str();
+        }
+
         int selectedIndex = 0;
         for (int i = 0; i < _values.size(); i++) {
             auto &v = _values[i];
@@ -37,7 +41,7 @@ public:
             }
         }
 
-        if (ImGui::BeginCombo(_title.c_str(), _values[selectedIndex].name.c_str())) {
+        if (ImGui::BeginCombo(title, _values[selectedIndex].name.c_str())) {
             for (int i = 0; i < _values.size(); i++) {
                 bool isSelected = (selectedIndex == i);
                 if (ImGui::Selectable(_values[i].name.c_str(), isSelected)) {
