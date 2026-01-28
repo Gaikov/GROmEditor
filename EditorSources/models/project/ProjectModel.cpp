@@ -8,9 +8,9 @@
 #include "nsLib/log.h"
 
 nsProjectModel::nsProjectModel() {
+    _models.push_back(&customVisuals);
     _models.push_back(&scenes);
     _models.push_back(&particles);
-    _models.push_back(&customVisuals);
 
     //project state should be loaded after all the models
     _models.push_back(&user);
