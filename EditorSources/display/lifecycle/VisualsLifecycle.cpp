@@ -5,7 +5,7 @@
 #include "VisualsLifecycle.h"
 
 #include "ContainerPropsView.h"
-#include "CustomObjectPropsView.h"
+#include "customProps/CustomObjectPropsView.h"
 #include "RecursiveParticlesPropsView.h"
 #include "particles/ParticlesAssetPropsView.h"
 #include "view/library/props/LayoutRefPropsView.h"

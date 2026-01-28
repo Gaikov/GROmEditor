@@ -25,6 +25,8 @@ class nsCustomVisualMeta final : public nsSerializableGroup {
 public:
     nsCustomVisualMeta();
 
+    nsCustomVisualPropertyMeta* GetPropertyMeta(const char *name);
+
     nsStringVar                     tag = "notag";
     nsArrayVar<nsCustomVisualPropertyMeta>  props;
 };
@@ -32,7 +34,7 @@ public:
 class nsCustomVisualsModel final : public nsProjectSubModel {
 public:
     nsArrayVar<nsCustomVisualMeta> visuals;
-    nsCustomVisualMeta* GetMeta(const char *tagName);
+    nsCustomVisualMeta* GetVisualMeta(const char *tagName);
 
 protected:
     void Reset() override;

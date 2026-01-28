@@ -21,7 +21,16 @@ nsCustomVisualMeta::nsCustomVisualMeta() {
     AddItem("props", &props);
 }
 
-nsCustomVisualMeta * nsCustomVisualsModel::GetMeta(const char *tagName) {
+nsCustomVisualPropertyMeta * nsCustomVisualMeta::GetPropertyMeta(const char *name) {
+    for (int i = 0; i < props.Size(); i++) {
+        if (const auto meta = props.GetItem(i); meta->name == name) {
+            return meta;
+        }
+    }
+    return nullptr;
+}
+
+nsCustomVisualMeta * nsCustomVisualsModel::GetVisualMeta(const char *tagName) {
     for (int i = 0; i < visuals.Size(); i++) {
         if (const auto meta = visuals.GetItem(i); meta->tag == tagName) {
             return meta;

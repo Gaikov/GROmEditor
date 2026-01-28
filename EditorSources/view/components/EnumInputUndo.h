@@ -27,6 +27,10 @@ public:
         _values.emplace_back(EnumValue{name, value});
     }
 
+    void ClearVariants() {
+        _values.clear();
+    }
+
     void Draw(TProperty &value, const char *title = nullptr) {
         if (!title) {
             title = _title.c_str();
