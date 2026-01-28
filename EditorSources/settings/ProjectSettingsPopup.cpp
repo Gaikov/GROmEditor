@@ -15,10 +15,10 @@ nsProjectSettingsPopup::nsProjectSettingsPopup() {
         visible = _model->project.user.showProjectSettings;
     });
     visible = _model->project.user.showProjectSettings;
-    _typeInput.AddVariant("String", nsCustomVisualPropertyMeta::STRING);
-    _typeInput.AddVariant("Enum", nsCustomVisualPropertyMeta::ENUM);
-    _typeInput.AddVariant("Bool", nsCustomVisualPropertyMeta::BOOL);
-    _typeInput.AddVariant("Number", nsCustomVisualPropertyMeta::NUMBER);
+    _typeInput.AddVariant("String", nsVisualCustomProp::STRING);
+    _typeInput.AddVariant("Enum", nsVisualCustomProp::ENUM);
+    _typeInput.AddVariant("Bool", nsVisualCustomProp::BOOL);
+    _typeInput.AddVariant("Number", nsVisualCustomProp::NUMBER);
 }
 
 void nsProjectSettingsPopup::Draw() {
@@ -94,7 +94,7 @@ void nsProjectSettingsPopup::DrawObjectProps(nsCustomVisualMeta *data, int index
         title.Format("Type##%d%d", index, i);
         _typeInput.Draw(prop->type, title);
 
-        if (prop->type == nsCustomVisualPropertyMeta::ENUM) {
+        if (prop->type == nsVisualCustomProp::ENUM) {
             title.Format("Add Variant##%d%d", index, i);
 
             if (ImGui::Button(title)) {

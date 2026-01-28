@@ -16,6 +16,6 @@ protected:
     void DrawObjectProps(nsCustomVisualMeta *data, int index);
 
 private:
-    nsEnumInputUndo<nsCustomVisualPropertyMeta::Type, nsEnumVar<nsCustomVisualPropertyMeta::Type>> _typeInput = "Type";
+    nsEnumInputUndo<nsVisualCustomProp::Type, nsEnumVar<nsVisualCustomProp::Type>> _typeInput = "Type";
 };
 

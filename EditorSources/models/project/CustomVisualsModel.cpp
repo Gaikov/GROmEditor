@@ -21,6 +21,15 @@ nsCustomVisualMeta::nsCustomVisualMeta() {
     AddItem("props", &props);
 }
 
+nsCustomVisualMeta * nsCustomVisualsModel::GetMeta(const char *tagName) {
+    for (int i = 0; i < visuals.Size(); i++) {
+        if (const auto meta = visuals.GetItem(i); meta->tag == tagName) {
+            return meta;
+        }
+    }
+    return nullptr;
+}
+
 void nsCustomVisualsModel::Reset() {
     visuals.Clear();
 }

@@ -9,21 +9,15 @@
 #include "Core/serialization/var/ArrayVar.h"
 #include "Core/serialization/var/EnumVar.h"
 #include "Core/serialization/var/StringVar.h"
+#include "Engine/display/property/VisualCustomProp.h"
 
 class nsCustomVisualPropertyMeta final : public nsSerializableGroup {
 public:
     nsCustomVisualPropertyMeta();
 
-    enum Type {
-        STRING,
-        ENUM,
-        BOOL,
-        NUMBER
-    };
-
-    nsStringVar             name = "noname";
-    nsEnumVar<Type>         type = STRING;
-    nsArrayVar<nsStringVar> enumValues;
+    nsStringVar                                 name = "noname";
+    nsEnumVar<nsVisualCustomProp::Type>         type = nsVisualCustomProp::STRING;
+    nsArrayVar<nsStringVar>                     enumValues;
 };
 
 
@@ -38,6 +32,7 @@ public:
 class nsCustomVisualsModel final : public nsProjectSubModel {
 public:
     nsArrayVar<nsCustomVisualMeta> visuals;
+    nsCustomVisualMeta* GetMeta(const char *tagName);
 
 protected:
     void Reset() override;
