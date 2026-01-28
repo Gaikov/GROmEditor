@@ -4,7 +4,10 @@
 
 #include "CustomPropView.h"
 #include "Core/serialization/var/BoolVar.h"
+#include "Core/serialization/var/FloatVar.h"
 #include "view/components/BoolInputUndo.h"
+#include "view/components/FloatInputUndo.h"
+#include "view/components/TextInputUndo.h"
 
 void nsCustomBoolView::DrawProperty(const char *name, nsVisualCustomProp *prop, nsCustomVisualPropertyMeta *meta) {
     const auto value = dynamic_cast<nsBoolVar*>(prop->GetValue());
@@ -25,4 +28,14 @@ void nsCustomEnumView::DrawProperty(const char *name, nsVisualCustomProp *prop, 
     const auto value = dynamic_cast<nsStringVar*>(prop->GetValue());
 
     _inputEnum.Draw(*value, name);
+}
+
+void nsCustomFloatView::DrawProperty(const char *name, nsVisualCustomProp *prop, nsCustomVisualPropertyMeta *meta) {
+    const auto value = dynamic_cast<nsFloatVar*>(prop->GetValue());
+    nsFloatInputUndo<nsFloatVar>::DrawField(name, *value);
+}
+
+void nsCustomStringView::DrawProperty(const char *name, nsVisualCustomProp *prop, nsCustomVisualPropertyMeta *meta) {
+    const auto value = dynamic_cast<nsStringVar*>(prop->GetValue());
+    nsTextInputUndo<nsStringVar>::DrawField(name, *value);
 }

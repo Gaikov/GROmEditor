@@ -13,6 +13,8 @@
 nsCustomObjectPropsView::nsCustomObjectPropsView() : nsBaseVisualPropsView("Custom Properties") {
     _views[nsVisualCustomProp::BOOL] = std::make_shared<nsCustomBoolView>();
     _views[nsVisualCustomProp::ENUM] = std::make_shared<nsCustomEnumView>();
+    _views[nsVisualCustomProp::NUMBER] = std::make_shared<nsCustomFloatView>();
+    _views[nsVisualCustomProp::STRING] = std::make_shared<nsCustomStringView>();
 }
 
 bool nsCustomObjectPropsView::IsSupport(nsVisualObject2d *target) {
@@ -63,6 +65,6 @@ void nsCustomObjectPropsView::DrawProperty(const char *name, nsVisualCustomProp 
     if (const auto view = _views.find(type); view != _views.end()) {
         view->second->DrawProperty(name, prop, meta);
     } else {
-        ImGui::Text("Not implemented %s", name);
+        ImGui::Text("Not implemented '%s'", name);
     }
 }

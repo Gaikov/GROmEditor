@@ -29,3 +29,13 @@ private:
     nsEnumInputUndo<std::string, nsStringVar> _inputEnum = "";
 };
 
+class nsCustomFloatView final : public nsCustomPropView {
+public:
+    void DrawProperty(const char *name, nsVisualCustomProp *prop, nsCustomVisualPropertyMeta *meta) override;
+};
+
+class nsCustomStringView final : public nsCustomPropView {
+public:
+    void DrawProperty(const char *name, nsVisualCustomProp *prop, nsCustomVisualPropertyMeta *meta) override;
+};
+
