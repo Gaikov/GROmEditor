@@ -16,8 +16,13 @@ void nsParticlesPropsView::Draw(nsVisualObject2d *target) {
     auto &system = parts->GetSystem();
     auto &b = system.behaviour;
     _particlesInput.Draw(b);
-    if (!(b && b->spawnTime > 0)) {
-        _spawnInput.Draw(system.spawnEnabled);
+
+    _spawnInput.Draw(system.spawnEnabled);
+    _preSpawnInput.Draw(parts->preSpawn);
+
+    if (ImGui::Button("Remove Particles")) {
+        system.RemoveAll();
     }
+
     _spaceInput.Draw(parts->space);
 }

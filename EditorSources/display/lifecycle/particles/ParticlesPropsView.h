@@ -25,5 +25,6 @@ protected:
 
     nsParticlesSelectUndo<nsParticlesBehaviour*> _particlesInput;
     nsBoolInputUndo<bool> _spawnInput = "Spawn";
+    nsBoolInputUndo<nsProperty<bool>> _preSpawnInput = "Pre Spawn";
     nsEnumInputUndo<nsVisualParticles::Space, nsProperty<nsVisualParticles::Space>> _spaceInput = "Space";
 };
