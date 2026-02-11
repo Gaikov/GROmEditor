@@ -14,6 +14,7 @@
 #include "Engine/renderer/particles/spawner/ParticlesColorSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesLifeSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesMultiSpawner.h"
+#include "Engine/renderer/particles/spawner/ParticlesRotationSpeedSpawner.h"
 #include "Engine/renderer/particles/spawner/ParticlesSizeSpawner.h"
 #include "Engine/renderer/particles/spawner/position/ParticlesCircleSpawner.h"
 #include "Engine/renderer/particles/spawner/position/ParticlesEdgesSpawner.h"
@@ -63,6 +64,7 @@ protected:
             AddSpawner<nsParticlesRightVelSpawner>(s);
             AddSpawner<nsParticlesSizeSpawner>(s);
             AddSpawner<nsParticlesVectorVelSpawner>(s);
+            AddSpawner<nsParticlesRotationSpeedSpawner>(s);
             ImGui::EndPopup();
         }
 
@@ -319,6 +321,20 @@ protected:
     }
 };
 
+class nsRandomRotationSpawnerPropsView final : public nsSpawnerPropsView {
+public:
+    bool IsSupported(nsParticlesSpawner *object) override {
+        return dynamic_cast<nsParticlesRotationSpeedSpawner*>(object);
+    }
+
+    void Draw(nsParticlesSpawner *object, nsPropsContext *context) override {
+        const auto s = dynamic_cast<nsParticlesRotationSpeedSpawner*>(object);
+        nsAngleInputUndo<float>::DrawField("Min Speed##rotation speed", s->minSpeed);
+        nsAngleInputUndo<float>::DrawField("Max Speed##rotation speed", s->maxSpeed);
+        nsBoolInputUndo<bool>::DrawField("Random Direction##rotation speed", s->randomDirection);
+    }
+};
+
 nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsMultiSpawnerPropsView());
     _views.emplace_back(new nsAngleSpawnerPropsView());
@@ -332,4 +348,5 @@ nsSpawnerPropsRegistry::nsSpawnerPropsRegistry() {
     _views.emplace_back(new nsRightVelSpawnerPropsView());
     _views.emplace_back(new nsSizeSpawnerPropsView());
     _views.emplace_back(new nsVectorVelSpawnerPropsView());
+    _views.emplace_back(new nsRandomRotationSpawnerPropsView());
 }

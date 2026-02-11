@@ -12,6 +12,7 @@
 #include "Engine/renderer/particles/updater/ParticlesColorTimelineUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesGravityUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesMultiUpdater.h"
+#include "Engine/renderer/particles/updater/ParticlesRotationUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesSizeUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesVelocityApplyUpdater.h"
 #include "Engine/renderer/particles/updater/ParticlesVelToAngleUpdater.h"
@@ -19,6 +20,7 @@
 #include "Engine/renderer/particles/updater/velocity/ParticlesVelDampUpdater.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
+#include "view/components/BoolInputUndo.h"
 #include "view/components/FloatInputUndo.h"
 #include "view/components/Vec2InputUndo.h"
 
@@ -59,6 +61,7 @@ public:
             if (const auto color = AddUpdater<nsParticlesColorTimelineUpdater>(u)) {
                 color->Validate();
             }
+            AddUpdater<nsParticlesRotationUpdater>(u);
             ImGui::EndPopup();
         }
 
@@ -123,6 +126,19 @@ public:
     nsFloatInputUndo<float> _damping = "Damping";
 };
 
+class nsRotationUpdaterPropsView final : public nsUpdaterPropsView {
+public:
+    bool IsSupported(nsParticlesUpdater *object) override {
+        return dynamic_cast<nsParticlesRotationUpdater*>(object);
+    }
+
+    void Draw(nsParticlesUpdater *object, nsPropsContext *context) override {
+        const auto r = dynamic_cast<nsParticlesRotationUpdater*>(object);
+        nsBoolInputUndo<bool>::DrawField("Slow Down", r->slowDown);
+    }
+};
+
+
 nsUpdaterPropsRegistry::nsUpdaterPropsRegistry() {
     _views.emplace_back(new nsMultiUpdaterPropsView());
     _views.emplace_back(new nsSizeUpdaterPropsView());
@@ -130,4 +146,5 @@ nsUpdaterPropsRegistry::nsUpdaterPropsRegistry() {
     _views.emplace_back(new nsVelDampUpdaterPropsView());
     _views.emplace_back(new nsSizeTimelineUpdaterPropsView());
     _views.emplace_back(new nsColorTimelineUpdaterPropsView());
+    _views.emplace_back(new nsRotationUpdaterPropsView());
 }
