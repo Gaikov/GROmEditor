@@ -23,7 +23,10 @@ public:
     static void DrawField(const char *title, TVar &var) {
         float value = nsMath::ToDeg(var);
         if (ImGui::InputFloat(title, &value, 1.0f, 10.0f)) {
-            nsUndoService::Shared()->Push(new nsUndoVarChange(var, nsMath::ToRad(value)));
+            const auto newValue = nsMath::ToRad(value);
+            if (!nsMath::Equal(var, newValue, 0.00001f)) {
+                nsUndoService::Shared()->Push(new nsUndoVarChange(var, newValue));
+            }
         }
     }
 
