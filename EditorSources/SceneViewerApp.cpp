@@ -79,7 +79,9 @@ void nsSceneViewerApp::Release() {
         _stage->Destroy();
     }
 
-    _appModel->Save();
+    if (_appModel) {
+        _appModel->Save();
+    }
 
     nsPopupsStack::Release();
     nsViewsRoot::Release();
