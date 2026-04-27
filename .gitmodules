@@ -1,1 +1,5 @@
 
+[submodule "GROmEngine"]
+	path = GROmEngine
+	url = git@github.com:Gaikov/GROmEngine.git
+	branch = master
