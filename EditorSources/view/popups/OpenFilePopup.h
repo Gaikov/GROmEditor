@@ -13,7 +13,8 @@ public:
     enum Flags {
         None = 0,
         AllowOverwrite = 1 << 0,
-        OpenFolder = 1 << 1
+        OpenFolder = 1 << 1,
+        Global = 1 << 2
     };
 
     typedef std::function<void(const nsFilePath &)> OpenCallback_t;

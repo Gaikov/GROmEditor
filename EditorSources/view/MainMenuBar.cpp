@@ -11,6 +11,7 @@
 #include "imgui/imgui.h"
 #include "nsLib/locator/ServiceLocator.h"
 #include "popups/OpenFilePopup.h"
+#include "popups/PopupsStack.h"
 
 nsMainMenuBar::nsMainMenuBar() {
     _model = Locate<nsAppModel>();
@@ -21,7 +22,16 @@ nsMainMenuBar::nsMainMenuBar() {
             ->Shortcut("Ctrl+N", ImGuiMod_Ctrl | ImGuiKey_N);
     file->AddItem("Open")
             ->Action([&] {
-                //nsPopupsStack::Shared()->AddPopup<nsFolderSelectDialog>();
+                const auto popup = nsPopupsStack::Shared()->AddPopup<nsOpenFilePopup>(_model->GetProjectPath());
+                popup->SetFlags(static_cast<nsOpenFilePopup::Flags>(nsOpenFilePopup::OpenFolder | nsOpenFilePopup::AllowOverwrite | nsOpenFilePopup::Global));
+                popup->SetOpenCallback([&](const nsFilePath &path) {
+                    _model->settings.projectPath = path.AsChar();
+                    if (!_model->project.Load(path)) {
+                        nsAlertPopup::Error("Failed to open project!");
+                    } else {
+                        _model->Save();
+                    }
+                });
             })
             ->Shortcut("Ctrl+O", ImGuiMod_Ctrl | ImGuiKey_O);
 

@@ -25,13 +25,33 @@ void nsOpenFilePopup::SetOpenCallback(const OpenCallback_t &callback) {
 
 void nsOpenFilePopup::SetFlags(const Flags flags) {
     _flags = flags;
+    if ((_flags & Global) && !_currentPath.IsEmpty()) {
+        _currentPath = _currentPath.ToAbsolute();
+    }
+    Refresh();
 }
 
 void nsOpenFilePopup::DrawContent() {
     DrawFolderCreation();
 
+    if (_flags & Global) {
+        ImGui::BeginChild("Drives", ImVec2(60, 300), ImGuiChildFlags_Borders);
+        for (char c = 'A'; c <= 'Z'; c++) {
+            char drive[] = {c, ':', '/', '\0'};
+            if (nsFilePath::Exists(drive)) {
+                const bool active = strncmp(_currentPath.AsChar(), drive, 3) == 0;
+                if (ImGui::Selectable(drive, active)) {
+                    _currentPath = nsFilePath(drive);
+                    _selectedItem = "";
+                    Refresh();
+                }
+            }
+        }
+        ImGui::EndChild();
+        ImGui::SameLine();
+    }
+
     ImGui::BeginChild("Folders List", ImVec2(400, 300),
-        //ImGuiChildFlags_AlwaysAutoResize | ImGuiChildFlags_Borders | ImGuiChildFlags_AutoResizeX | ImGuiChildFlags_AutoResizeY,
         ImGuiChildFlags_Borders,
         ImGuiWindowFlags_HorizontalScrollbar);
     for (auto &file: _items) {
@@ -39,15 +59,30 @@ void nsOpenFilePopup::DrawContent() {
             UpdateSelected(file.c_str());
             if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
                 if (file == "..") {
-                    _currentPath = _currentPath.GetParent();
+                    const char *cur = _currentPath.AsChar();
+                    const int curLen = (int)strlen(cur);
+                    if ((_flags & Global) && curLen == 3 && cur[1] == ':' && cur[2] == '/') {
+                        _currentPath = nsFilePath("");
+                    } else {
+                        const nsFilePath parent = _currentPath.GetParent();
+                        const char *p = parent.AsChar();
+                        if (strlen(p) == 2 && p[1] == ':') {
+                            char driveRoot[] = {p[0], ':', '/', '\0'};
+                            _currentPath = nsFilePath(driveRoot);
+                        } else {
+                            _currentPath = parent;
+                        }
+                    }
                     _selectedItem = "";
                     Refresh();
+                    break;
                 } else {
                     nsFilePath path = _currentPath.ResolvePath(file.c_str());
                     if (path.IsFolder()) {
-                        _currentPath = _currentPath.ResolvePath(file.c_str());
+                        _currentPath = path;
                         _selectedItem = "";
                         Refresh();
+                        break;
                     } //else if allow overwrite
                 }
             }
@@ -108,9 +143,14 @@ void nsOpenFilePopup::DrawFolderCreation() {
 void nsOpenFilePopup::Refresh() {
     _items.clear();
 
-    const auto parent = _currentPath.GetParent();
-    if (!parent.IsEmpty()) {
+    if (_currentPath.IsEmpty()) return;
+
+    if (_flags & Global) {
         _items.push_back("..");
+    } else {
+        if (!_currentPath.GetParent().IsEmpty()) {
+            _items.push_back("..");
+        }
     }
 
     nsFilePath::tList list;
