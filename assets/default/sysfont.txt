@@ -1,0 +1,2058 @@
+$textures
+{
+	$tex "default/sysfont.png"
+}
+
+$chars_data
+{
+
+$char
+{
+	$code 0
+	$tex_id 0
+	$coord 0 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 1
+	$tex_id 0
+	$coord 16 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 2
+	$tex_id 0
+	$coord 32 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 3
+	$tex_id 0
+	$coord 48 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 4
+	$tex_id 0
+	$coord 64 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 5
+	$tex_id 0
+	$coord 80 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 6
+	$tex_id 0
+	$coord 96 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 7
+	$tex_id 0
+	$coord 112 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 8
+	$tex_id 0
+	$coord 128 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 9
+	$tex_id 0
+	$coord 144 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 10
+	$tex_id 0
+	$coord 160 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 11
+	$tex_id 0
+	$coord 176 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 12
+	$tex_id 0
+	$coord 192 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 13
+	$tex_id 0
+	$coord 208 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 14
+	$tex_id 0
+	$coord 224 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 15
+	$tex_id 0
+	$coord 240 0
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 16
+	$tex_id 0
+	$coord 0 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 17
+	$tex_id 0
+	$coord 16 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 18
+	$tex_id 0
+	$coord 32 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 19
+	$tex_id 0
+	$coord 48 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 20
+	$tex_id 0
+	$coord 64 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 21
+	$tex_id 0
+	$coord 80 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 22
+	$tex_id 0
+	$coord 96 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 23
+	$tex_id 0
+	$coord 112 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 24
+	$tex_id 0
+	$coord 128 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 25
+	$tex_id 0
+	$coord 144 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 26
+	$tex_id 0
+	$coord 160 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 27
+	$tex_id 0
+	$coord 176 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 28
+	$tex_id 0
+	$coord 192 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 29
+	$tex_id 0
+	$coord 208 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 30
+	$tex_id 0
+	$coord 224 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 31
+	$tex_id 0
+	$coord 240 16
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 32
+	$tex_id 0
+	$coord 0 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 33
+	$tex_id 0
+	$coord 16 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 34
+	$tex_id 0
+	$coord 32 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 35
+	$tex_id 0
+	$coord 48 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 36
+	$tex_id 0
+	$coord 64 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 37
+	$tex_id 0
+	$coord 80 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 38
+	$tex_id 0
+	$coord 96 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 39
+	$tex_id 0
+	$coord 112 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 40
+	$tex_id 0
+	$coord 128 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 41
+	$tex_id 0
+	$coord 144 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 42
+	$tex_id 0
+	$coord 160 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 43
+	$tex_id 0
+	$coord 176 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 44
+	$tex_id 0
+	$coord 192 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 45
+	$tex_id 0
+	$coord 208 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 46
+	$tex_id 0
+	$coord 224 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 47
+	$tex_id 0
+	$coord 240 32
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 48
+	$tex_id 0
+	$coord 0 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 49
+	$tex_id 0
+	$coord 16 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 50
+	$tex_id 0
+	$coord 32 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 51
+	$tex_id 0
+	$coord 48 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 52
+	$tex_id 0
+	$coord 64 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 53
+	$tex_id 0
+	$coord 80 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 54
+	$tex_id 0
+	$coord 96 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 55
+	$tex_id 0
+	$coord 112 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 56
+	$tex_id 0
+	$coord 128 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 57
+	$tex_id 0
+	$coord 144 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 58
+	$tex_id 0
+	$coord 160 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 59
+	$tex_id 0
+	$coord 176 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 60
+	$tex_id 0
+	$coord 192 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 61
+	$tex_id 0
+	$coord 208 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 62
+	$tex_id 0
+	$coord 224 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 63
+	$tex_id 0
+	$coord 240 48
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 64
+	$tex_id 0
+	$coord 0 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 65
+	$tex_id 0
+	$coord 16 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 66
+	$tex_id 0
+	$coord 32 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 67
+	$tex_id 0
+	$coord 48 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 68
+	$tex_id 0
+	$coord 64 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 69
+	$tex_id 0
+	$coord 80 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 70
+	$tex_id 0
+	$coord 96 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 71
+	$tex_id 0
+	$coord 112 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 72
+	$tex_id 0
+	$coord 128 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 73
+	$tex_id 0
+	$coord 144 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 74
+	$tex_id 0
+	$coord 160 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 75
+	$tex_id 0
+	$coord 176 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 76
+	$tex_id 0
+	$coord 192 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 77
+	$tex_id 0
+	$coord 208 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 78
+	$tex_id 0
+	$coord 224 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 79
+	$tex_id 0
+	$coord 240 64
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 80
+	$tex_id 0
+	$coord 0 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 81
+	$tex_id 0
+	$coord 16 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 82
+	$tex_id 0
+	$coord 32 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 83
+	$tex_id 0
+	$coord 48 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 84
+	$tex_id 0
+	$coord 64 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 85
+	$tex_id 0
+	$coord 80 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 86
+	$tex_id 0
+	$coord 96 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 87
+	$tex_id 0
+	$coord 112 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 88
+	$tex_id 0
+	$coord 128 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 89
+	$tex_id 0
+	$coord 144 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 90
+	$tex_id 0
+	$coord 160 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 91
+	$tex_id 0
+	$coord 176 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 92
+	$tex_id 0
+	$coord 192 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 93
+	$tex_id 0
+	$coord 208 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 94
+	$tex_id 0
+	$coord 224 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 95
+	$tex_id 0
+	$coord 240 80
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 96
+	$tex_id 0
+	$coord 0 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 97
+	$tex_id 0
+	$coord 16 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 98
+	$tex_id 0
+	$coord 32 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 99
+	$tex_id 0
+	$coord 48 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 100
+	$tex_id 0
+	$coord 64 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 101
+	$tex_id 0
+	$coord 80 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 102
+	$tex_id 0
+	$coord 96 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 103
+	$tex_id 0
+	$coord 112 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 104
+	$tex_id 0
+	$coord 128 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 105
+	$tex_id 0
+	$coord 144 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 106
+	$tex_id 0
+	$coord 160 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 107
+	$tex_id 0
+	$coord 176 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 108
+	$tex_id 0
+	$coord 192 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 109
+	$tex_id 0
+	$coord 208 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 110
+	$tex_id 0
+	$coord 224 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 111
+	$tex_id 0
+	$coord 240 96
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 112
+	$tex_id 0
+	$coord 0 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 113
+	$tex_id 0
+	$coord 16 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 114
+	$tex_id 0
+	$coord 32 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 115
+	$tex_id 0
+	$coord 48 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 116
+	$tex_id 0
+	$coord 64 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 117
+	$tex_id 0
+	$coord 80 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 118
+	$tex_id 0
+	$coord 96 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 119
+	$tex_id 0
+	$coord 112 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 120
+	$tex_id 0
+	$coord 128 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 121
+	$tex_id 0
+	$coord 144 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 122
+	$tex_id 0
+	$coord 160 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 123
+	$tex_id 0
+	$coord 176 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 124
+	$tex_id 0
+	$coord 192 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 125
+	$tex_id 0
+	$coord 208 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 126
+	$tex_id 0
+	$coord 224 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 127
+	$tex_id 0
+	$coord 240 112
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 128
+	$tex_id 0
+	$coord 0 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 129
+	$tex_id 0
+	$coord 16 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 130
+	$tex_id 0
+	$coord 32 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 131
+	$tex_id 0
+	$coord 48 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 132
+	$tex_id 0
+	$coord 64 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 133
+	$tex_id 0
+	$coord 80 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 134
+	$tex_id 0
+	$coord 96 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 135
+	$tex_id 0
+	$coord 112 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 136
+	$tex_id 0
+	$coord 128 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 137
+	$tex_id 0
+	$coord 144 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 138
+	$tex_id 0
+	$coord 160 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 139
+	$tex_id 0
+	$coord 176 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 140
+	$tex_id 0
+	$coord 192 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 141
+	$tex_id 0
+	$coord 208 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 142
+	$tex_id 0
+	$coord 224 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 143
+	$tex_id 0
+	$coord 240 128
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 144
+	$tex_id 0
+	$coord 0 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 145
+	$tex_id 0
+	$coord 16 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 146
+	$tex_id 0
+	$coord 32 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 147
+	$tex_id 0
+	$coord 48 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 148
+	$tex_id 0
+	$coord 64 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 149
+	$tex_id 0
+	$coord 80 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 150
+	$tex_id 0
+	$coord 96 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 151
+	$tex_id 0
+	$coord 112 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 152
+	$tex_id 0
+	$coord 128 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 153
+	$tex_id 0
+	$coord 144 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 154
+	$tex_id 0
+	$coord 160 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 155
+	$tex_id 0
+	$coord 176 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 156
+	$tex_id 0
+	$coord 192 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 157
+	$tex_id 0
+	$coord 208 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 158
+	$tex_id 0
+	$coord 224 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 159
+	$tex_id 0
+	$coord 240 144
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 160
+	$tex_id 0
+	$coord 0 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 161
+	$tex_id 0
+	$coord 16 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 162
+	$tex_id 0
+	$coord 32 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 163
+	$tex_id 0
+	$coord 48 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 164
+	$tex_id 0
+	$coord 64 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 165
+	$tex_id 0
+	$coord 80 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 166
+	$tex_id 0
+	$coord 96 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 167
+	$tex_id 0
+	$coord 112 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 168
+	$tex_id 0
+	$coord 128 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 169
+	$tex_id 0
+	$coord 144 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 170
+	$tex_id 0
+	$coord 160 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 171
+	$tex_id 0
+	$coord 176 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 172
+	$tex_id 0
+	$coord 192 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 173
+	$tex_id 0
+	$coord 208 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 174
+	$tex_id 0
+	$coord 224 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 175
+	$tex_id 0
+	$coord 240 160
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 176
+	$tex_id 0
+	$coord 0 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 177
+	$tex_id 0
+	$coord 16 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 178
+	$tex_id 0
+	$coord 32 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 179
+	$tex_id 0
+	$coord 48 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 180
+	$tex_id 0
+	$coord 64 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 181
+	$tex_id 0
+	$coord 80 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 182
+	$tex_id 0
+	$coord 96 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 183
+	$tex_id 0
+	$coord 112 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 184
+	$tex_id 0
+	$coord 128 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 185
+	$tex_id 0
+	$coord 144 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 186
+	$tex_id 0
+	$coord 160 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 187
+	$tex_id 0
+	$coord 176 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 188
+	$tex_id 0
+	$coord 192 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 189
+	$tex_id 0
+	$coord 208 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 190
+	$tex_id 0
+	$coord 224 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 191
+	$tex_id 0
+	$coord 240 176
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 192
+	$tex_id 0
+	$coord 0 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 193
+	$tex_id 0
+	$coord 16 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 194
+	$tex_id 0
+	$coord 32 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 195
+	$tex_id 0
+	$coord 48 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 196
+	$tex_id 0
+	$coord 64 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 197
+	$tex_id 0
+	$coord 80 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 198
+	$tex_id 0
+	$coord 96 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 199
+	$tex_id 0
+	$coord 112 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 200
+	$tex_id 0
+	$coord 128 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 201
+	$tex_id 0
+	$coord 144 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 202
+	$tex_id 0
+	$coord 160 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 203
+	$tex_id 0
+	$coord 176 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 204
+	$tex_id 0
+	$coord 192 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 205
+	$tex_id 0
+	$coord 208 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 206
+	$tex_id 0
+	$coord 224 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 207
+	$tex_id 0
+	$coord 240 192
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 208
+	$tex_id 0
+	$coord 0 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 209
+	$tex_id 0
+	$coord 16 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 210
+	$tex_id 0
+	$coord 32 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 211
+	$tex_id 0
+	$coord 48 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 212
+	$tex_id 0
+	$coord 64 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 213
+	$tex_id 0
+	$coord 80 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 214
+	$tex_id 0
+	$coord 96 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 215
+	$tex_id 0
+	$coord 112 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 216
+	$tex_id 0
+	$coord 128 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 217
+	$tex_id 0
+	$coord 144 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 218
+	$tex_id 0
+	$coord 160 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 219
+	$tex_id 0
+	$coord 176 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 220
+	$tex_id 0
+	$coord 192 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 221
+	$tex_id 0
+	$coord 208 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 222
+	$tex_id 0
+	$coord 224 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 223
+	$tex_id 0
+	$coord 240 208
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 224
+	$tex_id 0
+	$coord 0 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 225
+	$tex_id 0
+	$coord 16 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 226
+	$tex_id 0
+	$coord 32 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 227
+	$tex_id 0
+	$coord 48 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 228
+	$tex_id 0
+	$coord 64 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 229
+	$tex_id 0
+	$coord 80 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 230
+	$tex_id 0
+	$coord 96 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 231
+	$tex_id 0
+	$coord 112 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 232
+	$tex_id 0
+	$coord 128 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 233
+	$tex_id 0
+	$coord 144 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 234
+	$tex_id 0
+	$coord 160 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 235
+	$tex_id 0
+	$coord 176 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 236
+	$tex_id 0
+	$coord 192 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 237
+	$tex_id 0
+	$coord 208 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 238
+	$tex_id 0
+	$coord 224 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 239
+	$tex_id 0
+	$coord 240 224
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 240
+	$tex_id 0
+	$coord 0 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 241
+	$tex_id 0
+	$coord 16 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 242
+	$tex_id 0
+	$coord 32 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 243
+	$tex_id 0
+	$coord 48 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 244
+	$tex_id 0
+	$coord 64 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 245
+	$tex_id 0
+	$coord 80 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 246
+	$tex_id 0
+	$coord 96 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 247
+	$tex_id 0
+	$coord 112 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 248
+	$tex_id 0
+	$coord 128 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 249
+	$tex_id 0
+	$coord 144 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 250
+	$tex_id 0
+	$coord 160 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 251
+	$tex_id 0
+	$coord 176 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 252
+	$tex_id 0
+	$coord 192 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 253
+	$tex_id 0
+	$coord 208 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 254
+	$tex_id 0
+	$coord 224 240
+	$size 16 16
+	$offs 0 0
+}
+$char
+{
+	$code 255
+	$tex_id 0
+	$coord 240 240
+	$size 16 16
+	$offs 0 0
+}
+
+}

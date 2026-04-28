@@ -1,0 +1,31 @@
+$group {
+    $bindingId "MainView"
+
+    $children {
+        $container {
+            $id "sceneView"
+            $bindingId "SceneView"
+
+            $children {
+
+                $container {
+                    $id "coordSystem"
+                    $children {
+                        $sprite {
+                            $id "background"
+                            $renState "default/rs/gui.ggrs"
+                            $size 10000 10000
+                            $pivot 5000 5000
+                            $color 0.1 0.1 0.1 1
+                        }
+
+                        $anchor {
+                            $size 10000
+                            $color 0.5 1 0.5 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

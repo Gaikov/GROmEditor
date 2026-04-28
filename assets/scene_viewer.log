@@ -1,0 +1,148 @@
+open log: Tue Apr 28 12:38:39 2026
+
+*** Core Init ***
+OS Installed: Linux
+CPU Speed: 0.00
+objects 'mem_pool_16' reserved: 100/100
+objects 'mem_pool_32' reserved: 100/100
+objects 'mem_pool_64' reserved: 100/100
+objects 'mem_pool_128' reserved: 100/100
+objects 'mem_pool_256' reserved: 100/100
+objects 'mem_pool_512' reserved: 100/100
+objects 'mem_pool_1024' reserved: 100/100
+...memory pool initialized
+...enum packs
+WARNING: packs not found!
+*** Core Started ***
+...Starting engine
+...registering renderer vars
+##### Init Desktop #####
+============================================
+*            Init Sound Subsystem          *
+============================================
+create AL context
+use context
+---------- OpenAL info -----------
+version: 1.1
+renderer: Software
+vendor: Creative Labs Inc.
+extensions: EAX EAX2.0 EAX3.0 EAX4.0 EAX5.0 EAX3.0EMULATED EAX4.0EMULATED AL_EXT_OFFSET AL_EXT_LINEAR_DISTANCE AL_EXT_EXPONENT_DISTANCE
+----------------------------------
+... 32 sources used
+*****************************************
++       initializing GL renderer        +
+*****************************************
+stencil bits: 8
+GL Vendor: ATI Technologies Inc.
+GL Renderer: AMD Radeon(TM) Graphics
+GL Version: 4.6.0 Compatibility Profile Context 23.19.16.02.240814
+...initializing GL vertex buffer
+...creating GLSL program: default/rs/gles3/vertex.vert+default/rs/gles3/pixel.frag
+...loading GLSL: default/rs/gles3/vertex.vert
+...loading GLSL: default/rs/gles3/pixel.frag
+Init GL extension: GL_framebuffer_object
+Max render buffer size: 16384
+Applying window mode: 1920x1080
+Applying display mode: 1920x1080...
+Monitor content scale: 1.000000x1.000000
+DONE
+...initializing GL vertex buffer
+...initializing GL vertex buffer
+...initializing GL vertex buffer
+loading font: default/sys-font.fnt
+...creating texture: default/sys-font_0.png
+...loading bitmap data: default/sys-font_0.png
+...allocated console buffer, chunk size: 1048576
+init console
+...creating texture: default/console.jpg
+...loading shader: default/rs/gui.ggrs
+...loading shader: default/rs/gui_clamp.ggrs
+...creating texture: default/keys/back-space.png
+...loading bitmap data: default/keys/back-space.png
+...creating texture: default/keys/enter.png
+...loading bitmap data: default/keys/enter.png
+...creating texture: default/keys/shift.png
+...loading bitmap data: default/keys/shift.png
+### Initialize particles cache ###
+particles reserved amount: 500/500
+################### Init SceneViewer ###################
+sv model created
+WARNING: overriding layout builder: layoutRef
+...creating texture: default/editor/back.jpg
+Loading model: editor.ggml
+...destroy scenes cache
+Loading project from folder: .
+WARNING: can't open file './custom_visuals.ggml'
+WARNING: file desc not found in packs './custom_visuals.ggml'!
+Loading scenes cache from folder: .
+Found layout file: ./default/viewer/main.layout
+Loading model: ./user.ggml
+WARNING: can't open file './user.ggml'
+WARNING: file desc not found in packs './user.ggml'!
+...destroy scenes cache
+...loading stencil state: default/rs/mask.ggss
+...loading stencil state: default/rs/masked.ggss
+...initializing GL vertex buffer
+...loading bitmap data: default/editor/back.jpg
+Layout updated
+Layout updated
+Layout updated
+Layout updated
+Layout updated
+Layout updated
+Layout updated
+WARNING: Memory allocations in game loop: 2902
+WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 1
+----------------------------------------********** Shutting Down App ***********
+----------------------------------------
+...writing config 'scene_viewer.cfg'
+################### Release SceneViewer ###################
+Saving model: editor.ggml
+...destroy scenes cache
+...releasing undo service
+### Releasing particles cache ###
+destroyed particles: 500
+...assets context destroyed
+...releasing texture: default/keys/back-space.png
+...releasing texture: default/keys/enter.png
+...releasing texture: default/keys/shift.png
+...releasing stencil state: default/rs/mask.ggss
+...releasing stencil state: default/rs/masked.ggss
+shutdown console
+...releasing texture: default/console.jpg
+...released console buffer, chunks: 1
+...releasing font: default/sys-font.fnt
+...releasing texture: default/sys-font_0.png
+*****************************************
++         releasing GL renderer         +
+*****************************************
+...releasing shaders
+...releasing GLSL programs
+...unloading GLSL: default/rs/gles3/pixel.frag
+...unloading GLSL: default/rs/gles3/vertex.vert
+...releasing textures
+...releasing texture: default/editor/back.jpg
+...releasing render textures
+...releasing vertex buffers: 3
+...releasing stencil state: 
+============================================
+*           Release Sound Subsystem        *
+============================================
+...free sources
+...delete buffers
+...destroy context
+...close device
+
+##### Release Desktop #####
+...destroy window
+*** Core Shutdown ***
+...releasing memory pools
+releasing objects pool 'mem_pool_16' of 100 items
+releasing objects pool 'mem_pool_32' of 100 items
+releasing objects pool 'mem_pool_64' of 100 items
+releasing objects pool 'mem_pool_128' of 100 items
+releasing objects pool 'mem_pool_256' of 100 items
+releasing objects pool 'mem_pool_512' of 100 items
+releasing objects pool 'mem_pool_1024' of 100 items
+close log: Tue Apr 28 12:38:58 2026
