@@ -9,6 +9,7 @@
 #include "TopBarView.h"
 #include "library/LibraryView.h"
 #include "library/ScenePropsView.h"
+#include "library/SceneTreeView.h"
 #include "settings/ProjectSettingsPopup.h"
 
 void nsViewsRoot::Draw() {
@@ -21,6 +22,7 @@ bool nsViewsRoot::OnInit() {
 
     AddView<nsMainMenuBar>();
     AddView<nsTestView>();
+    AddView<nsSceneTreeView>();
     AddView<nsLibraryView>();
     AddView<nsScenePropsView>();
     AddView<nsTopBarView>();

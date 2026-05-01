@@ -28,6 +28,7 @@ nsSceneTreeView::nsSceneTreeView() {
 
 void nsSceneTreeView::Draw() {
     const auto &user = _model->project.user;
+    ImGui::Begin("Scene Tree");
 
     if (_scene) {
         if (ImGui::CollapsingHeader("Scene Tree", ImGuiTreeNodeFlags_DefaultOpen)) {
@@ -42,6 +43,8 @@ void nsSceneTreeView::Draw() {
             ImGui::EndChild();
         }
     }
+
+    ImGui::End();
 }
 
 void nsSceneTreeView::DrawNode(nsVisualObject2d *node, int index) {
