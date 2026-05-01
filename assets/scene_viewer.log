@@ -1,4 +1,4 @@
-open log: Tue Apr 28 14:10:52 2026
+open log: Fri May  1 12:51:37 2026
 
 *** Core Init ***
 OS Installed: Linux
@@ -42,8 +42,8 @@ GL Version: 4.6.0 Compatibility Profile Context 23.19.16.02.240814
 ...loading GLSL: default/rs/gles3/pixel.frag
 Init GL extension: GL_framebuffer_object
 Max render buffer size: 16384
-Applying window mode: 1920x1080
-Applying display mode: 1920x1080...
+Applying window mode: 1800x947
+Applying display mode: 1800x947...
 Monitor content scale: 1.000000x1.000000
 DONE
 ...initializing GL vertex buffer
@@ -71,48 +71,50 @@ WARNING: overriding layout builder: layoutRef
 ...creating texture: default/editor/back.jpg
 Loading model: editor.ggml
 ...destroy scenes cache
-Loading project from folder: C:/Projects/NetSpaceBattle/assets
-Loading scenes cache from folder: C:/Projects/NetSpaceBattle/assets
-Found layout file: C:/Projects/NetSpaceBattle/assets/background/background.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/default/viewer/main.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/missile/missile.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/missile/rocket_blast.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/ship/appear/appear.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/ship/blast/blast.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/ship/ship.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/ship/shoot_fire.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/spawner/spawner.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/test/sprites.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/test/test1/test-particles.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/tests/layouts/container.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/tests/layouts/image.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/ui/match_table/header.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/ui/match_table/row.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/ui/match_table/table.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/ui/respawn_counter.layout
-Found layout file: C:/Projects/NetSpaceBattle/assets/ui/status_bar.layout
-Loading model: C:/Projects/NetSpaceBattle/assets/user.ggml
-...loading particles behaviour: C:/Projects/NetSpaceBattle/assets/ship/blast/smoke.ggps
-...initializing GL vertex buffer
-...creating texture: C:/Projects/NetSpaceBattle/assets/particles/white_smoke.png
-...creating texture: C:/Projects/NetSpaceBattle/assets/particles/white_circle.png
-...loading shader: C:/Projects/NetSpaceBattle/assets/default/rs/gui_clamp.ggrs
-...loading particles behaviour: C:/Projects/NetSpaceBattle/assets/ship/blast/fire.ggps
-...initializing GL vertex buffer
-...creating texture: C:/Projects/NetSpaceBattle/assets/particles/white_fire.png
-...loading particles behaviour: C:/Projects/NetSpaceBattle/assets/ship/blast/light.ggps
-...initializing GL vertex buffer
-...creating texture: C:/Projects/NetSpaceBattle/assets/textures/dlight.jpg
-...loading shader: C:/Projects/NetSpaceBattle/assets/shaders/fire_add.ggrs
-scene cached: C:/Projects/NetSpaceBattle/assets/ship/blast/blast.layout
+Loading project from folder: C:/Projects/HeliumRush/Resources
+WARNING: can't open file 'C:/Projects/HeliumRush/Resources/custom_visuals.ggml'
+WARNING: file desc not found in packs 'C:/Projects/HeliumRush/Resources/custom_visuals.ggml'!
+Loading scenes cache from folder: C:/Projects/HeliumRush/Resources
+Found layout file: C:/Projects/HeliumRush/Resources/default/viewer/main.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/background.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_AchievementPanel.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_AchievementsPopup.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_AddPoints.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_AirSupportTipsPopup.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_AirSupportWarning.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_Background.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_Ball.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_Bomb.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_Bubble.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_DevSplashScreen.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_GamePoints.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_Grenade.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_LevelCompleted.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_LevelFailPopup.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_LevelSelectPopup.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_MessagePopup.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_PausePopup.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_RateQueryPopup.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_Rubik.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_ShareForBombPopup.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_Shoes.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_ShopItem.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_ShopPopup.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_StartScreen.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_StatusBar.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_StoneBig.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_StoneSmall.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_TutorHint.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_Weight.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/Res_Zombie.layout
+Found layout file: C:/Projects/HeliumRush/Resources/layouts/test_movie.layout
+Loading model: C:/Projects/HeliumRush/Resources/user.ggml
+WARNING: can't open file 'C:/Projects/HeliumRush/Resources/user.ggml'
+WARNING: file desc not found in packs 'C:/Projects/HeliumRush/Resources/user.ggml'!
 ...loading stencil state: default/rs/mask.ggss
 ...loading stencil state: default/rs/masked.ggss
 ...initializing GL vertex buffer
 ...loading bitmap data: default/editor/back.jpg
-...loading bitmap data: C:/Projects/NetSpaceBattle/assets/particles/white_circle.png
-...loading bitmap data: C:/Projects/NetSpaceBattle/assets/particles/white_smoke.png
-...loading bitmap data: C:/Projects/NetSpaceBattle/assets/particles/white_fire.png
-...loading bitmap data: C:/Projects/NetSpaceBattle/assets/textures/dlight.jpg
 Layout updated
 Layout updated
 Layout updated
@@ -120,36 +122,755 @@ Layout updated
 Layout updated
 Layout updated
 Layout updated
-WARNING: Memory allocations in game loop: 4979
+WARNING: Memory allocations in game loop: 4496
 WARNING: Memory allocations in game loop: 2
 WARNING: Memory allocations in game loop: 1
-Selected: C:/Projects/NetSpaceBattle/assets/tests/layouts/container.layout
-...creating texture: C:/Projects/NetSpaceBattle/assets/tests/background.jpg
-...loading bitmap data: C:/Projects/NetSpaceBattle/assets/tests/background.jpg
-loading font: C:/Projects/NetSpaceBattle/assets/tests/fonts/bmfont.fnt
-...creating texture: C:/Projects/NetSpaceBattle/assets/tests/fonts/bmfont_0.png
-...loading bitmap data: C:/Projects/NetSpaceBattle/assets/tests/fonts/bmfont_0.png
-...loading shader: C:/Projects/NetSpaceBattle/assets/default/rs/gui.ggrs
-Visual ref updated: C:/Projects/NetSpaceBattle/assets/tests/layouts/image.layout
-...loading particles behaviour: C:/Projects/NetSpaceBattle/assets/tests/particles/point.ggps
-...initializing GL vertex buffer
-...creating texture: C:/Projects/NetSpaceBattle/assets/tests/particle.jpg
-...loading shader: C:/Projects/NetSpaceBattle/assets/default/rs/gui_add.ggrs
-scene cached: C:/Projects/NetSpaceBattle/assets/tests/layouts/container.layout
-Visual ref updated: C:/Projects/NetSpaceBattle/assets/tests/layouts/image.layout
-WARNING: Memory allocations in game loop: 269
-...loading bitmap data: C:/Projects/NetSpaceBattle/assets/tests/particle.jpg
+Selected: C:/Projects/HeliumRush/Resources/layouts/Res_PausePopup.layout
+...creating texture: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
+...loading bitmap data: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
+...loading shader: C:/Projects/HeliumRush/Resources/default/rs/gui_clamp.ggrs
+...creating texture: C:/Projects/HeliumRush/Resources/atlases/atlas01.png
+...loading bitmap data: C:/Projects/HeliumRush/Resources/atlases/atlas01.png
+scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_PausePopup.layout
+WARNING: Memory allocations in game loop: 296
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 7
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+Selected: C:/Projects/HeliumRush/Resources/layouts/Res_LevelCompleted.layout
+scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_LevelCompleted.layout
+WARNING: Memory allocations in game loop: 238
+Selected: C:/Projects/HeliumRush/Resources/layouts/Res_LevelFailPopup.layout
+scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_LevelFailPopup.layout
+WARNING: Memory allocations in game loop: 162
+Selected: C:/Projects/HeliumRush/Resources/layouts/Res_LevelSelectPopup.layout
+scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_LevelSelectPopup.layout
+WARNING: Memory allocations in game loop: 1006
+Selected: C:/Projects/HeliumRush/Resources/layouts/Res_LevelFailPopup.layout
+WARNING: Memory allocations in game loop: 11
+Selected: C:/Projects/HeliumRush/Resources/layouts/Res_LevelSelectPopup.layout
 WARNING: Memory allocations in game loop: 10
-Popup opened: Select layout file##Popup_0
-WARNING: Memory allocations in game loop: 42
-WARNING: Memory allocations in game loop: 13
-WARNING: Memory allocations in game loop: 17
-Popup closed: Select layout file##Popup_0
+Selected: C:/Projects/HeliumRush/Resources/layouts/Res_LevelFailPopup.layout
+WARNING: Memory allocations in game loop: 10
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 3
+WARNING: Memory allocations in game loop: 3
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 2
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
 WARNING: Memory allocations in game loop: 1
 activate :0
 ...writing config 'scene_viewer.cfg'
 WARNING: Memory allocations in game loop: 2
 activate :1
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 6
 ----------------------------------------********** Shutting Down App ***********
 ----------------------------------------
 ...writing config 'scene_viewer.cfg'
@@ -168,8 +889,6 @@ destroyed particles: 2000
 shutdown console
 ...releasing texture: default/console.jpg
 ...released console buffer, chunks: 1
-...releasing font: C:/Projects/NetSpaceBattle/assets/tests/fonts/bmfont.fnt
-...releasing texture: C:/Projects/NetSpaceBattle/assets/tests/fonts/bmfont_0.png
 ...releasing font: default/sys-font.fnt
 ...releasing texture: default/sys-font_0.png
 *****************************************
@@ -180,15 +899,11 @@ shutdown console
 ...unloading GLSL: default/rs/gles3/pixel.frag
 ...unloading GLSL: default/rs/gles3/vertex.vert
 ...releasing textures
-...releasing texture: C:/Projects/NetSpaceBattle/assets/particles/white_circle.png
-...releasing texture: C:/Projects/NetSpaceBattle/assets/particles/white_fire.png
-...releasing texture: C:/Projects/NetSpaceBattle/assets/particles/white_smoke.png
-...releasing texture: C:/Projects/NetSpaceBattle/assets/tests/background.jpg
-...releasing texture: C:/Projects/NetSpaceBattle/assets/tests/particle.jpg
-...releasing texture: C:/Projects/NetSpaceBattle/assets/textures/dlight.jpg
+...releasing texture: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
+...releasing texture: C:/Projects/HeliumRush/Resources/atlases/atlas01.png
 ...releasing texture: default/editor/back.jpg
 ...releasing render textures
-...releasing vertex buffers: 7
+...releasing vertex buffers: 3
 ...releasing stencil state: 
 ============================================
 *           Release Sound Subsystem        *
@@ -209,4 +924,4 @@ releasing objects pool 'mem_pool_128' of 100 items
 releasing objects pool 'mem_pool_256' of 100 items
 releasing objects pool 'mem_pool_512' of 100 items
 releasing objects pool 'mem_pool_1024' of 100 items
-close log: Tue Apr 28 14:12:02 2026
+close log: Fri May  1 12:56:13 2026

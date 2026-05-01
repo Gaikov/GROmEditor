@@ -26,6 +26,15 @@ void nsTopBarView::Draw() {
         if (ImGui::Button("100%")) {
             user.zoom = 1.0f;
         }
+
+        ImGui::SameLine();
+        static const char *fontSizes[] = {"16","18","20","22","24","26","28","30","32"};
+        int current = ((int)_model->settings.fontSize.GetValue() - 16) / 2;
+        current = std::clamp(current, 0, 8);
+        ImGui::SetNextItemWidth(60);
+        if (ImGui::Combo("Font", &current, fontSizes, 9)) {
+            _model->settings.fontSize = (float)(16 + current * 2);
+        }
     }
     ImGui::End();
 }

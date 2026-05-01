@@ -25,6 +25,7 @@ public:
     void SetFlags(Flags flags);
 
 private:
+    nsFilePath                  _startPath;
     nsFilePath                  _currentPath;
     std::vector<std::string>    _items;
     nsString                    _selectedItem;

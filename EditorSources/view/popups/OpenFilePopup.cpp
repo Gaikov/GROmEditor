@@ -9,7 +9,7 @@
 #include "utils/FileUtils.h"
 #include "view/alerts/AlertPopup.h"
 
-nsOpenFilePopup::nsOpenFilePopup(const nsFilePath &startPath) : _currentPath(startPath) {
+nsOpenFilePopup::nsOpenFilePopup(const nsFilePath &startPath) : _startPath(startPath), _currentPath(startPath) {
     SetTitle("Browse");
     Refresh();
 }
@@ -148,7 +148,7 @@ void nsOpenFilePopup::Refresh() {
     if (_flags & Global) {
         _items.push_back("..");
     } else {
-        if (!_currentPath.GetParent().IsEmpty()) {
+        if (!(_currentPath == _startPath)) {
             _items.push_back("..");
         }
     }
@@ -167,7 +167,7 @@ void nsOpenFilePopup::Refresh() {
     for (auto &item: list) {
         if (item.IsFolder()) {
             _items.push_back(item.GetName().AsChar());
-        } else if (nsFileUtils::CheckExtension(item, _extensions)) {
+        } else if (!(_flags & OpenFolder) && nsFileUtils::CheckExtension(item, _extensions)) {
             _items.push_back(item.GetName().AsChar());
         }
     }

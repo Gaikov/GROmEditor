@@ -24,7 +24,8 @@ void nsProjectStateModel::Reset() {
 }
 
 bool nsProjectStateModel::Load(const nsFilePath &folder) {
-    return nsSerializableFile::Load(folder.ResolvePath("user.ggml"));
+    nsSerializableFile::Load(folder.ResolvePath("user.ggml"));
+    return true;
 }
 
 bool nsProjectStateModel::Save(const nsFilePath &folder) {

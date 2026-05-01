@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Build
 
@@ -11,7 +11,7 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-The resulting editor executable is `build/GROmEditor`. See `GROmEngine/CLAUDE.md` for full platform flags, WebAssembly, and sound system options.
+The resulting editor executable is `build/GROmEditor`. See `GROmEngine/AGENTS.md` for full platform flags, WebAssembly, and sound system options.
 
 ## Tests
 
@@ -60,7 +60,7 @@ All user edits go through these components to ensure undo/redo coverage.
 
 ### Engine submodule
 
-`GROmEngine/` is a git submodule. Refer to `GROmEngine/CLAUDE.md` for the full engine architecture (nsLib → Core → Platform → Rendering → Audio → Engine layers), key patterns (`nsSubSystem<T>`, `nsEventDispatcher`, `nsResourcesCache<T>`, `IGameApp`), and external dependencies.
+`GROmEngine/` is a git submodule. Refer to `GROmEngine/AGENTS.md` for the full engine architecture (nsLib → Core → Platform → Rendering → Audio → Engine layers), key patterns (`nsSubSystem<T>`, `nsEventDispatcher`, `nsResourcesCache<T>`, `IGameApp`), and external dependencies.
 
 ## Assets
 

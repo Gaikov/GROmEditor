@@ -37,6 +37,7 @@ bool nsSceneViewerApp::InitDialog() {
 bool nsSceneViewerApp::Init() {
     Log::Info("################### Init SceneViewer ###################");
     _guiBackend.Init(App_GetPlatform()->GetWindowHandler());
+    ImGui::GetIO().Fonts->AddFontFromFileTTF("default/editor/font.ttf", 32.0f);
 
     nsUndoService::Init();
 
@@ -69,6 +70,11 @@ bool nsSceneViewerApp::Init() {
     _inputHandler.AddInput(&_appInput);
 
     _appModel->Load();
+
+    _appModel->settings.fontSize.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *) {
+        ImGui::GetIO().FontGlobalScale = _appModel->settings.fontSize.GetValue() / 32.0f;
+    });
+    ImGui::GetIO().FontGlobalScale = _appModel->settings.fontSize.GetValue() / 32.0f;
 
     return true;
 }

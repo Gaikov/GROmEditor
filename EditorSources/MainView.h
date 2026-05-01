@@ -36,6 +36,9 @@ private:
     float   _angle = 0;
 
     bool _dragging = false;
+    bool _wheelAnchorActive = false;
     nsVec2  _mouseDown;
+    nsVec2  _mousePos;
+    nsVec2  _wheelAnchorLocalPoint;
     nsVec2  _startDragPos;
 };
