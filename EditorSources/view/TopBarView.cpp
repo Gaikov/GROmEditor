@@ -4,6 +4,7 @@
 
 #include "TopBarView.h"
 
+#include "events/EditorEventBus.h"
 #include "imgui/imgui.h"
 
 void nsTopBarView::Draw() {
@@ -25,6 +26,16 @@ void nsTopBarView::Draw() {
         ImGui::SameLine();
         if (ImGui::Button("100%")) {
             user.zoom = 1.0f;
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("Fit")) {
+            nsEditorEventBus::Shared()->Emmit(nsBaseEvent(nsEditorEventName::FIT_SCENE_TO_VIEW));
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("Center")) {
+            nsEditorEventBus::Shared()->Emmit(nsBaseEvent(nsEditorEventName::CENTER_SCENE_100));
         }
 
         ImGui::SameLine();

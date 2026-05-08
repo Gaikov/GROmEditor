@@ -15,6 +15,7 @@
 #include "Core/undo/UndoService.h"
 #include "display/VisualRefBuilder.h"
 #include "display/lifecycle/VisualsLifecycle.h"
+#include "events/EditorEventBus.h"
 #include "Engine/display/factory/VisualFactory2d.h"
 #include "ThirdParty/imgui/ImGUI_gles3.h"
 #include "view/ViewsRoot.h"
@@ -40,6 +41,7 @@ bool nsSceneViewerApp::Init() {
     ImGui::GetIO().Fonts->AddFontFromFileTTF("default/editor/font.ttf", 32.0f);
 
     nsUndoService::Init();
+    nsEditorEventBus::Init();
 
     nsServiceLocator::Init();
     const auto locator = nsServiceLocator::Shared();
@@ -92,6 +94,7 @@ void nsSceneViewerApp::Release() {
     nsPopupsStack::Release();
     nsViewsRoot::Release();
     nsVisualsLifecycle::Release();
+    nsEditorEventBus::Release();
     nsServiceLocator::Release();
     nsUndoService::Release();
     _guiBackend.Shutdown();

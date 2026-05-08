@@ -26,6 +26,10 @@ protected:
     bool OnMouseWheel(float delta) override;
 
 private:
+    void FitSceneToView();
+    void CenterSceneAt100();
+    bool FocusSceneBounds(float targetZoom);
+
     nsAppModel           *_appModel;
     nsSceneView       *_sceneView;
     nsVisualObject2d    *_scene = nullptr;

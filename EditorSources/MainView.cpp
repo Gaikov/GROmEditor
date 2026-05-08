@@ -6,8 +6,10 @@
 #include "Engine/TimeFormat.h"
 #include "SceneView.h"
 #include "Engine/utils/AppUtils.h"
+#include "events/EditorEventBus.h"
 #include "nsLib/locator/ServiceLocator.h"
 #include "scene/SceneUtils.h"
+#include <algorithm>
 #include <cmath>
 
 nsMainView::nsMainView() {
@@ -21,6 +23,12 @@ nsMainView::nsMainView() {
 
     user.backColor.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *) {
         _back->desc.color = user.backColor;
+    });
+    nsEditorEventBus::Shared()->AddHandler(nsEditorEventName::FIT_SCENE_TO_VIEW, [&](const nsBaseEvent *) {
+        FitSceneToView();
+    });
+    nsEditorEventBus::Shared()->AddHandler(nsEditorEventName::CENTER_SCENE_100, [&](const nsBaseEvent *) {
+        CenterSceneAt100();
     });
     _sceneView = new nsSceneView();
     _back = new nsSprite();
@@ -167,4 +175,68 @@ bool nsMainView::OnMouseWheel(float delta) {
     return true;
 }
 
+void nsMainView::FitSceneToView() {
+    if (!_scene) {
+        return;
+    }
 
+    nsRect bounds;
+    _scene->GetBounds(bounds, _sceneView);
+
+    const float boundsWidth = bounds.maxX() - bounds.minX();
+    const float boundsHeight = bounds.maxY() - bounds.minY();
+    if (boundsWidth <= 0 || boundsHeight <= 0) {
+        return;
+    }
+
+    const auto size = nsAppUtils::GetClientSize();
+    constexpr float padding = 32.0f;
+    const float viewWidth = std::max(size.x - padding * 2.0f, 1.0f);
+    const float viewHeight = std::max(size.y - padding * 2.0f, 1.0f);
+    const float targetZoom = nsMath::Max(std::min(viewWidth / boundsWidth, viewHeight / boundsHeight), 0.01f);
+
+    FocusSceneBounds(targetZoom);
+}
+
+void nsMainView::CenterSceneAt100() {
+    FocusSceneBounds(1.0f);
+}
+
+bool nsMainView::FocusSceneBounds(float targetZoom) {
+    if (!_scene) {
+        return false;
+    }
+
+    nsRect bounds;
+    _scene->GetBounds(bounds, _sceneView);
+
+    const float boundsWidth = bounds.maxX() - bounds.minX();
+    const float boundsHeight = bounds.maxY() - bounds.minY();
+    if (boundsWidth <= 0 || boundsHeight <= 0) {
+        return false;
+    }
+
+    targetZoom = nsMath::Max(targetZoom, 0.01f);
+
+    auto &user = _appModel->project.user;
+    const nsVec2 targetScale = {
+        (user.xFlip ? -1.0f : 1.0f) * targetZoom,
+        (user.yFlip ? -1.0f : 1.0f) * targetZoom,
+    };
+
+    nsTransform2 fitTransform;
+    fitTransform.pos = {0, 0};
+    fitTransform.scale = targetScale;
+    fitTransform.angle = _sceneView->origin.angle;
+
+    const auto size = nsAppUtils::GetClientSize();
+    const nsVec2 viewCenter = size / 2.0f;
+    const nsVec2 boundsCenter = bounds.GetCenter();
+    const nsVec2 scaledCenter = fitTransform.ToGlobal(boundsCenter);
+
+    _wheelAnchorActive = false;
+    user.sceneX = viewCenter.x - scaledCenter.x;
+    user.sceneY = viewCenter.y - scaledCenter.y;
+    user.zoom = targetZoom;
+    return true;
+}
