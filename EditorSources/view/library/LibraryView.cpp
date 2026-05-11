@@ -14,6 +14,7 @@
 #include "Engine/display/container/VisualContainer2d.h"
 #include "imgui/imgui.h"
 #include "nsLib/log.h"
+#include "nsLib/StrTools.h"
 #include "utils/FileUtils.h"
 #include "view/popups/OpenFilePopup.h"
 #include "view/popups/PopupsStack.h"
@@ -185,8 +186,8 @@ bool nsLibraryView::IsAssetTreeNodeVisible(AssetTreeNode &node) {
         return true;
     }
 
-    if (strstr(node.name.AsChar(), _filter.AsChar())
-        || strstr(node.relativePath.AsChar(), _filter.AsChar())) {
+    if (nsStr::ContainsIgnoreCase(node.name.AsChar(), _filter.AsChar())
+        || nsStr::ContainsIgnoreCase(node.relativePath.AsChar(), _filter.AsChar())) {
         return true;
     }
 

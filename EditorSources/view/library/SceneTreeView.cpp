@@ -19,11 +19,16 @@ nsSceneTreeView::nsSceneTreeView() {
     auto &scenePath = user.currentScene;
     scenePath.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *e) {
         _scene = _model->project.scenes.Get(scenePath);
+        UpdateCurrentScenePath();
+    });
+    _model->settings.projectPath.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *e) {
+        UpdateCurrentScenePath();
     });
 
     user.selectedObject.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *e) {
         _preselect = user.selectedObject;
     });
+    UpdateCurrentScenePath();
 }
 
 void nsSceneTreeView::Draw() {
@@ -33,7 +38,7 @@ void nsSceneTreeView::Draw() {
     if (_scene) {
         ImGui::Text("Layout:");
         ImGui::SameLine();
-        ImGui::Text(user.currentScene->c_str());
+        ImGui::Text("%s", _currentSceneRelativePath.AsChar());
 
         ImGui::BeginChild("Tree List", ImVec2(0, 0),
                           ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeY,
@@ -42,6 +47,12 @@ void nsSceneTreeView::Draw() {
         ImGui::EndChild();
     }
     ImGui::End();
+}
+
+void nsSceneTreeView::UpdateCurrentScenePath() {
+    const nsFilePath projectPath = _model->GetProjectPath();
+    const nsFilePath scenePath = _model->project.user.currentScene->c_str();
+    _currentSceneRelativePath = projectPath.GetRelativePath(scenePath);
 }
 
 void nsSceneTreeView::DrawNode(nsVisualObject2d *node, int index) {
