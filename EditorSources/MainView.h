@@ -20,29 +20,12 @@ public:
 
 protected:
     void OnAddedToStage() override;
-    bool OnPointerUp(float x, float y, int pointerId) override;
-    bool OnPointerDown(float x, float y, int pointerId) override;
-    bool OnPointerMove(float x, float y, int pointerId) override;
-    bool OnMouseWheel(float delta) override;
 
 private:
-    void FitSceneToView();
-    void CenterSceneAt100();
-    bool FocusSceneBounds(float targetZoom);
-
     nsAppModel           *_appModel;
     nsSceneView       *_sceneView;
     nsVisualObject2d    *_scene = nullptr;
     nsSprite *_back = nullptr;
 
     std::vector<nsVisualParticles*>  _particles;
-
-    float   _angle = 0;
-
-    bool _dragging = false;
-    bool _wheelAnchorActive = false;
-    nsVec2  _mouseDown;
-    nsVec2  _mousePos;
-    nsVec2  _wheelAnchorLocalPoint;
-    nsVec2  _startDragPos;
 };
