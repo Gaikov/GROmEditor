@@ -22,7 +22,6 @@
 #include <string>
 
 nsLibraryView::nsLibraryView() {
-
     _model->settings.projectPath.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *) {
         RefreshAssetsTree();
     });
@@ -32,39 +31,37 @@ nsLibraryView::nsLibraryView() {
 void nsLibraryView::Draw() {
     ImGui::Begin("Assets Library");
 
-    if (ImGui::CollapsingHeader("Layouts Library", ImGuiTreeNodeFlags_DefaultOpen)) {
-        ImGui::InputText("Search", _filter.AsChar(), nsString::MAX_SIZE - 1);
-        ImGui::SameLine();
-        if (ImGui::Button("Clear")) {
-            _filter = "";
+    ImGui::InputText("Search", _filter.AsChar(), nsString::MAX_SIZE - 1);
+    ImGui::SameLine();
+    if (ImGui::Button("Clear")) {
+        _filter = "";
+    }
+
+    auto &user = _model->project.user;
+
+    ImGui::BeginChild("LayoutsLib", ImVec2(0, 300),
+                      ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeY,
+                      ImGuiWindowFlags_HorizontalScrollbar);
+    for (auto &node: _assetsTree.children) {
+        if (IsAssetTreeNodeVisible(node)) {
+            DrawAssetsTreeNode(node);
         }
-        ImGui::SameLine();
-        if (ImGui::Button("Refresh")) {
+    }
+    ImGui::EndChild();
+
+    if (ImGui::Button("Create")) {
+        auto path = _model->GetProjectPath();
+        const auto popup = nsPopupsStack::Shared()->AddPopup<nsOpenFilePopup>(path);
+        popup->SetTitle("Select layout file");
+        popup->SetExtensions({"layout"});
+        popup->SetOpenCallback([this](const nsFilePath &layoutPath) {
+            nsUndoService::Shared()->Push(new nsUndoCreateLayout(layoutPath, new nsVisualContainer2d()));
             RefreshAssetsTree();
-        }
-
-        auto &user = _model->project.user;
-
-        ImGui::BeginChild("LayoutsLib", ImVec2(0, 300),
-                          ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeY,
-                          ImGuiWindowFlags_HorizontalScrollbar);
-        for (auto &node: _assetsTree.children) {
-            if (IsAssetTreeNodeVisible(node)) {
-                DrawAssetsTreeNode(node);
-            }
-        }
-        ImGui::EndChild();
-
-        if (ImGui::Button("Create")) {
-            auto path = _model->GetProjectPath();
-            const auto popup = nsPopupsStack::Shared()->AddPopup<nsOpenFilePopup>(path);
-            popup->SetTitle("Select layout file");
-            popup->SetExtensions({"layout"});
-            popup->SetOpenCallback([this](const nsFilePath &layoutPath) {
-                nsUndoService::Shared()->Push(new nsUndoCreateLayout(layoutPath, new nsVisualContainer2d()));
-                RefreshAssetsTree();
-            });
-        }
+        });
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Refresh")) {
+        RefreshAssetsTree();
     }
 
     ImGui::End();

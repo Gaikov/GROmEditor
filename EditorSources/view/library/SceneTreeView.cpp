@@ -31,19 +31,16 @@ void nsSceneTreeView::Draw() {
     ImGui::Begin("Scene Tree");
 
     if (_scene) {
-        if (ImGui::CollapsingHeader("Scene Tree", ImGuiTreeNodeFlags_DefaultOpen)) {
-            ImGui::Text("Layout:");
-            ImGui::SameLine();
-            ImGui::Text(user.currentScene->c_str());
+        ImGui::Text("Layout:");
+        ImGui::SameLine();
+        ImGui::Text(user.currentScene->c_str());
 
-            ImGui::BeginChild("Tree List", ImVec2(0, 0),
-                              ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeY,
-                              ImGuiWindowFlags_HorizontalScrollbar);
-            DrawNode(_scene, 1);
-            ImGui::EndChild();
-        }
+        ImGui::BeginChild("Tree List", ImVec2(0, 0),
+                          ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeY,
+                          ImGuiWindowFlags_HorizontalScrollbar);
+        DrawNode(_scene, 1);
+        ImGui::EndChild();
     }
-
     ImGui::End();
 }
 
@@ -111,17 +108,14 @@ void nsSceneTreeView::DrawDragDrop(nsVisualObject2d *node) {
         return;
     }
 
-    if (ImGui::BeginDragDropSource())
-    {
-        ImGui::SetDragDropPayload(DND_TREE_VISUAL_TYPE, &node, sizeof(nsVisualObject2d*));
+    if (ImGui::BeginDragDropSource()) {
+        ImGui::SetDragDropPayload(DND_TREE_VISUAL_TYPE, &node, sizeof(nsVisualObject2d *));
         ImGui::Text("Moving: ", node->id.c_str());
         ImGui::EndDragDropSource();
     }
 
-    if (ImGui::BeginDragDropTarget())
-    {
-        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(DND_TREE_VISUAL_TYPE))
-        {
+    if (ImGui::BeginDragDropTarget()) {
+        if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload(DND_TREE_VISUAL_TYPE)) {
             if (auto *dropped = *static_cast<nsVisualObject2d * const*>(payload->Data)) {
                 Log::Info("Dropped: %s", dropped->id.c_str());
                 if (node != dropped) {
