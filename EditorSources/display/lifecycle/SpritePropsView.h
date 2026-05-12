@@ -7,6 +7,7 @@
 #include "view/components/BoolInputUndo.h"
 #include "view/library/props/BaseVisualPropsView.h"
 #include "view/components/ColorInputUndo.h"
+#include "view/components/PmaCheckboxUndo.h"
 #include "view/components/RenStateSelectUndo.h"
 #include "view/components/TextureSelectUndo.h"
 #include "view/components/Vec2InputUndo.h"
@@ -24,6 +25,7 @@ protected:
 
     nsColorInputUndo<nsColor> _colorInput = "Color";
     nsTextureSelectUndo<ITexture*> _textureInput = "Texture";
+    nsPmaCheckboxUndo<bool, ITexture*, IRenState*> _pmaInput{"Premultiply Alpha"};
     nsRenStateSelectUndo<IRenState*> _shaderInput;
     nsVec2InputUndo<nsVec2> _uv1Input = "UV1";
     nsVec2InputUndo<nsVec2> _uv2Input = "UV2";
