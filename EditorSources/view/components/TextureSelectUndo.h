@@ -23,6 +23,10 @@ public:
         _popupId = _title + "Texture selection";
     }
 
+    void SetLoadFlags(int flags) {
+        _loadFlags = flags;
+    }
+
     void Draw(TTexture &var) {
         //TODO: relative project path
         _passedTexture = var;
@@ -49,7 +53,7 @@ protected:
     }
 
     void OnClickSelectPreview(const nsFilePath &path) override {
-        _current = _device->TextureLoad(path);
+        _current = _device->TextureLoad(path, false, TF_RGBA, _loadFlags);
         _device->TextureBind(_current);
     }
 
@@ -67,4 +71,5 @@ private:
     IRenDevice *_device;
     ITexture *_current = nullptr;
     ITexture *_passedTexture = nullptr;
+    int _loadFlags = TLF_NONE;
 };

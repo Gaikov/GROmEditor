@@ -36,8 +36,6 @@ void nsSceneTreeView::Draw() {
     ImGui::Begin("Scene Tree");
 
     if (_scene) {
-        ImGui::Text("Layout:");
-        ImGui::SameLine();
         ImGui::Text("%s", _currentSceneRelativePath.AsChar());
 
         ImGui::BeginChild("Tree List", ImVec2(0, 0),
