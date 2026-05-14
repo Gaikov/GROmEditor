@@ -1,4 +1,4 @@
-open log: Fri May  8 13:50:12 2026
+open log: Thu May 14 11:30:42 2026
 
 *** Core Init ***
 OS Installed: Linux
@@ -125,67 +125,136 @@ Layout updated
 Layout updated
 Layout updated
 Layout updated
-WARNING: Memory allocations in game loop: 56697
+WARNING: Memory allocations in game loop: 57105
 WARNING: Memory allocations in game loop: 2
 WARNING: Memory allocations in game loop: 1
 Selected: C:/Projects/HeliumRush/Resources/layouts/Res_AchievementPanel.layout
 ...creating texture: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
 ...loading bitmap data: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
+...loading shader: C:/Projects/HeliumRush/Resources/default/rs/gui_clamp.ggrs
 loading font: C:/Projects/HeliumRush/Resources/fnt/Full Dece Sans_16_FFDE79.fnt
 ...creating texture: C:/Projects/HeliumRush/Resources/fnt/Full Dece Sans_16_FFDE79_0.png
 ...loading bitmap data: C:/Projects/HeliumRush/Resources/fnt/Full Dece Sans_16_FFDE79_0.png
 WARNING: iCCP: known incorrect sRGB profile
-...loading shader: C:/Projects/HeliumRush/Resources/default/rs/gui_clamp.ggrs
 loading font: C:/Projects/HeliumRush/Resources/fnt/akaDylan Plain_16_FFDE79.fnt
 ...creating texture: C:/Projects/HeliumRush/Resources/fnt/akaDylan Plain_16_FFDE79_0.png
 ...loading bitmap data: C:/Projects/HeliumRush/Resources/fnt/akaDylan Plain_16_FFDE79_0.png
 WARNING: iCCP: known incorrect sRGB profile
 scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_AchievementPanel.layout
-WARNING: Memory allocations in game loop: 177
-WARNING: Memory allocations in game loop: 8
-WARNING: Memory allocations in game loop: 7
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
+WARNING: Memory allocations in game loop: 300
+WARNING: Memory allocations in game loop: 3
+Selected node changed
+WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 308
+Selected node changed
+WARNING: Memory allocations in game loop: 2
 activate :0
 ...writing config 'scene_viewer.cfg'
 WARNING: Memory allocations in game loop: 2
 activate :1
-Selected: C:/Projects/HeliumRush/Resources/layouts/Res_Shoes.layout
-scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_Shoes.layout
-WARNING: Memory allocations in game loop: 49
-WARNING: Memory allocations in game loop: 6
-WARNING: Memory allocations in game loop: 6
-Selected: C:/Projects/HeliumRush/Resources/layouts/Res_ShopItem.layout
-...creating texture: C:/Projects/HeliumRush/Resources/atlases/atlas01.png
-...loading bitmap data: C:/Projects/HeliumRush/Resources/atlases/atlas01.png
-scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_ShopItem.layout
-WARNING: Memory allocations in game loop: 130
-WARNING: Memory allocations in game loop: 6
-Selected: C:/Projects/HeliumRush/Resources/layouts/Res_ShopPopup.layout
-loading font: C:/Projects/HeliumRush/Resources/fnt/akaDylan Plain_20_FFDE79.fnt
-...creating texture: C:/Projects/HeliumRush/Resources/fnt/akaDylan Plain_20_FFDE79_0.png
-...loading bitmap data: C:/Projects/HeliumRush/Resources/fnt/akaDylan Plain_20_FFDE79_0.png
-WARNING: iCCP: known incorrect sRGB profile
-scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_ShopPopup.layout
-WARNING: Memory allocations in game loop: 173
-...initializing GL vertex buffer
-WARNING: Memory allocations in game loop: 4
-WARNING: Memory allocations in game loop: 6
 activate :0
 ...writing config 'scene_viewer.cfg'
 WARNING: Memory allocations in game loop: 2
+activate :1
+activate :0
+...writing config 'scene_viewer.cfg'
+WARNING: Memory allocations in game loop: 2
+activate :1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 306
+Layout updated
+Layout updated
+activate :0
+...writing config 'scene_viewer.cfg'
+WARNING: Memory allocations in game loop: 2
+activate :1
+activate :0
+...writing config 'scene_viewer.cfg'
+WARNING: Memory allocations in game loop: 2
+activate :1
+Selected node changed
+WARNING: Memory allocations in game loop: 2
+...creating texture: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
+...loading shader: C:/Projects/HeliumRush/Resources/default/rs/sprite_pma.ggrs
+WARNING: Memory allocations in game loop: 187
+...loading bitmap data: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
+WARNING: Memory allocations in game loop: 10
+WARNING: Memory allocations in game loop: 160
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 159
+----------------------------------------********** Shutting Down App ***********
+----------------------------------------
+...writing config 'scene_viewer.cfg'
+################### Release SceneViewer ###################
+Saving model: editor.ggml
+...destroy scenes cache
+...releasing undo service
+### Releasing particles cache ###
+destroyed particles: 2000
+...assets context destroyed
+...releasing texture: default/keys/back-space.png
+...releasing texture: default/keys/enter.png
+...releasing texture: default/keys/shift.png
+...releasing stencil state: default/rs/mask.ggss
+...releasing stencil state: default/rs/masked.ggss
+shutdown console
+...releasing texture: default/console.jpg
+...released console buffer, chunks: 1
+...releasing font: C:/Projects/HeliumRush/Resources/fnt/Full Dece Sans_16_FFDE79.fnt
+...releasing texture: C:/Projects/HeliumRush/Resources/fnt/Full Dece Sans_16_FFDE79_0.png
+...releasing font: C:/Projects/HeliumRush/Resources/fnt/akaDylan Plain_16_FFDE79.fnt
+...releasing texture: C:/Projects/HeliumRush/Resources/fnt/akaDylan Plain_16_FFDE79_0.png
+...releasing font: default/sys-font.fnt
+...releasing texture: default/sys-font_0.png
+*****************************************
++         releasing GL renderer         +
+*****************************************
+...releasing shaders
+...releasing GLSL programs
+...unloading GLSL: default/rs/gles3/pixel.frag
+...unloading GLSL: default/rs/gles3/vertex.vert
+...releasing textures
+...releasing texture: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
+...releasing texture: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
+...releasing texture: default/editor/back.jpg
+...releasing render textures
+...releasing vertex buffers: 3
+...releasing stencil state: 
+============================================
+*           Release Sound Subsystem        *
+============================================
+...free sources
+...delete buffers
+...destroy context
+...close device
+
+##### Release Desktop #####
+...destroy window
+*** Core Shutdown ***
+...releasing memory pools
+releasing objects pool 'mem_pool_16' of 100 items
+releasing objects pool 'mem_pool_32' of 100 items
+releasing objects pool 'mem_pool_64' of 100 items
+releasing objects pool 'mem_pool_128' of 100 items
+releasing objects pool 'mem_pool_256' of 100 items
+releasing objects pool 'mem_pool_512' of 100 items
+releasing objects pool 'mem_pool_1024' of 100 items
+close log: Thu May 14 11:46:35 2026

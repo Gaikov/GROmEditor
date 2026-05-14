@@ -8,6 +8,7 @@
 #include "Core/sys.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVarChange.h"
+#include "events/EditorEventBus.h"
 #include "imgui/imgui.h"
 #include "nsLib/locator/ServiceLocator.h"
 #include "popups/OpenFilePopup.h"
@@ -82,6 +83,16 @@ nsMainMenuBar::nsMainMenuBar() {
     _xFlip = view->AddItem("Flip X")->Action([&] { user.xFlip = !user.xFlip; });
     _yFlip = view->AddItem("Flip Y")->Action([&] { user.yFlip = !user.yFlip; });
     view->AddItem("Reset Zoom")->Action([&] { user.zoom = 1.0f; });
+    view->AddItem("Fit Scene / Selection")
+            ->Shortcut("Alt+1", ImGuiMod_Alt | ImGuiKey_1)
+            ->Action([] {
+                nsEditorEventBus::Shared()->Emmit(nsBaseEvent(nsEditorEventName::FIT_SCENE_TO_VIEW));
+            });
+    view->AddItem("Center Scene / Selection")
+            ->Shortcut("Alt+2", ImGuiMod_Alt | ImGuiKey_2)
+            ->Action([] {
+                nsEditorEventBus::Shared()->Emmit(nsBaseEvent(nsEditorEventName::CENTER_SCENE_100));
+            });
 
     const auto debug = _menu.AddItem("Debug");
     _demoView = debug->AddItem("Demo View")->Action([&] { user.testView = !user.testView; });
