@@ -144,15 +144,22 @@ bool nsSceneView::OnMouseWheel(float delta) {
 }
 
 void nsSceneView::FitSceneToView() {
-    if (!_scene) {
+    nsVisualObject2d *target = GetFocusTarget();
+    if (!target) {
         return;
     }
 
     nsRect bounds;
-    _scene->GetBounds(bounds, this);
+    target->GetBounds(bounds, this);
 
-    const float boundsWidth = bounds.maxX() - bounds.minX();
-    const float boundsHeight = bounds.maxY() - bounds.minY();
+    float boundsWidth = bounds.maxX() - bounds.minX();
+    float boundsHeight = bounds.maxY() - bounds.minY();
+    if ((boundsWidth <= 0 || boundsHeight <= 0) && target != _scene && _scene) {
+        target = _scene;
+        target->GetBounds(bounds, this);
+        boundsWidth = bounds.maxX() - bounds.minX();
+        boundsHeight = bounds.maxY() - bounds.minY();
+    }
     if (boundsWidth <= 0 || boundsHeight <= 0) {
         return;
     }
@@ -163,7 +170,7 @@ void nsSceneView::FitSceneToView() {
     const float viewHeight = std::max(size.y - padding * 2.0f, 1.0f);
     const float targetZoom = nsMath::Max(std::min(viewWidth / boundsWidth, viewHeight / boundsHeight), MIN_ZOOM);
 
-    FocusSceneBounds(targetZoom);
+    FocusObjectBounds(target, targetZoom, true);
 }
 
 void nsSceneView::CenterSceneAt100() {
@@ -171,16 +178,33 @@ void nsSceneView::CenterSceneAt100() {
 }
 
 bool nsSceneView::FocusSceneBounds(float targetZoom) {
-    if (!_scene) {
+    nsVisualObject2d *target = GetFocusTarget();
+    if (!target) {
+        return false;
+    }
+
+    if (FocusObjectBounds(target, targetZoom, false)) {
+        return true;
+    }
+
+    if (target != _scene && _scene) {
+        return FocusObjectBounds(_scene, targetZoom, false);
+    }
+
+    return false;
+}
+
+bool nsSceneView::FocusObjectBounds(nsVisualObject2d *target, float targetZoom, bool requireExtent) {
+    if (!target) {
         return false;
     }
 
     nsRect bounds;
-    _scene->GetBounds(bounds, this);
+    target->GetBounds(bounds, this);
 
     const float boundsWidth = bounds.maxX() - bounds.minX();
     const float boundsHeight = bounds.maxY() - bounds.minY();
-    if (boundsWidth <= 0 || boundsHeight <= 0) {
+    if (requireExtent && (boundsWidth <= 0 || boundsHeight <= 0)) {
         return false;
     }
 
@@ -199,6 +223,18 @@ bool nsSceneView::FocusSceneBounds(float targetZoom) {
     user.sceneY = viewCenter.y - scaledCenter.y;
     user.zoom = targetZoom;
     return true;
+}
+
+nsVisualObject2d *nsSceneView::GetFocusTarget() const {
+    if (!_appModel) {
+        return _scene;
+    }
+
+    if (nsVisualObject2d *selected = _appModel->project.user.selectedObject) {
+        return selected;
+    }
+
+    return _scene;
 }
 
 nsVec2 nsSceneView::GetTargetScale(float zoom) const {

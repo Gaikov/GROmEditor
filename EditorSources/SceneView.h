@@ -34,6 +34,8 @@ private:
     void FitSceneToView();
     void CenterSceneAt100();
     bool FocusSceneBounds(float targetZoom);
+    bool FocusObjectBounds(nsVisualObject2d *target, float targetZoom, bool requireExtent);
+    nsVisualObject2d *GetFocusTarget() const;
     nsVec2 GetTargetScale(float zoom) const;
 
     nsVisualObject2d    *_scene = nullptr;
