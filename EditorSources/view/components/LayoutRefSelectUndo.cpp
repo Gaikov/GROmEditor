@@ -29,7 +29,7 @@ void nsLayoutRefSelectUndo::OnClickBrowse() {
 }
 
 void nsLayoutRefSelectUndo::DrawSelectedInfo() {
-    ImGui::Text(_selected);
+    ImGui::Text("%s", GetInfoDisplayPath(_selected));
 }
 
 void nsLayoutRefSelectUndo::DrawSelectedPreview() {

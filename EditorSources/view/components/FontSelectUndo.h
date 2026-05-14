@@ -64,7 +64,7 @@ void nsFontSelectUndo<TFontVar>::DrawSelectedInfo() {
         if (const auto page = GetSelectedPage()) {
             int w, h;
             page->GetSize(w, h);
-            ImGui::Text("%s: [%dx%d]", _selected->GetPath(), w, h);
+            ImGui::Text("%s: [%dx%d]", GetInfoDisplayPath(_selected->GetPath()), w, h);
         } else {
             ImGui::TextColored(ImVec4(1, 0, 0, 0), "Invalid font!");
         }

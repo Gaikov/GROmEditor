@@ -43,7 +43,7 @@ protected:
         if (_current) {
             int w, h;
             _current->GetSize(w, h);
-            ImGui::Text("%s [%dx%d]", _device->TextureGetPath(_current), w, h);
+            ImGui::Text("%s [%dx%d]", GetInfoDisplayPath(_device->TextureGetPath(_current)), w, h);
         }
     }
 

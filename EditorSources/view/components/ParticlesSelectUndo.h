@@ -77,7 +77,7 @@ void nsParticlesSelectUndo<TParticlesVar>::OnClickBrowse() {
 template<typename TParticlesVar>
 void nsParticlesSelectUndo<TParticlesVar>::DrawSelectedInfo() {
     if (_selected) {
-        ImGui::Text(_model->project.particles.GetParticlesPath(_selected));
+        ImGui::Text("%s", GetInfoDisplayPath(_model->project.particles.GetParticlesPath(_selected)));
     }
 }
 

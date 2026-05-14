@@ -62,8 +62,7 @@ void nsRenStateSelectUndo<TRenState>::OnClickBrowse() {
 template<typename TRenState>
 void nsRenStateSelectUndo<TRenState>::DrawSelectedInfo() {
     if (_selected) {
-        _device->StateGetPath(_selected);
-        ImGui::Text(_device->StateGetPath(_selected));
+        ImGui::Text("%s", GetInfoDisplayPath(_device->StateGetPath(_selected)));
     }
 }
 

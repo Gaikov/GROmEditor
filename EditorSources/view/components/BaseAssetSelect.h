@@ -20,6 +20,7 @@ protected:
     std::vector<std::string> _extensions;
     ImVec2 _popupSize = {100, 100};
     nsAppModel * const _model;
+    const char *GetInfoDisplayPath(const char *path);
 
     virtual const char* GetPopupId() = 0;
     virtual void OnClickBrowse() = 0;
@@ -29,7 +30,15 @@ protected:
 
 private:
     std::vector<nsFilePath> _files;
+    std::vector<nsString> _displayFiles;
     nsString _filter;
+    nsString _inputPathSource;
+    nsString _inputPathDisplay;
+    nsString _popupPathSource;
+    nsString _popupPathDisplay;
+    nsString _infoPathSource;
+    nsString _infoPathDisplay;
 
     bool HasValidExtension(const nsFilePath &path) const;
+    void CacheDisplayPath(const char *source, nsString &cachedSource, nsString &cachedDisplay) const;
 };
