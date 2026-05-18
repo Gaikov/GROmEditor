@@ -13,25 +13,23 @@
 #include "nsLib/locator/ServiceLocator.h"
 #include "popups/OpenFilePopup.h"
 #include "popups/PopupsStack.h"
+#include "utils/ProjectUtils.h"
 
 nsMainMenuBar::nsMainMenuBar() {
     _model = Locate<nsAppModel>();
 
     const auto file = _menu.AddItem("File");
     file->AddItem("New")
-            ->Action([] { Log::Info("New project"); })
+            ->Action([] {
+                nsEditorEventBus::Shared()->Emmit(nsBaseEvent(nsEditorEventName::NEW_PROJECT));
+            })
             ->Shortcut("Ctrl+N", ImGuiMod_Ctrl | ImGuiKey_N);
     file->AddItem("Open")
             ->Action([&] {
                 const auto popup = nsPopupsStack::Shared()->AddPopup<nsOpenFilePopup>(_model->GetProjectPath());
                 popup->SetFlags(static_cast<nsOpenFilePopup::Flags>(nsOpenFilePopup::OpenFolder | nsOpenFilePopup::AllowOverwrite | nsOpenFilePopup::Global));
                 popup->SetOpenCallback([&](const nsFilePath &path) {
-                    _model->settings.projectPath = path.AsChar();
-                    if (!_model->project.Load(path)) {
-                        nsAlertPopup::Error("Failed to open project!");
-                    } else {
-                        _model->Save();
-                    }
+                    nsProjectUtils::LoadProject(_model, path);
                 });
             })
             ->Shortcut("Ctrl+O", ImGuiMod_Ctrl | ImGuiKey_O);

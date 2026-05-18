@@ -5,6 +5,7 @@
 #include "ProjectStateModel.h"
 
 #include "ProjectModel.h"
+#include "Engine/display/container/VisualContainer2d.h"
 
 nsProjectStateModel::nsProjectStateModel() {
     AddItem("current_scene", &currentScene);
@@ -20,6 +21,7 @@ nsProjectStateModel::nsProjectStateModel() {
 }
 
 void nsProjectStateModel::Reset() {
+    selectedObject = nullptr;
     ResetDefault();
 }
 

@@ -16,6 +16,7 @@
 #include "display/VisualRefBuilder.h"
 #include "display/lifecycle/VisualsLifecycle.h"
 #include "events/EditorEventBus.h"
+#include "events/NewProjectCommand.h"
 #include "Engine/display/factory/VisualFactory2d.h"
 #include "ThirdParty/imgui/ImGUI_gles3.h"
 #include "view/ViewsRoot.h"
@@ -42,6 +43,7 @@ bool nsSceneViewerApp::Init() {
 
     nsUndoService::Init();
     nsEditorEventBus::Init();
+    nsEditorEventBus::Shared()->RegisterCommand<nsNewProjectCommand>(nsEditorEventName::NEW_PROJECT);
 
     nsServiceLocator::Init();
     const auto locator = nsServiceLocator::Shared();
