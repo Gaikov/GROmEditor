@@ -20,6 +20,7 @@ public:
 
     bool Load();
     bool Save();
+    bool SaveSession();
 
 protected:
     void OnCreated() override;

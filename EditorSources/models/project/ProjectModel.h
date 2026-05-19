@@ -20,6 +20,7 @@ public:
 
     bool Load(const nsFilePath &projectFolder);
     bool Save(const nsFilePath &projectFolder) const;
+    bool SaveUserState(const nsFilePath &projectFolder);
     void Reset() const;
 
 private:

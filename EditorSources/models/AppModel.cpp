@@ -35,6 +35,19 @@ bool nsAppModel::Save() {
     return true;
 }
 
+bool nsAppModel::SaveSession() {
+    if (!Save()) {
+        return false;
+    }
+
+    const nsFilePath path = GetProjectPath();
+    if (!path.IsEmpty() && path.IsFolder()) {
+        return project.SaveUserState(path);
+    }
+
+    return true;
+}
+
 void nsAppModel::OnCreated() {
     Log::Info("sv model created");
 }

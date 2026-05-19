@@ -20,6 +20,10 @@ nsProjectStateModel::nsProjectStateModel() {
     AddItem("show_project_settings", &showProjectSettings);
 }
 
+bool nsProjectStateModel::SaveUserState(const nsFilePath &folder) {
+    return Save(folder);
+}
+
 void nsProjectStateModel::Reset() {
     selectedObject = nullptr;
     ResetDefault();

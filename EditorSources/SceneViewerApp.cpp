@@ -90,7 +90,7 @@ void nsSceneViewerApp::Release() {
     }
 
     if (_appModel) {
-        _appModel->Save();
+        _appModel->SaveSession();
     }
 
     nsPopupsStack::Release();

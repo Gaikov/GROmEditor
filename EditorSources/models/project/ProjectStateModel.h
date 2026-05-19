@@ -15,6 +15,7 @@
 class nsProjectStateModel : public nsSerializableFile, virtual public nsProjectSubModel {
 public:
     explicit nsProjectStateModel();
+    bool SaveUserState(const nsFilePath &folder);
 
 protected:
     void Reset() override;

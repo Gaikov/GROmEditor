@@ -48,6 +48,11 @@ bool nsProjectModel::Save(const nsFilePath &projectFolder) const {
     return res;
 }
 
+bool nsProjectModel::SaveUserState(const nsFilePath &projectFolder) {
+    Log::Info("Saving project user state to folder: %s", projectFolder.AsChar());
+    return user.SaveUserState(projectFolder);
+}
+
 void nsProjectModel::Reset() const {
     for (const auto model: _models) {
         model->Reset();
