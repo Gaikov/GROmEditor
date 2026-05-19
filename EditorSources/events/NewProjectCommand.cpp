@@ -4,12 +4,12 @@
 
 #include "NewProjectCommand.h"
 
-#include "alerts/AlertPopup.h"
 #include "models/AppModel.h"
 #include "nsLib/locator/ServiceLocator.h"
-#include "popups/OpenFilePopup.h"
-#include "popups/PopupsStack.h"
 #include "utils/ProjectUtils.h"
+#include "view/alerts/AlertPopup.h"
+#include "view/popups/OpenFilePopup.h"
+#include "view/popups/PopupsStack.h"
 #include <filesystem>
 
 namespace fs = std::filesystem;

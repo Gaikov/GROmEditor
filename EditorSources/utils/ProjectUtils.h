@@ -6,18 +6,8 @@
 #pragma once
 
 #include "models/AppModel.h"
-#include "view/alerts/AlertPopup.h"
 
 class nsProjectUtils final {
 public:
-    static bool LoadProject(nsAppModel *model, const nsFilePath &path) {
-        model->settings.projectPath = path.AsChar();
-        if (!model->project.Load(path)) {
-            nsAlertPopup::Error("Failed to open project!");
-            return false;
-        }
-
-        model->Save();
-        return true;
-    }
+    static bool LoadProject(nsAppModel *model, const nsFilePath &path);
 };

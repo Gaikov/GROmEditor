@@ -21,13 +21,7 @@ struct nsEditorEventName final {
 
 class nsEditorEventBus final : public nsEventDispatcher, public nsSubSystem<nsEditorEventBus> {
 public:
-    void RegisterCommand(int eventId, std::shared_ptr<nsIEditorCommand> command) {
-        const auto cmd = std::move(command);
-        _commands.push_back(cmd);
-        AddHandler(eventId, [cmd](const nsBaseEvent *event) {
-            cmd->Execute(event);
-        });
-    }
+    void RegisterCommand(int eventId, std::shared_ptr<nsIEditorCommand> command);
 
     template<typename TCommand, typename... TArgs>
     void RegisterCommand(int eventId, TArgs&&... args) {
@@ -35,9 +29,7 @@ public:
     }
 
 protected:
-    void OnRelease() override {
-        _commands.clear();
-    }
+    void OnRelease() override;
 
 private:
     std::vector<std::shared_ptr<nsIEditorCommand>> _commands;
