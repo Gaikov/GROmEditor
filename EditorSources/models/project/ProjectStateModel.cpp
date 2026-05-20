@@ -30,11 +30,13 @@ void nsProjectStateModel::Reset() {
 }
 
 bool nsProjectStateModel::Load(const nsFilePath &folder) {
+    currentScene.SetBaseFolder(folder);
     nsSerializableFile::Load(folder.ResolvePath("user.ggml"));
     return true;
 }
 
 bool nsProjectStateModel::Save(const nsFilePath &folder) {
+    currentScene.SetBaseFolder(folder);
     return nsSerializableFile::Save(folder.ResolvePath("user.ggml"));
 }
 

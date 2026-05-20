@@ -8,8 +8,8 @@
 #include "Core/serialization/SerializableFile.h"
 #include "Core/serialization/var/BoolVar.h"
 #include "Core/serialization/var/ColorVar.h"
+#include "Core/serialization/var/FilePathVar.h"
 #include "Core/serialization/var/FloatVar.h"
-#include "Core/serialization/var/StringVar.h"
 #include "Engine/display/VisualObject2d.h"
 
 class nsProjectStateModel : public nsSerializableFile, virtual public nsProjectSubModel {
@@ -26,7 +26,7 @@ protected:
 public:
     nsProperty<nsVisualObject2d*> selectedObject = nullptr;
 
-    nsStringVar currentScene = "";
+    nsFilePathVar currentScene = "";
     nsBoolVar xFlip = false;
     nsBoolVar yFlip = false;
     nsFloatVar zoom = 1;

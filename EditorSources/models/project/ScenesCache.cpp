@@ -31,7 +31,7 @@ nsUndoCreateLayout::nsUndoCreateLayout(const nsFilePath &path, nsVisualObject2d 
     Add(new nsUndoFileCreate(path, buffer.c_str()));
     Add(new nsUndoVectorAdd(scenes._files, path));
     Add(new nsUndoMapInsert<std::string, nsVisualObject2d *>(scenes._cache, path.AsChar(), obj));
-    Add(new nsUndoVarChange<nsStringVar, std::string>(project.user.currentScene, path.AsChar()));
+    Add(new nsUndoVarChange<nsFilePathVar, std::string>(project.user.currentScene, path.AsChar()));
     Add(new nsUndoVarChange(project.user.selectedObject, obj));
 }
 
