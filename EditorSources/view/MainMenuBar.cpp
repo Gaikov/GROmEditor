@@ -80,7 +80,11 @@ nsMainMenuBar::nsMainMenuBar() {
     const auto view = _menu.AddItem("View");
     _xFlip = view->AddItem("Flip X")->Action([&] { user.xFlip = !user.xFlip; });
     _yFlip = view->AddItem("Flip Y")->Action([&] { user.yFlip = !user.yFlip; });
-    view->AddItem("Reset Zoom")->Action([&] { user.zoom = 1.0f; });
+    view->AddItem("Reset Zoom")->Action([&] {
+        if (const auto state = user.GetSceneState()) {
+            state->zoom = 1.0f;
+        }
+    });
     view->AddItem("Fit Scene / Selection")
             ->Shortcut("Alt+1", ImGuiMod_Alt | ImGuiKey_1)
             ->Action([] {

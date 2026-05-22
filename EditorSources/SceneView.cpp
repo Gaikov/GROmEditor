@@ -52,7 +52,9 @@ void nsSceneView::Loop() {
 
 void nsSceneView::UpdateCamera() {
     auto &user = _appModel->project.user;
-    const nsVec2 targetScale = GetTargetScale(user.zoom);
+    const nsSceneState *state = user.GetSceneState();
+    const float targetZoom = state ? state->zoom.GetValue() : 1.0f;
+    const nsVec2 targetScale = GetTargetScale(targetZoom);
 
     const nsVec2 scale = origin.scale;
     origin.scale = {
@@ -68,8 +70,10 @@ void nsSceneView::UpdateCamera() {
         const nsVec2 deltaPos = _mousePos - anchorGlobalPoint;
         origin.pos = origin.pos + deltaPos;
 
-        user.sceneX = origin.pos->x;
-        user.sceneY = origin.pos->y;
+        if (auto activeState = user.GetSceneState()) {
+            activeState->x = origin.pos->x;
+            activeState->y = origin.pos->y;
+        }
 
         if (std::fabs(origin.scale->x - targetScale.x) < ANCHOR_SCALE_EPS
             && std::fabs(origin.scale->y - targetScale.y) < ANCHOR_SCALE_EPS) {
@@ -77,8 +81,10 @@ void nsSceneView::UpdateCamera() {
         }
     } else {
         nsVec2 pos = origin.pos;
-        pos.x = nsMath::MoveExp(pos.x, user.sceneX, CAMERA_MOVE_SPEED, g_frameTime);
-        pos.y = nsMath::MoveExp(pos.y, user.sceneY, CAMERA_MOVE_SPEED, g_frameTime);
+        const float targetX = state ? state->x.GetValue() : 1.0f;
+        const float targetY = state ? state->y.GetValue() : 1.0f;
+        pos.x = nsMath::MoveExp(pos.x, targetX, CAMERA_MOVE_SPEED, g_frameTime);
+        pos.y = nsMath::MoveExp(pos.y, targetY, CAMERA_MOVE_SPEED, g_frameTime);
         origin.pos = pos;
     }
 }
@@ -118,9 +124,10 @@ bool nsSceneView::OnPointerMove(float x, float y, int pointerId) {
     if (_dragging) {
         const auto delta = nsVec2(x, y) - _mouseDown;
         const auto pos = _startDragPos + delta;
-        auto &user = _appModel->project.user;
-        user.sceneX = pos.x;
-        user.sceneY = pos.y;
+        if (auto state = _appModel->project.user.GetSceneState()) {
+            state->x = pos.x;
+            state->y = pos.y;
+        }
         return true;
     }
 
@@ -132,13 +139,14 @@ bool nsSceneView::OnMouseWheel(float delta) {
         return true;
     }
 
-    auto &user = _appModel->project.user;
     const float zoom = std::fabs(origin.scale->x);
     const float newZoom = nsMath::Max(zoom + (zoom * WHEEL_ZOOM_STEP) * delta, MIN_ZOOM);
 
     _wheelAnchorLocalPoint = origin.ToLocal(_mousePos);
     _wheelAnchorActive = _scene != nullptr;
-    user.zoom = newZoom;
+    if (auto state = _appModel->project.user.GetSceneState()) {
+        state->zoom = newZoom;
+    }
 
     return true;
 }
@@ -217,11 +225,12 @@ bool nsSceneView::FocusObjectBounds(nsVisualObject2d *target, float targetZoom, 
     const nsVec2 boundsCenter = bounds.GetCenter();
     const nsVec2 scaledCenter = fitMatrix.TransformPoint(boundsCenter);
 
-    auto &user = _appModel->project.user;
     _wheelAnchorActive = false;
-    user.sceneX = viewCenter.x - scaledCenter.x;
-    user.sceneY = viewCenter.y - scaledCenter.y;
-    user.zoom = targetZoom;
+    if (auto state = _appModel->project.user.GetSceneState()) {
+        state->x = viewCenter.x - scaledCenter.x;
+        state->y = viewCenter.y - scaledCenter.y;
+        state->zoom = targetZoom;
+    }
     return true;
 }
 
