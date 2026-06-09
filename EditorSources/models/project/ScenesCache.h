@@ -20,6 +20,7 @@ class nsScenesCache final : public nsProjectSubModel {
 public:
     ~nsScenesCache() override;
     nsVisualObject2d* Get(const std::string &path);
+    bool HasFile(const nsFilePath &path) const;
 
     const std::vector<nsFilePath>& GetFiles() const { return _files; }
 

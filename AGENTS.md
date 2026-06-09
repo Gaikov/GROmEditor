@@ -1,17 +1,17 @@
 # AGENTS.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
-
 ## Build
 
-CMake (minimum 3.10), C++20.
+CMake (minimum 3.13), C++20. The executable on Windows link with `-mwindows` and `-static-libgcc -static-libstdc++`.
 
 ```bash
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-The resulting editor executable is `build/GROmEditor`. See `GROmEngine/AGENTS.md` for full platform flags, WebAssembly, and sound system options.
+Debug builds define `DEBUG` (`-DCMAKE_BUILD_TYPE=Debug`). WebAssembly: add `-DWEB_ASM=1`. Exclude networking: `-DNO_NETWORKING=1`.
+
+The resulting editor executable is `build/GROmEditor` (Windows: `build/GROmEditor.exe`, WASM: `build/index.html`). See `GROmEngine/CLAUDE.md` for the full engine architecture, dependencies, rendering/sound backends, and code style.
 
 ## Tests
 
@@ -60,7 +60,7 @@ All user edits go through these components to ensure undo/redo coverage.
 
 ### Engine submodule
 
-`GROmEngine/` is a git submodule. Refer to `GROmEngine/AGENTS.md` for the full engine architecture (nsLib → Core → Platform → Rendering → Audio → Engine layers), key patterns (`nsSubSystem<T>`, `nsEventDispatcher`, `nsResourcesCache<T>`, `IGameApp`), and external dependencies.
+`GROmEngine/` is a git submodule. Refer to `GROmEngine/CLAUDE.md` for the full engine architecture (nsLib → Core → Platform → Rendering → Audio → Engine layers), key patterns (`nsSubSystem<T>`, `nsEventDispatcher`, `nsResourcesCache<T>`, `IGameApp`), and external dependencies.
 
 ## Assets
 

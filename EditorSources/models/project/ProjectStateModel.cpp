@@ -56,7 +56,7 @@ nsSceneState *nsProjectStateModel::FindSceneState(const std::string &scenePath) 
 
 nsSceneState *nsProjectStateModel::GetSceneState() {
     const auto &path = currentScene.GetValue();
-    if (path.empty() || !_projectModel || !_projectModel->scenes.Get(path)) {
+    if (path.empty() || !_projectModel || !_projectModel->scenes.HasFile(path.c_str())) {
         return nullptr;
     }
 
@@ -87,12 +87,12 @@ void nsProjectStateModel::Validate(nsProjectModel *model) {
     nsProjectSubModel::Validate(model);
     _projectModel = model;
 
-    if (!model->scenes.Get(currentScene)) {
+    if (!model->scenes.HasFile(currentScene.GetValue().c_str())) {
         currentScene = "";
     }
 
     for (int i = sceneStates.Size() - 1; i >= 0; --i) {
-        if (const auto state = sceneStates.GetItem(i); !state || !model->scenes.Get(state->scene)) {
+        if (const auto state = sceneStates.GetItem(i); !state || !model->scenes.HasFile(state->scene.GetValue().c_str())) {
             sceneStates.RemoveAt(i);
         }
     }

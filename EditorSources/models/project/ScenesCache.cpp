@@ -56,6 +56,20 @@ nsVisualObject2d *nsScenesCache::Get(const std::string &path) {
     return _cache[path];
 }
 
+bool nsScenesCache::HasFile(const nsFilePath &path) const {
+    if (path.IsEmpty()) {
+        return false;
+    }
+
+    for (const auto &file : _files) {
+        if (file == path) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 nsVisualObject2d * nsScenesCache::Clone(nsVisualObject2d *source) {
     const auto writer = std::make_shared<nsStringWriter>();
     nsScriptSaver saver(writer);
