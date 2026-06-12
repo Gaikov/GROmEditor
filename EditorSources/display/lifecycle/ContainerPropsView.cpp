@@ -6,6 +6,7 @@
 
 #include "Engine/RenManager.h"
 #include "Engine/display/container/VisualContainer2d.h"
+#include "Engine/display/helpers/VisualAnchor.h"
 #include "Engine/display/particles/VisualParticles.h"
 #include "Engine/display/sprite/Sprite.h"
 #include "Engine/display/text/TextLabel.h"
@@ -19,6 +20,7 @@ bool nsContainerPropsView::DrawContextMenu(nsVisualObject2d *target, bool hasPre
 
     if (ImGui::BeginMenu("Create...")) {
         MenuItemCreate<nsVisualContainer2d>("Container", c);
+        MenuItemCreate<nsVisualAnchor>("Anchor", c);
 
         if (const auto sprite = MenuItemCreate<nsSprite>("Sprite", c)) {
             sprite->renState = GetDefaultRenState();

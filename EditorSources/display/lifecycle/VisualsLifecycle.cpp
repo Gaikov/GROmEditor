@@ -5,6 +5,7 @@
 #include "VisualsLifecycle.h"
 
 #include "ContainerPropsView.h"
+#include "AnchorPropsView.h"
 #include "customProps/CustomObjectPropsView.h"
 #include "RecursiveParticlesPropsView.h"
 #include "particles/ParticlesAssetPropsView.h"
@@ -20,6 +21,7 @@ nsVisualsLifecycle::nsVisualsLifecycle() {
     _policies.emplace_back(new nsVisualPropsView());
     _policies.emplace_back(new nsVisualMaskProps());
     _policies.emplace_back(new nsContainerPropsView());
+    _policies.emplace_back(new nsAnchorPropsView());
     _policies.emplace_back(new nsRecursiveParticlesPropsView());
     _policies.emplace_back(new nsLayoutRefPropsView());
     _policies.emplace_back(new nsSpritePropsView());
