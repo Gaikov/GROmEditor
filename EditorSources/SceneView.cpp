@@ -15,6 +15,7 @@
 
 nsSceneView::nsSceneView() {
     _appModel = Locate<nsAppModel>();
+    _toolManager = &_appModel->tools;
     nsEditorEventBus::Shared()->AddHandler(nsEditorEventName::FIT_SCENE_TO_VIEW, [&](const nsBaseEvent *) {
         FitSceneToView();
     });
@@ -90,6 +91,10 @@ void nsSceneView::UpdateCamera() {
 }
 
 bool nsSceneView::OnPointerUp(float x, float y, int pointerId) {
+    if (_toolManager->OnPointerUp(this, x, y, pointerId)) {
+        return true;
+    }
+
     if (nsVisualContainer2d::OnPointerUp(x, y, pointerId)) {
         return true;
     }
@@ -99,6 +104,10 @@ bool nsSceneView::OnPointerUp(float x, float y, int pointerId) {
 }
 
 bool nsSceneView::OnPointerDown(float x, float y, int pointerId) {
+    if (_toolManager->OnPointerDown(this, x, y, pointerId)) {
+        return true;
+    }
+
     if (nsVisualContainer2d::OnPointerDown(x, y, pointerId)) {
         return true;
     }
@@ -112,6 +121,10 @@ bool nsSceneView::OnPointerDown(float x, float y, int pointerId) {
 }
 
 bool nsSceneView::OnPointerMove(float x, float y, int pointerId) {
+    if (_toolManager->OnPointerMove(this, x, y, pointerId)) {
+        return true;
+    }
+
     if (nsVisualContainer2d::OnPointerMove(x, y, pointerId)) {
         return true;
     }
@@ -149,6 +162,20 @@ bool nsSceneView::OnMouseWheel(float delta) {
     }
 
     return true;
+}
+
+void nsSceneView::OnKeyUp(int key, int mods) {
+    if (_toolManager->OnKeyUp(key, mods)) {
+        return;
+    }
+    nsVisualContainer2d::OnKeyUp(key, mods);
+}
+
+void nsSceneView::OnKeyDown(int key, bool rept, int mods) {
+    if (_toolManager->OnKeyDown(key, rept, mods)) {
+        return;
+    }
+    nsVisualContainer2d::OnKeyDown(key, rept, mods);
 }
 
 void nsSceneView::FitSceneToView() {

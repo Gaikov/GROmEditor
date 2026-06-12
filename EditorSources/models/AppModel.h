@@ -8,6 +8,7 @@
 #include "AppSettings.h"
 #include "nsLib/locator/Locatable.h"
 #include "project/ProjectModel.h"
+#include "tools/ToolManager.h"
 
 class nsAppModel : public nsLocatable {
 public:
@@ -15,6 +16,7 @@ public:
 
     nsAppSettings       settings;
     nsProjectModel      project;
+    nsToolManager       tools;
 
     [[nodiscard]] nsFilePath GetProjectPath() const;
 

@@ -66,4 +66,5 @@ void nsMainView::DrawNode(const nsVisualContext2d &context) {
     nsVisualObject2d *selected = _appModel->project.user.selectedObject;
     nsSceneUtils::DrawBounds(selected);
     nsSceneUtils::DrawOrigin(selected);
+    _appModel->tools.DrawOverlay();
 }

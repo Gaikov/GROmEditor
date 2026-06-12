@@ -7,6 +7,7 @@
 
 #include "gizmos/VisualHolder.h"
 #include "models/AppModel.h"
+#include "tools/ToolManager.h"
 
 class nsSceneView : public nsVisualHolder {
 public:
@@ -22,12 +23,16 @@ public:
     void Loop() override;
     void Destroy() override;
 
+    nsToolManager &GetToolManager() { return *_toolManager; }
+
 protected:
     void DrawContent(const nsVisualContext2d &context) override;
     bool OnPointerUp(float x, float y, int pointerId) override;
     bool OnPointerDown(float x, float y, int pointerId) override;
     bool OnPointerMove(float x, float y, int pointerId) override;
     bool OnMouseWheel(float delta) override;
+    void OnKeyUp(int key, int mods) override;
+    void OnKeyDown(int key, bool rept, int mods) override;
 
 private:
     void UpdateCamera();
@@ -40,6 +45,7 @@ private:
 
     nsVisualObject2d    *_scene = nullptr;
     nsAppModel           *_appModel;
+    nsToolManager        *_toolManager;
 
     float _targetAngle = 0;
     bool _dragging = false;

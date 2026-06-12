@@ -1,7 +1,7 @@
-open log: Fri Jun 12 12:26:27 2026
+open log: Fri Jun 12 12:41:04 2026
 
 *** Core Init ***
-OS Installed: Windows NT ver 6.2
+OS Installed: Linux
 CPU Speed: 0.00
 objects 'mem_pool_16' reserved: 100/100
 objects 'mem_pool_32' reserved: 100/100
@@ -20,12 +20,6 @@ WARNING: packs not found!
 ============================================
 *            Init Sound Subsystem          *
 ============================================
-...enum sound devices
-ALC_ENUMERATION_EXT - present!
------------------------------------
- - 'Generic Software'
------------------------------------
-open AL device: 'Generic Software'
 create AL context
 use context
 ---------- OpenAL info -----------
@@ -35,7 +29,6 @@ vendor: Creative Labs Inc.
 extensions: EAX EAX2.0 EAX3.0 EAX4.0 EAX5.0 EAX3.0EMULATED EAX4.0EMULATED AL_EXT_OFFSET AL_EXT_LINEAR_DISTANCE AL_EXT_EXPONENT_DISTANCE
 ----------------------------------
 ... 32 sources used
-sfx volume: 0.500000
 *****************************************
 +       initializing GL renderer        +
 *****************************************
@@ -84,7 +77,6 @@ in the console
 test running: polygon
 ===================================
 Loaded polygon scene
-mus volume: 0.500000
 ...loading stencil state: default/rs/mask.ggss
 ...loading stencil state: default/rs/masked.ggss
 ...initializing GL vertex buffer
@@ -96,16 +88,8 @@ Layout updated
 Layout updated
 Layout updated
 Layout updated
-WARNING: Memory allocations in game loop: 7222
+WARNING: Memory allocations in game loop: 2878
 WARNING: Memory allocations in game loop: 2
-activate :0
-...writing config 'test_app.cfg'
-WARNING: Memory allocations in game loop: 2
-activate :1
-...loading bitmap data: default/console.jpg
-...initializing GL vertex buffer
-WARNING: Memory allocations in game loop: 16
-> quit
 ----------------------------------------********** Shutting Down App ***********
 ----------------------------------------
 ...writing config 'test_app.cfg'
@@ -149,7 +133,7 @@ shutdown console
 ...unloading GLSL: default/rs/gles3/vertex.vert
 ...releasing textures
 ...releasing render textures
-...releasing vertex buffers: 4
+...releasing vertex buffers: 3
 ...releasing stencil state: 
 ============================================
 *           Release Sound Subsystem        *
@@ -170,4 +154,4 @@ releasing objects pool 'mem_pool_128' of 100 items
 releasing objects pool 'mem_pool_256' of 100 items
 releasing objects pool 'mem_pool_512' of 100 items
 releasing objects pool 'mem_pool_1024' of 100 items
-close log: Fri Jun 12 12:26:39 2026
+close log: Fri Jun 12 12:41:12 2026
