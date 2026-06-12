@@ -1,0 +1,23 @@
+$container {
+    $children {
+        $polygon {
+            $id "poly1"
+            $pos 150 150
+            $color 1 0 0 1
+            $point 0 -100
+            $point 100 0
+            $point 0 100
+            $point -100 0
+        }
+        $polygon {
+            $id "poly2"
+            $pos 350 150
+            $color 0 1 0 1
+            $point 0 0
+            $point 100 -80
+            $point 150 40
+            $point 80 100
+            $point -40 60
+        }
+    }
+}

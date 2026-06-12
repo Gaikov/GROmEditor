@@ -1,4 +1,4 @@
-open log: Fri Jun  5 13:02:41 2026
+open log: Tue Jun  9 12:24:34 2026
 
 *** Core Init ***
 OS Installed: Linux
@@ -42,8 +42,8 @@ GL Version: OpenGL ES 3.2.0 23.19.16.02.240814
 ...loading GLSL: default/rs/gles3/pixel.frag
 Init GL extension: GL_framebuffer_object
 Max render buffer size: 16384
-Applying window mode: 1800x947
-Applying display mode: 1800x947...
+Applying window mode: 2400x1333
+Applying display mode: 2400x1333...
 Monitor content scale: 1.000000x1.000000
 DONE
 ...initializing GL vertex buffer
@@ -114,7 +114,7 @@ Found layout file: C:/Projects/HeliumRush/Resources/tests/layouts/sprite9.layout
 Loading model: C:/Projects/HeliumRush/Resources/user.ggml
 ...creating texture: C:/Projects/HeliumRush/Resources/atlases/atlas01.png
 ...loading bitmap data: C:/Projects/HeliumRush/Resources/atlases/atlas01.png
-...loading shader: C:/Projects/HeliumRush/Resources/default/rs/gui_clamp.ggrs
+...loading shader: C:/Projects/HeliumRush/Resources/default/rs/sprite_pma.ggrs
 ...creating texture: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
 ...loading bitmap data: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
 scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_Bubble.layout
@@ -129,9 +129,8 @@ Layout updated
 Layout updated
 Layout updated
 Layout updated
-WARNING: Memory allocations in game loop: 57961
+WARNING: Memory allocations in game loop: 58024
 WARNING: Memory allocations in game loop: 2
-WARNING: Memory allocations in game loop: 1
 ----------------------------------------********** Shutting Down App ***********
 ----------------------------------------
 ...writing config 'scene_viewer.cfg'
@@ -187,4 +186,4 @@ releasing objects pool 'mem_pool_128' of 100 items
 releasing objects pool 'mem_pool_256' of 100 items
 releasing objects pool 'mem_pool_512' of 100 items
 releasing objects pool 'mem_pool_1024' of 100 items
-close log: Fri Jun  5 13:02:53 2026
+close log: Tue Jun  9 12:24:40 2026
