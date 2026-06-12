@@ -21,6 +21,7 @@
 #include "ThirdParty/imgui/ImGUI_gles3.h"
 #include "view/ViewsRoot.h"
 #include "view/popups/PopupsStack.h"
+#include "tools/SelectionTool.h"
 
 #define VIEWER_VERSION "SceneViewer 1.0.0-dev.0"
 #define VIEWER_APP "GROm Scene Viewer"
@@ -74,6 +75,7 @@ bool nsSceneViewerApp::Init() {
     _inputHandler.AddInput(&_appInput);
 
     _appModel->Load();
+    _appModel->tools.ActivateTool<SelectionTool>();
 
     _appModel->settings.fontSize.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *) {
         ImGui::GetIO().FontGlobalScale = _appModel->settings.fontSize.GetValue() / 32.0f;

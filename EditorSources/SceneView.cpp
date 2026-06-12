@@ -91,7 +91,7 @@ void nsSceneView::UpdateCamera() {
 }
 
 bool nsSceneView::OnPointerUp(float x, float y, int pointerId) {
-    if (_toolManager->OnPointerUp(this, x, y, pointerId)) {
+    if (_scene && _toolManager->OnPointerUp(_scene, x, y, pointerId)) {
         return true;
     }
 
@@ -104,7 +104,7 @@ bool nsSceneView::OnPointerUp(float x, float y, int pointerId) {
 }
 
 bool nsSceneView::OnPointerDown(float x, float y, int pointerId) {
-    if (_toolManager->OnPointerDown(this, x, y, pointerId)) {
+    if (_scene && _toolManager->OnPointerDown(_scene, x, y, pointerId)) {
         return true;
     }
 
@@ -121,7 +121,7 @@ bool nsSceneView::OnPointerDown(float x, float y, int pointerId) {
 }
 
 bool nsSceneView::OnPointerMove(float x, float y, int pointerId) {
-    if (_toolManager->OnPointerMove(this, x, y, pointerId)) {
+    if (_scene && _toolManager->OnPointerMove(_scene, x, y, pointerId)) {
         return true;
     }
 

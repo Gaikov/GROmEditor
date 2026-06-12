@@ -64,7 +64,7 @@ void nsMainView::DrawNode(const nsVisualContext2d &context) {
 
     _device->StencilApply(nullptr);
     nsVisualObject2d *selected = _appModel->project.user.selectedObject;
-    nsSceneUtils::DrawBounds(selected);
-    nsSceneUtils::DrawOrigin(selected);
+    nsSceneUtils::DrawBounds(selected, _appModel->settings.selectionColor);
+    nsSceneUtils::DrawOrigin(selected, _appModel->settings.selectionColor);
     _appModel->tools.DrawOverlay();
 }

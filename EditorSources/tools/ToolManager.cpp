@@ -4,21 +4,20 @@
 // author Roman Gaikov
 //--------------------------------------------------------------------------------------------------
 #include "ToolManager.h"
-#include "SceneView.h"
 
-bool nsToolManager::OnPointerDown(nsSceneView *view, float x, float y, int pointerId) {
+bool nsToolManager::OnPointerDown(nsVisualObject2d *scene, float x, float y, int pointerId) {
     if (!CanEdit()) return false;
-    return _activeTool->OnPointerDown(view, x, y, pointerId);
+    return _activeTool->OnPointerDown(scene, x, y, pointerId);
 }
 
-bool nsToolManager::OnPointerMove(nsSceneView *view, float x, float y, int pointerId) {
+bool nsToolManager::OnPointerMove(nsVisualObject2d *scene, float x, float y, int pointerId) {
     if (!CanEdit()) return false;
-    return _activeTool->OnPointerMove(view, x, y, pointerId);
+    return _activeTool->OnPointerMove(scene, x, y, pointerId);
 }
 
-bool nsToolManager::OnPointerUp(nsSceneView *view, float x, float y, int pointerId) {
+bool nsToolManager::OnPointerUp(nsVisualObject2d *scene, float x, float y, int pointerId) {
     if (!CanEdit()) return false;
-    return _activeTool->OnPointerUp(view, x, y, pointerId);
+    return _activeTool->OnPointerUp(scene, x, y, pointerId);
 }
 
 bool nsToolManager::OnKeyDown(int key, bool repeated, int mods) {

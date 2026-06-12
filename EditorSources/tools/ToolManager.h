@@ -8,7 +8,7 @@
 #include "ITool.h"
 #include <memory>
 
-class nsSceneView;
+class nsVisualObject2d;
 
 class nsToolManager {
 public:
@@ -36,9 +36,9 @@ public:
         return _activeTool != nullptr;
     }
 
-    bool OnPointerDown(nsSceneView *view, float x, float y, int pointerId);
-    bool OnPointerMove(nsSceneView *view, float x, float y, int pointerId);
-    bool OnPointerUp(nsSceneView *view, float x, float y, int pointerId);
+    bool OnPointerDown(nsVisualObject2d *scene, float x, float y, int pointerId);
+    bool OnPointerMove(nsVisualObject2d *scene, float x, float y, int pointerId);
+    bool OnPointerUp(nsVisualObject2d *scene, float x, float y, int pointerId);
     bool OnKeyDown(int key, bool repeated, int mods);
     bool OnKeyUp(int key, int mods);
 

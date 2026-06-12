@@ -5,16 +5,16 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 
-class nsSceneView;
+class nsVisualObject2d;
 
 class ITool {
 public:
     virtual ~ITool() = default;
 
     virtual bool CanEdit() const = 0;
-    virtual bool OnPointerDown(nsSceneView *view, float x, float y, int pointerId) = 0;
-    virtual bool OnPointerMove(nsSceneView *view, float x, float y, int pointerId) = 0;
-    virtual bool OnPointerUp(nsSceneView *view, float x, float y, int pointerId) = 0;
+    virtual bool OnPointerDown(nsVisualObject2d *scene, float x, float y, int pointerId) = 0;
+    virtual bool OnPointerMove(nsVisualObject2d *scene, float x, float y, int pointerId) = 0;
+    virtual bool OnPointerUp(nsVisualObject2d *scene, float x, float y, int pointerId) = 0;
 
     virtual bool OnKeyDown(int key, bool repeated, int mods) { return false; }
     virtual bool OnKeyUp(int key, int mods) { return false; }
