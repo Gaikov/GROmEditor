@@ -1,3 +1,6 @@
 /.idea/
 /.claude/settings.local.json
 code.bat
+/build/
+/cmake-build-*/
+/vcpkg_installed/

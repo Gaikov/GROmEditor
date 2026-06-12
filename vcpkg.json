@@ -1,0 +1,9 @@
+{
+  "name": "gromeditor",
+  "version": "1.0.0",
+  "builtin-baseline": "b216ddff25a1f432870e6c340ce79357049ef86e",
+  "dependencies": [
+    "glfw3",
+    "gtest"
+  ]
+}
