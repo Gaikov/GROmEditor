@@ -6,6 +6,8 @@
 #pragma once
 
 #include "ITool.h"
+#include "Engine/RenDevice.h"
+#include "Engine/renderer/sprites/SpriteDesc.h"
 #include "models/AppModel.h"
 
 class nsVisualPolygon;
@@ -28,6 +30,9 @@ private:
 
     nsAppModel *_appModel;
     nsVisualPolygon *_polygon;
+    IRenState *_handleRenState = nullptr;
+    ITexture *_handleTex = nullptr;
+    nsSpriteDesc _desc;
     int _dragIndex = -1;
     nsVec2 _dragPointOriginal;
     nsVec2 _dragOffset;

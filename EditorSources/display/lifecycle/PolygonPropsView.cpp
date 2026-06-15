@@ -5,7 +5,7 @@
 #include "PolygonPropsView.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVectorAdd.h"
-#include "Core/undo/UndoVectorRemove.h"
+#include "Core/undo/UndoVectorRemoveAt.h"
 #include "Engine/display/graphics/VisualPolygon.h"
 #include "imgui/imgui.h"
 #include "tools/PolygonEditTool.h"
@@ -27,10 +27,11 @@ void nsPolygonPropsView::Draw(nsVisualObject2d *target) {
     if (ImGui::Button("Add Point")) {
         undo->Push(new nsUndoVectorAdd<nsVec2>(poly->points, {0, 0}));
     }
-    if (poly->points.size() > 4) {
+    if (poly->points.size() > 3) {
         ImGui::SameLine();
         if (ImGui::Button("Remove Last")) {
-            undo->Push(new nsUndoVectorRemove<nsVec2>(poly->points, poly->points.back()));
+            undo->Push(new nsUndoVectorRemoveAt<nsVec2>(poly->points,
+                static_cast<int>(poly->points.size()) - 1));
         }
     }
     ImGui::SameLine();
