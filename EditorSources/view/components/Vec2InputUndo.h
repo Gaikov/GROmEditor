@@ -5,9 +5,11 @@
 //--------------------------------------------------------------------------------------------------
 #pragma once
 #include <string>
+#include <vector>
 
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVarChange.h"
+#include "Core/undo/UndoVectorSet.h"
 #include "imgui/imgui.h"
 #include "nsLib/log.h"
 #include "nsLib/Vec2.h"
@@ -28,6 +30,15 @@ public:
         if (ImGui::InputFloat2(title, value)) {
             Log::Info("changed: %s", value.ToStr());
             nsUndoService::Shared()->Push(new nsUndoVarChange(var, value));
+        }
+    }
+
+    static void DrawField(const char *title, std::vector<TVec2> &list, int index) {
+        nsVec2 value = list[index];
+
+        if (ImGui::InputFloat2(title, value)) {
+            Log::Info("changed: %s", value.ToStr());
+            nsUndoService::Shared()->Push(new nsUndoVectorSet<TVec2>(list, index, value));
         }
     }
 

@@ -1,4 +1,4 @@
-open log: Fri Jun 12 15:00:29 2026
+open log: Mon Jun 15 11:13:53 2026
 
 *** Core Init ***
 OS Installed: Linux
@@ -128,78 +128,37 @@ Layout updated
 Layout updated
 Layout updated
 Layout updated
-WARNING: Memory allocations in game loop: 74278
+WARNING: Memory allocations in game loop: 74280
 WARNING: Memory allocations in game loop: 2
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 19
-color changed
+...initializing GL vertex buffer
+WARNING: Memory allocations in game loop: 3
+WARNING: Memory allocations in game loop: 1
+...initializing GL vertex buffer
+created
+WARNING: Memory allocations in game loop: 3
 WARNING: Memory allocations in game loop: 2
 color changed
 WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 2
+...initializing GL vertex buffer
+WARNING: Memory allocations in game loop: 3
+color changed
+WARNING: Memory allocations in game loop: 1
 color changed
 WARNING: Memory allocations in game loop: 1
 color changed
 WARNING: Memory allocations in game loop: 2
-color changed
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-----------------------------------------********** Shutting Down App ***********
-----------------------------------------
+WARNING: Memory allocations in game loop: 2
+activate :0
 ...writing config 'scene_viewer.cfg'
-################### Release SceneViewer ###################
-Saving model: editor.ggml
-Saving project user state to folder: C:/Projects/HeliumRush/Resources
-Saving model: C:/Projects/HeliumRush/Resources/user.ggml
-...destroy scenes cache
-...releasing undo service
-### Releasing particles cache ###
-destroyed particles: 2000
-...assets context destroyed
-...releasing texture: default/keys/back-space.png
-...releasing texture: default/keys/enter.png
-...releasing texture: default/keys/shift.png
-...releasing stencil state: default/rs/mask.ggss
-...releasing stencil state: default/rs/masked.ggss
-shutdown console
-...releasing texture: default/console.jpg
-...released console buffer, chunks: 1
-...releasing font: default/sys-font.fnt
-...releasing texture: default/sys-font_0.png
-*****************************************
-+         releasing GL renderer         +
-*****************************************
-...releasing shaders
-...releasing GLSL programs
-...unloading GLSL: default/rs/gles3/pixel.frag
-...unloading GLSL: default/rs/gles3/vertex.vert
-...releasing textures
-...releasing texture: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
-...releasing texture: C:/Projects/HeliumRush/Resources/atlases/atlas01.png
-...releasing texture: default/editor/back.jpg
-...releasing render textures
-...releasing vertex buffers: 3
-...releasing stencil state: 
-============================================
-*           Release Sound Subsystem        *
-============================================
-...free sources
-...delete buffers
-...destroy context
-...close device
-
-##### Release Desktop #####
-...destroy window
-*** Core Shutdown ***
-...releasing memory pools
-releasing objects pool 'mem_pool_16' of 100 items
-releasing objects pool 'mem_pool_32' of 100 items
-releasing objects pool 'mem_pool_64' of 100 items
-releasing objects pool 'mem_pool_128' of 100 items
-releasing objects pool 'mem_pool_256' of 100 items
-releasing objects pool 'mem_pool_512' of 100 items
-releasing objects pool 'mem_pool_1024' of 100 items
-close log: Fri Jun 12 15:01:29 2026
+WARNING: Memory allocations in game loop: 2
