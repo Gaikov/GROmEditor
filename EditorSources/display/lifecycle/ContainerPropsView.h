@@ -23,7 +23,7 @@ protected:
     template<typename TVisual>
     TVisual* MenuItemCreate(const char *name, nsVisualContainer2d *c) const {
         if (ImGui::MenuItem(name)) {
-            auto res = _model->project.scenes.Create<TVisual>();
+            auto res = _model->project.scenes.Create<TVisual>(name);
             nsVisualObject2d *obj = res;
             obj->id = name;
             const auto batch = new nsUndoBatch();

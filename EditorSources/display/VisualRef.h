@@ -10,7 +10,7 @@
 class nsVisualRef : public nsVisualObject2d {
     friend class nsVisualRefBuilder;
 public:
-    nsVisualRef();
+    explicit nsVisualRef(nsVisualCreationContext2d *context);
 
     nsProperty<std::string> source;
 

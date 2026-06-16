@@ -7,8 +7,8 @@
 #include "VisualRef.h"
 #include "Core/ParserUtils.h"
 
-nsVisualObject2d * nsVisualRefBuilder::CreateDefault() {
-    return new nsVisualRef();
+nsVisualObject2d * nsVisualRefBuilder::CreateDefault(nsVisualCreationContext2d *context) {
+    return new nsVisualRef(context);
 }
 
 bool nsVisualRefBuilder::Parse(script_state_t *ss, nsVisualObject2d *object, nsVisualCreationContext2d *context) {
@@ -20,7 +20,6 @@ bool nsVisualRefBuilder::Parse(script_state_t *ss, nsVisualObject2d *object, nsV
     if (!ref) {
         return false;
     }
-    ref->_context = context;
     ref->source = context->assetsContext->ParseAssetPath(ss, "source").AsChar();
 
     if (ref->_ref) {

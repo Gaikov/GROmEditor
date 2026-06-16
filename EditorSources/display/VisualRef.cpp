@@ -6,7 +6,7 @@
 #include "Engine/display/VisualType.h"
 #include "nsLib/log.h"
 
-nsVisualRef::nsVisualRef() : source("") {
+nsVisualRef::nsVisualRef(nsVisualCreationContext2d *context) : source(""), _context(context) {
     source.AddHandler(nsPropChangedName::CHANGED, [this](const nsBaseEvent *) {
         UpdateRef();
     });
@@ -67,22 +67,25 @@ void nsVisualRef::UpdateRef() {
         origin.RemoveChild(&_ref->origin);
         _ref->Destroy();
     }
-    _ref = _context->Create(source->c_str());
 
-    if (_ref) {
-        origin.AddChild(&_ref->origin);
-        if (IsOnStage()) {
-            _ref->OnAddedToStage();
+    if (!source->empty()) {
+        _ref = _context->Create(source->c_str());
+
+        if (_ref) {
+            origin.AddChild(&_ref->origin);
+            if (IsOnStage()) {
+                _ref->OnAddedToStage();
+            }
+
+            _itemPos = _ref->origin.pos;
+            _itemScale = _ref->origin.scale;
+            _itemAngle = _ref->origin.angle;
+            _itemVisible = _ref->visible;
+
+            _ref->origin.Reset();
+            _ref->visible = true;
         }
 
-        _itemPos = _ref->origin.pos;
-        _itemScale = _ref->origin.scale;
-        _itemAngle = _ref->origin.angle;
-        _itemVisible = _ref->visible;
-
-        _ref->origin.Reset();
-        _ref->visible = true;
+        Log::Debug("Visual ref updated: %s", source->c_str());
     }
-
-    Log::Debug("Visual ref updated: %s", source->c_str());
 }

@@ -11,6 +11,7 @@
 #include "Engine/display/particles/VisualParticles.h"
 #include "Engine/display/sprite/Sprite.h"
 #include "Engine/display/text/TextLabel.h"
+#include "display/VisualRef.h"
 
 bool nsContainerPropsView::IsSupport(nsVisualObject2d *target) {
     return dynamic_cast<nsVisualContainer2d*>(target);
@@ -20,19 +21,21 @@ bool nsContainerPropsView::DrawContextMenu(nsVisualObject2d *target, bool hasPre
     const auto c = dynamic_cast<nsVisualContainer2d*>(target);
 
     if (ImGui::BeginMenu("Create...")) {
-        MenuItemCreate<nsVisualContainer2d>("Container", c);
-        MenuItemCreate<nsVisualAnchor>("Anchor", c);
-        if (const auto polygon = MenuItemCreate<nsVisualPolygon>("Polygon", c)) {
-            polygon->points = {{0, 0}, {100, 0}, {100, 100}, {0, 100}};
-        }
+        MenuItemCreate<nsVisualContainer2d>(nsVisualType::CONTAINER, c);
 
-        if (const auto sprite = MenuItemCreate<nsSprite>("Sprite", c)) {
+        if (const auto sprite = MenuItemCreate<nsSprite>(nsVisualType::SPRITE, c)) {
             sprite->renState = GetDefaultRenState();
         }
-        if (const auto label = MenuItemCreate<nsTextLabel>("Label", c)) {
+        if (const auto label = MenuItemCreate<nsTextLabel>(nsVisualType::LABEL, c)) {
             label->renState = GetDefaultRenState();
         }
-        MenuItemCreate<nsVisualParticles>("Particles", c);
+        MenuItemCreate<nsVisualRef>(nsVisualType::LAYOUT_REF, c);
+
+        MenuItemCreate<nsVisualParticles>(nsVisualType::PARTICLES, c);
+        MenuItemCreate<nsVisualAnchor>(nsVisualType::ANCHOR, c);
+        if (const auto polygon = MenuItemCreate<nsVisualPolygon>(nsVisualType::POLYGON, c)) {
+            polygon->points = {{0, 0}, {100, 0}, {100, 100}, {0, 100}};
+        }
 
         ImGui::EndMenu();
     }

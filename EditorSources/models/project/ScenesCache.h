@@ -8,6 +8,7 @@
 #include "ProjectSubModel.h"
 #include "Core/undo/UndoBatch.h"
 #include "Engine/display/VisualObject2d.h"
+#include "Engine/display/factory/VisualFactory2d.h"
 
 class nsUndoCreateLayout : public nsUndoBatch {
 public:
@@ -25,10 +26,15 @@ public:
     const std::vector<nsFilePath>& GetFiles() const { return _files; }
 
     template<typename TVisual>
-    TVisual* Create() {
-        auto obj = new TVisual();
-        AddAllocated(obj);
-        return obj;
+    TVisual* Create(const char *type) {
+        if (auto vis = nsVisualFactory2d::Shared()->CreateByType(type)) {
+            if (auto obj = dynamic_cast<TVisual*>(vis)) {
+                AddAllocated(obj);
+                return obj;
+            }
+            vis->Destroy();
+        }
+        return nullptr;
     }
 
     nsVisualObject2d* Clone(nsVisualObject2d *source);
