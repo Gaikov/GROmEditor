@@ -31,6 +31,7 @@ bool nsToolManager::OnKeyUp(int key, int mods) {
 }
 
 void nsToolManager::DrawOverlay() {
+    if (!CanEdit()) return;
     if (_activeTool) {
         _activeTool->DrawOverlay();
     }

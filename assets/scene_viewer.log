@@ -1,4 +1,4 @@
-open log: Wed Jun 17 13:02:48 2026
+open log: Wed Jun 17 13:16:05 2026
 
 *** Core Init ***
 OS Installed: Linux
@@ -129,7 +129,7 @@ Layout updated
 Layout updated
 Layout updated
 Layout updated
-WARNING: Memory allocations in game loop: 76575
+WARNING: Memory allocations in game loop: 76578
 WARNING: Memory allocations in game loop: 2
 WARNING: Memory allocations in game loop: 155
 ...creating texture: default/editor/rotate-point.png
@@ -137,30 +137,62 @@ WARNING: Memory allocations in game loop: 155
 ...loading bitmap data: default/editor/rotate-point.png
 WARNING: Memory allocations in game loop: 38
 WARNING: Memory allocations in game loop: 2
+Selected node changed
 WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 148
+WARNING: Memory allocations in game loop: 10
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 148
+WARNING: Memory allocations in game loop: 148
+WARNING: Memory allocations in game loop: 148
+WARNING: Memory allocations in game loop: 10
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 148
+WARNING: Memory allocations in game loop: 148
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 10
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 148
+WARNING: Memory allocations in game loop: 148
+WARNING: Memory allocations in game loop: 148
+WARNING: Memory allocations in game loop: 10
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 149
+WARNING: Memory allocations in game loop: 10
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 10
-WARNING: Memory allocations in game loop: 2
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 2
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 2
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
@@ -227,4 +259,4 @@ releasing objects pool 'mem_pool_128' of 100 items
 releasing objects pool 'mem_pool_256' of 100 items
 releasing objects pool 'mem_pool_512' of 100 items
 releasing objects pool 'mem_pool_1024' of 100 items
-close log: Wed Jun 17 13:03:53 2026
+close log: Wed Jun 17 13:18:31 2026

@@ -14,6 +14,7 @@
 #include "popups/OpenFilePopup.h"
 #include "popups/PopupsStack.h"
 #include "tools/FreeTransformTool.h"
+#include "tools/SelectionTool.h"
 #include "utils/ProjectUtils.h"
 
 nsMainMenuBar::nsMainMenuBar() {
@@ -98,12 +99,15 @@ nsMainMenuBar::nsMainMenuBar() {
             });
 
     const auto tools = _menu.AddItem("Tools");
-    tools->AddItem("Free Transform")
-        ->Shortcut("Ctrl+T", ImGuiMod_Ctrl | ImGuiKey_T)
+    tools->AddItem("Selection")
+        ->Shortcut("V", ImGuiKey_V)
         ->Action([&] {
-            if (auto *sel = _model->project.user.selectedObject.GetValue()) {
-                _model->tools.ActivateTool<FreeTransformTool>(sel);
-            }
+            _model->tools.ActivateTool<SelectionTool>();
+        });
+    tools->AddItem("Free Transform")
+        ->Shortcut("T", ImGuiKey_T)
+        ->Action([&] {
+            _model->tools.ActivateTool<FreeTransformTool>();
         });
 
     const auto debug = _menu.AddItem("Debug");

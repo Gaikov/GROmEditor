@@ -14,8 +14,7 @@
 #include "scene/SceneUtils.h"
 #include "tools/SelectionTool.h"
 
-FreeTransformTool::FreeTransformTool(nsVisualObject2d *target)
-    : _target(target) {
+FreeTransformTool::FreeTransformTool() {
     _appModel = Locate<nsAppModel>();
     auto *dev = nsRenDevice::Shared()->Device();
     _handleTex = dev->TextureLoad("default/editor/rotate-point.png", false, TF_RGBA, TLF_PREMULTIPLY_ALPHA);
@@ -27,8 +26,9 @@ FreeTransformTool::FreeTransformTool(nsVisualObject2d *target)
 }
 
 nsVec2 FreeTransformTool::GetCornerWorld(int index) const {
+    auto *target = GetTarget();
     nsRect rect;
-    _target->GetLocalBounds(rect);
+    target->GetLocalBounds(rect);
 
     nsVec2 local;
     switch (index) {
@@ -37,12 +37,11 @@ nsVec2 FreeTransformTool::GetCornerWorld(int index) const {
         case 2: local = {rect.maxX(), rect.maxY()}; break;
         default: local = {rect.minX(), rect.maxY()}; break;
     }
-    return _target->origin.ToGlobal(local);
+    return target->origin.ToGlobal(local);
 }
 
 int FreeTransformTool::FindCorner(float x, float y) {
-    if (!_target) return -1;
-
+    auto *target = GetTarget();
     const nsVec2 mouse = {x, y};
     for (int i = 0; i < 4; ++i) {
         const nsVec2 corner = GetCornerWorld(i);
@@ -55,22 +54,23 @@ int FreeTransformTool::FindCorner(float x, float y) {
 
 bool FreeTransformTool::OnPointerDown(nsVisualObject2d *scene, float x, float y, int pointerId) {
     if (pointerId != 0) return false;
-    if (!_target) return false;
 
     _dragHandle = FindCorner(x, y);
     if (_dragHandle >= 0) {
         _mode = ROTATE;
-        _startPos = _target->origin.pos;
-        _startAngle = _target->origin.angle;
-        const nsVec2 worldCenter = _target->origin.ToGlobal(nsVec2{0, 0});
+        auto *target = GetTarget();
+        _startPos = target->origin.pos;
+        _startAngle = target->origin.angle;
+        const nsVec2 worldCenter = target->origin.ToGlobal(nsVec2{0, 0});
         _startMouseAngle = nsVec2(x - worldCenter.x, y - worldCenter.y).GetAngle();
         return true;
     }
 
-    if (_target->HitTest(x, y)) {
+    auto *target = GetTarget();
+    if (target->HitTest(x, y)) {
         _mode = MOVE;
-        _startPos = _target->origin.pos;
-        auto *parent = _target->origin.GetParent();
+        _startPos = target->origin.pos;
+        auto *parent = target->origin.GetParent();
         const nsVec2 mouseLocal = parent ? parent->ToLocal(nsVec2{x, y}) : nsVec2{x, y};
         _mouseOffset = _startPos - mouseLocal;
         return true;
@@ -80,20 +80,20 @@ bool FreeTransformTool::OnPointerDown(nsVisualObject2d *scene, float x, float y,
 }
 
 bool FreeTransformTool::OnPointerMove(nsVisualObject2d *scene, float x, float y, int pointerId) {
-    if (!_target) return false;
-
     if (_mode == MOVE) {
-        auto *parent = _target->origin.GetParent();
+        auto *target = GetTarget();
+        auto *parent = target->origin.GetParent();
         const nsVec2 mouseLocal = parent ? parent->ToLocal(nsVec2{x, y}) : nsVec2{x, y};
-        _target->origin.pos = mouseLocal + _mouseOffset;
+        target->origin.pos = mouseLocal + _mouseOffset;
         return true;
     }
 
     if (_mode == ROTATE) {
-        const nsVec2 worldCenter = _target->origin.ToGlobal(nsVec2{0, 0});
+        auto *target = GetTarget();
+        const nsVec2 worldCenter = target->origin.ToGlobal(nsVec2{0, 0});
         const float angle = nsVec2(x - worldCenter.x, y - worldCenter.y).GetAngle();
         const float delta = angle - _startMouseAngle;
-        _target->origin.angle = _startAngle + delta;
+        target->origin.angle = _startAngle + delta;
         return true;
     }
 
@@ -105,21 +105,20 @@ bool FreeTransformTool::OnPointerUp(nsVisualObject2d *scene, float x, float y, i
     const auto prevMode = _mode;
 
     if (_mode == MOVE) {
-        const nsVec2 newPos = _target->origin.pos;
-        _target->origin.pos = _startPos;
-        nsUndoService::Shared()->Push(new nsUndoVarChange(_target->origin.pos, newPos));
+        auto *target = GetTarget();
+        const nsVec2 newPos = target->origin.pos;
+        target->origin.pos = _startPos;
+        nsUndoService::Shared()->Push(new nsUndoVarChange(target->origin.pos, newPos));
     } else if (_mode == ROTATE) {
-        const float newAngle = _target->origin.angle;
-        _target->origin.angle = _startAngle;
-        nsUndoService::Shared()->Push(new nsUndoVarChange(_target->origin.angle, newAngle));
+        auto *target = GetTarget();
+        const float newAngle = target->origin.angle;
+        target->origin.angle = _startAngle;
+        nsUndoService::Shared()->Push(new nsUndoVarChange(target->origin.angle, newAngle));
     }
 
     _mode = NONE;
     _dragHandle = -1;
-
-    if (_target) {
-        _hoverHandle = FindCorner(x, y);
-    }
+    _hoverHandle = FindCorner(x, y);
 
     return prevMode != NONE;
 }
@@ -133,14 +132,15 @@ bool FreeTransformTool::OnKeyDown(int key, bool repeated, int mods) {
 }
 
 void FreeTransformTool::DrawOverlay() {
-    if (!_target || !_handleTex) return;
+    auto *target = GetTarget();
+    if (!target || !_handleTex) return;
 
     auto *dev = nsRenDevice::Shared()->Device();
     dev->StateApply(_handleRenState);
 
-    nsSceneUtils::DrawBounds(_target, _appModel->settings.selectionColor);
+    nsSceneUtils::DrawBounds(target, _appModel->settings.selectionColor);
 
-    const float objAngle = _target->origin.angle;
+    const float objAngle = target->origin.angle;
     const nsVec2 savedPos = _desc.pos;
 
     const float cornerOffsets[4] = {

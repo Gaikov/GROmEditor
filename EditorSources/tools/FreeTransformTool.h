@@ -12,9 +12,9 @@
 
 class FreeTransformTool : public ITool {
 public:
-    explicit FreeTransformTool(nsVisualObject2d *target);
+    FreeTransformTool();
 
-    bool CanEdit() const override { return _target != nullptr; }
+    bool CanEdit() const override { return _appModel->project.user.selectedObject.GetValue() != nullptr; }
     const char *GetName() const override { return "free-transform"; }
 
     bool OnPointerDown(nsVisualObject2d *scene, float x, float y, int pointerId) override;
@@ -27,11 +27,11 @@ private:
     enum Mode { NONE, MOVE, ROTATE };
     static constexpr float HANDLE_RADIUS = 20.0f;
 
+    nsVisualObject2d *GetTarget() const { return _appModel->project.user.selectedObject.GetValue(); }
     int FindCorner(float x, float y);
     nsVec2 GetCornerWorld(int index) const;
 
     nsAppModel *_appModel;
-    nsVisualObject2d *_target;
 
     IRenState *_handleRenState = nullptr;
     ITexture *_handleTex = nullptr;
