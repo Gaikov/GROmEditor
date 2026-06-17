@@ -13,6 +13,7 @@
 #include "nsLib/locator/ServiceLocator.h"
 #include "popups/OpenFilePopup.h"
 #include "popups/PopupsStack.h"
+#include "tools/FreeTransformTool.h"
 #include "utils/ProjectUtils.h"
 
 nsMainMenuBar::nsMainMenuBar() {
@@ -95,6 +96,15 @@ nsMainMenuBar::nsMainMenuBar() {
             ->Action([] {
                 nsEditorEventBus::Shared()->Emmit(nsBaseEvent(nsEditorEventName::CENTER_SCENE_100));
             });
+
+    const auto tools = _menu.AddItem("Tools");
+    tools->AddItem("Free Transform")
+        ->Shortcut("Ctrl+T", ImGuiMod_Ctrl | ImGuiKey_T)
+        ->Action([&] {
+            if (auto *sel = _model->project.user.selectedObject.GetValue()) {
+                _model->tools.ActivateTool<FreeTransformTool>(sel);
+            }
+        });
 
     const auto debug = _menu.AddItem("Debug");
     _demoView = debug->AddItem("Demo View")->Action([&] { user.testView = !user.testView; });
