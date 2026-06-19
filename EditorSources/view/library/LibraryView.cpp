@@ -4,23 +4,19 @@
 
 #include "LibraryView.h"
 
+#include "AssetPolicyRegistry.h"
 #include "SceneTreeView.h"
 #include "Core/Package.h"
-#include "Core/undo/UndoBatch.h"
 #include "Core/undo/UndoPropertyChange.h"
 #include "Core/undo/UndoService.h"
-#include "Core/undo/UndoVarChange.h"
 #include "Core/undo/file/UndoFileCreate.h"
 #include "Engine/display/container/VisualContainer2d.h"
 #include "imgui/imgui.h"
-#include "nsLib/log.h"
 #include "nsLib/StrTools.h"
-#include "utils/FileUtils.h"
 #include "view/popups/OpenFilePopup.h"
 #include "view/popups/PopupsStack.h"
 #include <algorithm>
 #include <cstring>
-#include <string>
 
 nsLibraryView::nsLibraryView() {
     _model->settings.projectPath.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *) {
@@ -37,8 +33,6 @@ void nsLibraryView::Draw() {
     if (ImGui::Button("Clear")) {
         _filter = "";
     }
-
-    auto &user = _model->project.user;
 
     ImGui::BeginChild("LayoutsLib", ImVec2(0, 300),
                       ImGuiChildFlags_Borders | ImGuiChildFlags_ResizeY,
@@ -80,8 +74,6 @@ void nsLibraryView::RefreshAssetsTree() {
 bool nsLibraryView::BuildAssetsTreeNode(AssetTreeNode &node,
                                         const nsFilePath &path,
                                         const nsFilePath &projectPath) const {
-    static const std::vector<std::string> layoutExtensions = {"layout"};
-
     nsFilePath::tList items;
     if (!path.Listing(items)) {
         return false;
@@ -104,7 +96,7 @@ bool nsLibraryView::BuildAssetsTreeNode(AssetTreeNode &node,
             continue;
         }
 
-        if (!nsFileUtils::CheckExtension(item, layoutExtensions)) {
+        if (!nsAssetPolicyRegistry::Shared()->HasPolicy(item)) {
             continue;
         }
 
@@ -135,7 +127,7 @@ void nsLibraryView::SortAssetsTree(AssetTreeNode &node) const {
 
 void nsLibraryView::DrawAssetsTreeNode(AssetTreeNode &node) {
     if (node.isFile) {
-        DrawLayoutFileNode(node);
+        DrawAssetFileNode(node);
         return;
     }
 
@@ -152,24 +144,18 @@ void nsLibraryView::DrawAssetsTreeNode(AssetTreeNode &node) {
     ImGui::PopID();
 }
 
-void nsLibraryView::DrawLayoutFileNode(AssetTreeNode &node) {
-    auto &user = _model->project.user;
+void nsLibraryView::DrawAssetFileNode(AssetTreeNode &node) {
     const auto path = node.fullPath.AsChar();
+    const auto policy = nsAssetPolicyRegistry::Shared()->FindPolicy(node.fullPath);
+    if (!policy) {
+        return;
+    }
 
     ImGui::PushID(path);
-    if (ImGui::Selectable(node.name.AsChar(), user.currentScene == path,
+    if (ImGui::Selectable(node.name.AsChar(), policy->IsSelected(node.fullPath),
                           ImGuiSelectableFlags_AllowDoubleClick)) {
         if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
-            Log::Info("Selected: %s", path);
-            const std::string value = path;
-            const auto undo = nsUndoService::Shared();
-            const auto batch = new nsUndoBatch();
-
-            batch->Add(new nsUndoVarChange(user.selectedObject,
-                                           static_cast<nsVisualObject2d *>(nullptr)));
-            batch->Add(new nsUndoVarChange(user.currentScene, value));
-
-            undo->Push(batch);
+            policy->OnDoubleClick(node.fullPath);
         }
     }
 

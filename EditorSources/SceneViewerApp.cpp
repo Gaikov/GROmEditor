@@ -20,6 +20,7 @@
 #include "Engine/display/factory/VisualFactory2d.h"
 #include "ThirdParty/imgui/ImGUI_gles3.h"
 #include "view/ViewsRoot.h"
+#include "view/library/AssetPolicyRegistry.h"
 #include "view/popups/PopupsStack.h"
 #include "tools/SelectionTool.h"
 
@@ -57,6 +58,7 @@ bool nsSceneViewerApp::Init() {
     project.particles.SetAssetsContext(vf->assetsContext);
     vf->RegisterBuilderWithName<nsVisualRefBuilder>();
     nsVisualsLifecycle::Init();
+    nsAssetPolicyRegistry::Init();
 
     g_inp.ShowCursor(true);
     App_GetPlatform()->SetAppTitle(VIEWER_APP);
@@ -97,6 +99,7 @@ void nsSceneViewerApp::Release() {
 
     nsPopupsStack::Release();
     nsViewsRoot::Release();
+    nsAssetPolicyRegistry::Release();
     nsVisualsLifecycle::Release();
     nsEditorEventBus::Release();
     nsServiceLocator::Release();

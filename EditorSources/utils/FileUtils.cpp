@@ -9,10 +9,8 @@ bool nsFileUtils::CheckExtension(const nsFilePath &path, const std::vector<std::
         return true;
     }
 
-    auto ext = path.GetExtension();
-    ext.ToLower();
     for (auto &i : extensions) {
-        if (ext == i.c_str()) {
+        if (path.CheckExtension(i.c_str())) {
             return true;
         }
     }

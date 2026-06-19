@@ -1,4 +1,4 @@
-open log: Fri Jun 19 11:33:11 2026
+open log: Fri Jun 19 12:31:10 2026
 
 *** Core Init ***
 OS Installed: Linux
@@ -129,35 +129,19 @@ Layout updated
 Layout updated
 Layout updated
 Layout updated
-WARNING: Memory allocations in game loop: 76578
-WARNING: Memory allocations in game loop: 2
-Selected node changed
-WARNING: Memory allocations in game loop: 3
-WARNING: Memory allocations in game loop: 152
-...creating texture: default/editor/rotate-point.png
-...loading shader: default/rs/sprite_pma.ggrs
-...loading bitmap data: default/editor/rotate-point.png
-WARNING: Memory allocations in game loop: 38
-WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 76644
 WARNING: Memory allocations in game loop: 2
 WARNING: Memory allocations in game loop: 1
+activate :0
+...writing config 'scene_viewer.cfg'
 WARNING: Memory allocations in game loop: 2
-WARNING: Memory allocations in game loop: 1
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
+activate :1
+activate :0
+...writing config 'scene_viewer.cfg'
 WARNING: Memory allocations in game loop: 2
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-Selected: C:/Projects/HeliumRush/Resources/layouts/ZombieRagdoll.layout
-scene cached: C:/Projects/HeliumRush/Resources/layouts/ZombieRagdoll.layout
-WARNING: Memory allocations in game loop: 150
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-...loading shader: C:/Projects/HeliumRush/Resources/default/rs/gui.ggrs
-WARNING: Memory allocations in game loop: 185
-WARNING: Memory allocations in game loop: 1
+activate :1
+...loading bitmap data: default/console.jpg
+WARNING: Memory allocations in game loop: 11
 activate :0
 ...writing config 'scene_viewer.cfg'
 WARNING: Memory allocations in game loop: 2

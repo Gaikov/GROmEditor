@@ -28,7 +28,7 @@ private:
     bool BuildAssetsTreeNode(AssetTreeNode &node, const nsFilePath &path, const nsFilePath &projectPath) const;
     void SortAssetsTree(AssetTreeNode &node) const;
     void DrawAssetsTreeNode(AssetTreeNode &node);
-    void DrawLayoutFileNode(AssetTreeNode &node);
+    void DrawAssetFileNode(AssetTreeNode &node);
     bool IsAssetTreeNodeVisible(AssetTreeNode &node);
 
 protected:
