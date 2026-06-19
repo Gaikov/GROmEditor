@@ -40,4 +40,5 @@ protected:
     nsAssetPolicyRegistry *_assetPolicies = nullptr;
     nsFilePath _dragSourcePath = "";
     nsVisualObject2d *_dragVisual = nullptr;
+    bool _dragCreationAttempted = false;
 };

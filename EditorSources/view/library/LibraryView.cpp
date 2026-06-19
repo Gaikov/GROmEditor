@@ -26,10 +26,19 @@ nsLibraryView::nsLibraryView() {
     _model->settings.projectPath.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *) {
         RefreshAssetsTree();
     });
+    _model->project.user.currentScene.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *) {
+        _dragSourcePath = "";
+        _dragVisual = nullptr;
+        _dragCreationAttempted = false;
+    });
     RefreshAssetsTree();
 }
 
 void nsLibraryView::Draw() {
+    if (!ImGui::IsMouseDown(ImGuiMouseButton_Left)) {
+        _dragCreationAttempted = false;
+    }
+
     ImGui::Begin("Assets Library");
 
     ImGui::InputText("Search", _filter.AsChar(), nsString::MAX_SIZE - 1);
@@ -70,6 +79,7 @@ void nsLibraryView::RefreshAssetsTree() {
     _assetsTree.children.clear();
     _dragSourcePath = "";
     _dragVisual = nullptr;
+    _dragCreationAttempted = false;
     const auto projectPath = _model->GetProjectPath();
     if (projectPath.IsFolder()) {
         BuildAssetsTreeNode(_assetsTree, projectPath, projectPath);
@@ -166,9 +176,12 @@ void nsLibraryView::DrawAssetFileNode(AssetTreeNode &node) {
     }
 
     if (policy->CanCreateVisual() && ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-        if (!_dragVisual || _dragVisual->GetParent() || !(_dragSourcePath == node.fullPath)) {
-            _dragSourcePath = node.fullPath;
-            _dragVisual = policy->CreateVisual(node.fullPath);
+        if (!_dragCreationAttempted) {
+            if (!_dragVisual || _dragVisual->GetParent() || !(_dragSourcePath == node.fullPath)) {
+                _dragSourcePath = node.fullPath;
+                _dragVisual = policy->CreateVisual(node.fullPath);
+            }
+            _dragCreationAttempted = true;
         }
 
         if (_dragVisual) {

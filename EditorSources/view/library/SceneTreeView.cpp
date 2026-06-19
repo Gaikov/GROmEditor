@@ -120,17 +120,49 @@ void nsSceneTreeView::DrawDragDrop(nsVisualObject2d *node) {
     }
 
     if (ImGui::BeginDragDropTarget()) {
-        if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload(DND_TREE_VISUAL_TYPE)) {
+        const auto flags = ImGuiDragDropFlags_AcceptBeforeDelivery | ImGuiDragDropFlags_AcceptNoDrawDefaultRect;
+        if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload(DND_TREE_VISUAL_TYPE, flags)) {
             if (auto *dropped = *static_cast<nsVisualObject2d * const*>(payload->Data)) {
-                Log::Info("Dropped: %s", dropped->id.c_str());
                 if (node != dropped) {
-                    OnDragDrop(dropped, node, GetDropMode(node));
+                    const DropMode mode = GetDropMode(node);
+                    nsVisualContainer2d *targetParent = nullptr;
+                    int targetIndex = 0;
+                    if (GetDropTarget(node, mode, targetParent, targetIndex)) {
+                        DrawDropPreview(mode);
+                    }
+
+                    if (payload->Delivery) {
+                        Log::Info("Dropped: %s", dropped->id.c_str());
+                        OnDragDrop(dropped, node, mode);
+                    }
                 } else {
-                    nsAlertPopup::Warning("Can't drop on itself");
+                    if (payload->Delivery) {
+                        nsAlertPopup::Warning("Can't drop on itself");
+                    }
                 }
             }
         }
         ImGui::EndDragDropTarget();
+    }
+}
+
+void nsSceneTreeView::DrawDropPreview(const DropMode mode) const {
+    const ImVec2 rectMin = ImGui::GetItemRectMin();
+    const ImVec2 rectMax = ImGui::GetItemRectMax();
+    const ImU32 color = ImGui::GetColorU32(ImGuiCol_DragDropTarget);
+    constexpr float thickness = 2.0f;
+
+    ImDrawList *drawList = ImGui::GetWindowDrawList();
+    switch (mode) {
+        case DropMode::BEFORE:
+            drawList->AddLine(rectMin, ImVec2(rectMax.x, rectMin.y), color, thickness);
+            break;
+        case DropMode::AFTER:
+            drawList->AddLine(ImVec2(rectMin.x, rectMax.y), rectMax, color, thickness);
+            break;
+        case DropMode::INSIDE:
+            drawList->AddRect(rectMin, rectMax, color, 0, 0, thickness);
+            break;
     }
 }
 

@@ -28,6 +28,7 @@ private:
 
     void UpdateCurrentScenePath();
     void DrawDragDrop(nsVisualObject2d *node);
+    void DrawDropPreview(DropMode mode) const;
     DropMode GetDropMode(nsVisualObject2d *node) const;
     bool GetDropTarget(nsVisualObject2d *target, DropMode mode, nsVisualContainer2d *&parent, int &index) const;
     void OnDragDrop(nsVisualObject2d *source, nsVisualObject2d *target, DropMode mode);
