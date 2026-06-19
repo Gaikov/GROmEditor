@@ -6,7 +6,7 @@
 #pragma once
 
 #include "nsLib/FilePath.h"
-#include "nsLib/SubSystem.h"
+#include "nsLib/locator/Locatable.h"
 #include <memory>
 #include <vector>
 
@@ -18,15 +18,14 @@ public:
     virtual bool IsSelected(const nsFilePath &path) const { return false; }
 };
 
-class nsAssetPolicyRegistry final : public nsSubSystem<nsAssetPolicyRegistry> {
+class nsAssetPolicyRegistry final : public nsLocatable {
 public:
     void RegisterPolicy(const char *extension, std::shared_ptr<IAssetPolicy> policy);
     IAssetPolicy *FindPolicy(const nsFilePath &path) const;
     bool HasPolicy(const nsFilePath &path) const;
 
 protected:
-    bool OnInit() override;
-    void OnRelease() override;
+    void OnCreated() override;
 
 private:
     struct Entry {

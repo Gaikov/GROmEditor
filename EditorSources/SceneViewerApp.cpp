@@ -50,6 +50,7 @@ bool nsSceneViewerApp::Init() {
     nsServiceLocator::Init();
     const auto locator = nsServiceLocator::Shared();
     locator->MapClass<nsAppModel>().AsSingleton().GetInstance();
+    locator->MapClass<nsAssetPolicyRegistry>().AsSingleton().GetInstance();
     _appModel = Locate<nsAppModel>();
     auto &project = _appModel->project;
 
@@ -58,7 +59,6 @@ bool nsSceneViewerApp::Init() {
     project.particles.SetAssetsContext(vf->assetsContext);
     vf->RegisterBuilderWithName<nsVisualRefBuilder>();
     nsVisualsLifecycle::Init();
-    nsAssetPolicyRegistry::Init();
 
     g_inp.ShowCursor(true);
     App_GetPlatform()->SetAppTitle(VIEWER_APP);
@@ -99,7 +99,6 @@ void nsSceneViewerApp::Release() {
 
     nsPopupsStack::Release();
     nsViewsRoot::Release();
-    nsAssetPolicyRegistry::Release();
     nsVisualsLifecycle::Release();
     nsEditorEventBus::Release();
     nsServiceLocator::Release();

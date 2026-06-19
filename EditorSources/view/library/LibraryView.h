@@ -8,6 +8,8 @@
 #include "view/BaseView.h"
 #include <vector>
 
+class nsAssetPolicyRegistry;
+
 class nsLibraryView : public nsBaseView {
 public:
     nsLibraryView();
@@ -34,4 +36,5 @@ private:
 protected:
     nsString _filter;
     AssetTreeNode _assetsTree;
+    nsAssetPolicyRegistry *_assetPolicies = nullptr;
 };

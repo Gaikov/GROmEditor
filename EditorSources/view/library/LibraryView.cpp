@@ -13,12 +13,14 @@
 #include "Engine/display/container/VisualContainer2d.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
+#include "nsLib/locator/ServiceLocator.h"
 #include "view/popups/OpenFilePopup.h"
 #include "view/popups/PopupsStack.h"
 #include <algorithm>
 #include <cstring>
 
 nsLibraryView::nsLibraryView() {
+    _assetPolicies = Locate<nsAssetPolicyRegistry>();
     _model->settings.projectPath.AddHandler(nsPropChangedName::CHANGED, [&](const nsBaseEvent *) {
         RefreshAssetsTree();
     });
@@ -96,7 +98,7 @@ bool nsLibraryView::BuildAssetsTreeNode(AssetTreeNode &node,
             continue;
         }
 
-        if (!nsAssetPolicyRegistry::Shared()->HasPolicy(item)) {
+        if (!_assetPolicies->HasPolicy(item)) {
             continue;
         }
 
@@ -146,7 +148,7 @@ void nsLibraryView::DrawAssetsTreeNode(AssetTreeNode &node) {
 
 void nsLibraryView::DrawAssetFileNode(AssetTreeNode &node) {
     const auto path = node.fullPath.AsChar();
-    const auto policy = nsAssetPolicyRegistry::Shared()->FindPolicy(node.fullPath);
+    const auto policy = _assetPolicies->FindPolicy(node.fullPath);
     if (!policy) {
         return;
     }
