@@ -6,10 +6,12 @@
 
 #include "AssetPolicyRegistry.h"
 #include "SceneTreeView.h"
+#include "SceneDragDrop.h"
 #include "Core/Package.h"
 #include "Core/undo/UndoPropertyChange.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/file/UndoFileCreate.h"
+#include "Engine/display/VisualObject2d.h"
 #include "Engine/display/container/VisualContainer2d.h"
 #include "imgui/imgui.h"
 #include "nsLib/StrTools.h"
@@ -66,6 +68,8 @@ void nsLibraryView::Draw() {
 
 void nsLibraryView::RefreshAssetsTree() {
     _assetsTree.children.clear();
+    _dragSourcePath = "";
+    _dragVisual = nullptr;
     const auto projectPath = _model->GetProjectPath();
     if (projectPath.IsFolder()) {
         BuildAssetsTreeNode(_assetsTree, projectPath, projectPath);
@@ -161,9 +165,16 @@ void nsLibraryView::DrawAssetFileNode(AssetTreeNode &node) {
         }
     }
 
-    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-        ImGui::SetDragDropPayload("MY_DND_TYPE", path, strlen(path) + 1);
-        ImGui::Text("Drop to scene tree...");
+    if (policy->CanCreateVisual() && ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+        if (!_dragVisual || _dragVisual->GetParent() || !(_dragSourcePath == node.fullPath)) {
+            _dragSourcePath = node.fullPath;
+            _dragVisual = policy->CreateVisual(node.fullPath);
+        }
+
+        if (_dragVisual) {
+            ImGui::SetDragDropPayload(DND_TREE_VISUAL_TYPE, &_dragVisual, sizeof(nsVisualObject2d *));
+            ImGui::Text("Drop to scene tree...");
+        }
         ImGui::EndDragDropSource();
     }
     ImGui::PopID();

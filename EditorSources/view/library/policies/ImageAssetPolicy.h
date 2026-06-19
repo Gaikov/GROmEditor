@@ -10,4 +10,6 @@
 class nsImageAssetPolicy final : public IAssetPolicy {
 public:
     void OnDoubleClick(const nsFilePath &path) override;
+    bool CanCreateVisual() const override { return true; }
+    nsVisualObject2d *CreateVisual(const nsFilePath &path) override;
 };

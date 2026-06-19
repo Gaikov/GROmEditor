@@ -9,6 +9,7 @@
 #include <vector>
 
 class nsAssetPolicyRegistry;
+class nsVisualObject2d;
 
 class nsLibraryView : public nsBaseView {
 public:
@@ -37,4 +38,6 @@ protected:
     nsString _filter;
     AssetTreeNode _assetsTree;
     nsAssetPolicyRegistry *_assetPolicies = nullptr;
+    nsFilePath _dragSourcePath = "";
+    nsVisualObject2d *_dragVisual = nullptr;
 };

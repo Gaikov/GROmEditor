@@ -4,6 +4,8 @@
 
 #include "SceneTreeView.h"
 
+#include "SceneDragDrop.h"
+#include "Core/undo/UndoBatch.h"
 #include "Core/undo/UndoService.h"
 #include "Core/undo/UndoVarChange.h"
 #include "display/lifecycle/VisualsLifecycle.h"
@@ -110,14 +112,8 @@ void nsSceneTreeView::PostDraw() {
     }
 }
 
-#define DND_TREE_VISUAL_TYPE "DND_TREE_VISUAL_TYPE"
-
 void nsSceneTreeView::DrawDragDrop(nsVisualObject2d *node) {
-    if (nsVisualHolder::IsRoot(node)) {
-        return;
-    }
-
-    if (ImGui::BeginDragDropSource()) {
+    if (!nsVisualHolder::IsRoot(node) && ImGui::BeginDragDropSource()) {
         ImGui::SetDragDropPayload(DND_TREE_VISUAL_TYPE, &node, sizeof(nsVisualObject2d *));
         ImGui::Text("Moving: ", node->id.c_str());
         ImGui::EndDragDropSource();
@@ -128,7 +124,7 @@ void nsSceneTreeView::DrawDragDrop(nsVisualObject2d *node) {
             if (auto *dropped = *static_cast<nsVisualObject2d * const*>(payload->Data)) {
                 Log::Info("Dropped: %s", dropped->id.c_str());
                 if (node != dropped) {
-                    OnDragDrop(dropped, node);
+                    OnDragDrop(dropped, node, GetDropMode(node));
                 } else {
                     nsAlertPopup::Warning("Can't drop on itself");
                 }
@@ -138,10 +134,80 @@ void nsSceneTreeView::DrawDragDrop(nsVisualObject2d *node) {
     }
 }
 
-void nsSceneTreeView::OnDragDrop(nsVisualObject2d *source, const nsVisualObject2d *target) {
-    const auto targetParent = target->GetParent();
+nsSceneTreeView::DropMode nsSceneTreeView::GetDropMode(nsVisualObject2d *node) const {
+    if (nsVisualHolder::IsRoot(node)) {
+        return DropMode::INSIDE;
+    }
+
+    const auto rectMin = ImGui::GetItemRectMin();
+    const auto rectMax = ImGui::GetItemRectMax();
+    const auto mouse = ImGui::GetMousePos();
+    const float height = rectMax.y - rectMin.y;
+    if (height <= 0) {
+        return DropMode::BEFORE;
+    }
+
+    const float localY = mouse.y - rectMin.y;
+    if (dynamic_cast<nsVisualContainer2d *>(node)) {
+        if (localY < height * 0.25f) {
+            return DropMode::BEFORE;
+        }
+        if (localY > height * 0.75f) {
+            return DropMode::AFTER;
+        }
+        return DropMode::INSIDE;
+    }
+
+    return localY < height * 0.5f ? DropMode::BEFORE : DropMode::AFTER;
+}
+
+bool nsSceneTreeView::GetDropTarget(nsVisualObject2d *target,
+                                    const DropMode mode,
+                                    nsVisualContainer2d *&parent,
+                                    int &index) const {
+    if (mode == DropMode::INSIDE) {
+        parent = dynamic_cast<nsVisualContainer2d *>(target);
+        if (!parent) {
+            return false;
+        }
+        index = static_cast<int>(parent->GetChildren().size());
+        return true;
+    }
+
+    if (nsVisualHolder::IsRoot(target)) {
+        return false;
+    }
+
+    parent = target->GetParent();
+    if (!parent) {
+        return false;
+    }
+
+    index = parent->GetChildIndex(target);
+    if (mode == DropMode::AFTER) {
+        index++;
+    }
+    return true;
+}
+
+void nsSceneTreeView::OnDragDrop(nsVisualObject2d *source, nsVisualObject2d *target, const DropMode mode) {
+    nsVisualContainer2d *targetParent = nullptr;
+    int targetIndex = 0;
+    if (!GetDropTarget(target, mode, targetParent, targetIndex)) {
+        nsAlertPopup::Warning("Can't drop on target");
+        return;
+    }
+
     const auto sourceParent = source->GetParent();
-    auto targetIndex = targetParent->GetChildIndex(target);
+    if (!sourceParent) {
+        const auto batch = new nsUndoBatch();
+        batch->Add(new nsUndoInsertVisualChild(targetParent, source, targetIndex));
+        batch->Add(new nsUndoVarChange(_model->project.user.selectedObject, source));
+        _preselect = source;
+        nsUndoService::Shared()->Push(batch);
+        return;
+    }
+
     const auto sourceIndex = sourceParent->GetChildIndex(source);
     if (targetParent == sourceParent) {
         if (sourceIndex < targetIndex) {

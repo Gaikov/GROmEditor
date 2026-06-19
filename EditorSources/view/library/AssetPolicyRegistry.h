@@ -10,12 +10,16 @@
 #include <memory>
 #include <vector>
 
+class nsVisualObject2d;
+
 class IAssetPolicy {
 public:
     virtual ~IAssetPolicy() = default;
 
     virtual void OnDoubleClick(const nsFilePath &path) = 0;
-    virtual bool IsSelected(const nsFilePath &path) const { return false; }
+    virtual bool IsSelected(const nsFilePath &) const { return false; }
+    virtual bool CanCreateVisual() const { return false; }
+    virtual nsVisualObject2d *CreateVisual(const nsFilePath &) { return nullptr; }
 };
 
 class nsAssetPolicyRegistry final : public nsLocatable {

@@ -1,4 +1,4 @@
-open log: Fri Jun 19 14:03:04 2026
+open log: Fri Jun 19 15:57:15 2026
 
 *** Core Init ***
 OS Installed: Linux
@@ -72,7 +72,7 @@ WARNING: overriding layout builder: layoutRef
 Loading model: editor.ggml
 ...destroy scenes cache
 Loading project from folder: C:/Projects/HeliumRush/Resources
-WARNING: can't open file 'C:/Projects/HeliumRush/Resources/custom_visuals.ggml'
+WARNING: reader is empty
 WARNING: file desc not found in packs 'C:/Projects/HeliumRush/Resources/custom_visuals.ggml'!
 Loading scenes cache from folder: C:/Projects/HeliumRush/Resources
 Found layout file: C:/Projects/HeliumRush/Resources/default/viewer/main.layout
@@ -113,11 +113,26 @@ Found layout file: C:/Projects/HeliumRush/Resources/tests/layouts/container.layo
 Found layout file: C:/Projects/HeliumRush/Resources/tests/layouts/image.layout
 Found layout file: C:/Projects/HeliumRush/Resources/tests/layouts/sprite9.layout
 Loading model: C:/Projects/HeliumRush/Resources/user.ggml
-...creating texture: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
-...loading bitmap data: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
-...creating texture: C:/Projects/HeliumRush/Resources/atlases/atlas01.png
-...loading bitmap data: C:/Projects/HeliumRush/Resources/atlases/atlas01.png
-scene cached: C:/Projects/HeliumRush/Resources/layouts/background.layout
+...creating texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie00.png
+...loading bitmap data: C:/Projects/HeliumRush/Resources/images/zombie/zombie00.png
+...loading shader: C:/Projects/HeliumRush/Resources/default/rs/sprite_pma.ggrs
+...creating texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie01.png
+...loading bitmap data: C:/Projects/HeliumRush/Resources/images/zombie/zombie01.png
+...creating texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie02.png
+...loading bitmap data: C:/Projects/HeliumRush/Resources/images/zombie/zombie02.png
+...creating texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie03.png
+...loading bitmap data: C:/Projects/HeliumRush/Resources/images/zombie/zombie03.png
+...creating texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie04.png
+...loading bitmap data: C:/Projects/HeliumRush/Resources/images/zombie/zombie04.png
+...creating texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie07.png
+...loading bitmap data: C:/Projects/HeliumRush/Resources/images/zombie/zombie07.png
+...creating texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie05.png
+...loading bitmap data: C:/Projects/HeliumRush/Resources/images/zombie/zombie05.png
+...creating texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie06.png
+...loading bitmap data: C:/Projects/HeliumRush/Resources/images/zombie/zombie06.png
+...creating texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie08.png
+...loading bitmap data: C:/Projects/HeliumRush/Resources/images/zombie/zombie08.png
+scene cached: C:/Projects/HeliumRush/Resources/layouts/ZombieRagdoll.layout
 ...loading stencil state: default/rs/mask.ggss
 ...loading stencil state: default/rs/masked.ggss
 ...initializing GL vertex buffer
@@ -129,50 +144,406 @@ Layout updated
 Layout updated
 Layout updated
 Layout updated
-WARNING: Memory allocations in game loop: 76647
-activate :0
-...writing config 'scene_viewer.cfg'
-WARNING: Memory allocations in game loop: 2
-activate :1
-WARNING: Memory allocations in game loop: 2
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 154
-Selected node changed
+WARNING: Memory allocations in game loop: 76931
 WARNING: Memory allocations in game loop: 2
 Selected node changed
+WARNING: Memory allocations in game loop: 3
+WARNING: Memory allocations in game loop: 323
+Selected node changed
 WARNING: Memory allocations in game loop: 2
-WARNING: Memory allocations in game loop: 147
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 159
+Dropped: zombie06
+WARNING: Memory allocations in game loop: 8
+Selected node changed
+WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 159
+Dropped: zombie08
+WARNING: Memory allocations in game loop: 8
 Selected node changed
 WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 147
-WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 159
+Selected node changed
 WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 159
+Selected node changed
 WARNING: Memory allocations in game loop: 1
 ...creating texture: default/editor/rotate-point.png
 ...loading shader: default/rs/sprite_pma.ggrs
 ...loading bitmap data: default/editor/rotate-point.png
 WARNING: Memory allocations in game loop: 38
 WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Dropped: zombie06
+WARNING: Memory allocations in game loop: 8
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
 WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 159
+Dropped: zombie05
+WARNING: Memory allocations in game loop: 8
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Dropped: zombie05
+WARNING: Memory allocations in game loop: 8
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 1
+Dropped: zombie07
+WARNING: Memory allocations in game loop: 8
+Dropped: zombie07
+WARNING: Memory allocations in game loop: 8
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+WARNING: Memory allocations in game loop: 1
+Selected node changed
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Dropped: zombie00
+WARNING: Memory allocations in game loop: 8
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 159
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 2
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Saving project to folder: C:/Projects/HeliumRush/Resources
+Saving scenes cache to folder: C:/Projects/HeliumRush/Resources
+serializing layout: C:/Projects/HeliumRush/Resources/layouts/ZombieRagdoll.layout
+Saving model: C:/Projects/HeliumRush/Resources/user.ggml
+Popup opened: Info##Popup_0
+WARNING: Memory allocations in game loop: 5549
+Popup closed: Info##Popup_0
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
+Selected node changed
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 2
+Selected node changed
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 10
+Selected node changed
 WARNING: Memory allocations in game loop: 1
+Selected node changed
 WARNING: Memory allocations in game loop: 1
+Selected node changed
 WARNING: Memory allocations in game loop: 1
+Selected node changed
 WARNING: Memory allocations in game loop: 1
+Selected node changed
 WARNING: Memory allocations in game loop: 1
+Selected node changed
 WARNING: Memory allocations in game loop: 1
+Selected node changed
 WARNING: Memory allocations in game loop: 1
-activate :0
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Selected node changed
+WARNING: Memory allocations in game loop: 1
+Saving project to folder: C:/Projects/HeliumRush/Resources
+Saving scenes cache to folder: C:/Projects/HeliumRush/Resources
+serializing layout: C:/Projects/HeliumRush/Resources/layouts/ZombieRagdoll.layout
+Saving model: C:/Projects/HeliumRush/Resources/user.ggml
+Popup opened: Info##Popup_1
+WARNING: Memory allocations in game loop: 5546
+Popup closed: Info##Popup_1
+----------------------------------------********** Shutting Down App ***********
+----------------------------------------
 ...writing config 'scene_viewer.cfg'
-WARNING: Memory allocations in game loop: 2
+################### Release SceneViewer ###################
+Saving model: editor.ggml
+Saving project user state to folder: C:/Projects/HeliumRush/Resources
+Saving model: C:/Projects/HeliumRush/Resources/user.ggml
+...destroy scenes cache
+...releasing undo service
+### Releasing particles cache ###
+destroyed particles: 2000
+...assets context destroyed
+...releasing texture: default/keys/back-space.png
+...releasing texture: default/keys/enter.png
+...releasing texture: default/keys/shift.png
+...releasing stencil state: default/rs/mask.ggss
+...releasing stencil state: default/rs/masked.ggss
+shutdown console
+...releasing texture: default/console.jpg
+...released console buffer, chunks: 1
+...releasing font: default/sys-font.fnt
+...releasing texture: default/sys-font_0.png
+*****************************************
++         releasing GL renderer         +
+*****************************************
+...releasing shaders
+...releasing GLSL programs
+...unloading GLSL: default/rs/gles3/pixel.frag
+...unloading GLSL: default/rs/gles3/vertex.vert
+...releasing textures
+...releasing texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie00.png
+...releasing texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie01.png
+...releasing texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie02.png
+...releasing texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie03.png
+...releasing texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie04.png
+...releasing texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie05.png
+...releasing texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie06.png
+...releasing texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie07.png
+...releasing texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie08.png
+...releasing texture: default/editor/back.jpg
+...releasing texture: default/editor/rotate-point.png
+...releasing render textures
+...releasing vertex buffers: 3
+...releasing stencil state: 
+============================================
+*           Release Sound Subsystem        *
+============================================
+...free sources
+...delete buffers
+...destroy context
+...close device
+
+##### Release Desktop #####
+...destroy window
+*** Core Shutdown ***
+...releasing memory pools
+releasing objects pool 'mem_pool_16' of 100 items
+releasing objects pool 'mem_pool_32' of 100 items
+releasing objects pool 'mem_pool_64' of 100 items
+releasing objects pool 'mem_pool_128' of 100 items
+releasing objects pool 'mem_pool_256' of 100 items
+releasing objects pool 'mem_pool_512' of 100 items
+releasing objects pool 'mem_pool_1024' of 100 items
+close log: Fri Jun 19 16:01:42 2026
