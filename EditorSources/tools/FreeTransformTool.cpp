@@ -14,6 +14,13 @@
 #include "scene/SceneUtils.h"
 #include "tools/SelectionTool.h"
 
+static const float HANDLE_OFFSET_ANGLES[4] = {
+    nsMath::ToRad(225.0f),  // bottom-left
+    nsMath::ToRad(135.0f),  // bottom-right
+    nsMath::ToRad(45.0f),   // top-right
+    nsMath::ToRad(315.0f),  // top-left
+};
+
 FreeTransformTool::FreeTransformTool() {
     _appModel = Locate<nsAppModel>();
     auto *dev = nsRenDevice::Shared()->Device();
@@ -37,7 +44,10 @@ nsVec2 FreeTransformTool::GetCornerWorld(int index) const {
         case 2: local = {rect.maxX(), rect.maxY()}; break;
         default: local = {rect.minX(), rect.maxY()}; break;
     }
-    return target->origin.ToGlobal(local);
+
+    const nsVec2 worldCorner = target->origin.ToGlobal(local);
+    const nsVec2 dir = nsVec2::FromAngle(target->origin.angle + HANDLE_OFFSET_ANGLES[index]);
+    return worldCorner + dir * HANDLE_OFFSET;
 }
 
 int FreeTransformTool::FindCorner(float x, float y) {
@@ -143,16 +153,9 @@ void FreeTransformTool::DrawOverlay() {
     const float objAngle = target->origin.angle;
     const nsVec2 savedPos = _desc.pos;
 
-    const float cornerOffsets[4] = {
-        nsMath::ToRad(270.0f - 45.0f),  // bottom-left
-        nsMath::ToRad(180.0f - 45.0f),  // bottom-right
-        nsMath::ToRad(90.0f - 45.0f),   // top-right
-        nsMath::ToRad(0.0f - 45.0f),    // top-left
-    };
-
     for (int i = 0; i < 4; ++i) {
         _transform.pos = GetCornerWorld(i);
-        _transform.angle = objAngle + cornerOffsets[i];
+        _transform.angle = objAngle + HANDLE_OFFSET_ANGLES[i];
 
         nsMatrix m;
         _transform.GetLocal().ToMatrix3(m);

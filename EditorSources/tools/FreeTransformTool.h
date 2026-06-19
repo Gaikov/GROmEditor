@@ -26,6 +26,7 @@ public:
 private:
     enum Mode { NONE, MOVE, ROTATE };
     static constexpr float HANDLE_RADIUS = 20.0f;
+    static constexpr float HANDLE_OFFSET = 30.0f;
 
     nsVisualObject2d *GetTarget() const { return _appModel->project.user.selectedObject.GetValue(); }
     int FindCorner(float x, float y);
