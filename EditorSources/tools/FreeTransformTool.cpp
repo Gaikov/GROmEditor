@@ -46,7 +46,8 @@ nsVec2 FreeTransformTool::GetCornerWorld(int index) const {
     }
 
     const nsVec2 worldCorner = target->origin.ToGlobal(local);
-    const nsVec2 dir = nsVec2::FromAngle(target->origin.angle + HANDLE_OFFSET_ANGLES[index]);
+    const float globalAngle = target->origin.ToGlobalAngle(0);
+    const nsVec2 dir = nsVec2::FromAngle(globalAngle + HANDLE_OFFSET_ANGLES[index]);
     return worldCorner + dir * HANDLE_OFFSET;
 }
 
@@ -150,27 +151,18 @@ void FreeTransformTool::DrawOverlay() {
 
     nsSceneUtils::DrawBounds(target, _appModel->settings.selectionColor);
 
-    const float objAngle = target->origin.angle;
-    const nsVec2 savedPos = _desc.pos;
+    const float globalAngle = target->origin.ToGlobalAngle(0);
 
     for (int i = 0; i < 4; ++i) {
         _transform.pos = GetCornerWorld(i);
-        _transform.angle = objAngle + HANDLE_OFFSET_ANGLES[i];
+        _transform.angle = globalAngle + HANDLE_OFFSET_ANGLES[i];
 
         nsMatrix m;
         _transform.GetLocal().ToMatrix3(m);
         dev->LoadMatrix(m);
 
-        _desc.pos = {0, 0};
         const bool active = i == _dragHandle || i == _hoverHandle;
         _desc.color = active ? nsColor::green : nsColor::white;
         _desc.Draw(dev);
     }
-
-    _desc.pos = savedPos;
-
-    _transform.Reset();
-    nsMatrix identity;
-    _transform.GetLocal().ToMatrix3(identity);
-    dev->LoadMatrix(identity);
 }
