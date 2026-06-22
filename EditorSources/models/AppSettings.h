@@ -15,11 +15,13 @@ public:
         AddItem("project_path", &projectPath);
         AddItem("font_size", &fontSize);
         AddItem("selection_color", &selectionColor);
+        AddItem("origin_color", &originColor);
         AddItem("hover_color", &hoverColor);
     }
 
     nsStringVar         projectPath = ".";
     nsFloatVar          fontSize = 16.0f;
     nsColorVar          selectionColor = nsColor::green;
+    nsColorVar          originColor = nsColor::magenta;
     nsColorVar          hoverColor = nsColor(0.3f, 0.5f, 1.0f, 0.7f);
 };
