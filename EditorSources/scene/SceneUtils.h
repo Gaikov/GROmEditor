@@ -9,6 +9,9 @@
 
 class nsSceneUtils {
 public:
-    static void DrawBounds(nsVisualObject2d *obj, const nsColor &color = nsColor::green);
+    static void DrawBounds(nsVisualObject2d *obj,
+                           const nsColor &color = nsColor::green,
+                           const nsColor &dashColor = nsColor::white,
+                           float dashLength = 16.0f);
     static void DrawOrigin(nsVisualObject2d *obj, const nsColor &color = nsColor::magenta);
 };

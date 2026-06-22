@@ -6,7 +6,10 @@
 
 #include "Engine/RenAux.h"
 
-void nsSceneUtils::DrawBounds(nsVisualObject2d *obj, const nsColor &color) {
+void nsSceneUtils::DrawBounds(nsVisualObject2d *obj,
+                              const nsColor &color,
+                              const nsColor &dashColor,
+                              const float dashLength) {
     if (!obj) return;
 
     nsRect rect;
@@ -19,10 +22,10 @@ void nsSceneUtils::DrawBounds(nsVisualObject2d *obj, const nsColor &color) {
     const auto v3 = l.ToGlobal(nsVec2(rect.maxX(), rect.maxY()));
     const auto v4 = l.ToGlobal(nsVec2(rect.maxX(), rect.minY()));
 
-    RX_DrawLine(v1, v2, color);
-    RX_DrawLine(v3, v2, color);
-    RX_DrawLine(v3, v4, color);
-    RX_DrawLine(v1, v4, color);
+    nsGizmos::DrawDashedLine(v1, v2, color, dashColor, dashLength);
+    nsGizmos::DrawDashedLine(v3, v2, color, dashColor, dashLength);
+    nsGizmos::DrawDashedLine(v3, v4, color, dashColor, dashLength);
+    nsGizmos::DrawDashedLine(v1, v4, color, dashColor, dashLength);
 }
 
 void nsSceneUtils::DrawOrigin(nsVisualObject2d *obj, const nsColor &color) {

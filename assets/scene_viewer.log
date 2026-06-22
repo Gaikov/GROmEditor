@@ -1,4 +1,4 @@
-open log: Fri Jun 19 17:34:40 2026
+open log: Mon Jun 22 13:46:28 2026
 
 *** Core Init ***
 OS Installed: Linux
@@ -131,65 +131,31 @@ Layout updated
 Layout updated
 WARNING: Memory allocations in game loop: 76797
 WARNING: Memory allocations in game loop: 2
-Selected node changed
+WARNING: Memory allocations in game loop: 1
+...initializing GL vertex buffer
 WARNING: Memory allocations in game loop: 3
-WARNING: Memory allocations in game loop: 5
-...creating texture: default/editor/rotate-point.png
-...loading shader: default/rs/sprite_pma.ggrs
-...loading bitmap data: default/editor/rotate-point.png
-WARNING: Memory allocations in game loop: 38
 WARNING: Memory allocations in game loop: 2
 WARNING: Memory allocations in game loop: 2
-WARNING: Memory allocations in game loop: 1
-Selected node changed
 WARNING: Memory allocations in game loop: 2
-WARNING: Memory allocations in game loop: 147
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-Selected node changed
-WARNING: Memory allocations in game loop: 2
-WARNING: Memory allocations in game loop: 147
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 147
-WARNING: Memory allocations in game loop: 2
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 147
-WARNING: Memory allocations in game loop: 1
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 2
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 1
+...initializing GL vertex buffer
+WARNING: Memory allocations in game loop: 3
+...initializing GL vertex buffer
+WARNING: Memory allocations in game loop: 3
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 152
 Selected: C:/Projects/HeliumRush/Resources/layouts/ZombieRagdoll.layout
 ...creating texture: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
 ...loading bitmap data: C:/Projects/HeliumRush/Resources/atlases/atlas00.png
@@ -218,87 +184,47 @@ Visual ref updated: C:/Projects/HeliumRush/Resources/layouts/Res_Zombie.layout
 scene cached: C:/Projects/HeliumRush/Resources/layouts/ZombieRagdoll.layout
 Visual ref updated: C:/Projects/HeliumRush/Resources/layouts/Res_Zombie.layout
 WARNING: Memory allocations in game loop: 614
-...loading bitmap data: default/console.jpg
-WARNING: Memory allocations in game loop: 11
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 147
-Selected node changed
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 1
-Selected node changed
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
-Selected: C:/Projects/HeliumRush/Resources/layouts/Res_AchievementPanel.layout
-loading font: C:/Projects/HeliumRush/Resources/fnt/Full_Dece_Sans_16_ffde79.fnt
-...creating texture: C:/Projects/HeliumRush/Resources/fnt/Full_Dece_Sans_16_ffde79_0.png
-...loading bitmap data: C:/Projects/HeliumRush/Resources/fnt/Full_Dece_Sans_16_ffde79_0.png
-...loading shader: C:/Projects/HeliumRush/Resources/default/rs/gui_clamp.ggrs
-loading font: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_16_ffde79_glow.fnt
-...creating texture: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_16_ffde79_glow_0.png
-...loading bitmap data: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_16_ffde79_glow_0.png
-scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_AchievementPanel.layout
-WARNING: Memory allocations in game loop: 283
-Selected: C:/Projects/HeliumRush/Resources/layouts/Res_AchievementsPopup.layout
-loading font: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_20_ffde79_glow.fnt
-...creating texture: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_20_ffde79_glow_0.png
-...loading bitmap data: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_20_ffde79_glow_0.png
-scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_AchievementsPopup.layout
-WARNING: Memory allocations in game loop: 345
-...initializing GL vertex buffer
-WARNING: Memory allocations in game loop: 4
-Selected node changed
-WARNING: Memory allocations in game loop: 1
-Selected node changed
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
-Selected: C:/Projects/HeliumRush/Resources/layouts/Res_AddPoints.layout
-loading font: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_30_ffffff_glow.fnt
-...creating texture: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_30_ffffff_glow_0.png
-...loading bitmap data: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_30_ffffff_glow_0.png
-scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_AddPoints.layout
-WARNING: Memory allocations in game loop: 192
 WARNING: Memory allocations in game loop: 1
 WARNING: Memory allocations in game loop: 1
-WARNING: Memory allocations in game loop: 10
 WARNING: Memory allocations in game loop: 1
-Selected: C:/Projects/HeliumRush/Resources/layouts/Res_AirSupportTipsPopup.layout
-loading font: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_18_ffecce_glow.fnt
-...creating texture: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_18_ffecce_glow_0.png
-...loading bitmap data: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_18_ffecce_glow_0.png
-scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_AirSupportTipsPopup.layout
-WARNING: Memory allocations in game loop: 350
-...initializing GL vertex buffer
-WARNING: Memory allocations in game loop: 4
-Selected: C:/Projects/HeliumRush/Resources/layouts/Res_AirSupportWarning.layout
-scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_AirSupportWarning.layout
-WARNING: Memory allocations in game loop: 282
-...initializing GL vertex buffer
-WARNING: Memory allocations in game loop: 4
-Selected: C:/Projects/HeliumRush/Resources/layouts/Res_Background.layout
-scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_Background.layout
-WARNING: Memory allocations in game loop: 259
-Selected: C:/Projects/HeliumRush/Resources/layouts/Res_Ball.layout
-scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_Ball.layout
-WARNING: Memory allocations in game loop: 172
 WARNING: Memory allocations in game loop: 1
-Selected: C:/Projects/HeliumRush/Resources/layouts/Res_Bomb.layout
-scene cached: C:/Projects/HeliumRush/Resources/layouts/Res_Bomb.layout
-WARNING: Memory allocations in game loop: 172
+activate :0
+...writing config 'scene_viewer.cfg'
+WARNING: Memory allocations in game loop: 2
+activate :1
+WARNING: Memory allocations in game loop: 2
+WARNING: Memory allocations in game loop: 1
+activate :0
+...writing config 'scene_viewer.cfg'
+WARNING: Memory allocations in game loop: 2
+activate :1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 318
+WARNING: Memory allocations in game loop: 1
+activate :0
+...writing config 'scene_viewer.cfg'
+WARNING: Memory allocations in game loop: 2
+activate :1
+activate :0
+...writing config 'scene_viewer.cfg'
+WARNING: Memory allocations in game loop: 2
+activate :1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
+WARNING: Memory allocations in game loop: 1
 ----------------------------------------********** Shutting Down App ***********
 ----------------------------------------
 ...writing config 'scene_viewer.cfg'
@@ -319,16 +245,6 @@ destroyed particles: 2000
 shutdown console
 ...releasing texture: default/console.jpg
 ...released console buffer, chunks: 1
-...releasing font: C:/Projects/HeliumRush/Resources/fnt/Full_Dece_Sans_16_ffde79.fnt
-...releasing texture: C:/Projects/HeliumRush/Resources/fnt/Full_Dece_Sans_16_ffde79_0.png
-...releasing font: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_16_ffde79_glow.fnt
-...releasing texture: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_16_ffde79_glow_0.png
-...releasing font: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_18_ffecce_glow.fnt
-...releasing texture: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_18_ffecce_glow_0.png
-...releasing font: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_20_ffde79_glow.fnt
-...releasing texture: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_20_ffde79_glow_0.png
-...releasing font: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_30_ffffff_glow.fnt
-...releasing texture: C:/Projects/HeliumRush/Resources/fnt/akaDylan_Plain_30_ffffff_glow_0.png
 ...releasing font: default/sys-font.fnt
 ...releasing texture: default/sys-font_0.png
 *****************************************
@@ -353,9 +269,8 @@ shutdown console
 ...releasing texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie07.png
 ...releasing texture: C:/Projects/HeliumRush/Resources/images/zombie/zombie08.png
 ...releasing texture: default/editor/back.jpg
-...releasing texture: default/editor/rotate-point.png
 ...releasing render textures
-...releasing vertex buffers: 6
+...releasing vertex buffers: 3
 ...releasing stencil state: 
 ============================================
 *           Release Sound Subsystem        *
@@ -376,4 +291,4 @@ releasing objects pool 'mem_pool_128' of 100 items
 releasing objects pool 'mem_pool_256' of 100 items
 releasing objects pool 'mem_pool_512' of 100 items
 releasing objects pool 'mem_pool_1024' of 100 items
-close log: Fri Jun 19 17:38:09 2026
+close log: Mon Jun 22 13:49:26 2026

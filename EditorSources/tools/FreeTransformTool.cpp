@@ -146,10 +146,10 @@ void FreeTransformTool::DrawOverlay() {
     auto *target = GetTarget();
     if (!target || !_handleTex) return;
 
+    nsSceneUtils::DrawBounds(target, _appModel->settings.selectionColor);
+
     auto *dev = nsRenDevice::Shared()->Device();
     dev->StateApply(_handleRenState);
-
-    nsSceneUtils::DrawBounds(target, _appModel->settings.selectionColor);
 
     const float globalAngle = target->origin.ToGlobalAngle(0);
 
