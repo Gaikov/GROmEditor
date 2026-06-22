@@ -23,10 +23,13 @@ public:
     bool OnPointerMove(nsVisualObject2d *scene, float x, float y, int pointerId) override;
     bool OnPointerUp(nsVisualObject2d *scene, float x, float y, int pointerId) override;
     bool OnKeyDown(int key, bool repeated, int mods) override;
+    bool OnKeyUp(int key, int mods) override;
     void DrawOverlay() override;
 
 private:
     int PickPoint(float x, float y);
+    int FindNearestEdge(const nsVec2 &worldPos) const;
+    void UpdateMousePosition(float x, float y);
 
     nsAppModel *_appModel;
     nsVisualPolygon *_polygon;
@@ -34,8 +37,12 @@ private:
     ITexture *_handleTex = nullptr;
     nsSpriteDesc _desc;
     int _dragIndex = -1;
+    int _hoverIndex = -1;
     nsVec2 _dragPointOriginal;
     nsVec2 _dragOffset;
+    nsVec2 _mouseWorld = {0, 0};
+    bool _altPressed = false;
 
     static constexpr float POINT_RADIUS = 8.0f;
+    static constexpr float DASH_LENGTH = 8.0f;
 };
