@@ -39,6 +39,7 @@ public:
 
     nsVisualObject2d* Clone(nsVisualObject2d *source);
     nsVisualObject2d* Convert(nsVisualObject2d *source, const char *targetType);
+    nsVisualObject2d* ConvertToCustom(nsVisualObject2d *source, const char *customTag);
 
 protected:
     void Reset() override;
@@ -52,6 +53,7 @@ private:
     std::map<std::string, nsVisualObject2d*> _cache;
     std::vector<nsVisualObject2d*> _allocated;
 
+    nsVisualObject2d* ParseSerializedVisual(nsVisualObject2d *source, nsVisualObject2d *target, nsVisualBuilder2d *builder);
     void AddAllocated(nsVisualObject2d *obj);
     static void Destroy(nsVisualObject2d *obj);
 

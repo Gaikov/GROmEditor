@@ -10,6 +10,7 @@
 #include "Core/undo/UndoVectorAdd.h"
 #include "Core/undo/file/UndoFileCreate.h"
 #include "Engine/display/container/VisualContainer2d.h"
+#include "Engine/display/default/DefaultVisualObject.h"
 #include "Engine/display/factory/VisualFactory2d.h"
 #include "models/AppModel.h"
 #include "nsLib/locator/ServiceLocator.h"
@@ -96,28 +97,54 @@ nsVisualObject2d *nsScenesCache::Convert(nsVisualObject2d *source, const char *t
         return nullptr;
     }
 
-    const auto writer = std::make_shared<nsStringWriter>();
-    nsScriptSaver saver(writer);
-    if (!factory->Serialize(saver, source)) {
+    auto converted = factory->CreateByType(targetType);
+    return ParseSerializedVisual(source, converted, targetBuilder);
+}
+
+nsVisualObject2d *nsScenesCache::ConvertToCustom(nsVisualObject2d *source, const char *customTag) {
+    const auto factory = nsVisualFactory2d::Shared();
+    const auto defaultBuilder = factory->GetDefaultBuilder();
+    if (!defaultBuilder) {
         return nullptr;
     }
 
-    auto converted = factory->CreateByType(targetType);
-    if (!converted) {
+    const auto parsed = ParseSerializedVisual(source, new nsDefaultVisualObject(), defaultBuilder);
+    auto converted = dynamic_cast<nsDefaultVisualObject *>(parsed);
+    if (converted) {
+        converted->SetTagName(customTag);
+    }
+
+    return converted;
+}
+
+nsVisualObject2d *nsScenesCache::ParseSerializedVisual(nsVisualObject2d *source, nsVisualObject2d *target,
+                                                       nsVisualBuilder2d *builder) {
+    if (!source || !target || !builder) {
+        if (target) {
+            target->Destroy();
+        }
+        return nullptr;
+    }
+
+    const auto factory = nsVisualFactory2d::Shared();
+    const auto writer = std::make_shared<nsStringWriter>();
+    nsScriptSaver saver(writer);
+    if (!factory->Serialize(saver, source)) {
+        target->Destroy();
         return nullptr;
     }
 
     auto buffer = writer->GetBuffer();
     if (const auto ss = ps_begin(buffer.data())) {
-        if (ps_block_begin(ss, nullptr) && targetBuilder->Parse(ss, converted, factory)) {
+        if (ps_block_begin(ss, nullptr) && builder->Parse(ss, target, factory)) {
             ps_end(ss);
-            AddAllocated(converted);
-            return converted;
+            AddAllocated(target);
+            return target;
         }
         ps_end(ss);
     }
 
-    converted->Destroy();
+    target->Destroy();
     return nullptr;
 }
 

@@ -22,6 +22,27 @@ void nsVisualPropsView::Draw(nsVisualObject2d *target) {
     _angleInput.Draw(target->origin.angle);
 }
 
+void nsVisualPropsView::ReplaceTarget(nsVisualObject2d *target, nsVisualObject2d *converted) {
+    if (!converted) {
+        return;
+    }
+
+    const auto parent = target->GetParent();
+    if (!parent) {
+        return;
+    }
+
+    const int targetIndex = parent->GetChildIndex(target);
+    auto &user = _model->project.user;
+    const auto batch = new nsUndoBatch();
+    batch->Add(new nsUndoRemoveChild(target));
+    batch->Add(new nsUndoInsertVisualChild(parent, converted, targetIndex));
+    if (user.selectedObject == target) {
+        batch->Add(new nsUndoVarChange(user.selectedObject, converted));
+    }
+    nsUndoService::Shared()->Push(batch);
+}
+
 bool nsVisualPropsView::DrawContextMenu(nsVisualObject2d *target, const bool hasPrevItems) {
 
     if (!nsVisualHolder::IsRoot(target)) {
@@ -78,20 +99,39 @@ bool nsVisualPropsView::DrawContextMenu(nsVisualObject2d *target, const bool has
         if (ImGui::BeginMenu("Convert To")) {
             const auto factory = nsVisualFactory2d::Shared();
             const auto currentType = target->GetType();
+
             for (const auto &type: factory->GetTypes()) {
                 const bool isCurrentType = type == currentType;
                 if (ImGui::MenuItem(type.c_str(), nullptr, false, !isCurrentType)) {
-                    const int targetIndex = parent->GetChildIndex(target);
-                    if (const auto converted = _model->project.scenes.Convert(target, type.c_str())) {
-                        auto &user = _model->project.user;
-                        const auto batch = new nsUndoBatch();
-                        batch->Add(new nsUndoRemoveChild(target));
-                        batch->Add(new nsUndoInsertVisualChild(parent, converted, targetIndex));
-                        if (user.selectedObject == target) {
-                            batch->Add(new nsUndoVarChange(user.selectedObject, converted));
-                        }
-                        nsUndoService::Shared()->Push(batch);
+                    ReplaceTarget(target, _model->project.scenes.Convert(target, type.c_str()));
+                }
+            }
+
+            auto &customVisuals = _model->project.customVisuals.visuals;
+            bool customSeparatorShown = false;
+            for (int i = 0; i < customVisuals.Size(); ++i) {
+                const auto customMeta = customVisuals.GetItem(i);
+                const auto customTag = customMeta->tag->c_str();
+
+                bool isFactoryType = false;
+                for (const auto &type: factory->GetTypes()) {
+                    if (type == customTag) {
+                        isFactoryType = true;
+                        break;
                     }
+                }
+                if (isFactoryType) {
+                    continue;
+                }
+
+                if (!customSeparatorShown) {
+                    ImGui::Separator();
+                    customSeparatorShown = true;
+                }
+
+                const bool isCurrentType = customMeta->tag == currentType;
+                if (ImGui::MenuItem(customTag, nullptr, false, !isCurrentType)) {
+                    ReplaceTarget(target, _model->project.scenes.ConvertToCustom(target, customTag));
                 }
             }
             ImGui::EndMenu();

@@ -29,4 +29,6 @@ private:
     nsVec2InputUndo<nsProperty<nsVec2>> _posInput = "Position";
     nsVec2InputUndo<nsProperty<nsVec2>> _scaleInput = "Scale";
     nsAngleInputUndo<nsProperty<float>> _angleInput = "Rotation";
+
+    void ReplaceTarget(nsVisualObject2d *target, nsVisualObject2d *converted);
 };
