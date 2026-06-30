@@ -89,6 +89,38 @@ nsVisualObject2d * nsScenesCache::Clone(nsVisualObject2d *source) {
     return nullptr;
 }
 
+nsVisualObject2d *nsScenesCache::Convert(nsVisualObject2d *source, const char *targetType) {
+    const auto factory = nsVisualFactory2d::Shared();
+    const auto targetBuilder = factory->GetBuilder(targetType);
+    if (!targetBuilder) {
+        return nullptr;
+    }
+
+    const auto writer = std::make_shared<nsStringWriter>();
+    nsScriptSaver saver(writer);
+    if (!factory->Serialize(saver, source)) {
+        return nullptr;
+    }
+
+    auto converted = factory->CreateByType(targetType);
+    if (!converted) {
+        return nullptr;
+    }
+
+    auto buffer = writer->GetBuffer();
+    if (const auto ss = ps_begin(buffer.data())) {
+        if (ps_block_begin(ss, nullptr) && targetBuilder->Parse(ss, converted, factory)) {
+            ps_end(ss);
+            AddAllocated(converted);
+            return converted;
+        }
+        ps_end(ss);
+    }
+
+    converted->Destroy();
+    return nullptr;
+}
+
 void nsScenesCache::Reset() {
     Clear();
 }

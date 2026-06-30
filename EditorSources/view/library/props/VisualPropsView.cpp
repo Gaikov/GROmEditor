@@ -75,6 +75,28 @@ bool nsVisualPropsView::DrawContextMenu(nsVisualObject2d *target, const bool has
             }
         }
 
+        if (ImGui::BeginMenu("Convert To")) {
+            const auto factory = nsVisualFactory2d::Shared();
+            const auto currentType = target->GetType();
+            for (const auto &type: factory->GetTypes()) {
+                const bool isCurrentType = type == currentType;
+                if (ImGui::MenuItem(type.c_str(), nullptr, false, !isCurrentType)) {
+                    const int targetIndex = parent->GetChildIndex(target);
+                    if (const auto converted = _model->project.scenes.Convert(target, type.c_str())) {
+                        auto &user = _model->project.user;
+                        const auto batch = new nsUndoBatch();
+                        batch->Add(new nsUndoRemoveChild(target));
+                        batch->Add(new nsUndoInsertVisualChild(parent, converted, targetIndex));
+                        if (user.selectedObject == target) {
+                            batch->Add(new nsUndoVarChange(user.selectedObject, converted));
+                        }
+                        nsUndoService::Shared()->Push(batch);
+                    }
+                }
+            }
+            ImGui::EndMenu();
+        }
+
         if (ImGui::MenuItem("Duplicate")) {
             if (const auto clone = _model->project.scenes.Clone(target)) {
                 const auto batch = new nsUndoBatch();

@@ -38,6 +38,7 @@ public:
     }
 
     nsVisualObject2d* Clone(nsVisualObject2d *source);
+    nsVisualObject2d* Convert(nsVisualObject2d *source, const char *targetType);
 
 protected:
     void Reset() override;
